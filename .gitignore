@@ -1,1 +1,3 @@
 node_modules
+/bookishhub/.next/
+/bookishhub/.env/

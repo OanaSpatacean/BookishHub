@@ -1,0 +1,48 @@
+datasource db {
+  relationMode = "prisma"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model UserProfile {   
+  uid            String        @id @default(cuid())   
+  fullName       String?                              
+  emailAddress   String?      @unique                 
+  emailConfirmed DateTime?                            
+  profilePicture String?                              
+  accountLinks   AccountInfo[]                        
+  userSessions   SessionData[]
+  points Int @default(5)                        
+}
+
+model AccountInfo {   
+  accountId          String  @id @default(cuid())      
+  accountInfoLinkedUserId       String                             
+  providerService    String                             
+  accountType        String                             
+  accountProviderId  String                             
+  refreshToken       String? @db.Text                   
+  accessToken        String? @db.Text                   
+  expirationTime     Int?                               
+  tokenCategory      String?                            
+  accessScope        String?                            
+  identityToken      String? @db.Text                   
+  sessionStatus      String?                            
+  profile            UserProfile @relation(fields: [accountInfoLinkedUserId], references: [uid], onDelete: Cascade) 
+  @@unique([providerService, accountProviderId]) 
+  @@index([accountInfoLinkedUserId], name: "accountInfoLinkedUserId")       
+}
+
+model SessionData {   
+  sessionId      String   @id @default(cuid())           
+  token          String   @unique                       
+  sessionDataLinkedUserId  String                                 
+  expiryDate     DateTime                               
+  linkedProfile  UserProfile @relation(fields: [sessionDataLinkedUserId], references: [uid], onDelete: Cascade)
+  @@index([sessionDataLinkedUserId], name: "sessionDataLinkedUserId")
+}
+
