@@ -12,7 +12,7 @@ model UserProfile {
   uid            String        @id @default(cuid())   
   fullName       String?                              
   emailAddress   String?      @unique                 
-  emailConfirmed DateTime?                            
+  emailConfirmed String?                            
   profilePicture String?                              
   accountLinks   AccountInfo[]                        
   userSessions   SessionData[]
@@ -41,7 +41,7 @@ model SessionData {
   sessionId      String   @id @default(cuid())           
   token          String   @unique                       
   sessionDataLinkedUserId  String                                 
-  expiryDate     DateTime                               
+  expiryDate     String                               
   linkedProfile  UserProfile @relation(fields: [sessionDataLinkedUserId], references: [uid], onDelete: Cascade)
   @@index([sessionDataLinkedUserId], name: "sessionDataLinkedUserId")
 }
