@@ -2,6 +2,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { NextAuthOptions, DefaultSession } from "next-auth";
 import { databaseClient } from "./database";
+import { getServerSession } from "next-auth/next";
 
 declare module 'next-auth/jwt' {
     interface JWT {
@@ -54,3 +55,7 @@ export const authenticationOptions: NextAuthOptions = {
     ],
     secret: process.env.NEXTAUTH_SECRET as string,
 };
+
+export const getAuthSession = () => {
+    return getServerSession(authenticationOptions);
+}
