@@ -9,7 +9,7 @@ const font = Montserrat ({ subsets: ["cyrillic"] });
 type Props = {}
 
 const LogInButton = (props:Props) => {
-    function signIn(arg0: string) {
+    function signIn(arg0: string) { //to be removed after next-auth configuration
         console.log('Next-auth not configured yet!');
     }
 
