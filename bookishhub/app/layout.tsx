@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { DarkModeProvider } from "@/components/DarkModeProvider";
 import { Montserrat   } from "next/font/google";
 import "./globals.css";
 import type { Metadata } from "next";
@@ -16,8 +17,10 @@ export default function RootLayout({
       <body className={
         cn(font.className, 'subpixel-antialiased min-h-full pt-12')
         }>
-          <NavigationBar/>
-          {children}
+          <DarkModeProvider>
+            <NavigationBar/>
+            {children}
+          </DarkModeProvider>
       </body>
     </html>
   );

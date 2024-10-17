@@ -1,8 +1,9 @@
-import React from 'react'
-import Link from 'next/link'
-import LogInButton from './LogInButton';
 import { getAuthSession } from '@/lib/authentication';
 import UserAccountNavigation from './UserAccountNavigation';
+import { DarkModeToggle } from './DarkModeToggle';
+import React from 'react'
+import LogInButton from './LogInButton';
+import Link from 'next/link'
 
 type Props = {}
 
@@ -28,26 +29,28 @@ const NavigationBar = async (props:Props) => {
                             gap-2 
                             h-full 
                             px-8'>
-                <Link href='/captions' className='items-center 
-                                                  hidden 
-                                                  gap-2 
-                                                  sm:flex'>
-                    <p className='px-2 
-                                  py-1 
-                                  font-bold 
-                                  text-xl 
-                                  hover:-translate-y-[2px] 
-                                  transition-all 
-                                  md:block 
-                                  border-black 
-                                  border-r-4 
-                                  border-b-4 
-                                  border-2 
-                                  rounded-lg 
-                                  dark:border-white'>
-                        BookishHub
-                    </p>
-                </Link>
+                <div className="items-center
+                                flex  
+                                gap-3">
+                    <DarkModeToggle className='' />
+                    <Link href='/captions' className='items-center flex gap-2'>
+                        <p className='px-2 
+                                    py-1 
+                                    font-bold 
+                                    text-xl 
+                                    hover:-translate-y-[2px] 
+                                    transition-all 
+                                    md:block 
+                                    border-black 
+                                    border-r-4 
+                                    border-b-4 
+                                    border-2 
+                                    rounded-lg 
+                                    dark:border-white'>
+                            BookishHub
+                        </p>
+                    </Link>
+                </div>
                 <div className='items-center 
                                 flex'>
                     {//session?.user && ( //to remove the comment after next-auth configuration
