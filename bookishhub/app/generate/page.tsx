@@ -1,4 +1,6 @@
+import GenerateLessonForm from '@/components/GenerateLessonForm';
 import { redirect } from 'next/navigation';
+import { InfoIcon } from 'lucide-react';
 import React from 'react'
 import { getAuthSession } from '@/lib/authentication';
 
@@ -20,8 +22,25 @@ const GeneratePage = async (props:Props) => {
                         sm:px-8 
                         flex-col 
                         my-16'>
-            <h1>Generate
+            <h1 className="sm:text-6xl 
+                           text-center 
+                           text-bold 
+                           text-3xl 
+                           self-center">Generate
             </h1>
+            <div className="bg-secondary 
+                            mt-5 
+                            border-none 
+                            p-4 
+                            flex">
+                <InfoIcon className="text-blue-400 
+                                     h-12 
+                                     mr-3 
+                                     w-12"/>
+                <div>
+                Please enter the name of the lesson and specify the key topics you'd like to cover. Additionally, provide a list of modules that detail the specific areas you wish to explore, and our AI will generate a comprehensive lesson plan tailored to your learning goals.                </div>
+            </div>
+            <GenerateLessonForm/>
         </div>
     );
 };
