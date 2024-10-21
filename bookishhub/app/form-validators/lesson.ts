@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const generateTopicsSchema = z.object(
 {
-    units: z.array(z.string()),
-    title: z.string().min(4).max(99),
+    modules: z.array(z.string()),
+    name: z.string().min(4).max(99),
 }
 );
