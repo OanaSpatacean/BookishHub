@@ -56,7 +56,7 @@ const GenerateLessonForm = (props:Props) => {
                         {form.watch('modules')
                             .map((_, index) => {
                                 return (
-                                    <motion.div>
+                                    <motion.div animate={{height:"auto", opacity:1}} initial={{height:0, opacity:0}} transition={{height:{duration:0.3}, opacity:{duration:0.3}}} exit={{height:0, opacity:0}} key={index}>
                                         <FormField control={form.control} name={`modules.${index}`} key={index} render={({ field }) => {
                                         return (
                                             <FormItem className='sm:flex-row 
@@ -111,6 +111,9 @@ const GenerateLessonForm = (props:Props) => {
                         </div>
                         <Separator className='flex-{1}'/>
                     </div>
+                    <Button size='lg' className='mt-7 w-full' type='submit' >
+                        Start generating lesson
+                    </Button>
                </form> 
             </Form>
         </div>

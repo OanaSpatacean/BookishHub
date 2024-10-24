@@ -46,3 +46,30 @@ model SessionData {
   @@index([sessionDataLinkedUserId], name: "sessionDataLinkedUserId")
 }
 
+model Lesson {
+  uid            String        @id @default(cuid())   
+  lessonName     String
+  picture        String
+  modules        Module[]
+}
+
+model Module {
+  uid            String        @id @default(cuid())
+  lessonId       String
+  moduleName     String
+  lesson         Lesson        @relation(fields: {lessonId}, reference: {uid})
+  topics         Topic[]
+  @@index([lessonId], name: "lessonId")
+}
+
+model Topic {
+  uid            String        @id @default(cuid())
+  moduleId       String
+  topicName      String
+  ytSearchQuery  String
+  videoId        String?       
+  outline        String?       @dv.VarChar(4000)
+  module         Module        @relation(fields: {moduleId}, reference: {uid})
+  @@index([moduleId], name: "moduleId")
+}
+
