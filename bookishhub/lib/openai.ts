@@ -1,4 +1,3 @@
-import OpenAI from 'openai';
 import { Configuration, OpenAIApi } from "openai";
 
 const configuration = new Configuration({
