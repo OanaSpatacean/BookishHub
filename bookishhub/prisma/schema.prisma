@@ -57,7 +57,7 @@ model Module {
   uid            String        @id @default(cuid())
   lessonId       String
   moduleName     String
-  lesson         Lesson        @relation(fields: {lessonId}, reference: {uid})
+  lesson         Lesson        @relation(fields: [lessonId], references: [uid])
   topics         Topic[]
   @@index([lessonId], name: "lessonId")
 }
@@ -68,8 +68,18 @@ model Topic {
   topicName      String
   ytSearchQuery  String
   videoId        String?       
-  outline        String?       @dv.VarChar(4000)
-  module         Module        @relation(fields: {moduleId}, reference: {uid})
+  outline        String?       @db.VarChar(4000)
+  module         Module        @relation(fields: [moduleId], references: [uid])
+  queries        Query[]
   @@index([moduleId], name: "moduleId")
+}
+
+model Query {
+  uid            String        @id @default(cuid())
+  topicId        String
+  query          String        @db.VarChar(4000)
+  solution       String        @db.VarChar(4000)
+  choices        String        @db.VarChar(4000)
+  topic          Topic         @relation(fields: [topicId], references: [uid])
 }
 
