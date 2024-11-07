@@ -28,7 +28,7 @@ export async function POST(request: Request, response: Response)
             new Array(modules.length).fill(`Your task is to create a lesson about ${name}. For each of the following modules: ${modules.join(', ')}, create for each of the modules that you get in the provided array at least 3 topics (or more, how many topics you consider it is relevant for the module). After that, for each topic, generate a specific YouTube search query to locate a comprehensive educational video related to that topic. Each search query should yield a clear, instructive video on YouTube.`),
             {
               name: "name of the module",
-              topics: "an array of topics, where each topic should have a youtubeSearchQuery and a topicName key in the JSON object",
+              topics: "an array of topics, where each topic should have a ytSearchQuery and a topicName key in the JSON object",
             }
         );
 
@@ -71,9 +71,7 @@ export async function POST(request: Request, response: Response)
             });
         }
         
-
-        console.log(return_modules);
-        return NextResponse.json({return_modules, imageQuery, lesson_image});
+        return NextResponse.json({lessonId: lesson.uid});
     } 
     catch (error) 
     {

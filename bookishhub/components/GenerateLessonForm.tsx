@@ -1,4 +1,8 @@
 'use client'
+import { useRouter } from "next/navigation";
+import { toast, useToast } from "./ui/use-toast";
+import axios from "axios";
+import { useMutation } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Minus } from 'lucide-react';
 import { Button } from './ui/button';
@@ -15,10 +19,33 @@ type Input = z.infer<typeof generateTopicsSchema>
 type Props = {}
 
 const GenerateLessonForm = (props:Props) => {
+    const { toast } = useToast();
+
+    const {mutate: generateTopics, isLoading} = useMutation({
+        mutationFn: async ({modules, name}: Input) => {
+          const response = await axios.post("/api/lesson/generateTopics", {modules, name});
+          return response.data;}
+    });
+
+    const router = useRouter();
+
     function onSubmit (data:Input){
-        console.log(data);
-    }
-    
+        if (data.modules.some((module) => module === "")) {
+            toast({title: "Warning", description: "All modules must be completed", variant: "destructive"});
+            return;}
+
+        generateTopics(data, {
+            onSuccess: ({lesson_id}) => {
+                toast({title: "Done", description: "Lesson generated with success"});
+                router.push(`/app/generate/${lesson_id}`);
+              },
+            onError: (error) => {
+              console.error(error);
+              toast({title: "Warning", description: "An error occurred", variant: "destructive"});       
+            },
+          });
+        }
+
     const form = useForm<Input>({
         defaultValues: {
             name: '',
@@ -34,7 +61,7 @@ const GenerateLessonForm = (props:Props) => {
             <Form {...form}>
                <form className='mt-3 
                                 w-full' 
-                    onSubmit={form.handleSubmit(onSubmit)}>
+                    onSubmit={(e) => { e.preventDefault(); onSubmit(form.getValues()); }}>
                     <FormField control={form.control} name='name' render={({field})=>(
                         <FormItem className="flex-col 
                                              sm:flex-row 
@@ -111,7 +138,7 @@ const GenerateLessonForm = (props:Props) => {
                         </div>
                         <Separator className='flex-{1}'/>
                     </div>
-                    <Button size='lg' className='mt-7 w-full' type='submit' >
+                    <Button size='lg' className='mt-7 w-full' type='submit' disabled={isLoading}>
                         Start generating lesson
                     </Button>
                </form> 

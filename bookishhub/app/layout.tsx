@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
 import { DarkModeProvider } from "@/components/DarkModeProvider";
 import { Montserrat   } from "next/font/google";
@@ -19,6 +20,7 @@ export default function RootLayout({
         }>
           <DarkModeProvider>
             <NavigationBar/>
+            <Toaster/>
             {children}
           </DarkModeProvider>
       </body>
