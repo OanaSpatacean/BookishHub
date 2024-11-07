@@ -18,10 +18,10 @@ export async function POST(request: Request, response: Response)
         }[];
         
         const body = await request.json();
-        const {modules, name} = generateTopicsSchema.parse(body);
+        const {name, modules} = generateTopicsSchema.parse(body);
 
-        console.log("Modules:", modules);
         console.log("Name:", name);
+        console.log("Modules:", modules);
 
         let return_modules: returnModules = await strict_output(
             "You are an AI used for designing lesson content, crafting suitable topic names for each module, and finding relevant and appropriate YouTube videos for each topic",

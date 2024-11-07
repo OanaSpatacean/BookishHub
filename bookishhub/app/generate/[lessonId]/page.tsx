@@ -6,7 +6,7 @@ const GenerateTopics = async (props: Props) => {
 
     return (
         <div>
-            Page
+            generate topics
         </div>
     );
 };

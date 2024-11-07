@@ -22,22 +22,27 @@ const GenerateLessonForm = (props:Props) => {
     const { toast } = useToast();
 
     const {mutate: generateTopics, isLoading} = useMutation({
-        mutationFn: async ({modules, name}: Input) => {
-          const response = await axios.post("/api/lesson/generateTopics", {modules, name});
+        mutationFn: async ({name, modules}: Input) => {
+          const response = await axios.post("/api/lesson/generateTopics", {name, modules});
           return response.data;}
     });
 
     const router = useRouter();
 
     function onSubmit (data:Input){
+        if (data.name.length < 3) {
+            toast({ title: "Warning", description: "Name must contain at least 3 characters", variant: "destructive" });
+            return;
+        }
+
         if (data.modules.some((module) => module === "")) {
             toast({title: "Warning", description: "All modules must be completed", variant: "destructive"});
             return;}
 
         generateTopics(data, {
-            onSuccess: ({lesson_id}) => {
+            onSuccess: ({lessonId}) => {
                 toast({title: "Done", description: "Lesson generated with success"});
-                router.push(`/app/generate/${lesson_id}`);
+                router.push(`/generate/${lessonId}`);
               },
             onError: (error) => {
               console.error(error);
