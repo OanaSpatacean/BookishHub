@@ -80,7 +80,7 @@ const GenerateLessonForm = (props:Props) => {
                                 Name
                             </FormLabel>
                             <FormControl className="flex-[5]">
-                                <Input placeholder="Specify the primary subject of the lesson" />
+                                <Input placeholder="Specify the primary subject of the lesson" {...field}/>
                             </FormControl>
                         </FormItem>
                     )}/>

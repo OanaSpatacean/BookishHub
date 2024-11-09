@@ -24,7 +24,7 @@ export async function POST(request: Request, response: Response)
         console.log("Modules:", modules);
 
         let return_modules: returnModules = await strict_output(
-            "You are an AI used for designing lesson content, crafting suitable topic names for each module, and finding relevant and appropriate YouTube videos for each topic",
+            "You are an AI used for designing lesson content, crafting suitable topic names for each module, and finding relevant and appropriate YouTube videos for each topic.",
             new Array(modules.length).fill(`Your task is to create a lesson about ${name}. For each of the following modules: ${modules.join(', ')}, create for each of the modules that you get in the provided array at least 3 topics (or more, how many topics you consider it is relevant for the module). After that, for each topic, generate a specific YouTube search query to locate a comprehensive educational video related to that topic. Each search query should yield a clear, instructive video on YouTube.`),
             {
               name: "name of the module",
@@ -55,7 +55,7 @@ export async function POST(request: Request, response: Response)
         
             const databaseClientModule = await databaseClient.module.create({
                 data: {
-                    moduleName: name,
+                    moduleName: name as string,
                     lessonId: lesson.uid,
                 },
             });
