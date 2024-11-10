@@ -16,8 +16,8 @@ const TopicBox = ({topic, topicIndex}:Props) => {
              className={cn("justify-between rounded mt-2 flex px-4 py-2", 
              {
                 "bg-secondary": success === null,
-                "bg-orange-600": success === false,
-                "bg-blue-600": success === true,
+                "bg-orange-500": success === false,
+                "bg-blue-400": success === true,
             })}
         >   
             <h5>Topic {topicIndex+1}: {topic.topicName}</h5>        
