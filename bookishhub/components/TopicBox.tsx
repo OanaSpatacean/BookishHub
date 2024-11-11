@@ -1,14 +1,37 @@
 "use client"
 import { cn } from '@/lib/utils';
 import React from 'react'
+import { useMutation } from '@tanstack/react-query';
+import axios from "axios";
 import { Topic, Module, Lesson  } from '@prisma/client';
+
+export type TopicBoxHandler = 
+{
+    triggerLoad: () => 
+        void;
+};
 
 type Props = {
     topic:  Topic;
     topicIndex: number;
 };
 
-const TopicBox = ({topic, topicIndex}:Props) => {
+const TopicBox = React.forwardRef<TopicBoxHandler, Props>(({topic, topicIndex}, ref) => {
+    const {mutate: gatherTopicInformation, isLoading} = useMutation({
+        mutationFn: async () => {
+          const response = await axios.post("/api/topic/gatherInformation",
+          {
+            topicId: topic.uid
+          });
+          return response.data;
+    }});
+
+    React.useImperativeHandle(ref, () => ({
+        async triggerLoad() {
+            console.log("hello, world!")
+        }
+    }));
+    
     const [success, setSuccess] = React.useState<boolean|null>(null);    
     
     return (
@@ -23,6 +46,8 @@ const TopicBox = ({topic, topicIndex}:Props) => {
             <h5>Topic {topicIndex+1}: {topic.topicName}</h5>        
         </div>
     );
-};
+});
+
+TopicBox.displayName="TopicBox";
 
 export default TopicBox;

@@ -15,6 +15,16 @@ type Props = {
 }
 
 const ApproveTopics = ({lesson}:Props) => {
+    const topicRefs: Record<string, React.RefObject<>> = {};
+
+    lesson.modules.forEach((module) => 
+    {
+        module.topics.forEach((topic) => 
+        {
+          //eslint-disable-next-line react-hooks/rules-of-hooks
+          topicRefs[topic.uid] = React.useRef(null);
+    })})
+    
     return (
         <div className="mt-1 
                         w-full">
@@ -31,7 +41,7 @@ const ApproveTopics = ({lesson}:Props) => {
                     </h3>
                     <div className="mt-3">
                         {module.topics.map((topic, topicIndex) => (
-                            <TopicBox key={topic.uid} topic={topic} topicIndex={topicIndex}/>
+                            <TopicBox key={topic.uid} topic={topic} topicIndex={topicIndex} ref={topicRefs[topic.uid]}/>
                         ))}
                     </div>
                 </div>
@@ -44,7 +54,7 @@ const ApproveTopics = ({lesson}:Props) => {
                 <div className="mx-6 
                                 items-center 
                                 flex">
-                    <Link href="/generate" className={`${buttonVariants({ variant: "secondary" })} bg-orange-500 text-white`}>                        
+                    <Link href="/generate" className={`${buttonVariants({ variant: "secondary" })} bg-orange-400 text-white`}>                        
                         <ArrowLeft strokeWidth={5} className="mr-1 
                                                               h-3 
                                                               w-3"/>
