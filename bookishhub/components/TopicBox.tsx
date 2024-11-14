@@ -7,7 +7,7 @@ import { Topic, Module, Lesson  } from '@prisma/client';
 
 export type TopicBoxHandler = 
 {
-    triggerLoad: () => 
+    startLoading: () => 
         void;
 };
 
@@ -27,8 +27,12 @@ const TopicBox = React.forwardRef<TopicBoxHandler, Props>(({topic, topicIndex}, 
     }});
 
     React.useImperativeHandle(ref, () => ({
-        async triggerLoad() {
-            console.log("hello, world!")
+        async startLoading() 
+        {
+            gatherTopicInformation(undefined, {
+                onSuccess: () => {
+                  console.log('succeeded');
+            }});
         }
     }));
     

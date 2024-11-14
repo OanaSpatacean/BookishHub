@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Topic, Module, Lesson } from "@prisma/client";
 import { Separator } from "./ui/separator";
 import React from "react";
-import TopicBox from "./TopicBox";
+import TopicBox, { TopicBoxHandler } from "./TopicBox";
 import { buttonVariants, Button } from "./ui/button";
 
 type Props = {
@@ -15,7 +15,7 @@ type Props = {
 }
 
 const ApproveTopics = ({lesson}:Props) => {
-    const topicRefs: Record<string, React.RefObject<>> = {};
+    const topicRefs: Record<string, React.RefObject<TopicBoxHandler>> = {};
 
     lesson.modules.forEach((module) => 
     {
@@ -24,6 +24,8 @@ const ApproveTopics = ({lesson}:Props) => {
           //eslint-disable-next-line react-hooks/rules-of-hooks
           topicRefs[topic.uid] = React.useRef(null);
     })})
+
+    console.log(topicRefs);
     
     return (
         <div className="mt-1 
@@ -54,7 +56,7 @@ const ApproveTopics = ({lesson}:Props) => {
                 <div className="mx-6 
                                 items-center 
                                 flex">
-                    <Link href="/generate" className={`${buttonVariants({ variant: "secondary" })} bg-orange-400 text-white`}>                        
+                    <Link href="/generate" className={`${buttonVariants({ variant: "secondary" })} bg-orange-300 text-white`}>                        
                         <ArrowLeft strokeWidth={5} className="mr-1 
                                                               h-3 
                                                               w-3"/>
@@ -63,7 +65,10 @@ const ApproveTopics = ({lesson}:Props) => {
                     <Button type="button" className="font-semibold 
                                                      ml-3 
                                                      bg-blue-400 '
-                                                     text-white" onClick={() => {}}>
+                                                     text-white" onClick={() => 
+                                                        {
+                                                            Object.values(topicRefs).forEach((ref) => { ref.current?.startLoading();}
+                                                      )}}>
                         Next
                         <ArrowRight strokeWidth={5} className="ml-1 
                                                                h-3 
