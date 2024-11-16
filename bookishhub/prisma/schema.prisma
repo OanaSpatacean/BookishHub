@@ -15,8 +15,8 @@ model User {
   emailVerified DateTime?
   image         String?
   points        Int       @default(10)
-  accounts Account[]
-  sessions Session[]                
+  accounts      Account[]
+  sessions      Session[]                
 }
 
 model Account {   

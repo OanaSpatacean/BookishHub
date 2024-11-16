@@ -50,8 +50,13 @@ export const authenticationOptions: NextAuthOptions = {
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
-        })
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+            authorization: {
+                params: {
+                    prompt: 'select_account',  // Forces account selection even if already logged in
+                },
+            },
+        }),
     ],
     secret: process.env.NEXTAUTH_SECRET as string,
 };
