@@ -10,7 +10,7 @@ export async function POST(request: Request, response: Response)
     {
         const body = await request.json();
         const { topicId } = parseBody.parse(body);
-        const topic = await databaseClient.topic.findUnique({where: {uid: topicId}});
+        const topic = await databaseClient.topic.findUnique({where: {id: topicId}});
 
         if (!topic) 
         {

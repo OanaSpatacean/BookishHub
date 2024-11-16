@@ -6,7 +6,7 @@ import { getServerSession } from "next-auth/next";
 
 declare module 'next-auth/jwt' {
     interface JWT {
-        uid: string;
+        id: string;
         points: number;
     }
 }
@@ -14,7 +14,7 @@ declare module 'next-auth/jwt' {
 declare module 'next-auth' {
     interface Session extends DefaultSession {
         user: {
-            uid: string;
+            id: string;
             points: number;
         } & DefaultSession['user'];
     }
@@ -27,7 +27,7 @@ export const authenticationOptions: NextAuthOptions = {
     callbacks: {
         session: ({session, token}) => {
             if(token){
-                session.user.uid = token.uid; 
+                session.user.id = token.id; 
                 session.user.name = token.name; 
                 session.user.email = token.email; 
                 session.user.image = token.picture; 
@@ -36,11 +36,11 @@ export const authenticationOptions: NextAuthOptions = {
             return session;
         },
         jwt: async ({token}) => {
-            const user_database = await databaseClient.userProfile.findFirst({
-                where: { emailAddress: token.email
+            const user_database = await databaseClient.user.findFirst({
+                where: { email: token.email
             }})
             if(user_database){
-                token.uid = user_database.uid
+                token.id = user_database.id
                 token.points = user_database.points
             }
             return token;

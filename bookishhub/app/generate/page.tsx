@@ -9,9 +9,9 @@ type Props = {}
 const GeneratePage = async (props: Props) => {
     const session = await getAuthSession();
 
-    /*if(!session?.user){ //to remove comment after next-auth is configured
+    if(!session?.user){ 
         return redirect('/captions');
-    }*/
+    }
 
     return (
         <div className='flex 

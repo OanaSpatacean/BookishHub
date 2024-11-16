@@ -12,14 +12,14 @@ type Props = {
   };
 
 const GenerateTopics = async ({params:{lessonId}}:Props) => {
-    //const session = await getAuthSession(); //to remove this comments after next-auth implementation
+    const session = await getAuthSession();
 
-    //if (!session?.user) {
-    //    return redirect("/captions");
-    //}
+    if (!session?.user) {
+        return redirect("/captions");
+    }
     const lesson = await databaseClient.lesson.findUnique({
         where: {
-          uid: lessonId,
+          id: lessonId,
         },
         include: {
             modules: {

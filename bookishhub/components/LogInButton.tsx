@@ -1,4 +1,5 @@
 "use client"
+import { signIn } from 'next-auth/react';
 import { Montserrat } from 'next/font/google';
 import { Button } from './ui/button';
 import React from 'react'
@@ -9,9 +10,6 @@ const font = Montserrat ({ subsets: ["cyrillic"] });
 type Props = {}
 
 const LogInButton = (props:Props) => {
-    function signIn(arg0: string) { //to be removed after next-auth configuration
-        console.log('Next-auth not configured yet!');
-    }
 
     return (
         <Button variant='ghost' className={font.className} onClick={() =>{

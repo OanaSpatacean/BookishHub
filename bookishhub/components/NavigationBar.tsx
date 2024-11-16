@@ -53,17 +53,17 @@ const NavigationBar = async (props:Props) => {
                 </div>
                 <div className='items-center 
                                 flex'>
-                    {//session?.user && ( //to remove the comment after next-auth configuration
+                    {session?.user && ( 
                         <>
                             <Link href='/generate' className='mr-3'>Generate Lesson</Link>
                             <Link href='/captions' className='mr-3'>Captions</Link>
                             <Link href='/configurations' className='mr-3'>Configurations</Link>
                         </>
-                    /*)*/}
+                    )}
                     <div className='items-center 
                                     flex'>
                         {session?.user ?
-                            <UserAccountNavigation user={{ ...session.user, id: session.user.uid }}/> :
+                            <UserAccountNavigation user={{ ...session.user, id: session.user.id }}/> :
                         <LogInButton/>
                     }
                     </div>

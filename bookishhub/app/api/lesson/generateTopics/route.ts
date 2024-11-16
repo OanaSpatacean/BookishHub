@@ -56,7 +56,7 @@ export async function POST(request: Request, response: Response)
             const databaseClientModule = await databaseClient.module.create({
                 data: {
                     moduleName: name as string,
-                    lessonId: lesson.uid,
+                    lessonId: lesson.id,
                 },
             });
         
@@ -65,13 +65,13 @@ export async function POST(request: Request, response: Response)
                     return {
                         topicName: topic.topicName, 
                         ytSearchQuery: topic.ytSearchQuery, 
-                        moduleId: databaseClientModule.uid,
+                        moduleId: databaseClientModule.id,
                     };
                 }),
             });
         }
         
-        return NextResponse.json({lessonId: lesson.uid});
+        return NextResponse.json({lessonId: lesson.id});
     } 
     catch (error) 
     {

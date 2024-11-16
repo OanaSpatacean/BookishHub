@@ -1,7 +1,7 @@
-import { Avatar, AvatarFallback } from '@radix-ui/react-avatar';
-import { User } from 'next-auth';
-import Image from 'next/image'
-import React from 'react'
+import Image from "next/image";
+import React from "react";
+import { User } from "next-auth";
+import { Avatar, AvatarFallback } from "./ui/avatar";
 
 type Props = {user: User}
 

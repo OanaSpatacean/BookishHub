@@ -8,78 +8,78 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model UserProfile {   
-  uid            String        @id @default(cuid())   
-  fullName       String?                              
-  emailAddress   String?      @unique                 
-  emailConfirmed String?                            
-  profilePicture String?                              
-  accountLinks   AccountInfo[]                        
-  userSessions   SessionData[]
-  points Int @default(5)                        
+model User {   
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  points        Int       @default(10)
+  accounts Account[]
+  sessions Session[]                
 }
 
-model AccountInfo {   
-  accountId          String  @id @default(cuid())      
-  accountInfoLinkedUserId       String                             
-  providerService    String                             
-  accountType        String                             
-  accountProviderId  String                             
-  refreshToken       String? @db.Text                   
-  accessToken        String? @db.Text                   
-  expirationTime     Int?                               
-  tokenCategory      String?                            
-  accessScope        String?                            
-  identityToken      String? @db.Text                   
-  sessionStatus      String?                            
-  profile            UserProfile @relation(fields: [accountInfoLinkedUserId], references: [uid], onDelete: Cascade) 
-  @@unique([providerService, accountProviderId]) 
-  @@index([accountInfoLinkedUserId], name: "accountInfoLinkedUserId")       
+model Account {   
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([provider, providerAccountId])
+  @@index([userId], name: "account_userId")
 }
 
-model SessionData {   
-  sessionId      String   @id @default(cuid())           
-  token          String   @unique                       
-  sessionDataLinkedUserId  String                                 
-  expiryDate     String                               
-  linkedProfile  UserProfile @relation(fields: [sessionDataLinkedUserId], references: [uid], onDelete: Cascade)
-  @@index([sessionDataLinkedUserId], name: "sessionDataLinkedUserId")
+model Session {   
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([userId], name: "session_userId")             
 }
 
 model Lesson {
-  uid            String        @id @default(cuid())   
+  id            String        @id @default(cuid())   
   lessonName     String
   picture        String
   modules        Module[]
 }
 
 model Module {
-  uid            String        @id @default(cuid())
+  id            String        @id @default(cuid())
   lessonId       String
   moduleName     String
-  lesson         Lesson        @relation(fields: [lessonId], references: [uid])
+  lesson         Lesson        @relation(fields: [lessonId], references: [id])
   topics         Topic[]
   @@index([lessonId], name: "lessonId")
 }
 
 model Topic {
-  uid            String        @id @default(cuid())
+  id             String        @id @default(cuid())
   moduleId       String
   topicName      String
   ytSearchQuery  String
   videoId        String?       
   outline        String?       @db.VarChar(4000)
-  module         Module        @relation(fields: [moduleId], references: [uid])
+  module         Module        @relation(fields: [moduleId], references: [id])
   queries        Query[]
   @@index([moduleId], name: "moduleId")
 }
 
 model Query {
-  uid            String        @id @default(cuid())
+  id            String        @id @default(cuid())
   topicId        String
   query          String        @db.VarChar(4000)
   solution       String        @db.VarChar(4000)
   choices        String        @db.VarChar(4000)
-  topic          Topic         @relation(fields: [topicId], references: [uid])
+  topic          Topic         @relation(fields: [topicId], references: [id])
 }
 

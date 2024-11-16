@@ -1,24 +1,18 @@
-
+"use client"
 import { User } from 'next-auth'
-import { Button } from './ui/button';
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
 import React from 'react'
-import { LogOut } from 'lucide-react'; //not sure if it's the right import, to be checked
 import UserProfilePicture from './UserProfilePicture';
+import { LogOut } from 'lucide-react'; 
+import { signOut } from "next-auth/react";
 
 type Props = {user: User}
 
 const UserAccountNavigation = ({user}:Props) => {
-    function signOut() { //to be removed after next-auth configuration
-        console.log('Next-auth not configured yet!');
-    }
-
   return (
     <DropdownMenu>
         <DropdownMenuTrigger>
-            <Button>
                 <UserProfilePicture user={user}/>
-            </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
             <div className='items-center 
