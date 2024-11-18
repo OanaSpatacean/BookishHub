@@ -21,7 +21,7 @@ const TopicBox = React.forwardRef<TopicBoxHandler, Props>(({topic, topicIndex}, 
         mutationFn: async () => {
           const response = await axios.post("/api/topic/gatherInformation",
           {
-            topicId: topic.uid
+            topicId: topic.id
           });
           return response.data;
     }});
@@ -39,7 +39,7 @@ const TopicBox = React.forwardRef<TopicBoxHandler, Props>(({topic, topicIndex}, 
     const [success, setSuccess] = React.useState<boolean|null>(null);    
     
     return (
-        <div key={topic.uid} 
+        <div key={topic.id} 
              className={cn("justify-between rounded mt-2 flex px-4 py-2", 
              {
                 "bg-secondary": success === null,

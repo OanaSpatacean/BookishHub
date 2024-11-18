@@ -22,7 +22,7 @@ const ApproveTopics = ({lesson}:Props) => {
         module.topics.forEach((topic) => 
         {
           //eslint-disable-next-line react-hooks/rules-of-hooks
-          topicRefs[topic.uid] = React.useRef(null);
+          topicRefs[topic.id] = React.useRef(null);
     })})
 
     console.log(topicRefs);
@@ -31,7 +31,7 @@ const ApproveTopics = ({lesson}:Props) => {
         <div className="mt-1 
                         w-full">
             {lesson.modules.map((module, moduleIndex) => (
-                <div className="mt-7" key={module.uid} >
+                <div className="mt-7" key={module.id} >
                     <h2 className="text-secondary-foreground/70 
                                        text-sm 
                                        uppercase">
@@ -43,7 +43,7 @@ const ApproveTopics = ({lesson}:Props) => {
                     </h3>
                     <div className="mt-3">
                         {module.topics.map((topic, topicIndex) => (
-                            <TopicBox key={topic.uid} topic={topic} topicIndex={topicIndex} ref={topicRefs[topic.uid]}/>
+                            <TopicBox key={topic.id} topic={topic} topicIndex={topicIndex} ref={topicRefs[topic.id]}/>
                         ))}
                     </div>
                 </div>
