@@ -10,12 +10,13 @@ type Props = {}
 const NavigationBar = async (props:Props) => {
     try {
         const session = await getAuthSession();
-        console.log(session);
 
         if (!session) 
         {
             console.log('Session not found. User is not authenticated.');
         }
+
+        console.log(session);
 
         return (
             <nav className='z-[10] 
@@ -62,7 +63,7 @@ const NavigationBar = async (props:Props) => {
                                     flex'>
                         {session?.user && ( 
                             <>
-                                <Link href='/generate' className='mr-3'>Generate Lesson</Link>
+                                <Link href='/design' className='mr-3'>Design Lesson</Link>
                                 <Link href='/captions' className='mr-3'>Captions</Link>
                                 <Link href='/configurations' className='mr-3'>Configurations</Link>
                             </>

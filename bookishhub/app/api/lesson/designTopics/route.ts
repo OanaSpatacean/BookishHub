@@ -1,6 +1,6 @@
 import { getUnsplashImage } from "@/lib/unsplash";
 import { ZodError } from "zod";
-import { generateTopicsSchema } from "@/app/form-validators/lesson"
+import { designTopicsSchema } from "@/app/form-validators/lesson"
 import { strict_output } from "@/lib/openai";
 import { databaseClient } from "@/lib/database";
 import { NextResponse } from "next/server";
@@ -18,17 +18,17 @@ export async function POST(request: Request, response: Response)
         }[];
         
         const body = await request.json();
-        const {name, modules} = generateTopicsSchema.parse(body);
+        const {name, modules} = designTopicsSchema.parse(body);
 
         console.log("Name:", name);
         console.log("Modules:", modules);
 
         let return_modules: returnModules = await strict_output(
-            "You are an AI used for designing lesson content, crafting suitable topic names for each module, and finding relevant and appropriate YouTube videos for each topic.",
-            new Array(modules.length).fill(`Your task is to create a lesson about ${name}. For each of the following modules: ${modules.join(', ')}, create for each of the modules that you get in the provided array at least 3 topics (or more, how many topics you consider it is relevant for the module). After that, for each topic, generate a specific YouTube search query to locate a comprehensive educational video related to that topic. Each search query should yield a clear, instructive video on YouTube.`),
+            "You are an AI used for designing lesson content, crafting suitable topic names for each module, and finding relevant and appropriate YouTube videos for each topic. Understand that a lesson contains modules given by the user. Your job is to suggest topics for each of those modules.",
+            new Array(modules.length).fill(`Your task is to create a lesson about ${name}. For each of the following modules: ${modules.join(', ')}, create for each of the modules that you get in the provided array at least 3 topics (or more, how many topics you consider it is relevant for the module). After that, for each topic, design a specific YouTube search query to locate a comprehensive educational video related to that topic. Each search query should yield a clear, instructive video on YouTube.`),
             {
               name: "name of the module",
-              topics: "an array of topics, where each topic should have a ytSearchQuery and a topicName key in the JSON object",
+              topics: "an array of topics, where each topic should have a topicName key and a ytSearchQuery key in the JSON object",
             }
         );
 
@@ -55,7 +55,7 @@ export async function POST(request: Request, response: Response)
         
             const databaseClientModule = await databaseClient.module.create({
                 data: {
-                    moduleName: name as string,
+                    moduleName: name,
                     lessonId: lesson.id,
                 },
             });

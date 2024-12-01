@@ -1,8 +1,7 @@
 "use client";
-import { ArrowRight, ArrowLeft } from "lucide-react";
+import { ArrowRight, ArrowLeft, InfoIcon } from "lucide-react";
 import Link from "next/link";
 import { Topic, Module, Lesson } from "@prisma/client";
-import { Separator } from "./ui/separator";
 import React from "react";
 import TopicBox, { TopicBoxHandler } from "./TopicBox";
 import { buttonVariants, Button } from "./ui/button";
@@ -31,16 +30,18 @@ const ApproveTopics = ({lesson}:Props) => {
         <div className="mt-1 
                         w-full">
             {lesson.modules.map((module, moduleIndex) => (
-                <div className="mt-7" key={module.id} >
-                    <h2 className="text-secondary-foreground/70 
-                                       text-sm 
-                                       uppercase">
-                        Module {moduleIndex + 1}
-                    </h2>
+                <div className="mt-5" key={module.id} >
                     <h3 className="font-bold 
-                                       text-3xl ">
+                                   text-3xl ">
                             {module.moduleName}
                     </h3>
+
+                    <h2 className="text-secondary-foreground/100 
+                                   text-sm 
+                                   uppercase">
+                        Module {moduleIndex + 1}
+                    </h2>
+
                     <div className="mt-3">
                         {module.topics.map((topic, topicIndex) => (
                             <TopicBox key={topic.id} topic={topic} topicIndex={topicIndex} ref={topicRefs[topic.id]}/>
@@ -48,35 +49,58 @@ const ApproveTopics = ({lesson}:Props) => {
                     </div>
                 </div>
             ))}
-            <div className="justify-center 
-                            mt-11 
-                            items-center 
+
+            <div className="border-none 
+                            bg-secondary 
+                            mt-6 
+                            p-5 
                             flex">
-                <Separator className="flex-[1]" />
+                <div className="flex-shrink-0">
+                    <InfoIcon 
+                        className="text-green-500 
+                                   h-10 
+                                   w-10 
+                                   bg-green-100 
+                                   rounded-full 
+                                   p-2 
+                                   shadow-sm" />
+                </div>
+                <div className="ml-5">Topics have been created for each of your modules. Please review them and then press the button to approve and proceed. On the next page, you will find your own personalized lesson designed as requested. Enjoy your customized learning experience!</div>
+            </div>
+            
+            <div className="flex 
+                            justify-between
+                            mt-5 
+                            items-center 
+                            mb-5">
                 <div className="mx-6 
-                                items-center 
-                                flex">
-                    <Link href="/generate" className={`${buttonVariants({ variant: "secondary" })} bg-orange-300 text-white`}>                        
+                                flex 
+                                items-center">
+                    <Link href="/design" className={`${buttonVariants({ variant: "secondary" })} bg-red-500 text-white`}>
                         <ArrowLeft strokeWidth={5} className="mr-1 
                                                               h-3 
                                                               w-3"/>
                         <p className="font-semibold">Prev</p>
                     </Link>
+                </div>
+                <div className="mx-6 
+                                flex 
+                                items-center">
                     <Button type="button" className="font-semibold 
-                                                     ml-3 
-                                                     bg-blue-400 '
-                                                     text-white" onClick={() => 
-                                                        {
-                                                            Object.values(topicRefs).forEach((ref) => { ref.current?.startLoading();}
-                                                      )}}>
+                                                     bg-blue-500 
+                                                     text-white" onClick={() => {
+                        Object.values(topicRefs).forEach((ref) => { 
+                            ref.current?.startLoading();
+                        });
+                    }}>
                         Next
                         <ArrowRight strokeWidth={5} className="ml-1 
                                                                h-3 
                                                                w-3"/>
                     </Button>
                 </div>
-                <Separator className="flex-[1]" />
             </div>
+
         </div>
     );
 };
