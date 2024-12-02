@@ -27,32 +27,30 @@ const ApproveTopics = ({lesson}:Props) => {
     console.log(topicRefs);
     
     return (
-        <div className="mt-1 
-                        w-full">
-            {lesson.modules.map((module, moduleIndex) => (
-                <div className="mt-5" key={module.id} >
-                    <h3 className="font-bold 
-                                   text-3xl ">
+        <div className="mt-5 w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                {lesson.modules.map((module, moduleIndex) => (
+                    <div className="mt-5" key={module.id}>
+                        <h3 className="font-bold text-3xl">
                             {module.moduleName}
-                    </h3>
+                        </h3>
 
-                    <h2 className="text-secondary-foreground/100 
-                                   text-sm 
-                                   uppercase">
-                        Module {moduleIndex + 1}
-                    </h2>
+                        <h2 className="text-secondary-foreground/100 text-sm uppercase">
+                            Module {moduleIndex + 1}
+                        </h2>
 
-                    <div className="mt-3">
-                        {module.topics.map((topic, topicIndex) => (
-                            <TopicBox key={topic.id} topic={topic} topicIndex={topicIndex} ref={topicRefs[topic.id]}/>
-                        ))}
+                        <div className="mt-3">
+                            {module.topics.map((topic, topicIndex) => (
+                                <TopicBox key={topic.id} topic={topic} topicIndex={topicIndex} ref={topicRefs[topic.id]} />
+                            ))}
+                        </div>
                     </div>
-                </div>
-            ))}
+                ))}
+            </div>
 
             <div className="border-none 
                             bg-secondary 
-                            mt-6 
+                            mt-[100px] 
                             p-5 
                             flex">
                 <div className="flex-shrink-0">
@@ -70,13 +68,13 @@ const ApproveTopics = ({lesson}:Props) => {
             
             <div className="flex 
                             justify-between
-                            mt-5 
-                            items-center 
-                            mb-5">
+                            mt-[15px] 
+                            items-center
+                            mb-[15px]">
                 <div className="mx-6 
                                 flex 
                                 items-center">
-                    <Link href="/design" className={`${buttonVariants({ variant: "secondary" })} bg-red-500 text-white`}>
+                    <Link href="/design" className={`${buttonVariants({ variant: "secondary" })} bg-red-500 text-black`}>
                         <ArrowLeft strokeWidth={5} className="mr-1 
                                                               h-3 
                                                               w-3"/>

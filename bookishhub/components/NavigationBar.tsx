@@ -20,7 +20,7 @@ const NavigationBar = async (props:Props) => {
 
         return (
             <nav className='z-[10] 
-                            h-fit 
+                            h-[65px]  
                             bg-white 
                             top-0 
                             inset-x-0 
@@ -42,30 +42,37 @@ const NavigationBar = async (props:Props) => {
                                     gap-3">
                         <DarkModeToggle className='' />
                         <Link href='/captions' className='items-center flex gap-2'>
-                            <p className='px-2 
-                                        py-1 
-                                        font-bold 
-                                        text-xl 
-                                        hover:-translate-y-[2px] 
-                                        transition-all 
-                                        md:block 
-                                        border-black 
-                                        border-r-4 
-                                        border-b-4 
-                                        border-2 
-                                        rounded-lg 
-                                        dark:border-white'>
-                                BookishHub
-                            </p>
+                        <p className='px-4 
+                                py-2 
+                                text-2xl 
+                                font-semibold 
+                                bg-gradient-to-r 
+                                from-blue-500 
+                                to-blue-900 
+                                text-white 
+                                rounded-lg 
+                                shadow-md 
+                                transform 
+                                transition-all 
+                                duration-300 
+                                hover:scale-105 
+                                hover:shadow-lg 
+                                dark:bg-gradient-to-r 
+                                dark:from-blue-500 
+                                dark:to-blue-900 
+                                dark:text-white'>
+                        BookishHub
+                    </p>
+
                         </Link>
                     </div>
                     <div className='items-center 
                                     flex'>
                         {session?.user && ( 
                             <>
-                                <Link href='/design' className='mr-3'>Design Lesson</Link>
-                                <Link href='/captions' className='mr-3'>Captions</Link>
-                                <Link href='/configurations' className='mr-3'>Configurations</Link>
+                                <Link href='/design' className='mr-3 text-xl'>Design Lesson</Link>
+                                <Link href='/captions' className='mr-3 text-xl'>Captions</Link>
+                                <Link href='/configurations' className='mr-3 text-xl'>Configurations</Link>
                             </>
                         )}
                     <div className='items-center 

@@ -40,7 +40,7 @@ const DesignTopics = async ({params:{lessonId}}:Props) => {
                         mx-auto 
                         px-15  
                         max-w-7xl
-                        mt-3">
+                        mt-7">
             
             <h1 className="font-bold 
                            text-5xl 

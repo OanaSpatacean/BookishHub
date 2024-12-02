@@ -155,7 +155,7 @@ const DesignLessonForm = (props:Props) => {
                                                    h-4 
                                                    w-1 
                                                    mr-2"/>
-                            Insert module
+                            Insert new module
                         </Button>
                     </div>
                     
