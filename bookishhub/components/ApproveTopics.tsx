@@ -15,6 +15,8 @@ type Props = {
 
 const ApproveTopics = ({lesson}:Props) => {
     const topicRefs: Record<string, React.RefObject<TopicBoxHandler>> = {};
+    const [loading, setLoading] = React.useState(false);
+    const [handledTopics, setHandledTopics] = React.useState<Set<String>>(new Set());
 
     lesson.modules.forEach((module) => 
     {
@@ -25,6 +27,12 @@ const ApproveTopics = ({lesson}:Props) => {
     })})
 
     console.log(topicRefs);
+
+    const topicsNumber = React.useMemo(() => {
+            return lesson.modules.reduce((number, module) => {return number + module.topics.length}, 0)
+        },
+        [lesson.modules]
+    );
     
     return (
         <div className="mt-5 w-full">
@@ -41,7 +49,7 @@ const ApproveTopics = ({lesson}:Props) => {
 
                         <div className="mt-3">
                             {module.topics.map((topic, topicIndex) => (
-                                <TopicBox key={topic.id} topic={topic} topicIndex={topicIndex} ref={topicRefs[topic.id]} />
+                                <TopicBox key={topic.id} topic={topic} topicIndex={topicIndex} ref={topicRefs[topic.id]} handledTopics={handledTopics} setHandledTopics={setHandledTopics}/>
                             ))}
                         </div>
                     </div>
@@ -63,7 +71,7 @@ const ApproveTopics = ({lesson}:Props) => {
                                    p-2 
                                    shadow-sm" />
                 </div>
-                <div className="ml-5">Topics have been created for each of your modules. Please review them and then press the button to approve and proceed. On the next page, you will find your own personalized lesson designed as requested. Enjoy your customized learning experience!</div>
+                <div className="ml-5">Topics have been created for each of your modules. Please review them and then press the button to approve and proceed. Wait a few seconds until all the topics are being handled. On the next page, you will find your own personalized lesson designed as requested. Enjoy your customized learning experience!</div>
             </div>
             
             <div className="flex 
@@ -84,9 +92,10 @@ const ApproveTopics = ({lesson}:Props) => {
                 <div className="mx-6 
                                 flex 
                                 items-center">
-                    <Button type="button" className="font-semibold 
+                    <Button disabled={loading} type="button" className="font-semibold 
                                                      bg-blue-500 
                                                      text-white" onClick={() => {
+                        setLoading(true);
                         Object.values(topicRefs).forEach((ref) => { 
                             ref.current?.startLoading();
                         });

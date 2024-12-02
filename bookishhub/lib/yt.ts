@@ -1,5 +1,35 @@
+import { strict_output } from "./openai";
 import { YoutubeTranscript } from "youtube-transcript";
 import axios from "axios";
+
+export async function getQueriesAndSolutionsFromTranscript(transcript: string, lessonName: string) {
+  type Query = 
+  {
+    query: string;
+    solution: string;
+    choice1: string;
+    choice2: string;
+    choice3: string;
+    choice4: string;
+  };
+
+  const queries: Query[] = await strict_output(
+    "You are an AI used for creating multiple-choice queries and solutions. Each solution should not have a length greater than 20 words",
+    new Array(10).fill(
+      `Your task is to create four challenging multiple-choice queries related to ${lessonName}, based on the content provided in the transcript ${transcript}`
+    ),
+    {
+      query: "query",
+      solution: "solution with length of 20 words maximum, could also be 'All of the above'",
+      choice1: "choice1 with length of 20 words maximum",
+      choice2: "choice2 with length of 20 words maximum",
+      choice3: "choice3 with length of 20 words maximum",
+      choice4: "choice4 with length of 20 words maximum, could also be 'All of the above'"
+    }
+  );
+
+  return queries;
+}
 
 export async function getVideoTranscript(videoId: string) {
     try 
