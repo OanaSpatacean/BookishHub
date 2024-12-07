@@ -75,39 +75,44 @@ const ApproveTopics = ({lesson}:Props) => {
             </div>
             
             <div className="flex 
-                            justify-between
+                            justify-between 
                             mt-[15px] 
-                            items-center
-                            mb-[15px]">
-                <div className="mx-6 
-                                flex 
-                                items-center">
-                    <Link href="/design" className={`${buttonVariants({ variant: "secondary" })} bg-red-500 text-black`}>
-                        <ArrowLeft strokeWidth={5} className="mr-1 
-                                                              h-3 
-                                                              w-3"/>
-                        <p className="font-semibold">Prev</p>
+                            items-center 
+                            mb-[15px] 
+                            px-6">
+                <Link href="/design" className={`${buttonVariants({ variant: "secondary" })} bg-red-500 text-black flex items-center`}>
+                    <ArrowLeft strokeWidth={5} className="mr-1 
+                                                          h-3 
+                                                          w-3"/>
+                    <p className="font-semibold">Prev</p>
+                </Link>
+                {handledTopics.size === topicsNumber ? 
+                (
+                    <Link href={`/lesson/${lesson.id}/0/0`} className={`${buttonVariants({ className: "flex items-center font-semibold" })}`}>
+                        Next
+                        <ArrowRight strokeWidth={5} className="ml-1 
+                                                               h-3 
+                                                               w-3"/>
                     </Link>
-                </div>
-                <div className="mx-6 
-                                flex 
-                                items-center">
+                ) 
+                : 
+                (
                     <Button disabled={loading} type="button" className="font-semibold 
-                                                     bg-blue-500 
-                                                     text-white" onClick={() => {
+                                                                        bg-blue-500 
+                                                                        text-white
+                                                                        flex 
+                                                                        items-center" onClick={() => {                        
                         setLoading(true);
                         Object.values(topicRefs).forEach((ref) => { 
                             ref.current?.startLoading();
                         });
                     }}>
-                        Next
+                        Start processing the topics
                         <ArrowRight strokeWidth={5} className="ml-1 
                                                                h-3 
-                                                               w-3"/>
-                    </Button>
-                </div>
+                                                               w-3"/>                    </Button>
+                )}
             </div>
-
         </div>
     );
 };

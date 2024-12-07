@@ -41,7 +41,7 @@ const DesignLessonForm = (props:Props) => {
 
         designTopics(data, {
             onSuccess: ({lessonId}) => {
-                toast({title: "Done", description: "Lesson designed with success"});
+                toast({title: "Done", description: "Topics created with success"});
                 router.push(`/design/${lessonId}`);
               },
             onError: (error) => {

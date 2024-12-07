@@ -1,4 +1,5 @@
 "use client"
+import { Loader2 } from 'lucide-react';
 import { useToast } from './ui/use-toast';
 import { cn } from '@/lib/utils';
 import React from 'react'
@@ -34,14 +35,22 @@ const TopicBox = React.forwardRef<TopicBoxHandler, Props>(({topic, topicIndex, h
     React.useImperativeHandle(ref, () => ({
         async startLoading() 
         {
+            if (topic.videoId) 
+            {
+                registerTopicId();
+                return;
+            }
+
             gatherTopicInformation(undefined, {
                     onSuccess: () => {
                         setSuccess(true);
+                        registerTopicId();
                 },
                 onError: (error: any) => {
                     setSuccess(false);
                     console.error(error);
                     toast({title: "Warning", description: "At least one of the topics could not be handled.", variant: "destructive"});
+                    registerTopicId();
                 }
             })
         }
@@ -61,6 +70,12 @@ const TopicBox = React.forwardRef<TopicBoxHandler, Props>(({topic, topicIndex, h
         [topic.id, setHandledTopics]
       );
   
+    React.useEffect(() => {
+        if (topic.videoId) {
+          setSuccess(true);
+          registerTopicId;
+        }
+      }, [topic, registerTopicId]);
     
     return (
         <div key={topic.id} 
@@ -69,9 +84,13 @@ const TopicBox = React.forwardRef<TopicBoxHandler, Props>(({topic, topicIndex, h
                 "bg-secondary": success === null,
                 "bg-yellow-500": success === false,
                 "bg-blue-500": success === true,
-            })}
-        >   
-            <h5>Topic {topicIndex+1}: {topic.topicName}</h5>        
+        })}>   
+            <h5>Topic {topicIndex+1}: {topic.topicName}</h5> 
+            {
+                isLoading 
+                && 
+                <Loader2 className="animate-spin"/>
+            }       
         </div>
     );
 });
