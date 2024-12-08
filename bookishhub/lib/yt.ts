@@ -21,10 +21,10 @@ export async function getQueriesAndSolutionsFromTranscript(transcript: string, l
     {
       query: "query",
       solution: "solution with length of 20 words maximum, could also be 'All of the above'",
-      choice1: "choice1 with length of 20 words maximum",
-      choice2: "choice2 with length of 20 words maximum",
-      choice3: "choice3 with length of 20 words maximum",
-      choice4: "choice4 with length of 20 words maximum, could also be 'All of the above'"
+      choice1: "choice1 with length of 20 words maximum, different than the other choices",
+      choice2: "choice2 with length of 20 words maximum, different than the other choices",
+      choice3: "choice3 with length of 20 words maximum, different than the other choices",
+      choice4: "choice4 with length of 20 words maximum, could also be 'All of the above', different than the other choices"
     }
   );
 
