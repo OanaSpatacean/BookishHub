@@ -88,7 +88,7 @@ const ApproveTopics = ({lesson}:Props) => {
                 </Link>
                 {handledTopics.size === topicsNumber ? 
                 (
-                    <Link href={`/lesson/${lesson.id}/0/0`} className={`${buttonVariants({ className: "flex items-center font-semibold" })}`}>
+                    <Link href={`/lesson/${lesson.id}/0/0`} className={`${buttonVariants({ className: "flex items-center font-semibold hover:bg-blue-800" })}`}>
                         Next
                         <ArrowRight strokeWidth={5} className="ml-1 
                                                                h-3 
@@ -101,7 +101,8 @@ const ApproveTopics = ({lesson}:Props) => {
                                                                         bg-blue-500 
                                                                         text-white
                                                                         flex 
-                                                                        items-center" onClick={() => {                        
+                                                                        items-center
+                                                                        hover:bg-blue-800" onClick={() => {                        
                         setLoading(true);
                         Object.values(topicRefs).forEach((ref) => { 
                             ref.current?.startLoading();
@@ -110,7 +111,8 @@ const ApproveTopics = ({lesson}:Props) => {
                         Start processing the topics
                         <ArrowRight strokeWidth={5} className="ml-1 
                                                                h-3 
-                                                               w-3"/>                    </Button>
+                                                               w-3"/>                    
+                    </Button>
                 )}
             </div>
         </div>

@@ -117,7 +117,8 @@ const QueriesBoxes = ({topic}:Props) => {
 
       <Button onClick={verifySolution} size="lg" className="mt-6 
                                                             w-full
-                                                            mb-5">
+                                                            mb-5
+                                                            font-bold">
         Verify solutions
       </Button>
     </div>

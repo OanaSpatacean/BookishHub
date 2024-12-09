@@ -70,9 +70,12 @@ const NavigationBar = async (props:Props) => {
                                     flex'>
                         {session?.user && ( 
                             <>
-                                <Link href='/design' className='mr-3 text-xl'>Design Lesson</Link>
-                                <Link href='/captions' className='mr-3 text-xl'>Captions</Link>
-                                <Link href='/configurations' className='mr-3 text-xl'>Configurations</Link>
+                                <Link href='/repo' className='mr-5'>Repo Insights</Link>
+                                <Link href='/breakdown' className='mr-5'>PDF Breakdown</Link>
+                                <Link href='/game' className='mr-5'>Game Zone</Link>
+                                <Link href='/design' className='mr-5'>Lesson Design</Link>
+                                <Link href='/draft' className='mr-5'>Draft Assist</Link>
+                                <Link href='/configurations' className='mr-5'>Configurations</Link>
                             </>
                         )}
                     <div className='items-center 

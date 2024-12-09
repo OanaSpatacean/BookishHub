@@ -11,7 +11,7 @@ type Props = {}
 const LogInButton = (props:Props) => {
     try {
         return (
-            <Button variant='ghost' className={`${font.className} font-bold text-lg`} onClick={() =>{
+            <Button variant='ghost' className={`${font.className} font-semibold text-lg uppercase`} onClick={() =>{
                         signIn("google");
             }}>
                 Log In
