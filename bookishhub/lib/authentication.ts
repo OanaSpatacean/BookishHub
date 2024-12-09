@@ -8,6 +8,7 @@ declare module 'next-auth/jwt' {
     interface JWT {
         id: string;
         points: number;
+        isAdmin: boolean;
     }
 }
 
@@ -16,6 +17,7 @@ declare module 'next-auth' {
         user: {
             id: string;
             points: number;
+            isAdmin: boolean;
         } & DefaultSession['user'];
     }
 }
@@ -25,23 +27,26 @@ export const authenticationOptions: NextAuthOptions = {
         strategy: 'jwt'
     }, 
     callbacks: {
-        session: ({session, token}) => {
-            if(token){
-                session.user.id = token.id; 
-                session.user.name = token.name; 
-                session.user.email = token.email; 
-                session.user.image = token.picture; 
+        session: ({ session, token }) => {
+            if (token) {
+                session.user.id = token.id;
+                session.user.name = token.name;
+                session.user.email = token.email;
+                session.user.image = token.picture;
                 session.user.points = token.points;
+                session.user.isAdmin = token.isAdmin; 
             }
             return session;
         },
-        jwt: async ({token}) => {
+        jwt: async ({ token }) => {
             const user_database = await databaseClient.user.findFirst({
-                where: { email: token.email
-            }})
-            if(user_database){
-                token.id = user_database.id
-                token.points = user_database.points
+                where: { email: token.email }
+            });
+    
+            if (user_database) {
+                token.id = user_database.id;
+                token.points = user_database.points;
+                token.isAdmin = user_database.isAdmin; 
             }
             return token;
         }
@@ -53,7 +58,7 @@ export const authenticationOptions: NextAuthOptions = {
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
             authorization: {
                 params: {
-                    prompt: 'select_account',  // Forces account selection even if already logged in
+                    prompt: 'select_account',  
                 },
             },
         }),
