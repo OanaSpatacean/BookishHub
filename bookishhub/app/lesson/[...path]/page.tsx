@@ -91,8 +91,6 @@ const LessonPage = async ({params:{path} }:Props) =>
               <LessonGuide lesson={lesson} topicId={topic.id} />
           </div>
 
-
-
           <div className="relative pb-8 mb-[15px]">
             {(moduleIndex > 0 || topicIndex > 0) && (
               <Link href={topicIndex > 0
@@ -165,7 +163,7 @@ const LessonPage = async ({params:{path} }:Props) =>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default LessonPage;
