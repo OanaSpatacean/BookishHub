@@ -6,6 +6,7 @@ import React from 'react'
 import { useMutation } from '@tanstack/react-query';
 import axios from "axios";
 import { Topic, Module, Lesson  } from '@prisma/client';
+import { FiCheckCircle, FiXCircle } from 'react-icons/fi';
 
 export type TopicBoxHandler = 
 {
@@ -79,18 +80,38 @@ const TopicBox = React.forwardRef<TopicBoxHandler, Props>(({topic, topicIndex, h
     
     return (
         <div key={topic.id} 
-             className={cn("justify-between rounded mt-2 flex px-4 py-2", 
-             {
-                "bg-secondary": success === null,
-                "bg-yellow-500": success === false,
-                "bg-blue-500": success === true,
-        })}>   
-            <h5>Topic {topicIndex+1}: {topic.topicName}</h5> 
+            className={cn("relative justify-between rounded mt-2 flex px-4 py-2", 
+            {
+                "bg-gray-200 dark:bg-gray-800": success === null, 
+                "border-4 border-yellow-400 bg-gray-200 dark:bg-gray-800": success === false, 
+                "border-4 border-blue-500 bg-gray-200 dark:bg-gray-800": success === true, 
+            })}>
+  
+            {success !== null && (
+                <div className="absolute 
+                                top-2 
+                                right-2">
+                {success === true ? (
+                    <FiCheckCircle className="text-blue-500 
+                                            w-6 
+                                            h-6"/>
+                ) : (
+                    <FiXCircle className="text-yellow-400 
+                                        w-6 
+                                        h-6"/>
+                )}
+                </div>
+            )}
+  
+            <h5>
+                Topic {topicIndex+1}: {topic.topicName}
+            </h5> 
+            
             {
                 isLoading 
                 && 
                 <Loader2 className="animate-spin"/>
-            }       
+            }      
         </div>
     );
 });

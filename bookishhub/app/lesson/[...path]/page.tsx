@@ -53,6 +53,7 @@ const LessonPage = async ({params:{path} }:Props) =>
 
   return (
     <div className="bg-gray-100 
+                    dark:bg-gray-900
                     min-h-screen">
       <div className="max-w-7xl 
                       mx-auto 

@@ -13,9 +13,11 @@ const VideoOutline = ({module,moduleId,topic,topicId}:Props) =>
 {
   return (
     <div className="shadow-md 
-                    rounded-lg 
+                    rounded-lg
+                    dark:bg-gray-800 
                     bg-white 
-                    p-6">
+                    p-6
+                    ml-[-40px]">
       <div className="mb-6">
 
         <h4 className="uppercase 
@@ -37,21 +39,31 @@ const VideoOutline = ({module,moduleId,topic,topicId}:Props) =>
         </h1>
       </div>
 
-      <iframe allowFullScreen src={`https://www.youtube.com/embed/${topic.videoId}`} className="border-gray-200 rounded-lg w-full shadow-lg border aspect-video" title="Video of the current topic"/>
-      
-      <div className="mt-8">
-        <h3 className="font-semibold 
-                       text-gray-800 
-                       text-2xl ">
-            Outline
+      <div className="mt-8
+                      mb-8">
+        <h3 className="font-bold 
+                      text-gray-800 
+                      dark:text-white 
+                      text-2xl">
+          Outline
         </h3>
 
         <p className="mt-4 
                       leading-relaxed 
-                      text-gray-700">
-            {topic.outline}
+                      text-gray-700 
+                      dark:text-gray-300">
+          {topic.outline}
         </p>
       </div>
+
+      <iframe allowFullScreen src={`https://www.youtube.com/embed/${topic.videoId}`} className="border-gray-200 
+                                                                                                rounded-lg 
+                                                                                                w-full 
+                                                                                                shadow-lg 
+                                                                                                border 
+                                                                                                aspect-video
+                                                                                                mb-5" title="Video of the current topic"/>
+      
     </div>
   )
 }

@@ -16,7 +16,7 @@ export async function getQueriesAndSolutionsFromTranscript(transcript: string, l
   const queries: Query[] = await strict_output(
     "You are an AI used for creating multiple-choice queries and solutions. Each solution should not have a length greater than 20 words",
     new Array(10).fill(
-      `Your task is to create four challenging multiple-choice queries related to ${lessonName}, based on the content provided in the transcript ${transcript}`
+      `Your task is to create six challenging multiple-choice queries related to ${lessonName}, based on the content provided in the transcript ${transcript}`
     ),
     {
       query: "query",

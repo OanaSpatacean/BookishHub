@@ -13,16 +13,17 @@ type Props =
 const LessonGuide = async ({lesson,topicId}:Props) => 
 {
     return (
-        <div className="mt-[150px] 
-                        w-[400px] 
+        <div className="w-[400px] 
                         absolute 
                         rounded-r-3xl 
-                        p-6 bg-secondary 
+                        p-6 
+                        bg-secondary 
                         -translate-y-1/2 
-                        top-1/2">
+                        top-[500px] 
+                        dark:bg-gray-900
+                        pr-[80px]">
             <h1 className="font-bold 
-                           text-5xl
-                           mt-[50px]">
+                           text-5xl">
                 {lesson.lessonName}
             </h1>
 
