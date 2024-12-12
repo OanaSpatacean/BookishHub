@@ -1,4 +1,5 @@
 import React from 'react';
+import LessonsDisplayBox from '@/components/LessonsDisplayBox';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { databaseClient } from '@/lib/database';
@@ -54,6 +55,13 @@ const LessonsDisplayPage = async (props: Props) => {
             </Link>
       </div>
 
+      <div className="gap-4 
+                      flex-col 
+                      flex">
+            {lessons.map((lesson) => {
+                return <LessonsDisplayBox key={lesson.id} lesson={lesson}/>;
+            })}
+      </div>
     </div>
 )}
 
