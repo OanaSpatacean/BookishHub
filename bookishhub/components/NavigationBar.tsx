@@ -85,7 +85,7 @@ const NavigationBar = async (props:Props) => {
                                     <Link href='/game' className='mr-5'>
                                         Game Zone
                                     </Link>
-                                    <Link href='/design' className='mr-5'>
+                                    <Link href='/all-lessons-displayed' className='mr-5'>
                                         Lesson Design
                                     </Link>
                                     <Link href='/draft' className='mr-5'>
