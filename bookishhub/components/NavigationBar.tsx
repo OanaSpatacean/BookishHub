@@ -41,7 +41,7 @@ const NavigationBar = async (props:Props) => {
                                     flex  
                                     gap-3">
                         <DarkModeToggle className='' />
-                        <Link href='/all-lessons-displayed' className='items-center 
+                        <Link href='/lessonsLibrary' className='items-center 
                                                           flex 
                                                           gap-2'>
                             <p className='px-4 
@@ -85,7 +85,7 @@ const NavigationBar = async (props:Props) => {
                                     <Link href='/game' className='mr-5'>
                                         Game Zone
                                     </Link>
-                                    <Link href='/all-lessons-displayed' className='mr-5'>
+                                    <Link href='/lessonsLibrary' className='mr-5'>
                                         Lesson Design
                                     </Link>
                                     <Link href='/draft' className='mr-5'>

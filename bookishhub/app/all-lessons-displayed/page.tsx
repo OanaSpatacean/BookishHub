@@ -39,30 +39,38 @@ const LessonsDisplayPage = async (props: Props) => {
                                             inline-block 
                                             bg-blue-500 
                                             text-white 
-                                            font-semibold 
                                             shadow-lg 
                                             hover:bg-blue-800 
                                             transition-colors 
                                             duration-200 
                                             rounded-lg 
-                                            py-3
-                                            px-5 
+                                            py-2
+                                            px-7 
                                             flex 
                                             items-center 
                                             text-xl">
-                Design a brand new lesson
-                <ArrowRight strokeWidth={5} className="ml-[850px] h-9 w-9"/>
+                Click here to design a brand new lesson
+                <ArrowRight strokeWidth={5} className="ml-[780px] 
+                                                       h-9 
+                                                       w-9"/>
             </Link>
       </div>
 
-      <div className="gap-4 
-                      flex-col 
-                      flex">
-            {lessons.map((lesson) => {
-                return <LessonsDisplayBox key={lesson.id} lesson={lesson}/>;
-            })}
+      {lessons.length === 0 ? (
+       <div className="flex items-center justify-center h-[50vh]">
+       <div className="text-gray-400 italic text-center">
+         You have not designed any lessons yet
+       </div>
+     </div>
+      ) : (
+        <div className="gap-4 
+                        flex-col flex">
+          {lessons.map((lesson) => (
+            <LessonsDisplayBox key={lesson.id} lesson={lesson} />
+          ))}
+        </div>
+      )}
       </div>
-    </div>
 )}
 
 export default LessonsDisplayPage;

@@ -60,6 +60,33 @@ const LessonGuide = async ({lesson,topicId}:Props) =>
                     )}
                 </div>
             ))}
+
+            <div className="mt-[40px] 
+                            flex 
+                            justify-center 
+                            items-center 
+                            bg-gray-100 
+                            p-2 
+                            rounded-lg 
+                            shadow-lg 
+                            hover:scale-105 
+                            transition-transform 
+                            bg-white 
+                            dark:bg-gray-800">
+                <Link href="/lessonsLibrary" className="hover:text-blue-800 
+                                                        font-bold 
+                                                        text-md 
+                                                        bg-white 
+                                                        dark:bg-gray-800 
+                                                        flex 
+                                                        items-center 
+                                                        justify-center 
+                                                        w-full 
+                                                        h-full 
+                                                        text-center">
+                    Navigate back to your designed lessons library
+                </Link>
+            </div>
         </div>
     )
 }
