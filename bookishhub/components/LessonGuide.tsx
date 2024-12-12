@@ -19,7 +19,7 @@ const LessonGuide = async ({lesson,topicId}:Props) =>
                         p-6 
                         bg-secondary 
                         -translate-y-1/2 
-                        top-[520px] 
+                        top-[380px] 
                         dark:bg-gray-900
                         pr-[80px]">
             <h1 className="font-bold 

@@ -111,8 +111,7 @@ const LessonPage = async ({params:{path} }:Props) =>
                                        py-2 
                                        px-6 
                                        flex 
-                                       items-center 
-                                       max-w-xs 
+                                       items-center  
                                        truncate">
                 <div className="flex 
                                 items-center 
@@ -145,8 +144,7 @@ const LessonPage = async ({params:{path} }:Props) =>
                                                                                                   py-2 
                                                                                                   px-6 
                                                                                                   flex 
-                                                                                                  items-center 
-                                                                                                  max-w-xs 
+                                                                                                  items-center                                                                                                
                                                                                                   truncate">
                 <div className="flex 
                                 items-center 
