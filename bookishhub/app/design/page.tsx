@@ -10,7 +10,7 @@ const DesignPage = async (props: Props) => {
     const session = await getAuthSession();
 
     if(!session?.user){ 
-        return redirect('/captions');
+        return redirect('/all-lessons-displayed');
     }
 
     return (

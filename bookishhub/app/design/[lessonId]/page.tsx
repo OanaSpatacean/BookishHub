@@ -14,7 +14,7 @@ const DesignTopics = async ({params:{lessonId}}:Props) => {
     const session = await getAuthSession();
 
     if (!session?.user) {
-        return redirect("/captions");
+        return redirect("/all-lessons-displayed");
     }
     const lesson = await databaseClient.lesson.findUnique({
         where: {
