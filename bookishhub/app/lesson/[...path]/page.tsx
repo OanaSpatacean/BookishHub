@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation';
 import LessonGuide from '@/components/LessonGuide';
 import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link'; 
+import { getAuthSession } from '@/lib/authentication';
 
 type Props = 
 {
@@ -17,6 +18,12 @@ type Props =
 
 const LessonPage = async ({params:{path} }:Props) => 
 {
+  const session = await getAuthSession();
+
+  if(!session?.user){ 
+      return redirect('/library');
+  }
+
   const [lessonId, moduleId, topicId] = path;
 
   const lesson = await databaseClient.lesson.findUnique({
@@ -88,7 +95,7 @@ const LessonPage = async ({params:{path} }:Props) =>
           </div>
 
           <div className="col-span-3">
-              <LessonGuide lesson={lesson} topicId={topic.id} />
+              <LessonGuide lesson={lesson} topicId={topic.id} session={session}/>
           </div>
 
           <div className="relative pb-8 mb-[15px]">

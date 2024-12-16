@@ -61,21 +61,21 @@ const LessonsDisplayPage = async (props: Props) => {
                       p-4 
                       flex
                       mb-9">
-                <div className="flex-shrink-0">
-                    <InfoIcon 
-                        className="text-green-500 
-                                   h-10 
-                                   w-10 
-                                   bg-green-100 
-                                   rounded-full 
-                                   p-2 
-                                   shadow-sm" />
-                </div>
+          <div className="flex-shrink-0">
+              <InfoIcon 
+                  className="text-green-500 
+                              h-10 
+                              w-10 
+                              bg-green-100 
+                              rounded-full 
+                              p-2 
+                              shadow-sm" />
+          </div>
 
-                <div className="ml-5">
-                  Welcome to your personalized lesson library! Here, you will find all the lessons you have designed, giving you the opportunity to revisit and expand your knowledge whenever you wish. This library serves as a valuable resource for continuous improvement. To design a new lesson according to your needs, please click the button above and start designing your next lesson.                
-                </div>
-            </div>
+          <div className="ml-5">
+            Welcome to your personalized lesson library! Here, you will find all the lessons you have designed, giving you the opportunity to revisit and expand your knowledge whenever you wish. This library serves as a valuable resource for continuous improvement. To design a new lesson according to your needs, please click the button above and start designing your next lesson.                
+          </div>
+      </div>
 
       {lessons.length === 0 ? (
        <div className="flex items-center justify-center h-[30vh]">

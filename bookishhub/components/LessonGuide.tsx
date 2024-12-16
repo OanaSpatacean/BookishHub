@@ -8,9 +8,10 @@ type Props =
 {
     lesson:Lesson & {modules:(Module & {topics:Topic[]})[]}
     topicId: string
+    session: any 
 }
 
-const LessonGuide = async ({lesson,topicId}:Props) => 
+const LessonGuide = async ({lesson,topicId, session}:Props) => 
 {
     return (
         <div className="w-[400px] 
@@ -73,18 +74,24 @@ const LessonGuide = async ({lesson,topicId}:Props) =>
                             transition-transform 
                             bg-white 
                             dark:bg-gray-800">
-                <Link href="/library" className="hover:text-blue-800 
-                                                        font-bold 
-                                                        text-md 
-                                                        bg-white 
-                                                        dark:bg-gray-800 
-                                                        flex 
-                                                        items-center 
-                                                        justify-center 
-                                                        w-full 
-                                                        h-full 
-                                                        text-center">
-                    Navigate back to your designed lessons library
+                <Link href={session?.user ? (session.user.isAdmin ? "/admin/edit_lessons" : "/library") : "/library"}
+                    className="hover:text-blue-800 
+                               font-bold 
+                               text-md 
+                               bg-white 
+                               dark:bg-gray-800 
+                               flex 
+                               items-center 
+                               justify-center 
+                               w-full 
+                               h-full 
+                               text-center">
+                    {
+                        session?.user?.isAdmin ? 
+                            "Navigate back to 'Edit lessons' page" 
+                            : 
+                            "Navigate back to your designed lessons library"
+                    }
                 </Link>
             </div>
         </div>
