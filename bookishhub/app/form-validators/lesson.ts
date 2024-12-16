@@ -6,3 +6,9 @@ export const designTopicsSchema = z.object(
     modules: z.array(z.string())
 }
 );
+
+export const deleteLessonSchema = z.object(
+{
+    id: z.string()
+}
+);

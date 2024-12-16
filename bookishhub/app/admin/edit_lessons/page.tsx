@@ -1,4 +1,4 @@
-import LessonsDisplayBoxAdmin from "@/components/LessonsDisplayBox";
+import LessonsDisplayBoxAdmin from "@/components/LessonDisplayBoxAdmin";
 import { getAuthSession } from "@/lib/authentication";
 import { databaseClient } from "@/lib/database";
 import { ArrowRight, InfoIcon } from "lucide-react";
@@ -65,24 +65,23 @@ const EditLessons = async (props: Props) => {
                 </Link>
 
                 <div className="bg-secondary 
-                    border-none 
-                    p-4 
-                    flex
-                    mb-9
-                    mt-10">
+                                border-none 
+                                p-4 
+                                flex
+                                mb-9
+                                mt-10">
                     <div className="flex-shrink-0">
-                        <InfoIcon 
-                            className="text-green-500 
-                                        h-10 
-                                        w-10 
-                                        bg-green-100 
-                                        rounded-full 
-                                        p-2 
-                                        shadow-sm" />
+                        <InfoIcon className="text-green-500 
+                                             h-10 
+                                             w-10 
+                                             bg-green-100 
+                                             rounded-full 
+                                             p-2 
+                                             shadow-sm"/>
                     </div>
 
                     <div className="ml-5">
-                        To provide users with valuable content, you have the option to add default lessons created by you. Click here to seamlessly add these lessons and offer valuable, pre-designed content to your users.          </div>
+                        To provide users with valuable content, you have the option to add default lessons created by you. Click here to seamlessly add these lessons and offer valuable, pre-designed content to your users. You can continue to select which lessons to display on your platform and remove any lessons that are not suitable. </div>
                     </div>
             </div>
 
@@ -92,7 +91,7 @@ const EditLessons = async (props: Props) => {
                 {lessons.length === 0 ? (
                     <div className="flex items-center justify-center h-[30vh]">
                         <div className="text-gray-400 italic text-center flex items-center">
-                                No lesson has not been designed yet
+                                No lesson has been designed yet
                         </div>
                     </div>
                     ) : (
