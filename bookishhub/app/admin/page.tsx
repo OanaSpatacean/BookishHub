@@ -1,9 +1,17 @@
+import { getAuthSession } from '@/lib/authentication';
 import { ArrowRight, InfoIcon } from 'lucide-react';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 type Props = {};
 
 const AdminPanel = async (props: Props) => {
+    const session = await getAuthSession();
+
+    if(!session?.user){ 
+        return redirect('/');
+    }
+    
     return (
         <div className="flex 
                         flex-col 
