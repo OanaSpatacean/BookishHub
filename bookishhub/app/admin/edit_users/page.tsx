@@ -1,7 +1,4 @@
 import Users from '@/components/Users';
-import { getAuthSession } from '@/lib/authentication';
-import { ArrowRight, InfoIcon } from 'lucide-react';
-import Link from 'next/link';
 
 type Props = {};
 
@@ -20,7 +17,9 @@ const EditUsers = async (props: Props) => {
                            text-3xl 
                            underline 
                            decoration-4 
-                           decoration-yellow-600">Edit platform users</h1>
+                           decoration-gray-600">
+                Edit platform users
+            </h1>
 
             <Users/>
         </div>
