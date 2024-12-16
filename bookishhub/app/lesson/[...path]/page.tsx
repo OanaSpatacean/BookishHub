@@ -39,7 +39,7 @@ const LessonPage = async ({params:{path} }:Props) =>
 
   if (!lesson) 
   {
-    return redirect('/lessonsLibrary');
+    return redirect('/library');
   }
 
   const moduleIndex = parseInt(moduleId);
@@ -62,7 +62,7 @@ const LessonPage = async ({params:{path} }:Props) =>
   }
 
   if (!module || !topic) {
-    return redirect('/lessonsLibrary');
+    return redirect('/library');
   }
 
   return (

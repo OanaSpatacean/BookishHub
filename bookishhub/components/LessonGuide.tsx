@@ -73,7 +73,7 @@ const LessonGuide = async ({lesson,topicId}:Props) =>
                             transition-transform 
                             bg-white 
                             dark:bg-gray-800">
-                <Link href="/lessonsLibrary" className="hover:text-blue-800 
+                <Link href="/library" className="hover:text-blue-800 
                                                         font-bold 
                                                         text-md 
                                                         bg-white 
