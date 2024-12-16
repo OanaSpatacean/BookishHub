@@ -10,8 +10,10 @@ export async function POST(request: Request, response: Response)
         const body = await request.json();
         const parsedBody = createUserSchema.parse(body);
 
-        const user = await databaseClient.user.create({
-            data: {
+        const user = await databaseClient.user.create(
+        {
+            data: 
+            {
                 name: parsedBody.name ?? null,
                 email: parsedBody.email,
                 image: parsedBody.image ?? null,
@@ -25,21 +27,31 @@ export async function POST(request: Request, response: Response)
     catch (error) 
     {
         console.error("Error creating user:", error);
-        if (error instanceof ZodError) {
+
+        if (error instanceof ZodError) 
+        {
             return new NextResponse("Invalid request body format", { status: 400 });
         }
+
         return new NextResponse("Internal server error", { status: 500 });
     }
 }
 
-export async function PUT(request: Request, response: Response) {
-    try {
+export async function PUT(request: Request, response: Response) 
+{
+    try 
+    {
         const body = await request.json();
         const parsedBody = updateUserSchema.parse(body);
 
-        const user = await databaseClient.user.update({
-            where: { id: parsedBody.id },
-            data: {
+        const user = await databaseClient.user.update(
+        {
+            where: 
+            { 
+                id: parsedBody.id 
+            },
+            data: 
+            {
                 name: parsedBody.name ?? undefined,
                 points: parsedBody.points ?? undefined,
                 isAdmin: parsedBody.isAdmin ?? undefined
@@ -47,30 +59,46 @@ export async function PUT(request: Request, response: Response) {
         });
 
         return NextResponse.json({ success: true, user });
-    } catch (error) {
+    } 
+    catch (error) 
+    {
         console.error("Error updating user:", error);
-        if (error instanceof ZodError) {
+
+        if (error instanceof ZodError) 
+        {
             return new NextResponse("Invalid request body format", { status: 400 });
         }
+
         return new NextResponse("Internal server error", { status: 500 });
     }
 }
 
-export async function DELETE(request: Request, response: Response) {
-    try {
+export async function DELETE(request: Request, response: Response) 
+{
+    try 
+    {
         const body = await request.json();
         const parsedBody = deleteUserSchema.parse(body);
 
-        await databaseClient.user.delete({
-            where: { id: parsedBody.id }
+        await databaseClient.user.delete(
+        {
+            where: 
+            { 
+                id: parsedBody.id 
+            }
         });
 
         return NextResponse.json({ success: true, message: "User deleted successfully" });
-    } catch (error) {
+    } 
+    catch (error) 
+    {
         console.error("Error deleting user:", error);
-        if (error instanceof ZodError) {
+
+        if (error instanceof ZodError) 
+        {
             return new NextResponse("Invalid request body format", { status: 400 });
         }
+
         return new NextResponse("Internal server error", { status: 500 });
     }
 }
