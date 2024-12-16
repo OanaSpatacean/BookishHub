@@ -1,8 +1,19 @@
 import Users from '@/components/Users';
+import { getAuthSession } from '@/lib/authentication';
+import { databaseClient } from '@/lib/database';
+import { redirect } from 'next/navigation';
+import React from 'react'
 
 type Props = {};
 
 const EditUsers = async (props: Props) => {
+    const session = await getAuthSession();
+    const users = await databaseClient.user.findMany();
+
+    if(!session?.user){ 
+        return redirect('/');
+    }
+    
     return (
         <div className="flex 
                         flex-col 
@@ -21,7 +32,7 @@ const EditUsers = async (props: Props) => {
                 Edit platform users
             </h1>
 
-            <Users/>
+            <Users users={users}/>
         </div>
     )
 }

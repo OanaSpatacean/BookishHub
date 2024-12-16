@@ -3,8 +3,6 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { NextAuthOptions, DefaultSession } from "next-auth";
 import { databaseClient } from "./database";
 import { getServerSession } from "next-auth/next";
-import { NextResponse } from "next/server";
-import { NextApiRequest, NextApiResponse } from "next";
 
 declare module 'next-auth/jwt' {
     interface JWT {
@@ -72,20 +70,3 @@ export const getAuthSession = () => {
     return getServerSession(authenticationOptions);
 }
 
-export const getAllUsers = async () => {
-    try {
-        return await databaseClient.user.findMany({
-            select: {
-                id: true,
-                name: true,
-                email: true,
-                points: true,
-                isAdmin: true,
-                image: true,
-            },
-        });
-    } catch (error) {
-        console.error('Error fetching users:', error);
-        throw new Error('Could not fetch users.');
-    }
-}

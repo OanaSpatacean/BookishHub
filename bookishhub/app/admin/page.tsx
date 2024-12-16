@@ -2,6 +2,7 @@ import { getAuthSession } from '@/lib/authentication';
 import { ArrowRight, InfoIcon } from 'lucide-react';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import React from 'react'
 
 type Props = {};
 
