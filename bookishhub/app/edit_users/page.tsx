@@ -22,6 +22,7 @@ const EditUsers = async (props: Props) => {
                            decoration-4 
                            decoration-yellow-600">Edit platform users</h1>
 
+            <Users/>
         </div>
     )
 }
