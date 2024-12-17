@@ -84,7 +84,7 @@ const CreateNewUser = (props: Props) => {
                                                                                       rounded-md 
                                                                                       shadow-md 
                                                                                       w-full 
-                                                                                      mt-6">
+                                                                                      mt-8">
                         <FormField control={form.control} name="name" render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Name</FormLabel>
