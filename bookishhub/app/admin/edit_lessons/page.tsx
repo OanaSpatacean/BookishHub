@@ -59,7 +59,7 @@ const EditLessons = async (props: Props) => {
                                                 items-center 
                                                 text-xl">
                     Click here to design yourself a new lesson for the users to explore
-                    <ArrowRight strokeWidth={5} className="ml-[780px] 
+                    <ArrowRight strokeWidth={5} className="ml-[530px] 
                                                            h-9 
                                                            w-9"/>
                 </Link>

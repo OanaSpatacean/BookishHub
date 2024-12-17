@@ -73,7 +73,7 @@ const LessonsDisplayBox = async ({ lesson }: Props) => {
                                                                                                  block 
                                                                                                  w-fit 
                                                                                                  disabled:opacity-50" disabled={isLoading}>
-                            {isLoading ? "Deleting..." : "Delete Lesson"}
+                            {isLoading ? "Deleting..." : "Delete lesson"}
                         </button>
                     </div>
                 </div>
