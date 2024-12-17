@@ -1,13 +1,14 @@
 import UsersDisplayBox from '@/components/Users';
 import { getAuthSession } from '@/lib/authentication';
 import { databaseClient } from '@/lib/database';
-import { ArrowRight, InfoIcon, Link } from 'lucide-react';
+import { ArrowRight, InfoIcon } from 'lucide-react';
+import Link from "next/link";
 import { redirect } from 'next/navigation';
 import React from 'react'
 
 type Props = {};
 
-const CreateNewUser = async (props: Props) => {
+const EditUsers = async (props: Props) => {
     const session = await getAuthSession();
     const users = await databaseClient.user.findMany();
 
@@ -35,23 +36,23 @@ const CreateNewUser = async (props: Props) => {
                 </h1>
 
                 <Link href="/admin/edit_users/create_new_user" className="mt-10
-                                                                          inline-block 
-                                                                          bg-gray-600 
-                                                                          text-white 
-                                                                          shadow-lg 
-                                                                          hover:bg-gray-700 
-                                                                          transition-colors 
-                                                                          duration-200 
-                                                                          rounded-lg 
-                                                                          py-4
-                                                                          px-70
-                                                                          flex 
-                                                                          items-center 
-                                                                          text-xl">
-                        Click here to create a new user
-                        <ArrowRight strokeWidth={5} className="ml-[780px] 
-                                                               h-9 
-                                                               w-9"/>
+                                                inline-block 
+                                                bg-gray-600 
+                                                text-white 
+                                                shadow-lg 
+                                                hover:bg-gray-700 
+                                                transition-colors 
+                                                duration-200 
+                                                rounded-lg 
+                                                py-2
+                                                px-7 
+                                                flex 
+                                                items-center 
+                                                text-xl">
+                    Click here to create a new user
+                    <ArrowRight strokeWidth={5} className="ml-[880px] 
+                                                           h-9 
+                                                           w-9"/>
                 </Link>
 
                 <div className="bg-secondary 
@@ -60,27 +61,33 @@ const CreateNewUser = async (props: Props) => {
                                 flex
                                 mb-9
                                 mt-10">
-                        <div className="flex-shrink-0">
-                            <InfoIcon className="text-green-500 
-                                                h-10 
-                                                w-10 
-                                                bg-green-100 
-                                                rounded-full 
-                                                p-2 
-                                                shadow-sm"/>
-                        </div>
-
-                        <div className="ml-5">
-                            By clicking the button above, you have the option to create a new user. This feature is particularly useful if you wish to add collaborators to your platform. Feel free to use it to expand your team and manage access efficiently.
-                        </div>
+                    <div className="flex-shrink-0">
+                        <InfoIcon className="text-green-500 
+                                            h-10 
+                                            w-10 
+                                            bg-green-100 
+                                            rounded-full 
+                                            p-2 
+                                            shadow-sm"/>
                     </div>
-                        
-                <div className="gap-4 
-                                flex-col 
-                                flex">
-                    {users.map((user) => (
-                        <UsersDisplayBox key={user.id} user={user} />
-                    ))}
+
+                    <div className="ml-5">
+                        By clicking the button above, you have the option to create a new user. This feature is particularly useful if you wish to add collaborators to your platform. Feel free to use it to expand your team and manage access efficiently.
+                    </div>
+                </div>
+
+                <div className="w-full 
+                                max-w-none 
+                                mx-auto 
+                                py-3">      
+                    <div className="gap-4 
+                                    flex-col 
+                                    flex
+                                    ">
+                        {users.map((user) => (
+                            <UsersDisplayBox key={user.id} user={user} />
+                        ))}
+                    </div>
                 </div>
 
                 <div className="mt-8"></div>
@@ -89,4 +96,4 @@ const CreateNewUser = async (props: Props) => {
     )
 }
 
-export default CreateNewUser;
+export default EditUsers;

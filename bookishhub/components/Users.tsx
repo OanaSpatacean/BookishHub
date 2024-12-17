@@ -1,15 +1,18 @@
 "use client";
 import { User } from '@prisma/client';
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { z } from 'zod';
-import { deleteUserSchema } from '@/app/form-validators/user';
+import { deleteUserSchema, updateUserSchema } from '@/app/form-validators/user';
 import { useToast } from './ui/use-toast';
 import { Avatar, AvatarFallback } from './ui/avatar';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from './ui/dropdown-menu';
+import { Checkbox } from './ui/checkbox';
 
 type Input = z.infer<typeof deleteUserSchema>;
+type Input2 = z.infer<typeof updateUserSchema>;
 
 type Props = 
 { 
@@ -18,6 +21,9 @@ type Props =
 
 const UsersDisplayBox = ({ user }: Props) => {
     const { toast } = useToast();
+    const [name, setName] = useState(user.name || "");
+    const [points, setPoints] = useState(user.points || 0);
+    const [isAdmin, setIsAdmin] = useState(user.isAdmin || false);
 
     const { mutate: deleteUser, isLoading } = useMutation(
         {
@@ -40,6 +46,25 @@ const UsersDisplayBox = ({ user }: Props) => {
         }
     })
 
+    const { mutate: updateUser, isLoading: isUpdating } = useMutation(
+    {
+        mutationFn: async (input: Input2) => 
+        {
+            const response = await axios.put("/api/admin/edit_users", input);
+            return response.data;
+        },
+        onSuccess: () => 
+        {
+            toast({ title: "Success", description: "User updated successfully." });
+            window.location.reload();
+        },
+        onError: (error) => 
+        {
+            console.error(error);
+            toast({ title: "Error", description: "An error occurred while updating the user.", variant: "destructive" });
+        },
+    });
+
     return (
         <div className="rounded-lg 
                         border 
@@ -50,19 +75,12 @@ const UsersDisplayBox = ({ user }: Props) => {
                             relative">
                 <Avatar>
                     {user.image && (user.image.startsWith("http") || user.image.startsWith("https")) ? (
-                    <Image
-                        src={user.image}
-                        referrerPolicy="no-referrer"
-                        alt="user profile"
-                        fill
-                        sizes=""
-                        className="w-full 
-                                   h-full 
-                                   rounded-lg 
-                                   object-cover"
-                    />
+                    <Image src={user.image} referrerPolicy="no-referrer" alt="user profile" fill sizes="" className="w-full 
+                                                                                                                     h-full 
+                                                                                                                     rounded-lg 
+                                                                                                                     object-cover"/>
                     ) : (
-                        <AvatarFallback>
+                    <AvatarFallback>
                         <div className="flex 
                                         items-center 
                                         justify-center
@@ -108,15 +126,85 @@ const UsersDisplayBox = ({ user }: Props) => {
 
                 <div className="justify-end 
                                 flex">
-                    <div className="text-secondary-foreground/70">
-                        <button onClick={() => deleteUser({ id: user.id })} 
-                                className="underline   
-                                           text-red-500 
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <button
+                                className="underline 
+                                           text-blue-500 
                                            block 
                                            w-fit 
-                                           disabled:opacity-50" 
-                                disabled={isLoading}>
-                            {isLoading ? "Deleting..." : "Delete User"}
+                                           disabled:opacity-50 
+                                           mr-8"
+                                disabled={isLoading}
+                            >
+                                Update user
+                            </button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="p-4">
+                            <div className="space-y-4">
+                                <div>
+                                    <label className="block 
+                                                      text-sm 
+                                                      font-medium">
+                                        Name
+                                    </label>
+
+                                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="border 
+                                                                                                                         rounded 
+                                                                                                                         p-2 
+                                                                                                                         w-full"/>
+                                </div>
+
+                                <div>
+                                    <label className="block 
+                                                      text-sm 
+                                                      font-medium">
+                                        Points
+                                    </label>
+
+                                    <input type="number" value={points} onChange={(e) => setPoints(Number(e.target.value))} className="border 
+                                                                                                                                       rounded 
+                                                                                                                                       p-2 
+                                                                                                                                       w-full"/>
+                                </div>
+
+                                <div className="flex 
+                                                items-center 
+                                                space-x-2">
+                                    <input type="checkbox" checked={isAdmin} onChange={(e) => setIsAdmin(e.target.checked)}/>
+
+                                    <label className="text-sm">
+                                        Admin
+                                    </label>
+                                </div>
+
+                                <button
+                                    className="bg-blue-500 
+                                               text-white 
+                                               rounded 
+                                               p-2 
+                                               w-full 
+                                               hover:bg-blue-600" onClick={() => {
+                                                                                    updateUser({
+                                                                                        id: user.id,
+                                                                                        name, 
+                                                                                        points,
+                                                                                        isAdmin,
+                                                                                    });
+                                                                                  }} disabled={isUpdating}>
+                                    {isUpdating ? "Updating..." : "Done"}
+                                </button>
+                            </div>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+
+                    <div className="text-secondary-foreground/70">
+                        <button onClick={() => deleteUser({ id: user.id })} className="underline   
+                                                                                       text-red-500 
+                                                                                       block 
+                                                                                       w-fit 
+                                                                                       disabled:opacity-50" disabled={isLoading}>
+                            {isLoading ? "Deleting..." : "Delete user"}
                         </button>
                     </div>
                 </div>
