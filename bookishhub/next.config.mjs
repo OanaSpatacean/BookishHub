@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-const nextConfig = {images: {domains: ['lh3.googleusercontent.com', 's3.us-west-2.amazonaws.com']}}
+const nextConfig = {images: {domains: ['lh3.googleusercontent.com', 's3.us-west-2.amazonaws.com', 'www.google.com']}}
   
 export default nextConfig;
   

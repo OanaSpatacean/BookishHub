@@ -10,11 +10,12 @@ type Props = {};
 
 const EditUsers = async (props: Props) => {
     const session = await getAuthSession();
-    const users = await databaseClient.user.findMany();
 
     if(!session?.user){ 
         return redirect('/');
     }
+
+    const users = await databaseClient.user.findMany();
     
     return (
         <div>
