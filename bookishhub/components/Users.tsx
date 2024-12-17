@@ -162,10 +162,12 @@ const UsersDisplayBox = ({ user }: Props) => {
                                         Points
                                     </label>
 
-                                    <input type="number" value={points} onChange={(e) => setPoints(Number(e.target.value))} className="border 
-                                                                                                                                       rounded 
-                                                                                                                                       p-2 
-                                                                                                                                       w-full"/>
+                                    <input type="number" value={points} onChange={(e) => { const value = Number(e.target.value);
+                                                                                           setPoints(value < 0 ? 0 : value);
+                                                                                         }} className="border 
+                                                                                                       rounded 
+                                                                                                       p-2
+                                                                                                       w-full"/>                                                                                                                                                                                                    
                                 </div>
 
                                 <div className="flex 
