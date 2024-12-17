@@ -1,4 +1,4 @@
-import Users from '@/components/Users';
+import UsersDisplayBox from '@/components/Users';
 import { getAuthSession } from '@/lib/authentication';
 import { databaseClient } from '@/lib/database';
 import { redirect } from 'next/navigation';
@@ -32,7 +32,9 @@ const EditUsers = async (props: Props) => {
                 Edit platform users
             </h1>
 
-            <Users users={users}/>
+            {users.map((user) => (
+                <UsersDisplayBox key={user.id} user={user} />
+            ))}
         </div>
     )
 }
