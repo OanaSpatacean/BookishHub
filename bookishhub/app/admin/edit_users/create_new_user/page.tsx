@@ -28,7 +28,6 @@ const CreateNewUser = (props: Props) => {
         defaultValues: {
             name: '',
             email: '',
-            image: '',
             points: 10,
             isAdmin: false,
         },
@@ -100,15 +99,6 @@ const CreateNewUser = (props: Props) => {
                                     <FormLabel>Email</FormLabel>
                                     <FormControl>
                                         <Input placeholder="Email address" type="email" {...field} />
-                                    </FormControl>
-                                </FormItem>
-                            )}/>
-
-                        <FormField control={form.control} name="image" render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Profile Image URL</FormLabel>
-                                    <FormControl>
-                                        <Input placeholder="https://image-url.com" {...field} />
                                     </FormControl>
                                 </FormItem>
                             )}/>
