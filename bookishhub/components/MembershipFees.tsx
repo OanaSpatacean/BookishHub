@@ -1,13 +1,36 @@
 
 "use client";
+import axios from "axios";
 import { Button } from "./ui/button";
+import { useSession } from "next-auth/react";
 import { Progress } from "@radix-ui/react-progress";
 import React from "react";
 
 type Props = {}
 
 const MembershipFees = (props:Props) => {
+  const [loading, setLoading] = React.useState(false);
+  const { data } = useSession();
 
+  const handleMembership = async () => 
+  {
+    setLoading(true);
+
+    try 
+    {
+      const response = await axios.get("/api/payment");
+      window.location.href = response.data.url;
+    } 
+    catch (error) 
+    {
+      console.log("Membership fee error", error);
+    } 
+    finally 
+    {
+      setLoading(false);
+    }
+  }
+  
   return (
     <div className="rounded-md 
                     bg-secondary 
@@ -19,7 +42,7 @@ const MembershipFees = (props:Props) => {
                     w-full 
                     mb-7 
                     items-center">
-
+                         
       <Button className="text-white 
                          transition 
                          bg-gradient-to-r 
