@@ -59,10 +59,10 @@ const EditLessons = async (props: Props) => {
                                                 flex 
                                                 items-center 
                                                 text-md
-                                                text-bold
+                                                font-semibold
                                                 w-full">
                     Click here to design yourself a new lesson for the users to explore
-                    <ArrowRight strokeWidth={5} className="ml-[670px] 
+                    <ArrowRight strokeWidth={5} className="ml-[630px] 
                                                            h-6 
                                                            w-6"/>
                 </Link>

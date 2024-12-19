@@ -46,7 +46,7 @@ const AdminPanel = async (props: Props) => {
                                                     flex 
                                                     items-center 
                                                     text-md
-                                                    text-bold
+                                                    font-semibold
                                                     w-full">
                 <span>
                     Edit platform users
@@ -90,7 +90,7 @@ const AdminPanel = async (props: Props) => {
                                                     flex 
                                                     items-center 
                                                     text-md
-                                                    text-bold
+                                                    font-semibold
                                                     w-full">
                 <span>
                     Edit lessons designed by users

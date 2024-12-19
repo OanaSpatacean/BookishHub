@@ -20,7 +20,7 @@ const LessonsDisplayBox = ({ lesson }: Props) => {
       <div className="flex 
                       flex-grow 
                       justify-between
-                      mr-[100px] 
+                      mr-[40px] 
                       flex-col">
         <Link className="items-start 
                          mb-2 

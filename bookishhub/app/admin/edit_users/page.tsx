@@ -51,10 +51,10 @@ const EditUsers = async (props: Props) => {
                                                                         flex 
                                                                         items-center 
                                                                         text-md
-                                                                        text-bold
+                                                                        font-semibold
                                                                         w-full">
                     Click here to create a new user
-                    <ArrowRight strokeWidth={5} className="ml-[880px] 
+                    <ArrowRight strokeWidth={5} className="ml-[920px] 
                                                            h-6 
                                                            w-6"/>
                 </Link>

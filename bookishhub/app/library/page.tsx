@@ -51,9 +51,9 @@ const LessonsDisplayPage = async (props: Props) => {
                                             flex 
                                             items-center 
                                             text-md
-                                            text-bold">
+                                            font-semibold">
                 Click here to design a brand new lesson
-                <ArrowRight strokeWidth={5} className="ml-[880px] 
+                <ArrowRight strokeWidth={5} className="ml-[850px] 
                                                        h-6 
                                                        w-6"/>
             </Link>
