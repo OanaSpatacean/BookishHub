@@ -36,32 +36,35 @@ const EditUsers = async (props: Props) => {
                     Edit platform users
                 </h1>
 
-                <Link href="/admin/edit_users/create_new_user" className="mt-10
-                                                inline-block 
-                                                bg-gray-600 
-                                                text-white 
-                                                shadow-lg 
-                                                hover:bg-gray-700 
-                                                transition-colors 
-                                                duration-200 
-                                                rounded-lg 
-                                                py-2
-                                                px-7 
-                                                flex 
-                                                items-center 
-                                                text-xl">
+                <Link href="/admin/edit_users/create_new_user" className="mt-9
+                                                                        inline-block 
+                                                                        text-white 
+                                                                        transition 
+                                                                        bg-gradient-to-r 
+                                                                        from-gray-500 
+                                                                        to-gray-900 
+                                                                        hover:from-gray-600 
+                                                                        hover:to-gray-800 
+                                                                        rounded-lg 
+                                                                        py-2
+                                                                        px-7 
+                                                                        flex 
+                                                                        items-center 
+                                                                        text-md
+                                                                        text-bold
+                                                                        w-full">
                     Click here to create a new user
                     <ArrowRight strokeWidth={5} className="ml-[880px] 
-                                                           h-9 
-                                                           w-9"/>
+                                                           h-6 
+                                                           w-6"/>
                 </Link>
 
                 <div className="bg-secondary 
                                 border-none 
                                 p-4 
                                 flex
-                                mb-9
-                                mt-10">
+                                mb-7
+                                mt-7">
                     <div className="flex-shrink-0">
                         <InfoIcon className="text-green-500 
                                             h-10 

@@ -31,33 +31,34 @@ const AdminPanel = async (props: Props) => {
                 Manage your application
             </h1>
 
-            <Link href="/admin/edit_users" className="mt-10
-                                                      inline-block 
-                                                      bg-gray-600 
-                                                      text-white 
-                                                      shadow-lg 
-                                                      hover:bg-gray-700 
-                                                      transition-colors 
-                                                      duration-200 
-                                                      rounded-lg 
-                                                      py-2
-                                                      px-7 
-                                                      flex 
-                                                      justify-between 
-                                                      items-center 
-                                                      text-xl 
-                                                      w-full">
+            <Link href="/admin/edit_users" className="mt-9
+                                                    inline-block 
+                                                    text-white 
+                                                    transition 
+                                                    bg-gradient-to-r 
+                                                    from-gray-500 
+                                                    to-gray-900 
+                                                    hover:from-gray-600 
+                                                    hover:to-gray-800 
+                                                    rounded-lg 
+                                                    py-2
+                                                    px-7 
+                                                    flex 
+                                                    items-center 
+                                                    text-md
+                                                    text-bold
+                                                    w-full">
                 <span>
                     Edit platform users
                 </span>
-                <ArrowRight strokeWidth={5} className="h-9 w-9" />
+                <ArrowRight strokeWidth={5} className="ml-[1030px] h-6 w-6" />
             </Link>
 
             <div className="bg-secondary 
                             border-none 
                             p-4 
                             flex
-                            mt-9">
+                            mt-7">
                 <div className="flex-shrink-0">
                     <InfoIcon 
                         className="text-green-500 
@@ -74,33 +75,34 @@ const AdminPanel = async (props: Props) => {
                 </div>
             </div>
 
-            <Link href="/admin/edit_lessons" className="mt-10
-                                                        inline-block 
-                                                        bg-gray-600 
-                                                        text-white 
-                                                        shadow-lg 
-                                                        hover:bg-gray-700 
-                                                        transition-colors 
-                                                        duration-200 
-                                                        rounded-lg 
-                                                        py-2
-                                                        px-7 
-                                                        flex 
-                                                        justify-between 
-                                                        items-center 
-                                                        text-xl 
-                                                        w-full">
+            <Link href="/admin/edit_lessons" className="mt-9
+                                                    inline-block 
+                                                    text-white 
+                                                    transition 
+                                                    bg-gradient-to-r 
+                                                    from-gray-500 
+                                                    to-gray-900 
+                                                    hover:from-gray-600 
+                                                    hover:to-gray-800 
+                                                    rounded-lg 
+                                                    py-2
+                                                    px-7 
+                                                    flex 
+                                                    items-center 
+                                                    text-md
+                                                    text-bold
+                                                    w-full">
                 <span>
                     Edit lessons designed by users
                 </span>
-                <ArrowRight strokeWidth={5} className="h-9 w-9" />
+                <ArrowRight strokeWidth={5} className="ml-[940px] h-6 w-6" />
             </Link>
 
             <div className="bg-secondary 
                             border-none 
                             p-4 
                             flex
-                            mt-9">
+                            mt-7">
                 <div className="flex-shrink-0">
                     <InfoIcon 
                         className="text-green-500 

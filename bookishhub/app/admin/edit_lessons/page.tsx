@@ -44,32 +44,35 @@ const EditLessons = async (props: Props) => {
                     Edit lessons designed by users
                 </h1>
 
-                <Link href="/design" className="mt-10
+                <Link href="/design" className="mt-7
                                                 inline-block 
-                                                bg-gray-600 
                                                 text-white 
-                                                shadow-lg 
-                                                hover:bg-gray-700 
-                                                transition-colors 
-                                                duration-200 
+                                                transition 
+                                                bg-gradient-to-r 
+                                                from-gray-500 
+                                                to-gray-900 
+                                                hover:from-gray-600 
+                                                hover:to-gray-800 
                                                 rounded-lg 
                                                 py-2
                                                 px-7 
                                                 flex 
                                                 items-center 
-                                                text-xl">
+                                                text-md
+                                                text-bold
+                                                w-full">
                     Click here to design yourself a new lesson for the users to explore
-                    <ArrowRight strokeWidth={5} className="ml-[530px] 
-                                                           h-9 
-                                                           w-9"/>
+                    <ArrowRight strokeWidth={5} className="ml-[670px] 
+                                                           h-6 
+                                                           w-6"/>
                 </Link>
 
                 <div className="bg-secondary 
                                 border-none 
                                 p-4 
                                 flex
-                                mb-9
-                                mt-10">
+                                mb-7
+                                mt-7">
                     <div className="flex-shrink-0">
                         <InfoIcon className="text-green-500 
                                              h-10 
