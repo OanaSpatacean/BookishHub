@@ -58,7 +58,7 @@ const ApproveTopics = ({lesson}:Props) => {
 
             <div className="border-none 
                             bg-secondary 
-                            mt-[100px] 
+                            mt-[90px] 
                             p-5 
                             flex">
                 <div className="flex-shrink-0">

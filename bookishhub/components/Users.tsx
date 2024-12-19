@@ -42,7 +42,7 @@ const UsersDisplayBox = ({ user }: Props) => {
         onError: (error) => 
         {
             console.error(error);
-            toast({ title: "Error", description: "An error occurred while deleting the user.", variant: "destructive" });
+            toast({ title: "Warning", description: "An error occurred while deleting the user.", variant: "destructive" });
         }
     })
 
@@ -61,15 +61,17 @@ const UsersDisplayBox = ({ user }: Props) => {
         onError: (error) => 
         {
             console.error(error);
-            toast({ title: "Error", description: "An error occurred while updating the user.", variant: "destructive" });
+            toast({ title: "Warning", description: "An error occurred while updating the user.", variant: "destructive" });
         },
     });
 
     return (
         <div className="rounded-lg 
                         border 
-                        p-4 
-                        flex">
+                        p-3 
+                        flex
+                        bg-gray-50
+                        dark:bg-gray-900">
             <div className="w-[120px] 
                             h-[120px] 
                             relative">

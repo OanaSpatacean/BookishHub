@@ -19,10 +19,10 @@ const LessonGuide = async ({lesson,topicId, session}:Props) =>
                         rounded-r-3xl 
                         p-6 
                         bg-secondary 
-                        -translate-y-1/2 
-                        top-[380px] 
+                        top-[80px] 
                         dark:bg-gray-900
                         pr-[80px]">
+
             <h1 className="font-bold 
                            text-5xl">
                 {lesson.lessonName}

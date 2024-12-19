@@ -5,17 +5,23 @@ import React from "react";
 
 type Props = {lesson:Lesson & {modules:(Module & {topics:Topic[]})[]}}
 
-const LessonsDisplayBox = async ({ lesson }: Props) => {
+const LessonsDisplayBox = ({ lesson }: Props) => {
   return (
     <div className="rounded-lg 
                     border 
-                    p-4 
-                    flex">
-      <Link  href={`/lesson/${lesson.id}/0/0`} className="w-[120px] h-[120px] relative">
-        <Image width={150} height={150} alt="lesson pic" src={lesson.picture || ""} className="w-full h-full rounded-lg object-cover"/>
+                    p-3 
+                    flex
+                    bg-gray-50
+                    dark:bg-gray-900">
+      <Link  href={`/lesson/${lesson.id}/0/0`} className="relative">
+        <Image width={150} height={150} alt="lesson pic" src={lesson.picture || ""} className="w-sm h-full rounded-lg object-cover"/>
       </Link>
 
-      <div className="flex flex-grow justify-between ml-4 flex-col">
+      <div className="flex 
+                      flex-grow 
+                      justify-between
+                      mr-[100px] 
+                      flex-col">
         <Link className="items-start 
                          mb-2 
                          flex 
@@ -24,7 +30,7 @@ const LessonsDisplayBox = async ({ lesson }: Props) => {
           <h3 className="text-primary '
                          truncate 
                          font-semibold 
-                         text-3xl">
+                         text-4xl">
             {lesson.lessonName}
           </h3>
         </Link>
@@ -33,8 +39,8 @@ const LessonsDisplayBox = async ({ lesson }: Props) => {
                         flex">
           <div className="text-secondary-foreground/70">
 
-            <h4 className="text-sm">
-                Modules
+            <h4 className="text-md">
+                Modules:
             </h4>
 
             <div>

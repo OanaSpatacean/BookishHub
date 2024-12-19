@@ -4,9 +4,8 @@ import { toast, useToast } from "./ui/use-toast";
 import axios from "axios";
 import { useMutation } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Minus, MinusCircle, PlusCircle } from 'lucide-react';
+import { PlusCircle, MinusCircle } from 'lucide-react';
 import { Button } from './ui/button';
-import { Separator } from './ui/separator';
 import { Input } from './ui/input';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -21,35 +20,37 @@ type Props = {}
 const DesignLessonForm = (props:Props) => {
     const { toast } = useToast();
 
-    const {mutate: designTopics, isLoading} = useMutation({
-        mutationFn: async ({name, modules}: Input) => {
-          const response = await axios.post("/api/lesson/designTopics", {name, modules});
-          return response.data;}
+    const { mutate: designTopics, isLoading } = useMutation({
+        mutationFn: async ({ name, modules }: Input) => {
+            const response = await axios.post("/api/lesson/designTopics", { name, modules });
+            return response.data;
+        }
     });
 
     const router = useRouter();
 
-    function onSubmit (data:Input){
-        if (data.name.length < 3) {
-            toast({ title: "Warning", description: "Name must contain at least 3 characters", variant: "destructive" });
+    function onSubmit(data: Input) {
+        if (data.name.length < 1) {
+            toast({ title: "Warning", description: "Name must contain at least 1 character", variant: "destructive" });
             return;
         }
 
         if (data.modules.some((module) => module === "")) {
-            toast({title: "Warning", description: "All modules must be completed", variant: "destructive"});
-            return;}
+            toast({ title: "Warning", description: "All modules must be completed", variant: "destructive" });
+            return;
+        }
 
         designTopics(data, {
-            onSuccess: ({lessonId}) => {
-                toast({title: "Done", description: "Topics created with success"});
+            onSuccess: ({ lessonId }) => {
+                toast({ title: "Done", description: "Topics created with success" });
                 router.push(`/design/${lessonId}`);
-              },
-            onError: (error) => {
-              console.error(error);
-              toast({title: "Warning", description: "An error occurred", variant: "destructive"});       
             },
-          });
-        }
+            onError: (error) => {
+                console.error(error);
+                toast({ title: "Warning", description: "An error occurred", variant: "destructive" });
+            },
+        });
+    }
 
     const form = useForm<Input>({
         defaultValues: {
@@ -121,18 +122,22 @@ const DesignLessonForm = (props:Props) => {
                                     className="flex-grow
                                                mt-1"
                                 />
-                                <Button
-                                    type="button"
-                                    variant="ghost"
-                                    onClick={() => {
-                                        const modules = form.watch('modules');
-                                        form.setValue('modules', modules.filter((_, i) => i !== index));
-                                    }}
-                                    className="text-red-500"
-                                >
-                                    <MinusCircle className="h-5 
-                                                            w-5" />
-                                </Button>
+                                {form.watch('modules').length > 1 && (
+                                    <Button
+                                        type="button"
+                                        variant="ghost"
+                                        onClick={() => {
+                                            const modules = form.watch('modules');
+                                            if (modules.length > 1) {
+                                                form.setValue('modules', modules.filter((_, i) => i !== index));
+                                            }
+                                        }}
+                                        className="text-red-500"
+                                    >
+                                        <MinusCircle className="h-5 
+                                                                w-5" />
+                                    </Button>
+                                )}
                             </motion.div>
                         ))}
                     </AnimatePresence>
@@ -168,4 +173,4 @@ const DesignLessonForm = (props:Props) => {
     );
 };
 
-export default DesignLessonForm
+export default DesignLessonForm;

@@ -72,7 +72,7 @@ const NavigationBar = async (props:Props) => {
                         {session?.user ? (
                             session.user.isAdmin ? ( 
                                 <Link href='/admin' className='mr-5'>
-                                    Admin Panel
+                                    ADMIN PANEL
                                 </Link>
                             ) : (  
                                 <>

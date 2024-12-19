@@ -25,7 +25,7 @@ export async function POST(request: Request, response: Response)
 
         let return_modules: returnModules = await strict_output(
             "You are an AI used for designing lesson content, crafting suitable topic names for each module, and finding relevant and appropriate YouTube videos for each topic. Understand that a lesson contains modules given by the user. Your job is to suggest topics for each of those modules.",
-            new Array(modules.length).fill(`Your task is to create a lesson about ${name}. For each of the following modules: ${modules.join(', ')}, create for each of the modules that you get in the provided array at least 3 topics (or more, how many topics you consider it is relevant for the module). After that, for each topic, design a specific YouTube search query to locate a comprehensive educational video related to that topic. Each search query should yield a clear, instructive video on YouTube.`),
+            new Array(modules.length).fill(`Your task is to create a lesson about ${name}. For each of the following modules: ${modules.join(', ')}, create for each of the modules that you get in the provided array at least 3, 4, 5 or 6 topics (or more, how many topics you consider it is relevant for the module). After that, for each topic, design a specific YouTube search query to locate a comprehensive educational video related to that topic. Each search query should yield a clear, instructive video on YouTube.`),
             {
               name: "name of the module",
               topics: "an array of topics, where each topic should have a topicName key and a ytSearchQuery key in the JSON object",

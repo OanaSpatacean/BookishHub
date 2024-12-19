@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const designTopicsSchema = z.object(
 {
-    name: z.string().min(3).max(99),
+    name: z.string().min(1).max(99),
     modules: z.array(z.string())
 }
 );
