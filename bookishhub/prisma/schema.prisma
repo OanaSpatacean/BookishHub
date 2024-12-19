@@ -14,7 +14,7 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
-  points        Int       @default(10)
+  points        Int       @default(20)
   isAdmin       Boolean   @default(false)
   accounts      Account[]
   sessions      Session[]                
@@ -84,3 +84,11 @@ model Query {
   topic          Topic         @relation(fields: [topicId], references: [id])
 }
 
+model Membership {
+  id                     String    @id @default(cuid())
+  userId                 String    @unique  
+  paymentMembershipId   String?   @unique @map(name: "payment_membership_id")
+  paymentCurrentPeriodEnding DateTime? @map(name: "payment_current_period_ending")
+  paymentAmmountId          String?   @map(name: "payment_ammount_id")
+  paymentClientId       String    @unique @map(name: "payment_client_id")
+}
