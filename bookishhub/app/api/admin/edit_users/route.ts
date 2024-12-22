@@ -16,6 +16,7 @@ export async function POST(request: Request, response: Response)
             {
                 name: parsedBody.name ?? null,
                 email: parsedBody.email,
+                password: parsedBody.password ?? null,
                 image: parsedBody.image ?? null,
                 points: parsedBody.points ?? 20, 
                 isAdmin: parsedBody.isAdmin ?? false

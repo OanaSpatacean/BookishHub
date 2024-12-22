@@ -1,7 +1,6 @@
 'use client'
-import { createUserSchema } from '@/app/form-validators/user';
+import { createUserSchema, loginSchema } from '@/app/form-validators/user';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
@@ -13,12 +12,12 @@ import { z } from 'zod';
 import axios  from 'axios';
 import { useForm } from 'react-hook-form';
 import bcrypt from 'bcryptjs';
+import Link from 'next/link';
 
-type Props = {};
+type Props = {}
+type Input = z.infer<typeof loginSchema>;
 
-type Input = z.infer<typeof createUserSchema>;
-
-const CreateNewUser = (props: Props) => {
+const Login = (props: Props) => {
     const { toast } = useToast();
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
@@ -26,52 +25,41 @@ const CreateNewUser = (props: Props) => {
 
     const form = useForm<Input>(
     {
-        resolver: zodResolver(createUserSchema),
+        resolver: zodResolver(loginSchema),
         defaultValues: {
-            name: '',
             email: '',
             password: '',
-            points: 10,
-            isAdmin: false,
         },
     });
 
-    const { mutate: createUser } = useMutation(
+    const { mutate: login } = useMutation(
     {
         mutationFn: async (data: Input) => 
         {
-            if (!data.password) {
-                throw new Error("Password is required");
-            }
-
-            const hashedPassword = await bcrypt.hash(data.password, 10);
-            const response = await axios.post('/api/admin/edit_users', {
-                ...data,
-                password: hashedPassword, 
-            });
+            const response = await axios.post('/api/login', data);
             return response.data;
         },
         onSuccess: (newUser) => 
         {
-            toast({ title: "Success", description: "User created successfully" });
+            toast({ title: "Success", description: "You have logged in successfully" });
             form.reset();
             setIsLoading(false);
-            router.push(`/admin/edit_users`);
+            router.push(`/`);
         },
         onError: () => 
         {
-            toast({ title: "Warning", description: "Failed to create user", variant: "destructive" });
+            toast({ title: "Warning", description: "Failed to log in", variant: "destructive" });
         }
     })
 
     const handleCreateSubmit = (data: Input) => 
     {
         console.log("Data being sent:", data);
-        createUser(data);
+        login(data);
     };
     
     return (
-            <div className="flex 
+        <div className="flex 
                             flex-col 
                             items-start 
                             mx-auto 
@@ -86,7 +74,7 @@ const CreateNewUser = (props: Props) => {
                             underline 
                             decoration-4 
                             decoration-gray-600">
-                    Create new user
+                    Login
                 </h1>
 
                 <Form {...form}>
@@ -97,14 +85,6 @@ const CreateNewUser = (props: Props) => {
                                                                                       shadow-md 
                                                                                       w-full 
                                                                                       mt-8">
-                        <FormField control={form.control} name="name" render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Name</FormLabel>
-                                    <FormControl>
-                                        <Input placeholder="User name" {...field} />
-                                    </FormControl>
-                                </FormItem>
-                            )}/>
 
                         <FormField control={form.control} name="email" render={({ field }) => (
                                 <FormItem>
@@ -141,45 +121,19 @@ const CreateNewUser = (props: Props) => {
                             )}
                         />
 
-                        <FormField control={form.control} name="points" render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Points</FormLabel>
-                                    <FormControl>
-                                    <Input
-                                        placeholder="0"
-                                        type="number"
-                                        min="0"  
-                                        {...field}
-                                        onChange={(e) => {
-                                            const value = Number(e.target.value);
-                                            field.onChange(value < 0 ? 0 : value); 
-                                        }}
-                                    />
-                                    </FormControl>
-                                </FormItem>
-                            )}/>
-
-                        <FormField control={form.control} name="isAdmin" render={({ field }) => (
-                                <FormItem className="flex 
-                                                     items-center 
-                                                     space-x-2">
-                                    <FormControl>
-                                        <Checkbox
-                                            checked={field.value}
-                                            onCheckedChange={field.onChange}
-                                        />
-                                    </FormControl>
-                                    <FormLabel>Admin</FormLabel>
-                                </FormItem>
-                            )}/>
-
                         <Button type="submit" size="lg" className="w-full" disabled={isLoading}>
-                            {isLoading ? 'Creating user...' : 'Create user'}
+                            {isLoading ? 'Login into your account...' : 'Login'}
                         </Button>
+                        <p className="text-sm text-center">
+                            Don't have an account yet?{' '}
+                            <Link href="/register" className="text-blue-500 hover:underline">
+                                Register here
+                            </Link>
+                        </p>
                     </form>
             </Form>
-        </div>          
-    )
-}
+        </div>              
+    );
+};
 
-export default CreateNewUser;
+export default Login;

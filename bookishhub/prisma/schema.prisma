@@ -16,6 +16,7 @@ model User {
   image         String?
   points        Int       @default(20)
   isAdmin       Boolean   @default(false)
+  password      String?
   accounts      Account[]
   sessions      Session[]                
 }

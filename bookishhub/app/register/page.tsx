@@ -13,12 +13,12 @@ import { z } from 'zod';
 import axios  from 'axios';
 import { useForm } from 'react-hook-form';
 import bcrypt from 'bcryptjs';
+import Link from 'next/link';
 
-type Props = {};
-
+type Props = {}
 type Input = z.infer<typeof createUserSchema>;
 
-const CreateNewUser = (props: Props) => {
+const Register = (props: Props) => {
     const { toast } = useToast();
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
@@ -31,12 +31,10 @@ const CreateNewUser = (props: Props) => {
             name: '',
             email: '',
             password: '',
-            points: 10,
-            isAdmin: false,
         },
     });
 
-    const { mutate: createUser } = useMutation(
+    const { mutate: register } = useMutation(
     {
         mutationFn: async (data: Input) => 
         {
@@ -53,25 +51,25 @@ const CreateNewUser = (props: Props) => {
         },
         onSuccess: (newUser) => 
         {
-            toast({ title: "Success", description: "User created successfully" });
+            toast({ title: "Success", description: "Your account has been created successfully" });
             form.reset();
             setIsLoading(false);
-            router.push(`/admin/edit_users`);
+            router.push(`/login`);
         },
         onError: () => 
         {
-            toast({ title: "Warning", description: "Failed to create user", variant: "destructive" });
+            toast({ title: "Warning", description: "Failed to register", variant: "destructive" });
         }
     })
 
     const handleCreateSubmit = (data: Input) => 
     {
         console.log("Data being sent:", data);
-        createUser(data);
+        register(data);
     };
     
     return (
-            <div className="flex 
+        <div className="flex 
                             flex-col 
                             items-start 
                             mx-auto 
@@ -86,7 +84,7 @@ const CreateNewUser = (props: Props) => {
                             underline 
                             decoration-4 
                             decoration-gray-600">
-                    Create new user
+                    Register
                 </h1>
 
                 <Form {...form}>
@@ -141,45 +139,19 @@ const CreateNewUser = (props: Props) => {
                             )}
                         />
 
-                        <FormField control={form.control} name="points" render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Points</FormLabel>
-                                    <FormControl>
-                                    <Input
-                                        placeholder="0"
-                                        type="number"
-                                        min="0"  
-                                        {...field}
-                                        onChange={(e) => {
-                                            const value = Number(e.target.value);
-                                            field.onChange(value < 0 ? 0 : value); 
-                                        }}
-                                    />
-                                    </FormControl>
-                                </FormItem>
-                            )}/>
-
-                        <FormField control={form.control} name="isAdmin" render={({ field }) => (
-                                <FormItem className="flex 
-                                                     items-center 
-                                                     space-x-2">
-                                    <FormControl>
-                                        <Checkbox
-                                            checked={field.value}
-                                            onCheckedChange={field.onChange}
-                                        />
-                                    </FormControl>
-                                    <FormLabel>Admin</FormLabel>
-                                </FormItem>
-                            )}/>
-
                         <Button type="submit" size="lg" className="w-full" disabled={isLoading}>
-                            {isLoading ? 'Creating user...' : 'Create user'}
+                            {isLoading ? 'Creating your new account...' : 'Register'}
                         </Button>
+                        <p className="text-sm text-center">
+                            Already have an account?{' '}
+                            <Link href="/login" className="text-blue-500 hover:underline">
+                                Login here
+                            </Link>
+                        </p>
                     </form>
             </Form>
-        </div>          
-    )
-}
+        </div>              
+    );
+};
 
-export default CreateNewUser;
+export default Register;
