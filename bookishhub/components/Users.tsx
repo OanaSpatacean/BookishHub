@@ -148,19 +148,6 @@ const UsersDisplayBox = ({ user }: Props) => {
                                     <label className="block 
                                                       text-sm 
                                                       font-medium">
-                                        Name
-                                    </label>
-
-                                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="border 
-                                                                                                                         rounded 
-                                                                                                                         p-2 
-                                                                                                                         w-full"/>
-                                </div>
-
-                                <div>
-                                    <label className="block 
-                                                      text-sm 
-                                                      font-medium">
                                         Points
                                     </label>
 
