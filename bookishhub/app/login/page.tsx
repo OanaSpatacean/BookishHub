@@ -11,8 +11,9 @@ import React, { useState } from 'react'
 import { z } from 'zod';
 import axios  from 'axios';
 import { useForm } from 'react-hook-form';
-import bcrypt from 'bcryptjs';
 import Link from 'next/link';
+import { signIn } from 'next-auth/react';
+import { FcGoogle } from 'react-icons/fc'; 
 
 type Props = {}
 type Input = z.infer<typeof loginSchema>;
@@ -84,7 +85,8 @@ const Login = (props: Props) => {
                                                                                       rounded-md 
                                                                                       shadow-md 
                                                                                       w-full 
-                                                                                      mt-8">
+                                                                                      mt-8
+                                                                                      dark:bg-gray-900">
 
                         <FormField control={form.control} name="email" render={({ field }) => (
                                 <FormItem>
@@ -122,8 +124,29 @@ const Login = (props: Props) => {
                         />
 
                         <Button type="submit" size="lg" className="w-full" disabled={isLoading}>
-                            {isLoading ? 'Login into your account...' : 'Login'}
+                            {isLoading ? 'Logging into your account...' : 'Log in'}
                         </Button>
+
+                        <div className="text-center">
+                            <Button type="button" size="lg" variant="outline" className="flex 
+                                                                                         items-center 
+                                                                                         justify-center 
+                                                                                         w-full 
+                                                                                         mt-4 
+                                                                                         dark:bg-white 
+                                                                                         dark:text-black 
+                                                                                         bg-gray-900 
+                                                                                         text-white 
+                                                                                         hover:text-white 
+                                                                                         hover:bg-gray-800 
+                                                                                         dark:hover:bg-gray-200" onClick={() => signIn('google')}>
+                                <FcGoogle className="mr-2 
+                                                     h-5 
+                                                     w-5"/> 
+                                Log in with your Google account
+                            </Button>
+                        </div>
+
                         <p className="text-sm text-center">
                             Don't have an account yet?{' '}
                             <Link href="/register" className="text-blue-500 hover:underline">
