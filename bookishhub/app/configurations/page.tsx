@@ -62,7 +62,7 @@ const Configurations = async (props: Props) => {
                 </div>
 
                 <div className="ml-5">
-                Welcome to BookishHub! We're excited to help you unlock the full potential of your membership experience.
+                We're excited to help you unlock the full potential of your membership experience.
 
 If you don’t already have a membership, you can easily join by pressing the button below. Becoming a member grants you access to a wide range of exclusive features, including custom tools, advanced resources, and priority support to help you achieve your goals with ease and efficiency.
 
