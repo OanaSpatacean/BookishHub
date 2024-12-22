@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ArrowRight, InfoIcon } from 'lucide-react';
 import { databaseClient } from '@/lib/database';
 import MembershipFees from '@/components/MembershipFees';
+import verifyMembership from '@/lib/membership';
 
 type Props = {}
 
@@ -19,6 +20,8 @@ const LessonsDisplayPage = async (props: Props) => {
           topics: true
         }
       }}})
+
+  const havePowerAccount = await verifyMembership();
 
   return (
     <div className="max-w-7xl 
@@ -80,7 +83,7 @@ const LessonsDisplayPage = async (props: Props) => {
           </div>
       </div>
 
-      <MembershipFees/>
+      <MembershipFees havePowerAccount={havePowerAccount}/>
 
       {lessons.length === 0 ? (
        <div className="flex items-center justify-center h-[30vh]">

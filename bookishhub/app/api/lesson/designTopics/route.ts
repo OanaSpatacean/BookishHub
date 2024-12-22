@@ -4,6 +4,8 @@ import { designTopicsSchema } from "@/app/form-validators/lesson"
 import { strict_output } from "@/lib/openai";
 import { databaseClient } from "@/lib/database";
 import { NextResponse } from "next/server";
+import verifyMembership from "@/lib/membership";
+import { getAuthSession } from "@/lib/authentication";
 
 export async function POST(request: Request, response: Response)
 {
@@ -16,12 +18,33 @@ export async function POST(request: Request, response: Response)
                 topicName: string;
             }[];
         }[];
+
+        const session = await getAuthSession();
+        
+        if (!session?.user) 
+        {
+            return new NextResponse("You are not logged in", 
+                                        { 
+                                            status: 401 
+                                        }
+                                    )
+        }
         
         const body = await request.json();
         const {name, modules} = designTopicsSchema.parse(body);
+        const havePowerAccount = verifyMembership();
 
         console.log("Name:", name);
         console.log("Modules:", modules);
+
+        if (session.user.points <= 0 && !havePowerAccount) 
+        {
+            return new NextResponse("You have no more points to use for a new design!", 
+                                        { 
+                                            status: 402 
+                                        }
+                                    )
+        }
 
         let return_modules: returnModules = await strict_output(
             "You are an AI used for designing lesson content, crafting suitable topic names for each module, and finding relevant and appropriate YouTube videos for each topic. Understand that a lesson contains modules given by the user. Your job is to suggest topics for each of those modules.",
@@ -70,6 +93,21 @@ export async function POST(request: Request, response: Response)
                 }),
             });
         }
+
+        await databaseClient.user.update(
+        {
+            where: 
+            {
+              id: session.user.id
+            },
+            data: 
+            {
+              points: 
+              {
+                decrement: 1
+              }
+            }
+        })
         
         return NextResponse.json({lessonId: lesson.id});
     } 
