@@ -94,7 +94,8 @@ const Register = (props: Props) => {
                                                                                       rounded-md 
                                                                                       shadow-md 
                                                                                       w-full 
-                                                                                      mt-8">
+                                                                                      mt-8
+                                                                                      dark:bg-gray-900">
                         <FormField control={form.control} name="name" render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Name</FormLabel>
