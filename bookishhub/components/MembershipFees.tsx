@@ -63,13 +63,13 @@ const MembershipFees = ({havePowerAccount}:Props) => {
           <span className="ml-2">⭐</span>
         </Button>
 
-        {data?.user.points} out of 20 designs left to be made without charge
+        {data?.user?.points !== undefined && data?.user?.points > 0 ? data.user.points : 0} out of 20 designs left to be made without charge
       </>
         ) : (
           <p className="text-center text-gray-800 text-md font-medium">
             We are thrilled to have you in our&nbsp;
             <span className="font-semibold text-blue-700">Power BookishHub&nbsp;</span> 
-                community! As a valued member, you gain access to exclusive resources, insights, and tools tailored to enhance your experience. With unlimited lesson designs at your fingertips, you'll have the freedom to bring your ideas to life without limits. 
+              community! As a valued member, you gain access to exclusive resources, insights, and tools tailored to enhance your experience. With unlimited lesson designs at your fingertips, you'll have the freedom to bring your ideas to life without limits. 
           </p>
         )}
     </div>

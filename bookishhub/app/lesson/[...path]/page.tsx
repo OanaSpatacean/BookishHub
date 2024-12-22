@@ -21,7 +21,7 @@ const LessonPage = async ({params:{path} }:Props) =>
   const session = await getAuthSession();
 
   if(!session?.user){ 
-      return redirect('/library');
+      return redirect('/');
   }
 
   const [lessonId, moduleId, topicId] = path;

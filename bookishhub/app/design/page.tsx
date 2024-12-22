@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { InfoIcon } from 'lucide-react';
 import React from 'react'
 import { getAuthSession } from '@/lib/authentication';
+import verifyMembership from '@/lib/membership';
 
 type Props = {}
 
@@ -10,8 +11,10 @@ const DesignPage = async (props: Props) => {
     const session = await getAuthSession();
 
     if(!session?.user){ 
-        return redirect('/library');
+        return redirect('/');
     }
+
+    const havePowerAccount = verifyMembership();
 
     return (
         <div className='flex 
@@ -31,7 +34,7 @@ const DesignPage = async (props: Props) => {
                 Design your own personalized lesson
             </h1>
             
-            <DesignLessonForm />
+            <DesignLessonForm session={session} havePowerAccount={havePowerAccount}/>
 
             <div className="bg-secondary 
                             border-none 

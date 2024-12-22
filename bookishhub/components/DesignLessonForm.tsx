@@ -15,9 +15,9 @@ import { useForm } from 'react-hook-form';
 import React from 'react'
 
 type Input = z.infer<typeof designTopicsSchema>
-type Props = {}
+type Props = {session:any, havePowerAccount:any}
 
-const DesignLessonForm = (props:Props) => {
+const DesignLessonForm = ({session, havePowerAccount}:Props) => {
     const { toast } = useToast();
 
     const { mutate: designTopics, isLoading } = useMutation({
@@ -30,6 +30,15 @@ const DesignLessonForm = (props:Props) => {
     const router = useRouter();
 
     function onSubmit(data: Input) {
+        if (session.user.points <= 0 && !havePowerAccount && !session.user.isAdmin) {
+            toast({
+                title: "Error",
+                description: "You do not have any remaining points for designing a new lesson",
+                variant: "destructive",
+            });
+            return;
+        }
+
         if (data.name.length < 1) {
             toast({ title: "Warning", description: "Name must contain at least 1 character", variant: "destructive" });
             return;
