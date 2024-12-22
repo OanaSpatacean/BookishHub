@@ -49,7 +49,10 @@ export const authenticationOptions: NextAuthOptions = {
                 token.isAdmin = user_database.isAdmin; 
             }
             return token;
-        }
+        },
+        redirect: async ({ url, baseUrl }) => {
+            return baseUrl + '/';
+        },
     },
     adapter: PrismaAdapter(databaseClient),
     providers: [
