@@ -3,6 +3,10 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { NextAuthOptions, DefaultSession } from "next-auth";
 import { databaseClient } from "./database";
 import { getServerSession } from "next-auth/next";
+import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken';
+import { cookies } from "next/headers";
 
 declare module 'next-auth/jwt' {
     interface JWT {
@@ -65,11 +69,72 @@ export const authenticationOptions: NextAuthOptions = {
                 },
             },
         }),
+        CredentialsProvider(
+        {
+            name: "Credentials",
+            credentials: 
+            {
+                email: { label: "Email", type: "text" },
+                password: { label: "Password", type: "password" },
+            },
+            async authorize(credentials) 
+            {
+                if (!credentials?.email || !credentials?.password) 
+                {
+                    throw new Error("Email and Password are required");
+                }
+
+                const user = await databaseClient.user.findUnique(
+                {
+                    where: { email: credentials.email },
+                });
+
+                if (!user || !user.password) 
+                {
+                    throw new Error("Invalid credentials");
+                }
+
+                const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
+                if (!isPasswordValid) 
+                {
+                    throw new Error("Invalid credentials");
+                }
+
+                return {
+                    id: user.id,
+                    email: user.email,
+                    points: user.points,
+                    isAdmin: user.isAdmin,
+                }
+            }
+        })
     ],
     secret: process.env.NEXTAUTH_SECRET as string,
 };
 
-export const getAuthSession = () => {
-    return getServerSession(authenticationOptions);
+export const getAuthSession = async () => {
+    const session = await getServerSession(authenticationOptions);
+
+    if (!session) 
+    {
+        const token = cookies().get('next-auth.session-token')?.value;
+
+        if (token) 
+        {
+            try 
+            {
+                const user = jwt.verify(token, process.env.NEXTAUTH_SECRET!);
+                return { user }; 
+            } 
+            catch (error) 
+            {
+                console.error('Invalid token:', error);
+            }
+        }
+
+        return null;
+    }
+
+    return session;
 }
 

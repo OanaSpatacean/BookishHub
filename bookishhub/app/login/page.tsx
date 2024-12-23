@@ -1,16 +1,12 @@
 'use client'
-import { createUserSchema, loginSchema } from '@/app/form-validators/user';
+import { loginSchema } from '@/app/form-validators/user';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { z } from 'zod';
-import axios  from 'axios';
-import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
 import { FcGoogle } from 'react-icons/fc'; 
@@ -24,39 +20,21 @@ const Login = (props: Props) => {
     const router = useRouter();
     const [showPassword, setShowPassword] = useState(false); 
 
-    const form = useForm<Input>(
-    {
-        resolver: zodResolver(loginSchema),
-        defaultValues: {
-            email: '',
-            password: '',
-        },
-    });
-
-    const { mutate: login } = useMutation(
-    {
-        mutationFn: async (data: Input) => 
-        {
-            const response = await axios.post('/api/login', data);
-            return response.data;
-        },
-        onSuccess: (newUser) => 
-        {
+    const handleCreateSubmit = async (data: Input) => {
+        setIsLoading(true);
+        const result = await signIn("credentials", {
+            email: data.email,
+            password: data.password,
+            redirect: false,
+        });
+    
+        if (result?.error) {
+            toast({ title: "Error", description: result.error, variant: "destructive" });
+        } else {
             toast({ title: "Success", description: "You have logged in successfully" });
-            form.reset();
-            setIsLoading(false);
-            router.push(`/`);
-        },
-        onError: () => 
-        {
-            toast({ title: "Warning", description: "Failed to log in", variant: "destructive" });
+            router.push("/");
         }
-    })
-
-    const handleCreateSubmit = (data: Input) => 
-    {
-        console.log("Data being sent:", data);
-        login(data);
+        setIsLoading(false);
     };
     
     return (

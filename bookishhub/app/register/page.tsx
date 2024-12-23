@@ -1,18 +1,13 @@
 'use client'
 import { createUserSchema } from '@/app/form-validators/user';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { z } from 'zod';
 import axios  from 'axios';
-import { useForm } from 'react-hook-form';
-import bcrypt from 'bcryptjs';
 import Link from 'next/link';
 
 type Props = {}
@@ -24,48 +19,29 @@ const Register = (props: Props) => {
     const router = useRouter();
     const [showPassword, setShowPassword] = useState(false); 
 
-    const form = useForm<Input>(
-    {
-        resolver: zodResolver(createUserSchema),
-        defaultValues: {
-            name: '',
-            email: '',
-            password: '',
-        },
-    });
-
-    const { mutate: register } = useMutation(
-    {
-        mutationFn: async (data: Input) => 
+    const handleCreateSubmit = async (data: Input) => {
+        setIsLoading(true);
+    
+        try 
         {
-            if (!data.password) {
-                throw new Error("Password is required");
-            }
-
-            const hashedPassword = await bcrypt.hash(data.password, 10);
-            const response = await axios.post('/api/admin/edit_users', {
-                ...data,
-                password: hashedPassword, 
+            const response = await axios.post("/api/register", {
+                name: data.name,
+                email: data.email,
+                password: data.password,
             });
-            return response.data;
-        },
-        onSuccess: (newUser) => 
+    
+            if (response.data.success) 
+            {
+                toast({ title: "Success", description: "Your account has been created" });
+                router.push("/login");
+            }
+        } 
+        catch (error) 
         {
-            toast({ title: "Success", description: "Your account has been created successfully" });
-            form.reset();
-            setIsLoading(false);
-            router.push(`/login`);
-        },
-        onError: () => 
-        {
-            toast({ title: "Warning", description: "Failed to register", variant: "destructive" });
+            toast({ title: "Error", description: "Failed to register", variant: "destructive" });
         }
-    })
-
-    const handleCreateSubmit = (data: Input) => 
-    {
-        console.log("Data being sent:", data);
-        register(data);
+    
+        setIsLoading(false);
     };
     
     return (

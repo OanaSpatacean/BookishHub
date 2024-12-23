@@ -39,7 +39,7 @@ export async function POST(request: Request, response: Response)
             }
         })
 
-        return NextResponse.json({ success: true, user });
+        return NextResponse.json({ success: true, user: { id: user.id, email: user.email } });
     } 
     catch (error) 
     {
