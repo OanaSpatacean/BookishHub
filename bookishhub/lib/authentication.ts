@@ -5,8 +5,8 @@ import { databaseClient } from "./database";
 import { getServerSession } from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken';
 import { cookies } from "next/headers";
+import jwt, { JwtPayload } from 'jsonwebtoken';
 
 declare module 'next-auth/jwt' {
     interface JWT {
@@ -115,26 +115,48 @@ export const authenticationOptions: NextAuthOptions = {
 export const getAuthSession = async () => {
     const session = await getServerSession(authenticationOptions);
 
-    if (!session) 
-    {
-        const token = cookies().get('next-auth.session-token')?.value;
-
-        if (token) 
-        {
-            try 
-            {
-                const user = jwt.verify(token, process.env.NEXTAUTH_SECRET!);
-                return { user }; 
-            } 
-            catch (error) 
-            {
-                console.error('Invalid token:', error);
-            }
-        }
-
-        return null;
+    if (session) {
+        return session; 
     }
 
-    return session;
+    const token = cookies().get('next-auth.session-token')?.value;
+
+    if (token) 
+    {
+        try 
+        {
+            const decoded = jwt.verify(token, process.env.NEXTAUTH_SECRET!) as JwtPayload & 
+            {
+                id: string;
+                name?: string;
+                email?: string;
+                image?: string;
+                isAdmin?: boolean;
+                points?: number;
+            };
+
+            if (!decoded || typeof decoded === 'string') 
+            {
+                throw new Error('Token invalid.');
+            }
+
+            return {
+                user: {
+                id: decoded.id,
+                name: decoded.name || null,
+                email: decoded.email || null,
+                image: decoded.image || null,
+                isAdmin: decoded.isAdmin || false,
+                points: decoded.points || 0,
+                },
+            };
+        } 
+        catch (error) 
+        {
+            console.error('Invalid JWT token:', error);
+        }
+    }
+
+    return null; 
 }
 
