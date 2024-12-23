@@ -49,6 +49,8 @@ export const authenticationOptions: NextAuthOptions = {
     
             if (user_database) {
                 token.id = user_database.id;
+                token.name = user_database.name;
+                token.email = user_database.email;
                 token.points = user_database.points;
                 token.isAdmin = user_database.isAdmin; 
             }
