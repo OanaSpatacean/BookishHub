@@ -75,7 +75,7 @@ const Login = (props: Props) => {
                             underline 
                             decoration-4 
                             decoration-gray-600">
-                    Login
+                    Log in
                 </h1>
 
                 <Form {...form}>
