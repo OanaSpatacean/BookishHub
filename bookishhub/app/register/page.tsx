@@ -9,6 +9,8 @@ import React, { useState } from 'react'
 import { z } from 'zod';
 import axios  from 'axios';
 import Link from 'next/link';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 type Props = {}
 type Input = z.infer<typeof createUserSchema>;
@@ -18,6 +20,16 @@ const Register = (props: Props) => {
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
     const [showPassword, setShowPassword] = useState(false); 
+
+    const form = useForm<Input>(
+        {
+            resolver: zodResolver(createUserSchema),
+            defaultValues: {
+                name: '',
+                email: '',
+                password: '',
+            },
+        });
 
     const handleCreateSubmit = async (data: Input) => {
         setIsLoading(true);

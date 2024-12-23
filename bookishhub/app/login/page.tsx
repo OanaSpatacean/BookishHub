@@ -10,6 +10,8 @@ import { z } from 'zod';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
 import { FcGoogle } from 'react-icons/fc'; 
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 type Props = {}
 type Input = z.infer<typeof loginSchema>;
@@ -19,6 +21,15 @@ const Login = (props: Props) => {
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
     const [showPassword, setShowPassword] = useState(false); 
+
+    const form = useForm<Input>(
+    {
+        resolver: zodResolver(loginSchema),
+        defaultValues: {
+            email: '',
+            password: '',
+        },
+    });
 
     const handleCreateSubmit = async (data: Input) => {
         setIsLoading(true);
