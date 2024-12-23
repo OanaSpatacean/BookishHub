@@ -18,8 +18,24 @@ export async function POST(request: Request, response: Response)
                 email: parsedBody.email,
                 password: parsedBody.password ?? null,
                 image: parsedBody.image ?? null,
-                points: parsedBody.points ?? 20, 
-                isAdmin: parsedBody.isAdmin ?? false
+                points: parsedBody.points ?? 20,
+                isAdmin: parsedBody.isAdmin ?? false,
+                accounts: 
+                {
+                    create: 
+                    {
+                        type: 'default', 
+                        provider: 'local', 
+                        providerAccountId: parsedBody.email, 
+                        refresh_token: null,
+                        access_token: null,
+                        expires_at: null,
+                        token_type: null,
+                        scope: null,
+                        id_token: null,
+                        session_state: null,
+                    }
+                }
             }
         })
 
@@ -27,14 +43,14 @@ export async function POST(request: Request, response: Response)
     } 
     catch (error) 
     {
-        console.error("Error creating user:", error);
+        console.error('Error creating user and account:', error);
 
         if (error instanceof ZodError) 
         {
-            return new NextResponse("Invalid request body format", { status: 400 });
+            return new NextResponse('Invalid request body format', { status: 400 });
         }
 
-        return new NextResponse("Internal server error", { status: 500 });
+        return new NextResponse('Internal server error', { status: 500 });
     }
 }
 
