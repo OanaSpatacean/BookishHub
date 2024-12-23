@@ -44,6 +44,7 @@ const Login = (props: Props) => {
         } else {
             toast({ title: "Success", description: "You have logged in successfully" });
             router.push("/");
+            router.refresh();
         }
         setIsLoading(false);
     };
