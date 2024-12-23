@@ -71,27 +71,27 @@ const NavigationBar = async (props:Props) => {
                                     flex'>
                         {session?.user ? (
                             session.user.isAdmin ? ( 
-                                <Link href='/admin' className='mr-5'>
-                                    ADMIN PANEL
+                                <Link href='/admin' className='mr-5 uppercase'>
+                                    Admin panel
                                 </Link>
                             ) : (  
                                 <>
-                                    <Link href='/repo' className='mr-5'>
+                                    <Link href='/repo' className='mr-5 uppercase'>
                                         Repo Insights
                                     </Link>
-                                    <Link href='/breakdown' className='mr-5'>
+                                    <Link href='/breakdown' className='mr-5 uppercase'>
                                         PDF Breakdown
                                     </Link>
-                                    <Link href='/game' className='mr-5'>
+                                    <Link href='/game' className='mr-5 uppercase'>
                                         Game Zone
                                     </Link>
-                                    <Link href='/library' className='mr-5'>
+                                    <Link href='/library' className='mr-5 uppercase'>
                                         Lesson Design
                                     </Link>
-                                    <Link href='/draft' className='mr-5'>
+                                    <Link href='/draft' className='mr-5 uppercase'>
                                         Draft Assist
                                     </Link>
-                                    <Link href='/configurations' className='mr-5'>
+                                    <Link href='/configurations' className='mr-5 uppercase'>
                                         Configurations
                                     </Link>
                                 </>
