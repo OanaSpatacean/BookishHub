@@ -37,7 +37,7 @@ export async function POST(request: Request, response: Response)
         console.log("Name:", name);
         console.log("Modules:", modules);
 
-        if (session.user.points <= 0 && !havePowerAccount && !session.user.isAdmin) 
+        if (session.user.points <= 0 || !havePowerAccount || !session.user.isAdmin) 
         {
             return new NextResponse("You have no more points to use for a new design!", 
                                         { 
