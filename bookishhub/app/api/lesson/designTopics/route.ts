@@ -32,12 +32,12 @@ export async function POST(request: Request, response: Response)
         
         const body = await request.json();
         const {name, modules} = designTopicsSchema.parse(body);
-        const havePowerAccount = verifyMembership();
+        const havePowerAccount = await verifyMembership();
 
         console.log("Name:", name);
         console.log("Modules:", modules);
 
-        if (session.user.points <= 0 || !havePowerAccount || !session.user.isAdmin) 
+        if (session.user.points <= 0 && !havePowerAccount && session.user.isAdmin == false) 
         {
             return new NextResponse("You have no more points to use for a new design!", 
                                         { 
