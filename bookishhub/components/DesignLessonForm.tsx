@@ -40,7 +40,7 @@ const DesignLessonForm = ({session, havePowerAccount}:Props) => {
         }
 
         if (data.name.length < 1) {
-            toast({ title: "Warning", description: "Name must contain at least 1 character", variant: "destructive" });
+            toast({ title: "Warning", description: "The lesson name must contain at least 1 character", variant: "destructive" });
             return;
         }
 
