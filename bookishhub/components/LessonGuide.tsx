@@ -49,8 +49,8 @@ const LessonGuide = async ({lesson,topicId, session}:Props) =>
                                 py-5 
                                 relative" key={module.id}>
                     <div className="grid 
-                                    grid-cols-1 
-                                    sm:grid-cols-2 
+                                    mb-6
+                                    mt-4 
                                     gap-9">
                             <h3 className="font-bold 
                                            text-3xl">
