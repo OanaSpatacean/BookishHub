@@ -36,11 +36,11 @@ const Configurations = async (props: Props) => {
 
             {isPowerAccount ? (
                 <p className="text-secondary-foreground/50 text-3xl text-center mt-4">
-                    You have a Power BookishHub account!
+                    You have a BookishHub Power account!
                 </p>
             ) : (
                 <p className="text-secondary-foreground/50 text-3xl text-center mt-4">
-                    You don't have a Power BookishHub account!
+                    You don't have a BookishHub Power account!
                 </p>
             )}
 
@@ -66,9 +66,9 @@ const Configurations = async (props: Props) => {
 
 If you don’t already have a membership, you can easily join by pressing the button below. Becoming a member grants you access to a wide range of exclusive features, including custom tools, advanced resources, and priority support to help you achieve your goals with ease and efficiency.
 
-Already have a membership? Fantastic! As a valued member, you’ll become part of the Power BookishHub community, an exclusive group of individuals who enjoy enhanced benefits and premium access to everything BookishHub has to offer. You can also take your membership further by unlocking additional design options, giving you even more flexibility and creative possibilities.
+Already have a membership? Fantastic! As a valued member, you’ll become part of the BookishHub Power community, an exclusive group of individuals who enjoy enhanced benefits and premium access to everything BookishHub has to offer. You can also take your membership further by unlocking additional design options, giving you even more flexibility and creative possibilities.
 
-Whether you’re starting a new membership or upgrading an existing one, everything you need is just a click away. Press the button below to join the Power BookishHub community or access even more design options to elevate your experience.                </div>
+Whether you’re starting a new membership or upgrading an existing one, everything you need is just a click away. Press the button below to join the BookishHub Power community or access even more design options to elevate your experience.                </div>
             </div>
             
             <CreateMembership isPowerAccount={isPowerAccount} />

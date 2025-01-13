@@ -55,7 +55,7 @@ export async function GET(){
               },
               product_data: 
               {
-                name: "Power BookishHub",
+                name: "BookishHub Power",
                 description: "Get as many lesson designs as you need!"
               },
               currency: "RON",  

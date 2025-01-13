@@ -4,6 +4,7 @@ import { DarkModeToggle } from './DarkModeToggle';
 import React from 'react'
 import LogInButton from './LogInButton';
 import Link from 'next/link'
+import verifyMembership from '@/lib/membership';
 
 type Props = {}
 
@@ -15,6 +16,8 @@ const NavigationBar = async (props:Props) => {
         {
             console.log('Session not found. User is not authenticated.');
         }
+
+        const isPowerAccount = await verifyMembership();
 
         console.log(session);
 
@@ -44,27 +47,51 @@ const NavigationBar = async (props:Props) => {
                         <Link href={session?.user && !session.user.isAdmin ? '/library' : '#'} className="items-center 
                                                                                                           flex 
                                                                                                           gap-2">
-                            <p className='px-4 
-                                          py-2 
-                                          text-2xl 
-                                          font-semibold 
-                                          bg-gradient-to-r 
-                                          from-blue-500 
-                                          to-blue-900 
-                                          text-white 
-                                          rounded-lg 
-                                          shadow-md 
-                                          transform 
-                                          transition-all 
-                                          duration-300 
-                                          hover:scale-105 
-                                          hover:shadow-lg 
-                                          dark:bg-gradient-to-r 
-                                          dark:from-blue-500 
-                                          dark:to-blue-900 
-                                          dark:text-white'>
-                                BookishHub
-                            </p>
+                            {isPowerAccount ? (
+                                <p className='px-4 
+                                            py-2 
+                                            text-2xl 
+                                            font-semibold 
+                                            bg-gradient-to-r 
+                                            from-blue-500 
+                                            to-blue-900 
+                                            text-white 
+                                            rounded-lg 
+                                            shadow-md 
+                                            transform 
+                                            transition-all 
+                                            duration-300 
+                                            hover:scale-105 
+                                            hover:shadow-lg 
+                                            dark:bg-gradient-to-r 
+                                            dark:from-blue-500 
+                                            dark:to-blue-900 
+                                            dark:text-white'>
+                                    BookishHub Power
+                                </p>
+                                ) : (
+                                    <p className='px-4 
+                                            py-2 
+                                            text-2xl 
+                                            font-semibold 
+                                            bg-gradient-to-r 
+                                            from-blue-500 
+                                            to-blue-900 
+                                            text-white 
+                                            rounded-lg 
+                                            shadow-md 
+                                            transform 
+                                            transition-all 
+                                            duration-300 
+                                            hover:scale-105 
+                                            hover:shadow-lg 
+                                            dark:bg-gradient-to-r 
+                                            dark:from-blue-500 
+                                            dark:to-blue-900 
+                                            dark:text-white'>
+                                    BookishHub
+                                </p>
+                                )}
                         </Link>
                     </div>
                     <div className='items-center 
