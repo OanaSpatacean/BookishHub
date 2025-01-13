@@ -36,14 +36,35 @@ const ApproveTopics = ({lesson}:Props) => {
     
     return (
         <div className="mt-5 w-full">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div className="grid 
+                            grid-cols-1 
+                            sm:grid-cols-2 
+                            gap-5">
                 {lesson.modules.map((module, moduleIndex) => (
-                    <div className="mt-5" key={module.id}>
-                        <h3 className="font-bold text-3xl">
-                            {module.moduleName}
-                        </h3>
-
-                        <h2 className="text-secondary-foreground/100 text-sm uppercase">
+                    <div className="mt-5 
+                                    px-4 
+                                    py-5 
+                                    border-4 
+                                    relative" key={module.id}>
+                        <div className="grid 
+                                        grid-cols-1 
+                                        sm:grid-cols-2 
+                                        gap-9">
+                            <h3 className="font-bold 
+                                           text-3xl">
+                                {module.moduleName}
+                            </h3>
+                        </div>
+                    
+                        <h2
+                            className="text-sm 
+                                       uppercase 
+                                       absolute 
+                                       top-2 
+                                       right-2 
+                                       font-bold"
+                            style={{ color: '#d1d5db' }}
+                        >
                             Module {moduleIndex + 1}
                         </h2>
 
@@ -58,7 +79,7 @@ const ApproveTopics = ({lesson}:Props) => {
 
             <div className="border-none 
                             bg-secondary 
-                            mt-[90px] 
+                            mt-10
                             p-5 
                             flex">
                 <div className="flex-shrink-0">
@@ -71,7 +92,7 @@ const ApproveTopics = ({lesson}:Props) => {
                                    p-2 
                                    shadow-sm" />
                 </div>
-                <div className="ml-5">Topics have been created for each of your modules. Please review them and then press the button to approve and proceed. Wait a few seconds until all the topics are being handled. On the next page, you will find your own personalized lesson designed as requested. Enjoy your customized learning experience!</div>
+                <div className="ml-5">Please review the recommended topics and then press the button to approve and proceed. Wait a few seconds until all the topics are being handled. On the next page, you will find your own personalized lesson designed as requested. Enjoy your customized learning experience!</div>
             </div>
             
             <div className="flex 

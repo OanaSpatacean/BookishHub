@@ -54,7 +54,7 @@ const DesignTopics = async ({params:{lessonId}}:Props) => {
                             uppercase 
                             text-sm 
                             mt-3">
-                Name of the lesson
+                We recommend the following topics based on the keywords and phrases you provided earlier
             </h5>
             
             <ApproveTopics lesson={lesson}/> 
