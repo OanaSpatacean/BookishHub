@@ -13,6 +13,7 @@ import { z } from 'zod';
 import axios  from 'axios';
 import { useForm } from 'react-hook-form';
 import bcrypt from 'bcryptjs';
+import Link from 'next/link';
 
 type Props = {};
 
@@ -145,6 +146,13 @@ const Register = (props: Props) => {
                         <Button type="submit" size="lg" className="w-full" disabled={isLoading}>
                             {isLoading ? 'Creating your account...' : 'Create your account'}
                         </Button>
+
+                        <p className="text-sm text-center">
+                            Already have an account?{' '}
+                            <Link href="/login" className="text-blue-500 hover:underline">
+                                Login here
+                            </Link>
+                        </p>
                     </form>
             </Form>
         </div>          
