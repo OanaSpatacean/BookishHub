@@ -1,18 +1,21 @@
 'use client'
 import { createUserSchema } from '@/app/form-validators/user';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { z } from 'zod';
 import axios  from 'axios';
-import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import bcrypt from 'bcryptjs';
 
-type Props = {}
+type Props = {};
+
 type Input = z.infer<typeof createUserSchema>;
 
 const Register = (props: Props) => {
@@ -22,42 +25,53 @@ const Register = (props: Props) => {
     const [showPassword, setShowPassword] = useState(false); 
 
     const form = useForm<Input>(
-        {
-            resolver: zodResolver(createUserSchema),
-            defaultValues: {
-                name: '',
-                email: '',
-                password: '',
-            },
-        });
+    {
+        resolver: zodResolver(createUserSchema),
+        defaultValues: {
+            name: '',
+            email: '',
+            password: '',
+            points: 10,
+            isAdmin: false,
+        },
+    });
 
-    const handleCreateSubmit = async (data: Input) => {
-        setIsLoading(true);
-    
-        try 
+    const { mutate: createUser } = useMutation(
+    {
+        mutationFn: async (data: Input) => 
         {
-            const response = await axios.post("/api/register", {
-                name: data.name,
-                email: data.email,
-                password: data.password,
-            });
-    
-            if (response.data.success) 
-            {
-                toast({ title: "Success", description: "Your account has been created" });
-                router.push("/login");
+            if (!data.password) {
+                throw new Error("Password is required");
             }
-        } 
-        catch (error) 
+
+            const hashedPassword = await bcrypt.hash(data.password, 10);
+            const response = await axios.post('/api/admin/edit_users', {
+                ...data,
+                password: hashedPassword, 
+            });
+            return response.data;
+        },
+        onSuccess: (newUser) => 
         {
-            toast({ title: "Error", description: "Failed to register", variant: "destructive" });
+            toast({ title: "Success", description: "User created successfully" });
+            form.reset();
+            setIsLoading(false);
+            router.push(`/admin/edit_users`);
+        },
+        onError: () => 
+        {
+            toast({ title: "Warning", description: "Failed to create user", variant: "destructive" });
         }
-    
-        setIsLoading(false);
+    })
+
+    const handleCreateSubmit = (data: Input) => 
+    {
+        console.log("Data being sent:", data);
+        createUser(data);
     };
     
     return (
-        <div className="flex 
+            <div className="flex 
                             flex-col 
                             items-start 
                             mx-auto 
@@ -129,18 +143,12 @@ const Register = (props: Props) => {
                         />
 
                         <Button type="submit" size="lg" className="w-full" disabled={isLoading}>
-                            {isLoading ? 'Creating your new account...' : 'Register'}
+                            {isLoading ? 'Creating your account...' : 'Create your account'}
                         </Button>
-                        <p className="text-sm text-center">
-                            Already have an account?{' '}
-                            <Link href="/login" className="text-blue-500 hover:underline">
-                                Login here
-                            </Link>
-                        </p>
                     </form>
             </Form>
-        </div>              
-    );
-};
+        </div>          
+    )
+}
 
 export default Register;
