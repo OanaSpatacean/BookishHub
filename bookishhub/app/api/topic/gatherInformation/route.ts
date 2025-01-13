@@ -26,7 +26,7 @@ export async function POST(request: Request, response: Response)
         transcript = transcript.split(" ").slice(0, maximum_length_of_transcript).join(" ");
 
         const { outline }: { outline: string } = await strict_output(
-            "You are an AI used for outlining a youtube transcript", "Please provide an outline in 600 words or fewer, focusing strictly on the primary topic. Avoid discussing sponsors or any other unrelated aspects. Do not include an introduction.\n"+ transcript, 
+            "You are an AI used for outlining a youtube transcript", "Please provide an outline in 600 words or fewer, focusing strictly on the primary topic. Avoid discussing sponsors or any other unrelated aspects. Do not include an introduction. Please add appropriate punctuation and adjust the alignment of the text to make it more user-friendly and easier to read.\n"+ transcript, 
             { outline: "outline of the transcript" }
           );
 
