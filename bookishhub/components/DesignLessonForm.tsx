@@ -99,7 +99,7 @@ const DesignLessonForm = ({session, havePowerAccount}:Props) => {
                             <FormControl className="flex-[6] 
                                                     mb-1
                                                     mt-1">
-                                <Input placeholder="Name" {...field}/>
+                                <Input placeholder="Lesson name" {...field}/>
                             </FormControl>
                         </FormItem>
                     )}/>
@@ -109,7 +109,7 @@ const DesignLessonForm = ({session, havePowerAccount}:Props) => {
                                           mr-10
                                           mb-1
                                           text-bold">
-                                Specify the modules of the lesson
+                                Specify some keywords or phrases relevant to the lesson
                     </FormLabel>
                     
                     <AnimatePresence>
@@ -173,7 +173,23 @@ const DesignLessonForm = ({session, havePowerAccount}:Props) => {
                         </Button>
                     </div>
                     
-                    <Button size='lg' className='mt-6 w-full' type='submit' disabled={isLoading}>
+                    <Button size='lg' className='mt-6 
+                                                 w-full
+                                                 inline-block 
+                                                 text-white 
+                                                 transition 
+                                                 bg-gradient-to-r 
+                                                 from-blue-500 
+                                                 to-blue-900 
+                                                 hover:from-blue-600 
+                                                 hover:to-blue-800 
+                                                 rounded-lg 
+                                                 py-2
+                                                 px-7 
+                                                 flex 
+                                                 items-center 
+                                                 text-md
+                                                 font-semibold' type='submit' disabled={isLoading}>
                         Start designing your lesson
                     </Button>
                </form> 

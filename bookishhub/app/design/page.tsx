@@ -52,7 +52,7 @@ const DesignPage = async (props: Props) => {
                 </div>
 
                 <div className="ml-5">
-                    Please enter the name of the lesson (specify the subject you'd like to cover). Moreover, provide a list of modules that detail the specific areas you wish to explore, and our AI will design a comprehensive lesson plan tailored to your learning goals. Please ensure that all fields are completed. Remove any unnecessary fields, or feel free to add additional ones as needed.
+                    Please enter the name of the lesson (specify the subject you'd like to cover). Moreover, provide a list of modules (keywords or relevant phrases) that detail the specific areas you wish to explore, and our AI will design a comprehensive lesson plan tailored to your learning goals. Please ensure that all fields are completed. Remove any unnecessary fields, or feel free to add additional ones as needed.
                 </div>
             </div>
         </div>
