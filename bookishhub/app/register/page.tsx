@@ -31,7 +31,7 @@ const Register = (props: Props) => {
             name: '',
             email: '',
             password: '',
-            points: 10,
+            points: 20,
             isAdmin: false,
         },
     });

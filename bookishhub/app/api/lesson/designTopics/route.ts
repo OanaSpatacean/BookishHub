@@ -104,7 +104,7 @@ export async function POST(request: Request, response: Response)
             {
               points: 
               {
-                decrement: 1
+                decrement: 2
               }
             }
         })
