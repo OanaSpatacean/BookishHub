@@ -20,13 +20,6 @@ const VideoOutline = ({module,moduleId,topic,topicId}:Props) =>
                     ml-[-40px]">
       <div className="mb-6">
 
-        <h4 className="uppercase 
-                       tracking-wider 
-                       text-sm 
-                       text-gray-500">
-            Module {moduleId + 1} &bull; Topic {topicId + 1}
-        </h4>
-
         <h1 className="sm:text-5xl 
                        text-left 
                        font-bold 
@@ -34,9 +27,18 @@ const VideoOutline = ({module,moduleId,topic,topicId}:Props) =>
                        underline 
                        decoration-4 
                        decoration-blue-500
-                       mb-[30px]">
+                       mb-[10px]">
             {topic.topicName}
         </h1>
+
+        <h4 className="uppercase 
+                       tracking-wider 
+                       text-sm 
+                       text-gray-500
+                       mb-[30px]
+                       font-bold">
+            Currently reading Module {moduleId + 1} . Topic {topicId + 1}
+        </h4>
       </div>
 
       <div className="mt-8

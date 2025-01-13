@@ -62,9 +62,8 @@ const ApproveTopics = ({lesson}:Props) => {
                                        absolute 
                                        top-2 
                                        right-2 
-                                       font-bold"
-                            style={{ color: '#d1d5db' }}
-                        >
+                                       font-bold
+                                       text-gray-500">
                             Module {moduleIndex + 1}
                         </h2>
 

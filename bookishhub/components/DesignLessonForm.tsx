@@ -32,7 +32,7 @@ const DesignLessonForm = ({session, havePowerAccount}:Props) => {
     function onSubmit(data: Input) {
         if (session.user.points <= 0 && !havePowerAccount && !session.user.isAdmin) {
             toast({
-                title: "Error",
+                title: "Warning",
                 description: "You do not have any remaining points for designing a new lesson",
                 variant: "destructive",
             });

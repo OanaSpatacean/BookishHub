@@ -118,7 +118,15 @@ const QueriesBoxes = ({topic}:Props) => {
       <Button onClick={verifySolution} size="lg" className="mt-6 
                                                             w-full
                                                             mb-5
-                                                            font-bold">
+                                                            font-semibold
+                                                            text-white
+                                                            text-md 
+                                                            transition 
+                                                            bg-gradient-to-r 
+                                                            from-blue-500 
+                                                            to-blue-900 
+                                                            hover:from-blue-600 
+                                                            hover:to-blue-800">
         Verify solutions
       </Button>
     </div>

@@ -23,23 +23,51 @@ const LessonGuide = async ({lesson,topicId, session}:Props) =>
                         dark:bg-gray-900
                         pr-[80px]">
 
+            <h2 className="text-sm 
+                        uppercase 
+                        font-bold 
+                        text-gray-500 
+                        top-2 
+                        right-4">
+                Lesson name
+            </h2>               
+
             <h1 className="font-bold 
                            text-5xl">
                 {lesson.lessonName}
             </h1>
 
-            {lesson.modules.map((module,moduleIndex) => (
-                <div className="mt-6" key={module.id}>
-                    <h2 className="text-secondary-foreground/60 
-                                   uppercase 
-                                   text-sm">
-                        Module {moduleIndex + 1}
-                    </h2>
+            <Separator className="bg-gray-500   
+                                  w-full 
+                                  mt-5 
+                                  mb-[-25px]
+                                  h-[1px]"/>
 
-                    <h2 className="font-bold 
-                                   text-2xl">
-                        {module.moduleName}
-                    </h2>
+            {lesson.modules.map((module,moduleIndex) => (
+                <div className="mt-6 
+                                px-4 
+                                py-5 
+                                relative" key={module.id}>
+                    <div className="grid 
+                                    grid-cols-1 
+                                    sm:grid-cols-2 
+                                    gap-9">
+                            <h3 className="font-bold 
+                                           text-3xl">
+                                {module.moduleName}
+                            </h3>
+                        </div>
+                    
+                        <h2
+                            className="text-sm 
+                                       uppercase 
+                                       absolute 
+                                       top-2 
+                                       right-2 
+                                       font-bold
+                                       text-gray-500">
+                            Module {moduleIndex + 1}
+                        </h2>
 
                     <div className="mt-3">
                         {module.topics.map((topic, topicIndex) => (
@@ -57,7 +85,9 @@ const LessonGuide = async ({lesson,topicId, session}:Props) =>
                     {moduleIndex < lesson.modules.length - 1 && (
                         <Separator className="bg-gray-500   
                                               w-full 
-                                              mt-4 h-[1px]"/>
+                                              mt-5 
+                                              h-[1px]
+                                              mb-[-45px]"/>
                     )}
                 </div>
             ))}
