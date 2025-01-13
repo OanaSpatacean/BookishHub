@@ -51,13 +51,13 @@ const Login = (props: Props) => {
     
     return (
         <div className="flex 
-                            flex-col 
-                            items-start 
-                            mx-auto 
-                            px-15  
-                            max-w-7xl
-                            mt-7
-                            mb-7">
+                        flex-col 
+                        items-start 
+                        mx-auto 
+                        px-15  
+                        max-w-7xl
+                        mt-7
+                        mb-7">
                 <h1 className="sm:text-5xl 
                             text-left 
                             font-bold 
