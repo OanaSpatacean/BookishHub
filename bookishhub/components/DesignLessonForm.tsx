@@ -56,7 +56,7 @@ const DesignLessonForm = ({session, havePowerAccount}:Props) => {
             },
             onError: (error) => {
                 console.error(error);
-                toast({ title: "Warning", description: "An error occurred", variant: "destructive" });
+                toast({ title: "Warning", description: "An error occurred. " + error, variant: "destructive" });
             },
         });
     }
