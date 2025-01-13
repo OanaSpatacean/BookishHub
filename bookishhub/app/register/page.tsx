@@ -56,7 +56,7 @@ const Register = (props: Props) => {
             toast({ title: "Success", description: "User created successfully" });
             form.reset();
             setIsLoading(false);
-            router.push(`/admin/edit_users`);
+            router.push(`/login`);
         },
         onError: () => 
         {
