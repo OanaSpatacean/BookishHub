@@ -1,3 +1,4 @@
+import PDFDrop from '@/components/PDFDrop';
 import { getAuthSession } from '@/lib/authentication';
 import verifyMembership from '@/lib/membership';
 import { ArrowRight } from 'lucide-react';
@@ -54,7 +55,7 @@ const PDFBreakdown = async (props: Props) => {
                     </Link>
             </div>
 
-            
+            <PDFDrop/>
         </div>              
     );
 };
