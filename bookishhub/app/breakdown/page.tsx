@@ -32,7 +32,7 @@ const PDFBreakdown = async (props: Props) => {
                                 decoration-purple-500">
                         Break down your PDFs
                     </h1>
-                    <Link href="/design" className="mt-9
+                    <Link href="/PDFrequests" className="mt-9
                                                     inline-block 
                                                     text-white 
                                                     transition 
@@ -54,7 +54,6 @@ const PDFBreakdown = async (props: Props) => {
                                                             w-6"/>
                     </Link>
             </div>
-
             <PDFDrop/>
         </div>              
     );
