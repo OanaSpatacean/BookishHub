@@ -1,12 +1,12 @@
 import {S3,PutObjectCommandOutput} from "@aws-sdk/client-s3";
 
-export function getS3Url(file_key: string) 
+export function getS3Url(keyOfFile: string) 
 {
-    const url = `https://${process.env.NEXT_PUBLIC_S3_BUCKET_NAME}.s3.eu-central-1.amazonaws.com/${file_key}`;
+    const url = `https://${process.env.NEXT_PUBLIC_S3_BUCKET_NAME}.s3.eu-central-1.amazonaws.com/${keyOfFile}`;
     return url;
 }
 
-export async function uploadToS3(file: File): Promise<{ file_key: string; file_name: string }> 
+export async function uploadToS3(file: File): Promise<{ keyOfFile: string; nameOfFile: string }> 
 {
   return new Promise((resolve, reject) => 
   {
@@ -14,13 +14,13 @@ export async function uploadToS3(file: File): Promise<{ file_key: string; file_n
     {
         const s3 = new S3({region: "eu-central-1",credentials: {accessKeyId: process.env.NEXT_PUBLIC_S3_ACCESS_KEY_ID!, secretAccessKey: process.env.NEXT_PUBLIC_S3_SECRET_ACCESS_KEY!}})
 
-        const file_key = "uploads/" + Date.now().toString() + file.name.replace(" ", "-");
+        const keyOfFile = "uploads/" + Date.now().toString() + file.name.replace(" ", "-");
 
-        const params = {Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,Key: file_key,Body: file}
+        const params = {Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,Key: keyOfFile,Body: file}
 
         s3.putObject(params,(err: any, data: PutObjectCommandOutput | undefined) => {   return resolve({
-                                                                                        file_key,
-                                                                                        file_name: file.name
+                                                                                        keyOfFile,
+                                                                                        nameOfFile: file.name
                                                                                      })})
     } 
     catch (error) 
