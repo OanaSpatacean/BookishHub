@@ -86,10 +86,34 @@ model Query {
 }
 
 model Membership {
-  id                     String    @id @default(cuid())
-  userId                 String    @unique  
-  paymentMembershipId   String?   @unique @map(name: "payment_membership_id")
-  paymentCurrentPeriodEnding DateTime? @map(name: "payment_current_period_ending")
-  paymentAmmountId          String?   @map(name: "payment_ammount_id")
-  paymentClientId       String    @unique @map(name: "payment_client_id")
+  id                           String    @id @default(cuid())
+  userId                       String    @unique  
+  paymentMembershipId          String?   @unique @map(name: "payment_membership_id")
+  paymentCurrentPeriodEnding   DateTime? @map(name: "payment_current_period_ending")
+  paymentAmmountId             String?   @map(name: "payment_ammount_id")
+  paymentClientId              String    @unique @map(name: "payment_client_id")
+}
+
+model AboutPDFConversations {
+  id         Int      @id @default(autoincrement())
+  pdfName    String
+  pdfUrl     String
+  createdAt  DateTime @default(now())
+  userId     String
+  fileKey    String
+  PDFRequests   PDFRequest[] @relation("PDFRequests")
+}
+
+enum UserSystemEnum {
+  SYSTEM
+  USER
+}
+
+model PDFRequest {
+  id                         Int      @id @default(autoincrement())
+  aboutPDFConversationId     Int
+  content                    String
+  createdAt                  DateTime @default(now())
+  role                       UserSystemEnum
+  AboutPDFConversation       AboutPDFConversations    @relation("PDFRequests", fields: [aboutPDFConversationId], references: [id])
 }
