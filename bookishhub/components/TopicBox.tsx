@@ -80,11 +80,11 @@ const TopicBox = React.forwardRef<TopicBoxHandler, Props>(({topic, topicIndex, h
     
     return (
         <div key={topic.id} 
-            className={cn("relative flex justify-between items-center px-5 py-2 border bg-white shadow-md transition-all duration-200", 
+            className={cn("relative flex justify-between items-center px-5 py-2 border border-gray-300 dark:border-gray-900 bg-white shadow-md transition-all duration-200", 
             {
-                "bg-gray-200 dark:bg-gray-800": success === null, 
-                "border-4 border-yellow-400 bg-gray-200 dark:bg-gray-800": success === false, 
-                "border-4 border-blue-500 bg-gray-200 dark:bg-gray-800": success === true, 
+                "bg-gray-300 dark:bg-gray-900": success === null, 
+                "border-4 border-yellow-400 dark:border-yellow-400 bg-gray-300 dark:bg-gray-900": success === false, 
+                "border-4 border-blue-500 dark:border-blue-500 bg-gray-300 dark:bg-gray-900": success === true, 
             })}>
   
             {success !== null && (

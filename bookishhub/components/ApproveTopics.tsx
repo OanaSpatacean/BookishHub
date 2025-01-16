@@ -45,7 +45,9 @@ const ApproveTopics = ({lesson}:Props) => {
                                     px-4 
                                     py-5 
                                     border-4 
-                                    relative" key={module.id}>
+                                    relative
+                                    bg-gray-200 
+                                    dark:bg-gray-800" key={module.id}>
                         <div className="grid 
                                         mb-6
                                         mt-4
