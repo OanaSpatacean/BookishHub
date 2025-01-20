@@ -23,7 +23,7 @@ const AllConversationsListed = ({userPDFConversations, aboutPDFConversationId, h
                         w-full 
                         p-4 
                         text-gray-900 
-                        h-screen 
+                        h-[calc(100vh-65px)] 
                         bg-gray-200 
                         dark:bg-gray-800 
                         overflow-scroll">

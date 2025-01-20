@@ -47,9 +47,9 @@ const AboutPDFConversationPage = async ({ params: { aboutPDFConversationId } }: 
     }
     
     return (
-        <div className="h-screen flex">
+        <div className="flex h-[calc(100vh-65px)]">
             <div className="max-w-xs 
-                            h-screen 
+                            h-[calc(100vh-65px)]
                             flex-[1] 
                             border-r-2 
                             border-r-slate-200">
