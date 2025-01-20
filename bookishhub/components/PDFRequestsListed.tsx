@@ -1,5 +1,7 @@
-import { PDFRequest } from "@prisma/client";
 import React from "react";
+import { cn } from "@/lib/utils";
+import { PDFRequest } from "@prisma/client";
+import { Loader2 } from "lucide-react";
 
 type Props = 
 {
@@ -7,11 +9,56 @@ type Props =
     isLoading: boolean;
 }
 
-const PDFRequestsListed = ({PDFRequests, isLoading}: Props) => {
-    
-    return (
-        <div className="h-screen flex">
+const PDFRequestsListed = ({PDFRequests,isLoading}: Props) => {
+    if (isLoading) 
+    {
+        return (
+            <div className="-translate-y-1/2 
+                            left-1/2 
+                            -translate-x-1/2 
+                            top-1/2  
+                            absolute">
+                <Loader2 className="h-6 
+                                    animate-spin 
+                                    w-6"/>
+            </div>
+        )
+    }
 
+    if (!PDFRequests)
+    {
+        return 
+        <>
+        </>
+    }
+
+    return (
+        <div className="gap-2 
+                        flex-col 
+                        px-4 
+                        flex">
+            {PDFRequests.map((PDFRequest) => {
+                return (
+                    <div key={PDFRequest.id} className={cn("flex", {"pl-10 justify-end": PDFRequest.role === "USER",
+                                                                    "pr-10 justify-start": PDFRequest.role === "SYSTEM",
+                                                                    }
+                                                            )
+                                                        }>
+
+                        <div className={cn("px-3 ring-gray-900/10 py-1 text-sm shadow-md ring-1 rounded-lg",
+                                            {
+                                                "bg-purple-600 text-white": PDFRequest.role === "USER",
+                                            }
+                                        )
+                                        }>
+                            <p>
+                                {PDFRequest.content}
+                            </p>
+                        </div>
+
+                    </div>
+                    )
+            })}
         </div>
     )
 }
