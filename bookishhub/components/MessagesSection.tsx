@@ -7,6 +7,7 @@ import { FaArrowUp } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { PDFRequest, UserSystemEnum } from "@prisma/client";
+import PDFRequestsListed from "./PDFRequestsListed";
 
 type Props = 
 {
@@ -63,6 +64,8 @@ const PDFRequestsSection = ({aboutPDFConversationId}: Props) => {
                 </h3>
             </div>
     
+            <PDFRequestsListed PDFRequests={messages} isLoading={isLoading} />
+
             <form onSubmit={handleSubmit} className="bottom-0 
                                                      sticky 
                                                      px-2 
