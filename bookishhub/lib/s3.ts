@@ -14,7 +14,7 @@ export async function uploadToS3(file: File): Promise<{ keyOfFile: string; nameO
     {
         const s3 = new S3({region: "eu-central-1",credentials: {accessKeyId: process.env.NEXT_PUBLIC_S3_ACCESS_KEY_ID!, secretAccessKey: process.env.NEXT_PUBLIC_S3_SECRET_ACCESS_KEY!}})
 
-        const keyOfFile = "uploads/" + Date.now().toString() + file.name.replace(" ", "-");
+        const keyOfFile = "breakdown/" + Date.now().toString() + file.name.replace(" ", "-");
 
         const params = {Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,Key: keyOfFile,Body: file}
 

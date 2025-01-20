@@ -32,7 +32,7 @@ export async function POST(req: Request)
 
     return NextResponse.json(
       { 
-        chat_id: result.id 
+        aboutPDFConversationId: result.id 
       },
       { 
         status: 200 
