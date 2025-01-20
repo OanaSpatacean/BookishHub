@@ -1,4 +1,5 @@
 import React from "react";
+import {useChat} from "ai/react";
 
 type Props = 
 {
