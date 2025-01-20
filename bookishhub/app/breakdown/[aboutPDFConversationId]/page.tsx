@@ -1,4 +1,5 @@
 import AllConversationsListed from "@/components/AllConversationsListed";
+import SeePDFContent from "@/components/SeePDFContent";
 import { getAuthSession } from "@/lib/authentication";
 import { databaseClient } from "@/lib/database";
 import verifyMembership from "@/lib/membership";
@@ -54,6 +55,13 @@ const AboutPDFConversationPage = async ({ params: { aboutPDFConversationId } }: 
                                 h-screen 
                                 flex-[1]">
                     <AllConversationsListed userPDFConversations={userPDFConversations} aboutPDFConversationId={currentConversation.id} havePowerAccount={havePowerAccount} />
+                </div>
+
+                <div className="p-4 
+                                max-h-screen 
+                                flex-[5] 
+                                overflow-scroll">
+                    <SeePDFContent pdfURL={currentConversation.pdfUrl || ""} />
                 </div>
 
             </div>
