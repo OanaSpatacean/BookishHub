@@ -1,4 +1,5 @@
 import AllConversationsListed from "@/components/AllConversationsListed";
+import MessagesSection from "@/components/MessagesSection";
 import SeePDFContent from "@/components/SeePDFContent";
 import { getAuthSession } from "@/lib/authentication";
 import { databaseClient } from "@/lib/database";
@@ -46,26 +47,34 @@ const AboutPDFConversationPage = async ({ params: { aboutPDFConversationId } }: 
     }
     
     return (
-        <div className="h-screen 
-                        flex">
-            <div className="h-screen 
-                            w-full 
-                            flex">
-                <div className="max-w-xs 
-                                h-screen 
-                                flex-[1]">
-                    <AllConversationsListed userPDFConversations={userPDFConversations} aboutPDFConversationId={currentConversation.id} havePowerAccount={havePowerAccount} />
-                </div>
+        <div className="h-screen flex">
+            <div className="max-w-xs 
+                            h-screen 
+                            flex-[1] 
+                            border-r-2 
+                            border-r-slate-200">
+                <AllConversationsListed userPDFConversations={userPDFConversations} aboutPDFConversationId={currentConversation.id} havePowerAccount={havePowerAccount}/>
+            </div>
 
+            <div className="flex 
+                            flex-col 
+                            flex-[5] 
+                            w-full">
+                <div className="border-b-2 
+                                border-b-slate-200 
+                                p-4 
+                                max-h-[30%] 
+                                overflow-scroll">
+                    <MessagesSection aboutPDFConversationId={currentConversation.id} />
+                </div>
+                
                 <div className="p-4 
-                                max-h-screen 
-                                flex-[5] 
+                                flex-grow 
                                 overflow-scroll">
                     <SeePDFContent pdfURL={currentConversation.pdfUrl || ""} />
                 </div>
-
             </div>
-        </div>  
+        </div>
     )
 }
 
