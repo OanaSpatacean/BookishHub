@@ -24,30 +24,30 @@ const PDFBreakdown = async (props: Props) => {
             <div className="text-center 
                             mb-7">
                     <h1 className="sm:text-5xl 
-                                text-left 
-                                font-bold 
-                                text-3xl 
-                                underline 
-                                decoration-4 
-                                decoration-purple-500">
+                                    text-left 
+                                    font-bold 
+                                    text-3xl 
+                                    underline 
+                                    decoration-4 
+                                    decoration-purple-500">
                         Break down your PDFs
                     </h1>
                     <Link href="/PDFrequests" className="mt-9
-                                                    inline-block 
-                                                    text-white 
-                                                    transition 
-                                                    bg-gradient-to-r 
-                                                    from-purple-500 
-                                                    to-purple-900 
-                                                    hover:from-purple-600 
-                                                    hover:to-purple-800 
-                                                    rounded-lg 
-                                                    py-2
-                                                    px-7 
-                                                    flex 
-                                                    items-center 
-                                                    text-md
-                                                    font-semibold">
+                                                        inline-block 
+                                                        text-white 
+                                                        transition 
+                                                        bg-gradient-to-r 
+                                                        from-purple-500 
+                                                        to-purple-900 
+                                                        hover:from-purple-600 
+                                                        hover:to-purple-800 
+                                                        rounded-lg 
+                                                        py-2
+                                                        px-7 
+                                                        flex 
+                                                        items-center 
+                                                        text-md
+                                                        font-semibold">
                         Click here to converse with our AI about your PDFs
                         <ArrowRight strokeWidth={5} className="ml-[750px] 
                                                                h-6 
@@ -56,10 +56,10 @@ const PDFBreakdown = async (props: Props) => {
             </div>
             <PDFDrop/>
             <div className="bg-secondary 
-                      border-none 
-                      p-4 
-                      flex
-                      mt-5">
+                            border-none 
+                            p-4 
+                            flex
+                            mt-5">
                 <div className="flex-shrink-0">
                     <InfoIcon 
                         className="text-green-500 
