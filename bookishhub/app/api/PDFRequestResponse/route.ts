@@ -60,7 +60,7 @@ export async function POST(req: Request) {
     const userPrompt = lastMessage.content;
     const outputFormat = { content: "<string>" };
 
-console.log("Sending request to strict_output...");
+    console.log("Sending request to strict_output...");
     const aiResponse = await strict_output(
       systemPrompt,
       userPrompt,
