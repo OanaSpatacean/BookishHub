@@ -9,9 +9,15 @@ export async function POST(req: Request) {
   try 
   {
     const body = await req.json();
-    const { messages, aboutPDFConversationId } = PDFRequestSchema.parse(body);
+    const parsedBody = PDFRequestSchema.parse({
+      ...body,
+      messages: body.messages.map((msg: { role: string; }) => ({
+        ...msg,
+        role: msg.role === "assistant" ? "system" : msg.role, 
+      }))
+    })
 
-    console.log("Validated Request Data:", { messages, aboutPDFConversationId });
+    const { messages, aboutPDFConversationId } = parsedBody;
 
     const conversation = await databaseClient.aboutPDFConversations.findUnique({
       where: { 
@@ -49,12 +55,12 @@ export async function POST(req: Request) {
       START CONTEXT BLOCK
       ${fileKey}
       END OF CONTEXT BLOCK
-      Responses are derived with accuracy and relevance, based strictly on the given context. When the context does not contain the answer to a query, the assistant will respond, "I apologize, but I don't have the answer to that question.". The assistant refrains from apologizing for earlier responses, instead acknowledging newly acquired information when necessary. It ensures all responses are grounded in the provided context and will not fabricate information outside of it.`;
+      Responses are derived with accuracy and relevance, based strictly on the given context. When the context provided in the file does not contain the answer to a query, the assistant will use its general knowledge to provide an accurate and relevant response. However, at the end of the response, the assistant must include the following statement: 'I want to mention that this information does not appear in your file.' This ensures the user understands the distinction between answers derived from the file's context and the assistant's external knowledge. The assistant refrains from apologizing for earlier responses, instead acknowledging newly acquired information when necessary. It ensures all responses are grounded in the provided context and will not fabricate information outside of it.`;
 
     const userPrompt = lastMessage.content;
     const outputFormat = { content: "<string>" };
 
-    console.log("Sending request to strict_output...");
+console.log("Sending request to strict_output...");
     const aiResponse = await strict_output(
       systemPrompt,
       userPrompt,
