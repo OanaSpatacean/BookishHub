@@ -1,5 +1,6 @@
 import PDFDrop from '@/components/PDFDrop';
 import { getAuthSession } from '@/lib/authentication';
+import { databaseClient } from '@/lib/database';
 import verifyMembership from '@/lib/membership';
 import { ArrowRight, InfoIcon } from 'lucide-react';
 import Link from 'next/link';
@@ -15,8 +16,18 @@ const PDFBreakdown = async (props: Props) => {
         return redirect('/');
     }
 
+    const userId = session.user.id; 
+
     const havePowerAccount = verifyMembership();
-    
+
+    const userConversations = await databaseClient.aboutPDFConversations.findMany({
+        where: {
+            userId: userId,
+        },
+    });
+
+    const initialAboutPDFConversation = userConversations?.[0] || null;
+
     return (
         <div className="max-w-7xl 
                         mx-auto  
@@ -32,7 +43,8 @@ const PDFBreakdown = async (props: Props) => {
                                     decoration-purple-500">
                         Break down your PDFs
                     </h1>
-                    <Link href="/PDFrequests" className="mt-9
+                    {initialAboutPDFConversation ? (
+                    <Link href={`/breakdown/${initialAboutPDFConversation?.id || ''}`} className="mt-9
                                                         inline-block 
                                                         text-white 
                                                         transition 
@@ -48,11 +60,29 @@ const PDFBreakdown = async (props: Props) => {
                                                         items-center 
                                                         text-md
                                                         font-semibold">
-                        Click here to converse with our AI about your PDFs
-                        <ArrowRight strokeWidth={5} className="ml-[750px] 
+                        Click here to open a conversation with our AI to explore your uploaded PDFs
+                        <ArrowRight strokeWidth={5} className="ml-[550px] 
                                                                h-6 
                                                                w-6"/>
                     </Link>
+                    ) : (
+                        <div className="mt-9
+                                                        inline-block 
+                                                        text-white 
+                                                        transition 
+                                                        bg-gradient-to-r 
+                                                        from-purple-500 
+                                                        to-purple-900 
+                                                        rounded-lg 
+                                                        py-2
+                                                        px-7 
+                                                        flex 
+                                                        items-center 
+                                                        text-md
+                                                        font-semibold">
+                        Upload your first PDF in the next section to start a conversation with our AI
+                    </div>
+                    )}
             </div>
             <PDFDrop/>
             <div className="bg-secondary 
