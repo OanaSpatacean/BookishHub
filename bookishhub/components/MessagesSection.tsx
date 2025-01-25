@@ -51,37 +51,42 @@ const PDFRequestsSection = ({aboutPDFConversationId}: Props) => {
       }, [messages])
       
     return (
-        <div className="h-screen" id="PDFRequest-container">
-            <div className="top-0 
-                            sticky 
-                            p-2 
-                            h-fit
-                            bg-white 
-                            inset-x-0">
-                <h3 className="text-xl 
-                               font-bold">
+        <div className="" id="PDFRequest-container">
+            <div
+                className="top-0 
+                           mb-2 
+                           sticky 
+                           h-fit 
+                           bg-white">
+                <h3 className="text-lg 
+                               font-bold 
+                               bg-purple-300 
+                               rounded-lg">
                     PDF Conversation
                 </h3>
             </div>
-    
+
             <PDFRequestsListed PDFRequests={messages} isLoading={isLoading} />
 
-            <form onSubmit={handleSubmit} className="bottom-0 
-                                                     sticky 
-                                                     px-2 
+            <form onSubmit={handleSubmit} className="absolute 
+                                                     bottom-1 
+                                                     mt-1 
+                                                     w-full 
+                                                     max-w-5xl 
+                                                     mx-auto 
+                                                     px-4 
                                                      bg-white 
-                                                     inset-x-0">
-
-                <div className="flex">
+                                                     shadow-md 
+                                                     rounded-lg">
+                <div className="flex 
+                                items-center">
                     <Input placeholder="Make a request about your PDF to our AI..." onChange={handleInputChange} value={input} className="w-full"/>
-                    
                     <Button className="ml-2 
                                        bg-purple-500">
                         <FaArrowUp className="w-4 
-                                              h-4"/>
+                                              h-4" />
                     </Button>
                 </div>
-
             </form>
         </div>
     )

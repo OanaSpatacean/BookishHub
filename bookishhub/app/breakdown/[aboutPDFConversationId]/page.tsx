@@ -69,7 +69,7 @@ const AboutPDFConversationPage = async ({ params: { aboutPDFConversationId } }: 
                 <div className="border-b-2 
                                 border-b-slate-200 
                                 p-4 
-                                max-h-[30%] 
+                                max-h-[35%] 
                                 overflow-scroll">
                     <MessagesSection aboutPDFConversationId={currentConversation.id} />
                 </div>
