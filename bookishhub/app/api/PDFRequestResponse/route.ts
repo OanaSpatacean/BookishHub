@@ -89,7 +89,12 @@ console.log("Sending request to strict_output...");
       }
     })
 
-    return NextResponse.json({ response: aiResponse.content });
+    return new Response(aiResponse.content, {
+      status: 200,
+      headers: {
+        "Content-Type": "text/plain",
+      }
+    })
   } 
   catch (error) 
   {
