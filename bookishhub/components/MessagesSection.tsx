@@ -36,7 +36,7 @@ const PDFRequestsSection = ({aboutPDFConversationId}: Props) => {
         createdAt: pdfRequest.createdAt,
       }));
     
-      const { input, handleInputChange, handleSubmit, messages } = useChat({ api: "/api/PDFRequestsResponse", body: { aboutPDFConversationId }, initialMessages: transformedMessages});
+      const { input, handleInputChange, handleSubmit, messages } = useChat({ api: "/api/PDFRequestResponse", body: { aboutPDFConversationId }, initialMessages: transformedMessages});
 
       React.useEffect(() => {
         const PDFRequestContainer = document.getElementById("PDFRequest-container");
