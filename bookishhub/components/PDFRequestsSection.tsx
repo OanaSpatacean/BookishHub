@@ -57,10 +57,12 @@ const PDFRequestsSection = ({aboutPDFConversationId}: Props) => {
                            mb-2 
                            sticky 
                            h-fit 
-                           bg-white">
+                           bg-white
+                           dark:bg-gray-950">
                 <h3 className="text-lg 
                                font-bold 
-                               bg-purple-300 
+                               bg-purple-300
+                               dark:bg-purple-800 
                                rounded-lg">
                     PDF Conversation
                 </h3>
@@ -77,12 +79,16 @@ const PDFRequestsSection = ({aboutPDFConversationId}: Props) => {
                                                      px-4 
                                                      bg-white 
                                                      shadow-md 
-                                                     rounded-lg">
+                                                     rounded-lg
+                                                     dark:bg-gray-950
+                                                     ">
                 <div className="flex 
                                 items-center">
-                    <Input placeholder="Make a request about your PDF to our AI..." onChange={handleInputChange} value={input} className="w-full"/>
+                    <Input placeholder="Make a request about your PDF to our AI..." onChange={handleInputChange} value={input} className="w-full dark:bg-gray-900"/>
                     <Button className="ml-2 
-                                       bg-purple-500">
+                                       bg-purple-500
+                                       hover:bg-purple-800
+                                                     dark:hover:bg-purple-800">
                         <FaArrowUp className="w-4 
                                               h-4" />
                     </Button>
