@@ -41,7 +41,7 @@ const EditLessons = async (props: Props) => {
                                underline 
                                decoration-4 
                                decoration-gray-500">
-                    Edit lessons designed by users
+                    Edit designed lessons 
                 </h1>
 
                 <Link href="/design" className="mt-7

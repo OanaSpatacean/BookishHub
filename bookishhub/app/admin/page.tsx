@@ -93,9 +93,9 @@ const AdminPanel = async (props: Props) => {
                                                     font-semibold
                                                     w-full">
                 <span>
-                    Edit lessons designed by users
+                    Edit designed lessons
                 </span>
-                <ArrowRight strokeWidth={5} className="ml-[940px] h-6 w-6" />
+                <ArrowRight strokeWidth={5} className="ml-[1010px] h-6 w-6" />
             </Link>
 
             <div className="bg-secondary 
@@ -115,9 +115,53 @@ const AdminPanel = async (props: Props) => {
                 </div>
 
                 <div className="ml-5">
-                    Clicking 'Edit lessons designed by user' will take you to the lesson management section. Here, you can efficiently manage all lessons designed by users on this platform.                </div>
+                    Clicking 'Edit designed lessons' will take you to the lesson management section. Here, you can efficiently manage all lessons designed on this platform.                
                 </div>
-        </div>
+            </div>
+
+            <Link href="/admin/edit_pdfs" className="mt-9
+                                                    inline-block 
+                                                    text-white 
+                                                    transition 
+                                                    bg-gradient-to-r 
+                                                    from-gray-500 
+                                                    to-gray-900 
+                                                    hover:from-gray-600 
+                                                    hover:to-gray-800 
+                                                    rounded-lg 
+                                                    py-2
+                                                    px-7 
+                                                    flex 
+                                                    items-center 
+                                                    text-md
+                                                    font-semibold
+                                                    w-full">
+                <span>
+                    Edit PDFs breakdowns 
+                </span>
+                <ArrowRight strokeWidth={5} className="ml-[1000px] h-6 w-6" />
+            </Link>
+
+            <div className="bg-secondary 
+                            border-none 
+                            p-4 
+                            flex
+                            mt-7">
+                <div className="flex-shrink-0">
+                    <InfoIcon 
+                        className="text-green-500 
+                                h-10 
+                                w-10 
+                                bg-green-100 
+                                rounded-full 
+                                p-2 
+                                shadow-sm" />
+                </div>
+
+                <div className="ml-5">
+                    Select 'Edit PDFs breakdowns' to access the management section of all PDFs uploaded by users, where you can seamlessly review and manage all PDF conversations and requests made on the platform.                </div>
+                </div>
+        </div>      
     )
 }
 
