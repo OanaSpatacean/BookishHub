@@ -1,5 +1,5 @@
 import AllConversationsListed from "@/components/AllConversationsListed";
-import MessagesSection from "@/components/MessagesSection";
+import PDFRequestsSection from "@/components/PDFRequestsSection";
 import SeePDFContent from "@/components/SeePDFContent";
 import { getAuthSession } from "@/lib/authentication";
 import { databaseClient } from "@/lib/database";
@@ -71,7 +71,7 @@ const AboutPDFConversationPage = async ({ params: { aboutPDFConversationId } }: 
                                 p-4 
                                 h-[35%] 
                                 overflow-scroll">
-                    <MessagesSection aboutPDFConversationId={currentConversation.id} />
+                    <PDFRequestsSection aboutPDFConversationId={currentConversation.id} />
                 </div>
             </div>
         </div>
