@@ -29,7 +29,7 @@ const PDFRequestsListed = ({PDFRequests,isLoading}: Props) => {
         return (
           <div className="text-center 
                           text-gray-500 
-                          mt-[50px]">
+                          mt-[70px]">
             <p>
                 No requests found
             </p>
