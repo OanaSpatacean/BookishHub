@@ -61,15 +61,14 @@ const AboutPDFConversationPage = async ({ params: { aboutPDFConversationId } }: 
                             flex-[5] 
                             w-full">      
                 <div className="p-4 
-                                flex-grow 
-                                overflow-scroll">
+                                flex-grow">
                     <SeePDFContent pdfURL={currentConversation.pdfUrl || ""} />
                 </div>
 
                 <div className="border-b-2 
                                 border-b-slate-200 
                                 p-4 
-                                h-[35%] 
+                                h-[40%] 
                                 overflow-scroll">
                     <PDFRequestsSection aboutPDFConversationId={currentConversation.id} />
                 </div>
