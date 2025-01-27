@@ -26,7 +26,8 @@ const AllConversationsListed = ({userPDFConversations, aboutPDFConversationId, h
                         h-[calc(100vh-65px)] 
                         bg-gray-200 
                         dark:bg-gray-800 
-                        overflow-scroll">
+                        overflow-y-scroll 
+                        overflow-x-hidden">
             <Link href="/breakdown">
                 <Button className="w-full">
                     <Plus className="w-full 
