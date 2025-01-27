@@ -53,7 +53,7 @@ const PDFRequestsListed = ({PDFRequests,isLoading}: Props) => {
 
                         <div className={cn("px-3 ring-gray-900/10 py-1 text-sm shadow-md ring-1 rounded-lg",
                                             {
-                                                "bg-purple-600 text-white": PDFRequest.role === "user", 
+                                                "bg-green-600 text-white": PDFRequest.role === "user", 
                                                 "dark:bg-gray-500 dark:text-white": PDFRequest.role === "system", 
                                             }
                                         )

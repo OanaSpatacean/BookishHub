@@ -46,12 +46,12 @@ const AllConversationsListed = ({userPDFConversations, aboutPDFConversationId, h
           {userPDFConversations.map((userPDFConversation) => (
             <Link key={userPDFConversation.id} href={`/breakdown/${userPDFConversation.id}`}>
               <div className={cn("rounded-lg p-3 flex items-center",
-                                {"bg-purple-600 text-white hover:bg-purple-500 hover:dark:bg-purple-900 dark:text-white":
+                                {"bg-green-600 text-white hover:bg-green-500 hover:dark:bg-green-900 dark:text-white":
                                     userPDFConversation.id === aboutPDFConversationId,
                                 "bg-gray-200 text-gray-800 dark:bg-gray-800 dark:text-gray-200 hover:dark:bg-gray-600 hover:dark:text-white":
                                     userPDFConversation.id !== aboutPDFConversationId
                                 },
-                                userPDFConversation.id === aboutPDFConversationId ? "hover:bg-purple-500"
+                                userPDFConversation.id === aboutPDFConversationId ? "hover:bg-green-500"
                                 : "hover:bg-gray-300 hover:text-gray-900"
                             )}>
 

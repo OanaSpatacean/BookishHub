@@ -81,13 +81,13 @@ const PDFDrop = ({session, havePowerAccount}: Props) => {
     })
 
     return (
-        <div className="bg-purple-50 
+        <div className="bg-green-50 
                         p-1 
                         rounded-2xl 
                         px-4 
                         py-4 
                         h-[300px]">
-            <div {...getRootProps({className:"rounded-xl h-[270px] border-2 bg-purple-50 border-purple-200 flex-col border-dashed py-12 flex items-center cursor-pointer justify-center"})}>
+            <div {...getRootProps({className:"rounded-xl h-[270px] border-2 bg-green-50 border-green-200 flex-col border-dashed py-12 flex items-center cursor-pointer justify-center"})}>
                 <input {...getInputProps()}/>
 
                 {uploading || isLoading ? (
@@ -98,7 +98,7 @@ const PDFDrop = ({session, havePowerAccount}: Props) => {
                         Feeding info into our AI...
                     </p>
 
-                    <Loader2 className="text-purple-500 
+                    <Loader2 className="text-green-500 
                                         w-10 
                                         animate-spin 
                                         h-10"/>
@@ -111,7 +111,7 @@ const PDFDrop = ({session, havePowerAccount}: Props) => {
                         Upload your file
                     </p>
 
-                    <FaFilePdf className="text-purple-500 
+                    <FaFilePdf className="text-green-500 
                                           w-10 
                                           h-10"/>                  
                 </>

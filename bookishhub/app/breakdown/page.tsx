@@ -41,7 +41,7 @@ const PDFBreakdown = async (props: Props) => {
                                     text-3xl 
                                     underline 
                                     decoration-4 
-                                    decoration-purple-500">
+                                    decoration-green-500">
                         Break down your PDFs
                     </h1>
                     {initialAboutPDFConversation ? (
@@ -50,10 +50,10 @@ const PDFBreakdown = async (props: Props) => {
                                                         text-white 
                                                         transition 
                                                         bg-gradient-to-r 
-                                                        from-purple-500 
-                                                        to-purple-900 
-                                                        hover:from-purple-600 
-                                                        hover:to-purple-800 
+                                                        from-green-500 
+                                                        to-green-900 
+                                                        hover:from-green-600 
+                                                        hover:to-green-800 
                                                         rounded-lg 
                                                         py-2
                                                         px-7 
@@ -72,8 +72,8 @@ const PDFBreakdown = async (props: Props) => {
                                                         text-white 
                                                         transition 
                                                         bg-gradient-to-r 
-                                                        from-purple-500 
-                                                        to-purple-900 
+                                                        from-green-500 
+                                                        to-green-900 
                                                         rounded-lg 
                                                         py-2
                                                         px-7 

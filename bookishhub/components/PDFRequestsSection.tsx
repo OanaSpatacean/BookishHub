@@ -69,9 +69,9 @@ const PDFRequestsSection = ({aboutPDFConversationId}: Props) => {
                                 items-center">
                     <Input placeholder="Make a request about your PDF to our AI..." onChange={handleInputChange} value={input} className="w-full dark:bg-gray-900"/>
                     <Button className="ml-2 
-                                       bg-purple-500
-                                       hover:bg-purple-800
-                                       dark:hover:bg-purple-800">
+                                       bg-green-500
+                                       hover:bg-green-800
+                                       dark:hover:bg-green-800">
                         <FaArrowUp className="w-4 
                                               h-4" />
                     </Button>
