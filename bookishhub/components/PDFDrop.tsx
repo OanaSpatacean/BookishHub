@@ -9,9 +9,9 @@ import { useMutation } from "@tanstack/react-query";
 import { uploadToS3 } from "@/lib/s3";
 import { FaFilePdf } from "react-icons/fa6";
 
-type Props = {}
+type Props = {session:any, havePowerAccount:any}
 
-const PDFDrop = (props: Props) => {
+const PDFDrop = ({session, havePowerAccount}: Props) => {
     const router = useRouter();
 
     const { mutate, isLoading } = useMutation({
@@ -39,6 +39,15 @@ const PDFDrop = (props: Props) => {
       maxFiles: 1,
       onDrop: async (filesOk) => {
         const file = filesOk[0];
+
+        if (session.user.points <= 0 && !havePowerAccount && !session.user.isAdmin) {
+          toast({
+              title: "Warning",
+              description: "You do not have any remaining points to break down another PDF!",
+              variant: "destructive",
+          });
+          return;
+        }
 
         if (file.size > 1024 * 1024 * 10) 
         {

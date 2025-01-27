@@ -30,6 +30,21 @@ export async function POST(req: Request)
         userId: session.user.id,
     }})
 
+    await databaseClient.user.update(
+      {
+          where: 
+          {
+            id: session.user.id
+          },
+          data: 
+          {
+            points: 
+            {
+              decrement: 2
+            }
+          }
+      })
+
     return NextResponse.json(
       { 
         aboutPDFConversationId: result.id 

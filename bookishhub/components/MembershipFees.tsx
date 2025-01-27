@@ -7,7 +7,7 @@ import { Progress } from "@radix-ui/react-progress";
 import React from "react";
 
 type Props = {
-  havePowerAccount:boolean
+  havePowerAccount:any
 }
 
 const MembershipFees = ({havePowerAccount}:Props) => {
@@ -59,17 +59,17 @@ const MembershipFees = ({havePowerAccount}:Props) => {
                           font-semibold 
                           mt-3" onClick={handleMembership} disabled={loading}>
           <span className="mr-2">⭐</span>
-          Get more designs
+          Get more points
           <span className="ml-2">⭐</span>
         </Button>
 
-        {data?.user?.points !== undefined && data?.user?.points > 0 ? data.user.points : 0} out of 20 designs left to be made without charge
+        {data?.user?.points !== undefined && data?.user?.points > 0 ? data.user.points : 0} out of 20 points left to use
       </>
         ) : (
           <p className="text-center text-gray-800 text-md font-medium dark:text-white">
             We are thrilled to have you in our&nbsp;
             <span className="font-semibold text-blue-700">BookishHub Power&nbsp;</span> 
-              community! As a valued member, you gain access to exclusive resources, insights, and tools tailored to enhance your experience. With unlimited lesson designs at your fingertips, you'll have the freedom to bring your ideas to life without limits. 
+              community! As a valued member, you gain access to exclusive resources, insights, and tools tailored to enhance your experience. With unlimited lesson designs and pdf breakdowns at your fingertips, you'll have the freedom to bring your ideas to life without limits. 
           </p>
         )}
     </div>

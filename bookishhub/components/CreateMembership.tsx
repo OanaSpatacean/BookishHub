@@ -46,7 +46,7 @@ const CreateMembership = ({isPowerAccount}:Props) => {
                 isPowerAccount ? 
                 "Get your monthly membership" 
                 : 
-                "Get more designs"
+                "Get more points"
             }
         </Button>
   )

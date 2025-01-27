@@ -1,3 +1,4 @@
+import MembershipFees from '@/components/MembershipFees';
 import PDFDrop from '@/components/PDFDrop';
 import { getAuthSession } from '@/lib/authentication';
 import { databaseClient } from '@/lib/database';
@@ -5,7 +6,7 @@ import verifyMembership from '@/lib/membership';
 import { ArrowRight, InfoIcon } from 'lucide-react';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import React, { useState } from 'react'
+import React from 'react'
 
 type Props = {}
 
@@ -84,7 +85,8 @@ const PDFBreakdown = async (props: Props) => {
                     </div>
                     )}
             </div>
-            <PDFDrop/>
+            <MembershipFees havePowerAccount={havePowerAccount}/>
+            <PDFDrop session={session} havePowerAccount={havePowerAccount}/>
             <div className="bg-secondary 
                             border-none 
                             p-4 
