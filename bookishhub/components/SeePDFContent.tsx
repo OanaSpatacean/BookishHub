@@ -1,3 +1,5 @@
+"use client"
+import { useTheme } from "next-themes";
 import React from "react";
 
 type Props = 
@@ -5,10 +7,14 @@ type Props =
     pdfURL: string
 }
 
-const SeePDFContent = async ({pdfURL}: Props) => {
+const SeePDFContent: React.FC<Props> = ({ pdfURL }) => {
+    const { theme } = useTheme();
+  
     return (
-        <iframe src={`${pdfURL}`} className="w-full h-full"></iframe>
+      <div className={`w-full h-full relative ${ theme === "dark" ? "bg-gray-900" : "bg-white" }`}>
+        <iframe src={pdfURL} className={`w-full h-full`} style={{ filter: theme === "dark" ? "invert(1) hue-rotate(180deg)" : "none"}}></iframe>
+      </div>
     )
-}
-
-export default SeePDFContent;
+  }
+  
+  export default SeePDFContent;
