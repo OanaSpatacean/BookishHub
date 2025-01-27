@@ -44,16 +44,16 @@ const PDFRequestsListed = ({PDFRequests,isLoading}: Props) => {
                         flex">
             {PDFRequests.map((PDFRequest) => {
                 return (
-                    <div key={PDFRequest.id} className={cn("flex", {"pl-10 justify-end": PDFRequest.role === "USER",
-                                                                    "pr-10 justify-start": PDFRequest.role === "SYSTEM",
+                    <div key={PDFRequest.id} className={cn("flex", {"pl-10 justify-end": PDFRequest.role === "user",
+                                                                    "pr-10 justify-start": PDFRequest.role === "system",
                                                                     }
                                                             )
                                                         }>
 
                         <div className={cn("px-3 ring-gray-900/10 py-1 text-sm shadow-md ring-1 rounded-lg",
                                             {
-                                                "bg-purple-600 text-white": PDFRequest.role === "USER", 
-                                                "text-black": PDFRequest.role === "SYSTEM", 
+                                                "bg-purple-600 text-white": PDFRequest.role === "user", 
+                                                "text-black": PDFRequest.role === "system", 
                                             }
                                         )
                                         }>
