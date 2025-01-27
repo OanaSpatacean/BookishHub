@@ -63,7 +63,8 @@ const PDFRequestsSection = ({aboutPDFConversationId}: Props) => {
                                font-bold 
                                bg-purple-300
                                dark:bg-purple-800 
-                               rounded-lg">
+                               rounded-lg
+                               pl-4">
                     PDF Conversation
                 </h3>
             </div>
