@@ -25,12 +25,17 @@ const PDFRequestsListed = ({PDFRequests,isLoading}: Props) => {
         )
     }
 
-    if (!PDFRequests)
-    {
-        return 
-        <>
-        </>
-    }
+    if (!PDFRequests || PDFRequests.length === 0) {
+        return (
+          <div className="text-center 
+                          text-gray-500 
+                          mt-[50px]">
+            <p>
+                No requests found
+            </p>
+          </div>
+        );
+      }
 
     return (
         <div className="gap-2 
@@ -47,7 +52,8 @@ const PDFRequestsListed = ({PDFRequests,isLoading}: Props) => {
 
                         <div className={cn("px-3 ring-gray-900/10 py-1 text-sm shadow-md ring-1 rounded-lg",
                                             {
-                                                "bg-purple-600 text-white": PDFRequest.role === "USER",
+                                                "bg-purple-600 text-white": PDFRequest.role === "USER", 
+                                                "bg-gray-200 text-black": PDFRequest.role === "SYSTEM", 
                                             }
                                         )
                                         }>
