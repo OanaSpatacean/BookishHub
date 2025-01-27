@@ -2,12 +2,14 @@ import { getS3Url } from "@/lib/s3";
 import { NextResponse } from "next/server";
 import { databaseClient } from "@/lib/database";
 import { getAuthSession } from "@/lib/authentication";
+import verifyMembership from "@/lib/membership";
 
 export async function POST(req: Request) 
 {
   try 
   {
     const session = await getAuthSession();
+    const havePowerAccount = await verifyMembership();
 
     if (!session?.user) 
     {
@@ -20,6 +22,15 @@ export async function POST(req: Request)
     if (!keyOfFile || !nameOfFile) 
     {
       return NextResponse.json({ error: "Invalid data" }, { status: 400 });
+    }
+
+    if (session.user.points <= 0 && !havePowerAccount && session.user.isAdmin == false) 
+    {
+        return new NextResponse("You have no more points to use for a new PDF breakdown!", 
+                                    { 
+                                        status: 402 
+                                    }
+                                )
     }
 
     const result = await databaseClient.aboutPDFConversations.create({
