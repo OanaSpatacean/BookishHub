@@ -3,7 +3,6 @@
 import axios from "axios";
 import { Button } from "./ui/button";
 import { useSession } from "next-auth/react";
-import { Progress } from "@radix-ui/react-progress";
 import React from "react";
 
 type Props = {
@@ -49,10 +48,10 @@ const MembershipFees = ({havePowerAccount}:Props) => {
         <Button className="text-white 
                           transition 
                           bg-gradient-to-r 
-                          from-blue-500 
-                          to-blue-900 
-                          hover:from-blue-600 
-                          hover:to-blue-800 
+                          from-gray-500 
+                          to-gray-900 
+                          hover:from-gray-600 
+                          hover:to-gray-800 
                           w-full 
                           mb-6 
                           text-md 
@@ -68,7 +67,7 @@ const MembershipFees = ({havePowerAccount}:Props) => {
         ) : (
           <p className="text-center text-gray-800 text-md font-medium dark:text-white">
             We are thrilled to have you in our&nbsp;
-            <span className="font-semibold text-blue-700">BookishHub Power&nbsp;</span> 
+            <span className="font-bold text-black">BookishHub Power&nbsp;</span> 
               community! As a valued member, you gain access to exclusive resources, insights, and tools tailored to enhance your experience. With unlimited lesson designs and pdf breakdowns at your fingertips, you'll have the freedom to bring your ideas to life without limits. 
           </p>
         )}

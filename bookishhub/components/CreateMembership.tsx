@@ -44,7 +44,7 @@ const CreateMembership = ({isPowerAccount}:Props) => {
                                                                         font-semibold">
             {
                 isPowerAccount ? 
-                "Get your monthly membership" 
+                "Manage your monthly membership" 
                 : 
                 "Get more points"
             }

@@ -19,7 +19,7 @@ const PDFBreakdown = async (props: Props) => {
 
     const userId = session.user.id; 
 
-    const havePowerAccount = verifyMembership();
+    const havePowerAccount = await verifyMembership();
 
     const userConversations = await databaseClient.aboutPDFConversations.findMany({
         where: {
