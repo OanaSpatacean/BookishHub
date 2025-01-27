@@ -41,7 +41,8 @@ const PDFRequestsListed = ({PDFRequests,isLoading}: Props) => {
         <div className="gap-2 
                         flex-col 
                         px-4 
-                        flex">
+                        flex
+                        mb-6">
             {PDFRequests.map((PDFRequest) => {
                 return (
                     <div key={PDFRequest.id} className={cn("flex", {"pl-10 justify-end": PDFRequest.role === "user",

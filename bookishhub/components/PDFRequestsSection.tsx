@@ -64,8 +64,7 @@ const PDFRequestsSection = ({aboutPDFConversationId}: Props) => {
                                                      bg-white 
                                                      shadow-md 
                                                      rounded-lg
-                                                     dark:bg-gray-950
-                                                     ">
+                                                     dark:bg-gray-950">
                 <div className="flex 
                                 items-center">
                     <Input placeholder="Make a request about your PDF to our AI..." onChange={handleInputChange} value={input} className="w-full dark:bg-gray-900"/>
