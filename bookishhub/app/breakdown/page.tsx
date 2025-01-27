@@ -85,8 +85,6 @@ const PDFBreakdown = async (props: Props) => {
                     </div>
                     )}
             </div>
-            <MembershipFees havePowerAccount={havePowerAccount}/>
-            <PDFDrop session={session} havePowerAccount={havePowerAccount}/>
             <div className="bg-secondary 
                             border-none 
                             p-4 
@@ -107,6 +105,8 @@ const PDFBreakdown = async (props: Props) => {
                     Hi! Here, you can easily upload your PDF file and feed the information into our AI. Once uploaded, you can converse with the AI and ask any questions about the contents of your document. This will save you time and effort, as you no longer have to read through lengthy pages—our AI is here to help you break down your PDFs and assist with any query related to the text. To start your conversation with our AI, simply click the button above. You'll be able to see all the PDFs you've uploaded, and if this is your first time, just upload your file, and you're good to go! Enjoy the convenience and power of AI-assisted reading.
                 </div>
             </div>
+            <MembershipFees havePowerAccount={havePowerAccount}/>
+            <PDFDrop session={session} havePowerAccount={havePowerAccount}/>     
         </div>              
     );
 };
