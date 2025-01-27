@@ -65,8 +65,18 @@ const AboutPDFConversationPage = async ({ params: { aboutPDFConversationId } }: 
                     <SeePDFContent pdfURL={currentConversation.pdfUrl || ""} />
                 </div>
 
-                <div className="border-b-2 
-                                border-b-slate-200 
+                <h3 className="text-lg 
+                                font-bold 
+                                bg-purple-300
+                                dark:bg-purple-800 
+                                rounded-lg
+                                pl-4
+                                mb-1
+                                mt-[-16px]">
+                        PDF Conversation
+                </h3>
+
+                <div className=" 
                                 p-4 
                                 h-[40%] 
                                 overflow-scroll">

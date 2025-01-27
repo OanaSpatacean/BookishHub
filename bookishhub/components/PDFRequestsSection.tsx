@@ -52,23 +52,6 @@ const PDFRequestsSection = ({aboutPDFConversationId}: Props) => {
       
     return (
         <div className="" id="PDFRequest-container">
-            <div
-                className="top-0 
-                           mb-2 
-                           sticky 
-                           h-fit 
-                           bg-white
-                           dark:bg-gray-950">
-                <h3 className="text-lg 
-                               font-bold 
-                               bg-purple-300
-                               dark:bg-purple-800 
-                               rounded-lg
-                               pl-4">
-                    PDF Conversation
-                </h3>
-            </div>
-
             <PDFRequestsListed PDFRequests={messages} isLoading={isLoading} />
 
             <form onSubmit={handleSubmit} className="absolute 
@@ -89,7 +72,7 @@ const PDFRequestsSection = ({aboutPDFConversationId}: Props) => {
                     <Button className="ml-2 
                                        bg-purple-500
                                        hover:bg-purple-800
-                                                     dark:hover:bg-purple-800">
+                                       dark:hover:bg-purple-800">
                         <FaArrowUp className="w-4 
                                               h-4" />
                     </Button>
