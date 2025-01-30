@@ -84,8 +84,9 @@ const EditLessons = async (props: Props) => {
                     </div>
 
                     <div className="ml-5">
-                        To provide users with valuable content, you have the option to add default lessons created by you. Click here to seamlessly add these lessons and offer valuable, pre-designed content to your users. You can continue to select which lessons to display on your platform and remove any lessons that are not suitable. </div>
+                        To provide users with valuable content, you have the option to add default lessons created by you. Click here to seamlessly add these lessons and offer valuable, pre-designed content to your users. You can continue to select which lessons to display on your platform and remove any lessons that are not suitable. 
                     </div>
+                </div>
             </div>
 
             <div className="max-w-7xl 
