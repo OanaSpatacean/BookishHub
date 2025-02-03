@@ -55,7 +55,7 @@ export async function DELETE(request: Request) {
     } 
     catch (error) 
     {
-        console.error("Error processing delete request:", error);
+        console.error("Error processing delete PDFconversation:", error);
 
         if (error instanceof ZodError) 
         {
