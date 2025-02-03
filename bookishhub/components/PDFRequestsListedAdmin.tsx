@@ -22,7 +22,7 @@ const PDFRequestsListedAdmin = ({PDFRequests,isLoading}: Props) => {
     const { mutate: deletePDFRequest } = useMutation({
         mutationFn: async (input: { PDFRequestId: number }) => {
             setLoadingId(input.PDFRequestId); 
-            const response = await axios.delete("/api/admin/edit_pdf_request", { data: input });
+            const response = await axios.delete("/api/admin/edit_PDF_request", { data: input });
             return response.data;
         },
         onSuccess: () => {
