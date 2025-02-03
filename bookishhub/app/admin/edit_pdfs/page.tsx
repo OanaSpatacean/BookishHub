@@ -103,7 +103,7 @@ const EditPDFs = async ({ params: { aboutPDFConversationId } }: Props) => {
                             <h2 className="text-2xl 
                                            font-semibold 
                                            mb-4">
-                                User: {user.name || "Unknown user"}
+                                User: {user.name || "unknown"}
                             </h2>
 
                             {conversations.length > 0 ? (

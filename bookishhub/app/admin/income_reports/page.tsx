@@ -37,23 +37,17 @@ const IncomeReports = async (props: Props) => {
         where: { id: { in: uniqueUserIds } }
     });
 
-    const userMembershipMap = users.map((user) => {
-        const memberships = userMemberships.filter((m) => m.userId === user.id);
-        
-        memberships.sort((a, b) => 
-            new Date(b.paymentCurrentPeriodEnding || 0).getTime() - new Date(a.paymentCurrentPeriodEnding || 0).getTime()
-        );
-
-        const latestMembership = memberships[0]; 
-        const isMembershipActive = latestMembership?.paymentCurrentPeriodEnding 
-            ? new Date(latestMembership.paymentCurrentPeriodEnding) > new Date()
+    const userMembershipMap = userMemberships.map((membership) => {
+        const user = users.find((u) => u.id === membership.userId) || { id: "unknown", name: "unknown" };
+        const isMembershipActive = membership.paymentCurrentPeriodEnding
+            ? new Date(membership.paymentCurrentPeriodEnding) > new Date()
             : false;
-
+    
         return {
             user,
-            latestMembership,
+            membership,
             isMembershipActive
-        };
+        }
     });
 
     return (
@@ -122,20 +116,20 @@ const IncomeReports = async (props: Props) => {
                             </div>
                         </div>
                     ) : (
-                        userMembershipMap.map(({ user, latestMembership, isMembershipActive }) => {
-                            const paymentDate = latestMembership?.paymentCurrentPeriodEnding
-                                ? new Date(latestMembership.paymentCurrentPeriodEnding).toLocaleDateString()
+                        userMembershipMap.map(({ user, membership, isMembershipActive }) => {
+                            const paymentDate = membership.paymentCurrentPeriodEnding
+                                ? new Date(membership.paymentCurrentPeriodEnding).toLocaleDateString()
                                 : "[no membership date]";
 
                             return (
-                                <div key={user.id} className="w-full 
-                                                              flex 
-                                                              flex-col 
-                                                              gap-5 
-                                                              mt-3">
+                                <div key={membership.id} className="w-full 
+                                                                    flex 
+                                                                    flex-col 
+                                                                    gap-5 
+                                                                    mt-3">
                                     <h2 className={`rounded-lg border p-4 flex items-center w-full text-lg font-semibold 
                                                     ${isMembershipActive ? "bg-green-50 dark:bg-green-900" : "bg-red-50 dark:bg-red-900"}`}>
-                                        {"User " + user.name || "Unknown user"} 
+                                        {"User " + (user?.name ?? "unknown ")} 
 
                                         {isMembershipActive 
                                             ? ` has an active membership until ${paymentDate}` 
@@ -148,7 +142,7 @@ const IncomeReports = async (props: Props) => {
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
 export default IncomeReports;
