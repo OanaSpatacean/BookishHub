@@ -111,7 +111,7 @@ const EditPDFs = async ({ params: { aboutPDFConversationId } }: Props) => {
                             ) : (
                                 <p className="text-gray-500 
                                               italic">
-                                    No conversations has been created yet by this user
+                                    No conversation has been created yet by this user
                                 </p>
                             )}
                         </div>
