@@ -31,7 +31,7 @@ const PDFRequestsListed = ({PDFRequests,isLoading}: Props) => {
                           text-gray-500 
                           mt-[70px]">
             <p>
-                No requests found
+                No requests found for this conversation
             </p>
           </div>
         );
