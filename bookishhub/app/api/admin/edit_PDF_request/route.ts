@@ -17,6 +17,14 @@ export async function DELETE(request: Request) {
             } 
         })
 
+        if (!PDFRequest) 
+        {
+            return NextResponse.json(
+                { success: false, error: "PDF request does not exist!" },
+                { status: 404 }
+            )
+        }
+
         await databaseClient.pDFRequest.delete({ 
             where: 
             { 
