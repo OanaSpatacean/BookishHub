@@ -12,8 +12,6 @@ type Props =
 }
 
 const AllConversationsListedAdmin = ({userPDFConversations, aboutPDFConversationId}: Props) => {
-    const [loading, setLoading] = React.useState(false);
-
     return (
         <div className="dark:text-gray-100 
                         mt-5 

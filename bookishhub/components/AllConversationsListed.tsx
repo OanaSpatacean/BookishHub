@@ -15,8 +15,6 @@ type Props =
 }
 
 const AllConversationsListed = ({userPDFConversations, aboutPDFConversationId, havePowerAccount}: Props) => {
-    const [loading, setLoading] = React.useState(false);
-
     return (
         <div className="dark:text-gray-100 
                         mt-5 
