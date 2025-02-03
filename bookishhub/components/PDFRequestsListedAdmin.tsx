@@ -1,7 +1,13 @@
-import React from "react";
+"use client"
+import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { PDFRequest } from "@prisma/client";
 import { Loader2 } from "lucide-react";
+import { useToast } from "./ui/use-toast";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { MdOutlineDownloading } from "react-icons/md";
 
 type Props = 
 {
@@ -9,7 +15,35 @@ type Props =
     isLoading: boolean;
 }
 
-const PDFRequestsListed = ({PDFRequests,isLoading}: Props) => {
+const PDFRequestsListedAdmin = ({PDFRequests,isLoading}: Props) => {
+    const { toast } = useToast();
+    const [loadingId, setLoadingId] = useState<number | null>(null); 
+
+    const { mutate: deletePDFRequest } = useMutation({
+        mutationFn: async (input: { PDFRequestId: number }) => {
+            setLoadingId(input.PDFRequestId); 
+            const response = await axios.delete("/api/admin/edit_pdf_request", { data: input });
+            return response.data;
+        },
+        onSuccess: () => {
+            toast({
+                title: "Success",
+                description: "PDF request deleted successfully",
+            });
+            setLoadingId(null); 
+            window.location.reload();
+        },
+        onError: (error) => {
+            console.error("Error deleting PDF request:", error);
+            toast({
+                title: "Warning",
+                description: "An error occurred while deleting the PDF request",
+                variant: "destructive",
+            });
+            setLoadingId(null); 
+        }
+    })
+
     if (isLoading) 
     {
         return (
@@ -63,6 +97,18 @@ const PDFRequestsListed = ({PDFRequests,isLoading}: Props) => {
                                 {PDFRequest.content}
                             </p>
                         </div>
+                        <div className="justify-end 
+                                        flex">
+                            <div className="text-secondary-foreground/70">
+                                <button onClick={() => deletePDFRequest({ PDFRequestId: PDFRequest.id })} className="underline 
+                                                                                                                    text-red-500 
+                                                                                                                    block 
+                                                                                                                    w-fit 
+                                                                                                                    disabled:opacity-50" disabled={loadingId === PDFRequest.id}>
+                                    {loadingId === PDFRequest.id ? <MdOutlineDownloading /> : <FaRegTrashAlt/>}
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     )
             })}
@@ -70,4 +116,4 @@ const PDFRequestsListed = ({PDFRequests,isLoading}: Props) => {
     )
 }
 
-export default PDFRequestsListed;
+export default PDFRequestsListedAdmin;
