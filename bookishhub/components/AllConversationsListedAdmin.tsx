@@ -60,7 +60,7 @@ const AllConversationsListedAdmin = ({ userPDFConversations, aboutPDFConversatio
                                                        text-xl 
                                                        text-primary"/>
 
-                    <Link href={`/breakdown/${conversation.id}`} className="flex-grow">
+                    <Link href={`/admin/edit_pdfs/${conversation.id}`} className="flex-grow">
                         <h3 className="text-primary 
                                        truncate 
                                        font-semibold 
