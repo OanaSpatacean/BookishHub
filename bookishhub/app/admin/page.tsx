@@ -71,7 +71,7 @@ const AdminPanel = async (props: Props) => {
                 </div>
 
                 <div className="ml-5">
-                    Tap 'Income Reports' to see which users have paid for a membership, the date of their payment, and a summary of your total income for the current month and year.               
+                    Tap 'Income Reports' button to access a detailed view of membership payments. You'll see a list of all users who have paid, the date of each payment, and a breakdown of your total earnings for the current month and year.               
                 </div>
             </div>
 
