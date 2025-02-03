@@ -1,4 +1,5 @@
-"use client"
+"use client";
+
 import { cn } from "@/lib/utils";
 import { AboutPDFConversations } from "@prisma/client";
 import Link from "next/link";
@@ -11,52 +12,35 @@ type Props =
     aboutPDFConversationId: number;
 }
 
-const AllConversationsListedAdmin = ({userPDFConversations, aboutPDFConversationId}: Props) => {
+const AllConversationsListedAdmin = ({ userPDFConversations, aboutPDFConversationId }: Props) => {
     return (
-        <div className="dark:text-gray-100 
-                        mt-5 
-                        w-full 
-                        p-4 
-                        text-gray-900 
-                        h-[calc(100vh-65px)] 
-                        bg-gray-200 
-                        dark:bg-gray-800 
-                        overflow-y-scroll 
-                        overflow-x-hidden">
-        <div className="mt-5 
-                        pb-20 
-                        max-h-screen 
+        <div className="w-full 
                         flex 
-                        gap-2 
-                        flex-col">
-          {userPDFConversations.map((userPDFConversation) => (
-            <Link key={userPDFConversation.id} href={`/breakdown/${userPDFConversation.id}`}>
-              <div className={cn("rounded-lg p-3 flex items-center",
-                                {"bg-green-600 text-white hover:bg-green-500 hover:dark:bg-green-900 dark:text-white":
-                                    userPDFConversation.id === aboutPDFConversationId,
-                                "bg-gray-200 text-gray-800 dark:bg-gray-800 dark:text-gray-200 hover:dark:bg-gray-600 hover:dark:text-white":
-                                    userPDFConversation.id !== aboutPDFConversationId
-                                },
-                                userPDFConversation.id === aboutPDFConversationId ? "hover:bg-green-500"
-                                : "hover:bg-gray-300 hover:text-gray-900"
-                            )}>
-
-                <TbMessageChatbotFilled  className="mr-2"/>
-
-                <p className="whitespace-nowrap 
-                              text-sm 
-                              truncate 
-                              w-full 
-                              text-ellipsis 
-                              overflow-hidden">
-                  {userPDFConversation.pdfName}
-                </p>
-
-              </div>
-            </Link>
-          ))}
+                        flex-col 
+                        gap-5">
+            {userPDFConversations.map((conversation) => (
+                <div key={conversation.id} className={cn("rounded-lg border p-4 flex items-center bg-gray-50 dark:bg-gray-900 w-full",
+                                                        {
+                                                            "bg-green-600 text-white hover:bg-green-500 dark:hover:bg-green-700":
+                                                                conversation.id === aboutPDFConversationId,
+                                                            "hover:bg-gray-300 dark:hover:bg-gray-800":
+                                                                conversation.id !== aboutPDFConversationId,
+                                                        }
+                                                      )}>
+                    <TbMessageChatbotFilled className="mr-3 
+                                                       text-xl 
+                                                       text-primary" />
+                    <Link href={`/breakdown/${conversation.id}`} className="flex-grow">
+                        <h3 className="text-primary 
+                                       truncate 
+                                       font-semibold 
+                                       text-lg">
+                            {conversation.pdfName}
+                        </h3>
+                    </Link>
+                </div>
+            ))}
         </div>
-      </div> 
     )
 }
 
