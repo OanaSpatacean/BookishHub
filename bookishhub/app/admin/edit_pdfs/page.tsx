@@ -20,11 +20,24 @@ const EditPDFs = async ({ params: { aboutPDFConversationId } }: Props) => {
     }
 
     const userPDFConversations = await databaseClient.aboutPDFConversations.findMany({
+    })
+
+    const uniqueUserIds = [...new Set(userPDFConversations.map((conv) => conv.userId))];
+
+    const users = await databaseClient.user.findMany({
         where: 
         {
-            userId: session.user.id
+            id: 
+            {
+                in: uniqueUserIds,
+            }
         }
     })
+
+    const userConversationMap = users.map((user) => ({
+        user,
+        conversations: userPDFConversations.filter((conv) => conv.userId === user.id)
+    }))
 
     const currentConversation = userPDFConversations.find(
         (aboutPDFConversation) => aboutPDFConversation.id === parseInt(aboutPDFConversationId)
@@ -85,12 +98,21 @@ const EditPDFs = async ({ params: { aboutPDFConversationId } }: Props) => {
                         </div>
                     </div>
                 ) : (
-                    <div className="gap-4 
-                                    flex-col 
-                                    flex 
-                                    w-full">
-                        <AllConversationsListedAdmin userPDFConversations={userPDFConversations} aboutPDFConversationId={currentConversation?.id ?? 0}/>
-                    </div>
+                    userConversationMap.map(({ user, conversations }) => (
+                        <div key={user.id} className="mb-10">
+                            <h2 className="text-2xl 
+                                           font-semibold 
+                                           mb-4">
+                                User: {user.name || "Unknown user"}
+                            </h2>
+
+                            {conversations.length > 0 ? (
+                                <AllConversationsListedAdmin userPDFConversations={conversations} aboutPDFConversationId={parseInt(aboutPDFConversationId) || 0}/>
+                            ) : (
+                                <p className="text-gray-500 italic">No conversations found for this user.</p>
+                            )}
+                        </div>
+                    ))
                 )}
             </div>
         </div>
