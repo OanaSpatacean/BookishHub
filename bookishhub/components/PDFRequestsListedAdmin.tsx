@@ -20,6 +20,7 @@ const PDFRequestsListedAdmin = ({PDFRequests,isLoading}: Props) => {
   const [loadingId, setLoadingId] = useState<number | null>(null);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editedContent, setEditedContent] = useState<{ [key: number]: string }>({});
+  const [localRequests, setLocalRequests] = useState(PDFRequests); 
 
   const { mutate: deletePDFRequest } = useMutation({
     mutationFn: async (input: { PDFRequestId: number }) => {
@@ -32,8 +33,7 @@ const PDFRequestsListedAdmin = ({PDFRequests,isLoading}: Props) => {
                 title: "Success",
                 description: "PDF request deleted successfully",
             });
-      setLoadingId(null);
-      window.location.reload();
+            setLoadingId(null);
     },
     onError: (error) => {
       console.error("Error deleting PDF request:", error);
@@ -55,11 +55,15 @@ const PDFRequestsListedAdmin = ({PDFRequests,isLoading}: Props) => {
       });
       return response.data;
     },
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
       toast({ title: "Success", description: "PDF request updated successfully" });
+
+      setLocalRequests((prev) =>
+        prev.map((req) => (req.id === variables.PDFRequestId ? { ...req, content: variables.content } : req))
+      )
+
       setLoadingId(null);
       setEditingId(null);
-      window.location.reload();
     },
     onError: (error) => {
       console.error("Error updating PDF request:", error);
@@ -82,13 +86,13 @@ const PDFRequestsListedAdmin = ({PDFRequests,isLoading}: Props) => {
     )
   }
 
-  if (!PDFRequests || PDFRequests.length === 0) {
+  if (!localRequests || localRequests.length === 0) {
     return (
       <div className="text-center 
                       text-gray-500 
                       mt-[210px]
                       italic">
-            <p>
+        <p>
                 No requests found for this conversation
             </p>
       </div>
@@ -99,14 +103,14 @@ const PDFRequestsListedAdmin = ({PDFRequests,isLoading}: Props) => {
     <div className="gap-2 
                     flex-col 
                     px-4 
-                    flex
-                    mb-6">      
-    {PDFRequests.map((PDFRequest) => (
+                    flex 
+                    mb-6">
+      {localRequests.map((PDFRequest) => (
         <div key={PDFRequest.id} className={cn("flex", { "pl-10 justify-end": PDFRequest.role === "user", "pr-10 justify-start": PDFRequest.role === "system" })}>
           <div className={cn("px-3 py-1 text-sm shadow-md ring-1 rounded-lg", {
-                            "bg-green-600 text-white": PDFRequest.role === "user",
-                            "dark:bg-gray-500 dark:text-white": PDFRequest.role === "system",
-            })}>
+                             "bg-green-600 text-white": PDFRequest.role === "user",
+                             "dark:bg-gray-500 dark:text-white": PDFRequest.role === "system",
+          })}>
             {editingId === PDFRequest.id ? (
               <input type="text" value={editedContent[PDFRequest.id] ?? PDFRequest.content} onChange={(e) => setEditedContent({ ...editedContent, [PDFRequest.id]: e.target.value })} className="border 
                                                                                                                                                                                                  rounded 
@@ -144,7 +148,6 @@ const PDFRequestsListedAdmin = ({PDFRequests,isLoading}: Props) => {
                                                                                underline">
                   <FaEdit />
                 </button>
-
                 <button onClick={() => deletePDFRequest({ PDFRequestId: PDFRequest.id })} className="text-red-500 
                                                                                                      underline 
                                                                                                      disabled:opacity-50" disabled={loadingId === PDFRequest.id}>
