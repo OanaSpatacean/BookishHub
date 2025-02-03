@@ -1,19 +1,33 @@
+import AllConversationsListedAdmin from "@/components/AllConversationsListedAdmin";
 import { getAuthSession } from "@/lib/authentication";
-import { databaseClient } from "@/lib/database";
+import { databaseClient } from '@/lib/database';
 import { InfoIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 
-type Props = {};
+type Props = {
+    params:
+    {
+        aboutPDFConversationId: string;
+    }
+};
 
-const EditPDFs = async (props: Props) => {
+const EditPDFs = async ({params: { aboutPDFConversationId } }: Props) => {
     const session = await getAuthSession();
 
     if(!session?.user){ 
         return redirect('/');
     }
 
-    const aboutPDFConversations = await databaseClient.aboutPDFConversations.findMany({
-       })
+    const userPDFConversations = await databaseClient.aboutPDFConversations.findMany({
+        where: 
+        { 
+            userId: session.user.id 
+        }
+    })
+    
+    const currentConversation = await userPDFConversations.find(
+        (aboutPDFConversation) => aboutPDFConversation.id === parseInt(aboutPDFConversationId)
+    )
     
     return (
          <div className="flex 
@@ -57,23 +71,23 @@ const EditPDFs = async (props: Props) => {
                 <div className="max-w-7xl 
                                 mx-auto  
                                 py-3">
-                {aboutPDFConversations.length === 0 ? (
+                {!userPDFConversations || userPDFConversations.length === 0 ? (
                     <div className="flex 
                                     items-center 
                                     justify-center 
-                                    h-[30vh]">
+                                    h-[40vh]">
                         <div className="text-gray-400 
                                         italic 
                                         text-center 
                                         flex 
                                         items-center">
-                                No conversation has been created yet
+                            No conversation has been created yet
                         </div>
                     </div>
                     ) : (
                         <div className="gap-4 
                                         flex-col flex">
-                        
+                            <AllConversationsListedAdmin userPDFConversations={userPDFConversations} aboutPDFConversationId={currentConversation?.id ?? 0}/>
                         </div>
                 )}
             </div>
