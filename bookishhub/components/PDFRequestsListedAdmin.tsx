@@ -21,8 +21,8 @@ const PDFRequestsListedAdmin = ({PDFRequests,isLoading}: Props) => {
 
     const { mutate: deletePDFRequest } = useMutation({
         mutationFn: async (input: { PDFRequestId: number }) => {
-            setLoadingId(input.PDFRequestId); 
-            const response = await axios.delete("/api/admin/edit_PDF_request", { data: input });
+            setLoadingId(input.PDFRequestId);
+            const response = await axios.delete("/api/admin/edit_PDF_request", {data: { PDFRequestId: Number(input.PDFRequestId) } });
             return response.data;
         },
         onSuccess: () => {
@@ -30,7 +30,7 @@ const PDFRequestsListedAdmin = ({PDFRequests,isLoading}: Props) => {
                 title: "Success",
                 description: "PDF request deleted successfully",
             });
-            setLoadingId(null); 
+            setLoadingId(null);
             window.location.reload();
         },
         onError: (error) => {
@@ -40,9 +40,9 @@ const PDFRequestsListedAdmin = ({PDFRequests,isLoading}: Props) => {
                 description: "An error occurred while deleting the PDF request",
                 variant: "destructive",
             });
-            setLoadingId(null); 
+            setLoadingId(null);
         }
-    })
+    })    
 
     if (isLoading) 
     {
