@@ -31,6 +31,50 @@ const AdminPanel = async (props: Props) => {
                 Manage your application
             </h1>
 
+            <Link href="/admin/income_reports" className="mt-9
+                                                        inline-block 
+                                                        text-white 
+                                                        transition 
+                                                        bg-gradient-to-r 
+                                                        from-gray-500 
+                                                        to-gray-900 
+                                                        hover:from-gray-600 
+                                                        hover:to-gray-800 
+                                                        rounded-lg 
+                                                        py-2
+                                                        px-7 
+                                                        flex 
+                                                        items-center 
+                                                        text-md
+                                                        font-semibold
+                                                        w-full">
+                <span>
+                    Income reports
+                </span>
+                <ArrowRight strokeWidth={5} className="ml-[1050px] h-6 w-6" />
+            </Link>
+
+            <div className="bg-secondary 
+                            border-none 
+                            p-4 
+                            flex
+                            mt-7">
+                <div className="flex-shrink-0">
+                    <InfoIcon 
+                        className="text-green-500 
+                                   h-10 
+                                   w-10 
+                                   bg-green-100 
+                                   rounded-full 
+                                   p-2 
+                                   shadow-sm"/>
+                </div>
+
+                <div className="ml-5">
+                    Tap 'Income Reports' to see which users have paid for a membership, the date of their payment, and a summary of your total income for the current month and year.               
+                </div>
+            </div>
+
             <Link href="/admin/edit_users" className="mt-9
                                                     inline-block 
                                                     text-white 
@@ -71,7 +115,7 @@ const AdminPanel = async (props: Props) => {
                 </div>
 
                 <div className="ml-5">
-                    By proceeding to the "Edit platform users" section, you will access the user management interface. This feature allows you to view, edit, and manage all user accounts created on this platform.
+                    By proceeding to the 'Edit platform users' section, you will access the user management interface. This feature allows you to view, edit, and manage all user accounts created on this platform.
                 </div>
             </div>
 
