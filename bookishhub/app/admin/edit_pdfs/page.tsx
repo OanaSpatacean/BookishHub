@@ -109,7 +109,10 @@ const EditPDFs = async ({ params: { aboutPDFConversationId } }: Props) => {
                             {conversations.length > 0 ? (
                                 <AllConversationsListedAdmin userPDFConversations={conversations} aboutPDFConversationId={parseInt(aboutPDFConversationId) || 0}/>
                             ) : (
-                                <p className="text-gray-500 italic">No conversations has been created yet by this user</p>
+                                <p className="text-gray-500 
+                                              italic">
+                                    No conversations has been created yet by this user
+                                </p>
                             )}
                         </div>
                     ))
