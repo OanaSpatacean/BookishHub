@@ -60,9 +60,22 @@ const IncomeReports = async (props: Props) => {
                                                 : "[no membership date]";
                         
                             return (
-                                <div key={user.id} className="mb-10">
-                                    <h2 className="text-2xl font-semibold mb-4">
-                                        User {user.name || "Unknown user"} paid 100 RON on {paymentDate}
+                                <div key={user.id} className="w-full 
+                                                              flex 
+                                                              flex-col 
+                                                              gap-5
+                                                              mt-3">
+                                    <h2 className="rounded-lg 
+                                                   border 
+                                                   p-4 
+                                                   flex 
+                                                   items-center 
+                                                   bg-gray-50 
+                                                   dark:bg-gray-900 
+                                                   w-full 
+                                                   text-lg
+                                                   font-semibold">
+                                        {"User " + user.name || "Unknown user"} paid 100 RON on {paymentDate} for platform membership
                                     </h2>
                                 </div>
                             )
