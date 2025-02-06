@@ -44,7 +44,7 @@ const AccountInfo = () => {
 
     const { mutate: updateAccount, isLoading: isUpdating } = useMutation(
         async (input) => {
-            await axios.put("/api/account_info", input);
+            return axios.put("/api/account_info", input);
         },
         {
             onSuccess: () => 
@@ -136,7 +136,9 @@ const AccountInfo = () => {
 
                     <div className="flex 
                                     space-x-4">
-                        <Button type="button" size="lg" className="w-full" onClick={() => updateAccount()} disabled={isUpdating}>
+                        <Button type="button" size="lg" className="w-full" 
+                            onClick={() => updateAccount(form.getValues())} 
+                            disabled={isUpdating}>
                             {isUpdating ? 'Updating...' : 'Update account'}
                         </Button>
                         
