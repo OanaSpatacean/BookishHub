@@ -31,7 +31,7 @@ const Configurations = async (props: Props) => {
                            underline 
                            decoration-4 
                            decoration-blue-500
-                           mb-9">
+                           mb-5">
                 Configurations 
             </h1>
 
@@ -57,6 +57,27 @@ const Configurations = async (props: Props) => {
                                                                 text-center">
                         Update account info
             </Link>
+
+            <div className="bg-secondary 
+                            border-none 
+                            p-4 
+                            flex 
+                            mb-4 
+                            mt-4">
+                <div className="flex-shrink-0">
+                    <InfoIcon className="text-green-500 
+                                         h-10 
+                                         w-10 
+                                         bg-green-100 
+                                         rounded-full 
+                                         p-2 
+                                         shadow-sm" />
+                </div>
+
+                <div className="ml-5">
+                    To update your account information, click the button above. If you wish to delete your account, you can do so on the page you’ll be redirected to—though hopefully, that won’t be the case, as we’d love to have you stay with us!                
+                </div>
+            </div>
 
             {isPowerAccount ? (
                 <p className="text-secondary-foreground/50 text-3xl text-center mt-4">
