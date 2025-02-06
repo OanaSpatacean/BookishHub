@@ -1,5 +1,6 @@
 import { databaseClient } from "@/lib/database";
-import { ZodError, z } from "zod";
+import { getAuthSession } from "@/lib/authentication";
+import { ZodError } from "zod";
 import { NextResponse } from "next/server";
 import { deleteUserSchema, updateAccountInfoSchema } from "@/app/form-validators/user";
 
@@ -7,6 +8,13 @@ export async function PUT(request: Request, response: Response)
 {
     try 
     {
+        const session = await getAuthSession();
+        
+        if (!session?.user) 
+        {
+            return new NextResponse("Unauthorized", { status: 401 });
+        }
+
         const body = await request.json();
         const parsedBody = updateAccountInfoSchema.parse(body);
 
@@ -42,27 +50,25 @@ export async function DELETE(request: Request, response: Response)
 {
     try 
     {
-        const body = await request.json();
-        const parsedBody = deleteUserSchema.parse(body);
+        const session = await getAuthSession();
 
-        await databaseClient.user.delete(
+        if (!session?.user) 
         {
+            return new NextResponse("Unauthorized", { status: 401 });
+        }
+
+        await databaseClient.user.delete({
             where: 
             { 
-                id: parsedBody.id 
+                id: session.user.id 
             }
-        });
+        })
 
         return NextResponse.json({ success: true, message: "Account deleted successfully" });
     } 
     catch (error) 
     {
         console.error("Error deleting account:", error);
-
-        if (error instanceof ZodError) 
-        {
-            return new NextResponse("Invalid request body format", { status: 400 });
-        }
 
         return new NextResponse("Internal server error", { status: 500 });
     }
