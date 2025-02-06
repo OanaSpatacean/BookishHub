@@ -2,7 +2,7 @@ import { databaseClient } from "@/lib/database";
 import { getAuthSession } from "@/lib/authentication";
 import { ZodError } from "zod";
 import { NextResponse } from "next/server";
-import { deleteUserSchema, updateAccountInfoSchema } from "@/app/form-validators/user";
+import { updateAccountInfoSchema } from "@/app/form-validators/user";
 
 export async function PUT(request: Request, response: Response) 
 {
