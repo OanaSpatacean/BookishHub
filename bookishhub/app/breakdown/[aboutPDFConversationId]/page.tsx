@@ -66,9 +66,11 @@ const AboutPDFConversationPage = async ({ params: { aboutPDFConversationId } }: 
                 </div>
 
                 <h3 className="text-lg 
-                                font-bold 
-                                bg-green-300
-                                dark:bg-green-800 
+                                dark:font-bold
+                                bg-gray-900
+                                text-white
+                                dark:bg-white
+                                dark:text-black
                                 rounded-lg
                                 pl-4
                                 mb-1
