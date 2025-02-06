@@ -82,7 +82,8 @@ const PDFRequestsSection = ({aboutPDFConversationId}: Props) => {
             </form>
 
             {isChatLoading && (
-                <div className="mb-5 ml-5">
+                <div className="mb-5 
+                                ml-5">
                     <Loader2 className="h-8 
                                         animate-spin 
                                         w-6"/>
