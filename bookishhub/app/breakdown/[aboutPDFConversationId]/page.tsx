@@ -78,7 +78,7 @@ const AboutPDFConversationPage = async ({ params: { aboutPDFConversationId } }: 
 
                 <div className="p-4 
                                 h-[40%] 
-                                overflow-y-scroll 
+                                overflow-y-hidden 
                                 overflow-x-hidden">
                     <PDFRequestsSection aboutPDFConversationId={currentConversation.id} />
                 </div>

@@ -1,13 +1,14 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { Input } from "./ui/input";
 import { useChat } from "ai/react";
 import { Button } from "./ui/button";
-import { FaArrowUp } from "react-icons/fa";
+import { FaArrowUp, FaSpinner } from "react-icons/fa6";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { PDFRequest, UserSystemEnum } from "@prisma/client";
 import PDFRequestsListed from "./PDFRequestsListed";
+import { Loader2 } from "lucide-react";
 
 type Props = 
 {
@@ -37,22 +38,23 @@ const PDFRequestsSection = ({aboutPDFConversationId}: Props) => {
         aboutPDFConversationId,
       }));
     
-      const { input, handleInputChange, handleSubmit, messages } = useChat({ api: "/api/PDFRequestResponse", body: { aboutPDFConversationId }, initialMessages: transformedMessages});
+      const { input, handleInputChange, handleSubmit, messages, isLoading: isChatLoading } = useChat({ api: "/api/PDFRequestResponse", body: { aboutPDFConversationId }, initialMessages: transformedMessages});
 
-      React.useEffect(() => {
-        const PDFRequestContainer = document.getElementById("PDFRequest-container");
-
-        if (PDFRequestContainer) 
-        {
-          PDFRequestContainer.scrollTo({
-            top: PDFRequestContainer.scrollHeight,
-            behavior: "smooth",
-        })}
-
-      }, [messages])
+      useEffect(() => {
+        if (messages.length > 0) {
+            const PDFRequestContainer = document.getElementById("PDFRequest-container");
+            if (PDFRequestContainer) {
+                PDFRequestContainer.scrollTo({
+                    top: PDFRequestContainer.scrollHeight,
+                    behavior: "smooth",
+                });
+            }
+        }
+    }, [messages, isChatLoading]); 
+    
       
     return (
-        <div className="" id="PDFRequest-container">
+        <div className="h-[400px] overflow-y-auto" id="PDFRequest-container">
             <PDFRequestsListed PDFRequests={messages} isLoading={isLoading} />
 
             <form onSubmit={handleSubmit} className="absolute 
@@ -78,6 +80,14 @@ const PDFRequestsSection = ({aboutPDFConversationId}: Props) => {
                     </Button>
                 </div>
             </form>
+
+            {isChatLoading && (
+                <div className="mb-5 ml-5">
+                    <Loader2 className="h-8 
+                                        animate-spin 
+                                        w-6"/>
+                </div>               
+            )}
         </div>
     )
 }
