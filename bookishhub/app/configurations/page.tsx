@@ -3,7 +3,7 @@ import { getAuthSession } from "@/lib/authentication";
 import { redirect } from "next/navigation";
 import verifyMembership from "@/lib/membership";
 import { InfoIcon } from "lucide-react";
-import UserInfoUpdate from "@/components/UserInfoUpdate";
+import Link from "next/link";
 
 type Props = {};
 
@@ -35,7 +35,28 @@ const Configurations = async (props: Props) => {
                 Configurations 
             </h1>
 
-            <UserInfoUpdate />
+            <Link href="/configurations/account_info" className="mt-2
+                                                                inline-block 
+                                                                text-white 
+                                                                transition 
+                                                                bg-gradient-to-r 
+                                                                from-blue-500 
+                                                                to-blue-900 
+                                                                hover:from-blue-600 
+                                                                hover:to-blue-800 
+                                                                rounded-lg 
+                                                                py-2
+                                                                px-7 
+                                                                flex 
+                                                                items-center 
+                                                                text-md
+                                                                font-semibold
+                                                                w-full
+                                                                items-center 
+                                                                justify-center 
+                                                                text-center">
+                        Update account info
+            </Link>
 
             {isPowerAccount ? (
                 <p className="text-secondary-foreground/50 text-3xl text-center mt-4">
