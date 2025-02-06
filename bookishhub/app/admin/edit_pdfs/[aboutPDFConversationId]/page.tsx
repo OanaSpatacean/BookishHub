@@ -38,18 +38,20 @@ const AboutPDFConversationAdminPage = async ({ params: { aboutPDFConversationId 
                             w-full">      
 
                 <h3 className="text-lg 
-                                font-bold 
-                                bg-green-300
-                                dark:bg-green-800 
+                                dark:font-bold
+                                bg-gray-900
+                                text-white
+                                dark:bg-white
+                                dark:text-black
                                 rounded-lg
                                 pl-4
                                 mb-1
-                                mt-[30px]">
+                                mt-[17px]">
                         {currentConversationName}
                 </h3>
 
                 <div className="p-4">
-                    <PDFRequestsAdminSection aboutPDFConversationId={currentConversation.id || 0} />
+                    <PDFRequestsAdminSection aboutPDFConversationId={currentConversation.id} />
                 </div>
             </div>
         </div>

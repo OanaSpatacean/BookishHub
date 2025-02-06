@@ -7,6 +7,8 @@ import { TbMessageChatbotFilled } from "react-icons/tb";
 import { useToast } from "./ui/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { Button } from "./ui/button";
+import { FaExpandAlt } from "react-icons/fa";
 
 type Props = 
 {
@@ -68,6 +70,21 @@ const AllConversationsListedAdmin = ({ userPDFConversations, aboutPDFConversatio
                             {conversation.pdfName}
                         </h3>
                     </Link>
+
+                    <div className="justify-end 
+                                    flex">
+                        <div className="text-secondary-foreground/70">
+                            <Link href={`/admin/edit_pdfs/${aboutPDFConversationId || ''}/expanded_PDF`} className='underline 
+                                                                                                                    text-blue-500 
+                                                                                                                    block 
+                                                                                                                    w-fit 
+                                                                                                                    disabled:opacity-50 
+                                                                                                                    mt-2
+                                                                                                                    mr-5'>
+                                    See PDF file
+                            </Link> 
+                        </div>
+                    </div>
 
                     <div className="justify-end 
                                     flex">
