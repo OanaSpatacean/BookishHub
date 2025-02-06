@@ -5,7 +5,7 @@ type Props = {};
 
 const RepoPage = (props: Props) => {
   return (
-    <div className="">
+    <div className="mt-10">
         Repository
     </div>
   )
