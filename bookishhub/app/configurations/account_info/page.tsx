@@ -80,7 +80,15 @@ const AccountInfo = () => {
             </h1>
 
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(updateAccount)} className="space-y-6 bg-white p-6 rounded-md shadow-md w-full mt-8 dark:bg-gray-900 text-sm">
+                <form onSubmit={form.handleSubmit(updateAccount)} className="space-y-6 
+                                                                             bg-white 
+                                                                             p-6 
+                                                                             rounded-md 
+                                                                             shadow-md 
+                                                                             w-full 
+                                                                             mt-8 
+                                                                             dark:bg-gray-900 
+                                                                             text-sm">
                     <FormField control={form.control} name="name" render={({ field }) => (
                         <FormItem>
                             <FormLabel className='font-bold'>
