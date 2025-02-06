@@ -136,7 +136,7 @@ const AccountInfo = () => {
 
                     <div className="flex 
                                     space-x-4">
-                        <Button type="submit" size="lg" className="w-full" disabled={isUpdating}>
+                        <Button type="button" size="lg" className="w-full" onClick={() => updateAccount()} disabled={isUpdating}>
                             {isUpdating ? 'Updating...' : 'Update account'}
                         </Button>
                         
