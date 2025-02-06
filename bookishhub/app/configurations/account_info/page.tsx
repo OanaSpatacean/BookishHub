@@ -50,7 +50,7 @@ const AccountInfo = () => {
             onSuccess: () => 
             {
                 toast({ title: "Success", description: "Account updated successfully" });
-                window.location.reload();
+                router.push('/configurations');
             },
             onError: (error) => 
             {
@@ -74,7 +74,8 @@ const AccountInfo = () => {
                            text-3xl 
                            underline 
                            decoration-4 
-                           decoration-gray-600">
+                           decoration-gray-600
+                           mb-[15px]">
                 Update your account
             </h1>
 
@@ -113,7 +114,7 @@ const AccountInfo = () => {
                                     <FormLabel>
                                         New password
                                     </FormLabel>
-                                    
+
                                     <FormControl>
                                         <Input type="password" placeholder="Enter new password" {...field} required />
                                     </FormControl>
