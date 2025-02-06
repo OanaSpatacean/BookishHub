@@ -54,7 +54,7 @@ const PDFRequestsSection = ({aboutPDFConversationId}: Props) => {
     
       
     return (
-        <div className="h-[400px] overflow-y-auto" id="PDFRequest-container">
+        <div className="h-[200px] overflow-y-auto" id="PDFRequest-container">
             <PDFRequestsListed PDFRequests={messages} isLoading={isLoading} />
 
             <form onSubmit={handleSubmit} className="absolute 
