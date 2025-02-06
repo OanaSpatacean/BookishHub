@@ -1,5 +1,5 @@
 'use client';
-import { deleteUserSchema, updateAccountInfoSchema } from '@/app/form-validators/user';
+import { updateAccountInfoSchema } from '@/app/form-validators/user';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
@@ -11,10 +11,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-
-type Input = z.infer<typeof deleteUserSchema>;
-type Input2 = z.infer<typeof updateAccountInfoSchema>;
+import { signOut } from "next-auth/react";
 
 const AccountInfo = () => {
     const { toast } = useToast();
@@ -25,50 +22,42 @@ const AccountInfo = () => {
         resolver: zodResolver(updateAccountInfoSchema),
         defaultValues: {
             name: '',
-            email: '',
             password: '',
         }
     })
 
-    const { mutate: deleteAccount, isLoading } = useMutation(
-        {
-        mutationFn: async (input: Input) => {
-            const response = await axios.delete("/api/account_info", 
-            {
-                data: input,
-            });
-            return response.data;
+    const { mutate: deleteAccount, isLoading: isDeleting } = useMutation(
+        async () => {
+            await axios.delete("/api/account_info");
+            signOut();
         },
-        onSuccess: () => 
         {
-            toast({ title: "Success", description: "Account deleted successfully." });
-            router.push('/');
-        },
-        onError: (error) => 
-        {
-            console.error(error);
-            toast({ title: "Warning", description: "An error occurred while deleting the account", variant: "destructive" });
-        }
-    })
+            onSuccess: () => {
+                toast({ title: "Success", description: "Account deleted successfully. We are sorry to see you go!" });
+                router.push('/');
+            },
+            onError: (error) => {
+                console.error(error);
+                toast({ title: "Warning", description: "An error occurred while deleting the account", variant: "destructive" });
+            }
+        })
 
     const { mutate: updateAccount, isLoading: isUpdating } = useMutation(
-    {
-        mutationFn: async (input: Input2) => 
-        {
-            const response = await axios.put("/api/account_info", input);
-            return response.data;
+        async (input) => {
+            await axios.put("/api/account_info", input);
         },
-        onSuccess: () => 
         {
-            toast({ title: "Success", description: "Account updated successfully" });
-            window.location.reload();
-        },
-        onError: (error) => 
-        {
-            console.error(error);
-            toast({ title: "Warning", description: "An error occurred while updating the account", variant: "destructive" });
-        },
-    });
+            onSuccess: () => 
+            {
+                toast({ title: "Success", description: "Account updated successfully" });
+                window.location.reload();
+            },
+            onError: (error) => 
+            {
+                console.error(error);
+                toast({ title: "Warning", description: "An error occurred while updating the account", variant: "destructive" });
+            },
+        });
 
     return (
         <div className="flex 
@@ -90,21 +79,10 @@ const AccountInfo = () => {
             </h1>
 
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(updateMutation.mutate)} className="space-y-6 
-                                                                                     bg-white 
-                                                                                     p-6 
-                                                                                     rounded-md 
-                                                                                     shadow-md 
-                                                                                     w-full 
-                                                                                     mt-8 
-                                                                                     dark:bg-gray-900 
-                                                                                     text-sm">
+                <form onSubmit={form.handleSubmit(updateAccount)} className="space-y-6 bg-white p-6 rounded-md shadow-md w-full mt-8 dark:bg-gray-900 text-sm">
                     <FormField control={form.control} name="name" render={({ field }) => (
                         <FormItem>
-                            <FormLabel className='font-bold'>
-                                Name
-                            </FormLabel>
-
+                            <FormLabel className='font-bold'>Name</FormLabel>
                             <FormControl>
                                 <Input placeholder="Update your name" {...field} />
                             </FormControl>
@@ -113,13 +91,12 @@ const AccountInfo = () => {
 
                     <div className='font-bold'>
                         Change Password 
-                        <Checkbox checked={changePassword} onCheckedChange={setChangePassword} className='ml-3'>
-                        </Checkbox>
+                        <Checkbox checked={changePassword} onCheckedChange={setChangePassword} className='ml-3' />
                     </div>
 
                     {changePassword && (
                         <>
-                            <FormField control={form.control} name="oldPassword" render={({ field }) => (
+                        <FormField control={form.control} name="oldPassword" render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>
                                         Old password
@@ -136,7 +113,7 @@ const AccountInfo = () => {
                                     <FormLabel>
                                         New password
                                     </FormLabel>
-
+                                    
                                     <FormControl>
                                         <Input type="password" placeholder="Enter new password" {...field} required />
                                     </FormControl>
@@ -147,13 +124,13 @@ const AccountInfo = () => {
 
                     <div className="flex 
                                     space-x-4">
-                        <Button type="submit" size="lg" className="w-full" disabled={isLoading}>
-                            {isLoading ? 'Updating...' : 'Update account'}
+                        <Button type="submit" size="lg" className="w-full" disabled={isUpdating}>
+                            {isUpdating ? 'Updating...' : 'Update account'}
                         </Button>
                         
                         <Button type="button" size="lg" className="w-full 
-                                                                   bg-red-600" onClick={() => deleteMutation.mutate()}>
-                            Delete account
+                                                                   bg-red-600" onClick={() => deleteAccount()} disabled={isDeleting}>
+                            {isDeleting ? 'Deleting...' : 'Delete account'}
                         </Button>
                     </div>
                 </form>
