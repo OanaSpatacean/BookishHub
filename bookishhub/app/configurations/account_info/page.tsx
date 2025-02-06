@@ -115,7 +115,7 @@ const AccountInfo = () => {
                                     </FormLabel>
 
                                     <FormControl>
-                                        <Input type="password" placeholder="Enter old password" {...field} required />
+                                        <Input type="password" placeholder="Enter your current password" {...field} required />
                                     </FormControl>
                                 </FormItem>
                             )} />
@@ -127,7 +127,7 @@ const AccountInfo = () => {
                                     </FormLabel>
 
                                     <FormControl>
-                                        <Input type="password" placeholder="Enter new password" {...field} required />
+                                        <Input type="password" placeholder="Enter your new password" {...field} required />
                                     </FormControl>
                                 </FormItem>
                             )} />
