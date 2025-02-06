@@ -1,5 +1,5 @@
 'use client';
-import { updateAccountInfoSchema } from '@/app/form-validators/user';
+import { deleteUserSchema, updateAccountInfoSchema } from '@/app/form-validators/user';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
@@ -11,11 +11,14 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+
+type Input = z.infer<typeof deleteUserSchema>;
+type Input2 = z.infer<typeof updateAccountInfoSchema>;
 
 const AccountInfo = () => {
     const { toast } = useToast();
     const router = useRouter();
-    const [isLoading, setIsLoading] = useState(false);
     const [changePassword, setChangePassword] = useState(false);
     
     const form = useForm({
@@ -24,40 +27,48 @@ const AccountInfo = () => {
             name: '',
             email: '',
             password: '',
-            oldPassword: '',
-            points: 20,
-            isAdmin: false,
-        },
-    });
+        }
+    })
 
-    const updateMutation = useMutation({
-        mutationFn: async (input) => {
+    const { mutate: deleteAccount, isLoading } = useMutation(
+        {
+        mutationFn: async (input: Input) => {
+            const response = await axios.delete("/api/account_info", 
+            {
+                data: input,
+            });
+            return response.data;
+        },
+        onSuccess: () => 
+        {
+            toast({ title: "Success", description: "Account deleted successfully." });
+            router.push('/');
+        },
+        onError: (error) => 
+        {
+            console.error(error);
+            toast({ title: "Warning", description: "An error occurred while deleting the account", variant: "destructive" });
+        }
+    })
+
+    const { mutate: updateAccount, isLoading: isUpdating } = useMutation(
+    {
+        mutationFn: async (input: Input2) => 
+        {
             const response = await axios.put("/api/account_info", input);
             return response.data;
         },
-        onSuccess: () => {
+        onSuccess: () => 
+        {
             toast({ title: "Success", description: "Account updated successfully" });
             window.location.reload();
         },
-        onError: (error) => {
+        onError: (error) => 
+        {
             console.error(error);
-            toast({ title: "Error", description: "Failed to update account", variant: "destructive" });
-        }
-    })
-
-    const deleteMutation = useMutation({
-        mutationFn: async () => {
-            await axios.delete("/api/user/delete");
+            toast({ title: "Warning", description: "An error occurred while updating the account", variant: "destructive" });
         },
-        onSuccess: () => {
-            toast({ title: "Success", description: "Account deleted" });
-            router.push('/');
-        },
-        onError: (error) => {
-            console.error(error);
-            toast({ title: "Error", description: "Failed to delete account", variant: "destructive" })
-        }
-    })
+    });
 
     return (
         <div className="flex 
