@@ -30,3 +30,13 @@ export const loginSchema = z.object({
     email: z.string().email(),
     password: z.string().min(1),
 });
+
+export const updateAccountInfoSchema = z.object(
+{
+    name: z.string().optional(),
+    email: z.string().email(),
+    password: z.string().optional(),
+    points: z.number().optional(),
+    isAdmin: z.boolean().optional()
+}
+);
