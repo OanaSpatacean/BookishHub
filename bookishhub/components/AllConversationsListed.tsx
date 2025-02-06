@@ -6,6 +6,7 @@ import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
 import { TbMessageChatbotFilled } from "react-icons/tb";
+import { FaExpandAlt } from "react-icons/fa";
 
 type Props = 
 {
@@ -26,12 +27,21 @@ const AllConversationsListed = ({userPDFConversations, aboutPDFConversationId, h
                         dark:bg-gray-800 
                         overflow-y-scroll 
                         overflow-x-hidden">
-            <Link href="/breakdown">
-                <Button className="w-full">
+            <Link href={`/breakdown/${aboutPDFConversationId || ''}`}>
+                <Button className="w-full mb-1">
                     <Plus className="w-full 
                                      mr-2 
                                      h-4" />
                     Create new PDF conversation
+                </Button>
+            </Link>
+
+            <Link href={`/breakdown/${aboutPDFConversationId || ''}/expanded_PDF`}>
+                <Button className="w-full">
+                    <FaExpandAlt className="w-full 
+                                     mr-2 
+                                     h-4"/>
+                    Expand your PDF here
                 </Button>
             </Link>
   
