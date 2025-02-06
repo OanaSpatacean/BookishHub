@@ -74,7 +74,7 @@ const AllConversationsListedAdmin = ({ userPDFConversations, aboutPDFConversatio
                     <div className="justify-end 
                                     flex">
                         <div className="text-secondary-foreground/70">
-                            <Link href={`/admin/edit_pdfs/${aboutPDFConversationId || ''}/expanded_PDF`} className='underline 
+                            <Link href={`/admin/edit_pdfs/${conversation.id || ''}/expanded_PDF`} className='underline 
                                                                                                                     text-blue-500 
                                                                                                                     block 
                                                                                                                     w-fit 
