@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { PDFRequest } from "@prisma/client";
 import { Loader2 } from "lucide-react";
@@ -21,6 +21,13 @@ const PDFRequestsListedAdmin = ({PDFRequests,isLoading}: Props) => {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editedContent, setEditedContent] = useState<{ [key: number]: string }>({});
   const [localRequests, setLocalRequests] = useState(PDFRequests); 
+
+  useEffect(() => {
+    console.log("Updating localRequests:", PDFRequests);
+    if (PDFRequests?.length > 0) {
+      setLocalRequests(PDFRequests);
+    }
+  }, [PDFRequests]);
 
   const { mutate: deletePDFRequest } = useMutation({
     mutationFn: async (input: { PDFRequestId: number }) => {
