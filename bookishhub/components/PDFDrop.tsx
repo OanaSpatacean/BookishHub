@@ -82,13 +82,13 @@ const PDFDrop = ({session, havePowerAccount}: Props) => {
 
     return (
         <div className="bg-green-50
-                        dark:bg-green-900 
+                        dark:bg-green-950 
                         p-1 
                         rounded-2xl 
                         px-4 
                         py-4 
                         h-[300px]">
-            <div {...getRootProps({className:"rounded-xl h-[270px] border-2 bg-green-50 dark:bg-green-900 border-green-200 flex-col border-dashed py-12 flex items-center cursor-pointer justify-center"})}>
+            <div {...getRootProps({className:"rounded-xl h-[270px] border-2 bg-green-50 dark:bg-green-950 border-green-200 flex-col border-dashed py-12 flex items-center cursor-pointer justify-center"})}>
                 <input {...getInputProps()}/>
 
                 {uploading || isLoading ? (
