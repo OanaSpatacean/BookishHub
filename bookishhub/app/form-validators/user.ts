@@ -33,6 +33,7 @@ export const loginSchema = z.object({
 
 export const updateAccountInfoSchema = z.object(
 {
+    id: z.string(),
     name: z.string().optional(),
     password: z.string().optional(),
 }
