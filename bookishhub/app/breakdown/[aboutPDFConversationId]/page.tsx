@@ -43,7 +43,7 @@ const AboutPDFConversationPage = async ({ params: { aboutPDFConversationId } }: 
 
     if (!currentConversation) 
     {
-    return redirect("/breakdown");
+        return redirect("/breakdown");
     }
     
     return (
