@@ -34,6 +34,7 @@ const PDFRequestsSection = ({aboutPDFConversationId}: Props) => {
         role: pdfRequest.role === UserSystemEnum.USER ? "user" : "system", 
         content: pdfRequest.content,
         createdAt: pdfRequest.createdAt,
+        aboutPDFConversationId,
       }));
     
       const { input, handleInputChange, handleSubmit, messages } = useChat({ api: "/api/PDFRequestResponse", body: { aboutPDFConversationId }, initialMessages: transformedMessages});
