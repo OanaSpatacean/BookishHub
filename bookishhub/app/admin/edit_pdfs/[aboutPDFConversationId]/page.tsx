@@ -21,10 +21,6 @@ const AboutPDFConversationAdminPage = async ({ params: { aboutPDFConversationId 
     }
 
     const userPDFConversations = await databaseClient.aboutPDFConversations.findMany({
-        where: 
-        { 
-            userId: session.user.id 
-        }
     })
     
     const currentConversation = userPDFConversations.find(
@@ -32,7 +28,7 @@ const AboutPDFConversationAdminPage = async ({ params: { aboutPDFConversationId 
     )
 
     const currentConversationName = currentConversation ? currentConversation.pdfName : "Empty conversation";
-    
+
     return (
         <div className="flex">
 
@@ -53,7 +49,7 @@ const AboutPDFConversationAdminPage = async ({ params: { aboutPDFConversationId 
                 </h3>
 
                 <div className="p-4">
-                    <PDFRequestsAdminSection aboutPDFConversationId={currentConversation?.id || 0} />
+                    <PDFRequestsAdminSection aboutPDFConversationId={currentConversation.id || 0} />
                 </div>
             </div>
         </div>

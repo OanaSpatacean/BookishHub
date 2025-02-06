@@ -39,10 +39,6 @@ const EditPDFs = async ({ params: { aboutPDFConversationId } }: Props) => {
         conversations: userPDFConversations.filter((conv) => conv.userId === user.id)
     }))
 
-    const currentConversation = userPDFConversations.find(
-        (aboutPDFConversation) => aboutPDFConversation.id === parseInt(aboutPDFConversationId)
-    )
-
     return (
         <div className="flex 
                         flex-col 
