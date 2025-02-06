@@ -27,7 +27,7 @@ const AllConversationsListed = ({userPDFConversations, aboutPDFConversationId, h
                         dark:bg-gray-800 
                         overflow-y-scroll 
                         overflow-x-hidden">
-            <Link href={`/breakdown/${aboutPDFConversationId || ''}`}>
+            <Link href={`/breakdown/`}>
                 <Button className="w-full mb-1">
                     <Plus className="w-full 
                                      mr-2 
