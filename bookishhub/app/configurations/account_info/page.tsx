@@ -51,7 +51,7 @@ const AccountInfo = () => {
             onSuccess: () => 
             {
                 toast({ title: "Success", description: "Account updated successfully" });
-                router.push('/configurations');
+                window.location.reload();
             },
             onError: (error) => 
             {
