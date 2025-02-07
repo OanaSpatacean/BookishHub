@@ -3,6 +3,7 @@ import { getAuthSession } from "@/lib/authentication";
 import { ZodError } from "zod";
 import { NextResponse } from "next/server";
 import { updateAccountInfoSchema } from "@/app/form-validators/user";
+import bcrypt from "bcryptjs";
 
 export async function PUT(request: Request, response: Response) 
 {
@@ -18,20 +19,54 @@ export async function PUT(request: Request, response: Response)
         const body = await request.json();
         const parsedBody = updateAccountInfoSchema.parse(body);
 
-        const user = await databaseClient.user.update(
-        {
+        const user = await databaseClient.user.findUnique({
             where: 
             { 
-                id: parsedBody.id 
-            },
-            data: 
-            {
-                name: parsedBody.name ?? undefined,
-                password: parsedBody.password ?? undefined,
+                id: session.user.id 
             }
-        });
+        })
 
-        return NextResponse.json({ success: true, user });
+        if (!user) 
+        {
+            return new NextResponse("User not found", { status: 404 });
+        }
+
+        let updatedData: any = {};
+
+        if (parsedBody.name) 
+        {
+            updatedData.name = parsedBody.name;
+        }
+
+        if (parsedBody.password && parsedBody.oldPassword) 
+        {
+            if (!user.password) 
+            {
+                return new NextResponse("No password set for this user", { status: 400 });
+            }
+
+            const isPasswordValid = await bcrypt.compare(parsedBody.oldPassword, user.password);
+
+            if (!isPasswordValid) 
+            {
+                return new NextResponse("Old password is incorrect", { status: 400 });
+            }
+
+            updatedData.password = await bcrypt.hash(parsedBody.password, 10);
+        }
+
+        if (Object.keys(updatedData).length > 0) 
+        {
+            await databaseClient.user.update({
+                where: 
+                { 
+                    id: session.user.id 
+                },
+                data: updatedData
+            })
+        }
+
+        return NextResponse.json({ success: true, message: "Account updated successfully" });
     } 
     catch (error) 
     {

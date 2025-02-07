@@ -31,10 +31,17 @@ export const loginSchema = z.object({
     password: z.string().min(1),
 });
 
-export const updateAccountInfoSchema = z.object(
-{
-    id: z.string(),
+export const updateAccountInfoSchema = z.object({
     name: z.string().optional(),
+    oldPassword: z.string().optional(),
     password: z.string().optional(),
-}
-);
+}).refine(data => {
+    if (data.password && !data.oldPassword) 
+    {
+        return false;
+    }
+    return true;
+}, {
+    message: "Old password is required to set a new password",
+    path: ["oldPassword"]
+})

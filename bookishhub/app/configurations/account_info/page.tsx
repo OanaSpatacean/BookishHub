@@ -23,6 +23,7 @@ const AccountInfo = () => {
         defaultValues: {
             name: '',
             password: '',
+            oldPassword: ''
         }
     })
 
@@ -136,10 +137,19 @@ const AccountInfo = () => {
 
                     <div className="flex 
                                     space-x-4">
-                        <Button type="button" size="lg" className="w-full"  onClick={() => updateAccount(form.getValues())} disabled={isUpdating}>
+                       <Button type="button" size="lg" className="w-full" onClick={() => { const values = form.getValues();
+
+                                                                                            if (values.password && !values.oldPassword) 
+                                                                                            {
+                                                                                                toast({ title: "Error", description: "Old password is required to change your password", variant: "destructive" });
+                                                                                                return;
+                                                                                            }
+
+                                                                                            updateAccount(values);
+                                                                                        }} disabled={isUpdating}>
                             {isUpdating ? 'Updating...' : 'Update account'}
                         </Button>
-                        
+
                         <Button type="button" size="lg" className="w-full 
                                                                    bg-red-600" onClick={() => deleteAccount()} disabled={isDeleting}>
                             {isDeleting ? 'Deleting...' : 'Delete account'}
