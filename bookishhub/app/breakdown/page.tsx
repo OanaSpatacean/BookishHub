@@ -42,7 +42,7 @@ const PDFBreakdown = async (props: Props) => {
                                     underline 
                                     decoration-4 
                                     decoration-green-500">
-                        Break down your files
+                        Open your textbook and break down your files
                     </h1>
                     {initialFile ? (
                     <Link href={`/breakdown/${initialFile?.id || ''}`} className="mt-9
