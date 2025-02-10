@@ -19,7 +19,7 @@ const PDFDrop = ({session, havePowerAccount}: Props) => {
       }: {
         keyOfFile: string; nameOfFile: string
       }) => {
-        const response = await axios.post("/api/aboutPDFConversation", {keyOfFile,nameOfFile})
+        const response = await axios.post("/api/file", {keyOfFile,nameOfFile})
         return response.data;
       },
       onSuccess: ({fileId}) => 

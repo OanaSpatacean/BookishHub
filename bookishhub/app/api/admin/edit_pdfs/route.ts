@@ -2,18 +2,18 @@ import { databaseClient } from "@/lib/database";
 import { ZodError, z } from "zod";
 import { NextResponse } from "next/server";
 
-const parseBody = z.object({ PDFConversationId: z.number() });
+const parseBody = z.object({ PDFFileId: z.number() });
 
 export async function DELETE(request: Request) {
     try 
     {
         const body = await request.json();
-        const { PDFConversationId } = parseBody.parse(body);
+        const { PDFFileId } = parseBody.parse(body);
 
-        const pdfConversation = await databaseClient.aboutPDFConversations.findUnique({
+        const pdfFile = await databaseClient.files.findUnique({
             where: 
             {
-                id: PDFConversationId,
+                id: PDFFileId,
             },
             include: 
             {
@@ -21,7 +21,7 @@ export async function DELETE(request: Request) {
             }
         })
 
-        if (!pdfConversation) 
+        if (!pdfFile) 
         {
             return NextResponse.json(
                 { success: false, error: "File does not exist!" },
@@ -29,22 +29,22 @@ export async function DELETE(request: Request) {
             )
         }
 
-        if (pdfConversation.PDFRequests.length > 0) {
+        if (pdfFile.PDFRequests.length > 0) {
             await databaseClient.pDFRequest.deleteMany({
                 where: 
                 {
                     id: 
                     {
-                        in: pdfConversation.PDFRequests.map((request) => request.id)
+                        in: pdfFile.PDFRequests.map((request) => request.id)
                     }
                 }
             })
         }
 
-        await databaseClient.aboutPDFConversations.delete({
+        await databaseClient.files.delete({
             where: 
             {
-                id: PDFConversationId,
+                id: PDFFileId,
             }
         })
 

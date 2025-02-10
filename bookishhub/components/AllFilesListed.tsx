@@ -10,12 +10,12 @@ import { FaExpandAlt } from "react-icons/fa";
 
 type Props = 
 {
-    userPDFConversations: Files[];
+    userPDFFiles: Files[];
     fileId: number;
     havePowerAccount: any;
 }
 
-const AllConversationsListed = ({userPDFConversations, fileId, havePowerAccount}: Props) => {
+const AllFilesListed = ({userPDFFiles, fileId, havePowerAccount}: Props) => {
     return (
         <div className="dark:text-gray-100 
                         mt-5 
@@ -51,15 +51,15 @@ const AllConversationsListed = ({userPDFConversations, fileId, havePowerAccount}
                         flex 
                         gap-2 
                         flex-col">
-          {userPDFConversations.map((userPDFConversation) => (
-            <Link key={userPDFConversation.id} href={`/breakdown/${userPDFConversation.id}`}>
+          {userPDFFiles.map((userPDFFile) => (
+            <Link key={userPDFFile.id} href={`/breakdown/${userPDFFile.id}`}>
               <div className={cn("rounded-lg p-3 flex items-center",
                                 {"bg-green-600 text-white hover:bg-green-500 hover:dark:bg-green-900 dark:text-white":
-                                    userPDFConversation.id === fileId,
+                                    userPDFFile.id === fileId,
                                 "bg-gray-200 text-gray-800 dark:bg-gray-800 dark:text-gray-200 hover:dark:bg-gray-600 hover:dark:text-white":
-                                    userPDFConversation.id !== fileId
+                                    userPDFFile.id !== fileId
                                 },
-                                userPDFConversation.id === fileId ? "hover:bg-green-500"
+                                userPDFFile.id === fileId ? "hover:bg-green-500"
                                 : "hover:bg-gray-300 hover:text-gray-900"
                             )}>
 
@@ -71,7 +71,7 @@ const AllConversationsListed = ({userPDFConversations, fileId, havePowerAccount}
                               w-full 
                               text-ellipsis 
                               overflow-hidden">
-                  {userPDFConversation.pdfName}
+                  {userPDFFile.pdfName}
                 </p>
 
               </div>
@@ -82,4 +82,4 @@ const AllConversationsListed = ({userPDFConversations, fileId, havePowerAccount}
     )
 }
 
-export default AllConversationsListed;
+export default AllFilesListed;

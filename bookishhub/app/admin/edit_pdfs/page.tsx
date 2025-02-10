@@ -1,4 +1,4 @@
-import AllConversationsListedAdmin from "@/components/AllConversationsListedAdmin";
+import AllFilesListedAdmin from "@/components/AllFilesListedAdmin";
 import { getAuthSession } from "@/lib/authentication";
 import { databaseClient } from "@/lib/database";
 import { InfoIcon } from "lucide-react";
@@ -19,10 +19,10 @@ const EditPDFs = async ({ params: { fileId } }: Props) => {
         return redirect("/");
     }
 
-    const userPDFConversations = await databaseClient.aboutPDFConversations.findMany({
+    const userPDFFiles = await databaseClient.files.findMany({
     })
 
-    const uniqueUserIds = [...new Set(userPDFConversations.map((conv) => conv.userId))];
+    const uniqueUserIds = [...new Set(userPDFFiles.map((file) => file.userId))];
 
     const users = await databaseClient.user.findMany({
         where: 
@@ -34,9 +34,9 @@ const EditPDFs = async ({ params: { fileId } }: Props) => {
         }
     })
 
-    const userConversationMap = users.map((user) => ({
+    const userFileMap = users.map((user) => ({
         user,
-        conversations: userPDFConversations.filter((conv) => conv.userId === user.id)
+        files: userPDFFiles.filter((file) => file.userId === user.id)
     }))
 
     return (
@@ -80,7 +80,7 @@ const EditPDFs = async ({ params: { fileId } }: Props) => {
 
             <div className="w-full 
                             py-3">
-                {!userPDFConversations || userPDFConversations.length === 0 ? (
+                {!userPDFFiles || userPDFFiles.length === 0 ? (
                     <div className="flex 
                                     items-center 
                                     justify-center 
@@ -94,7 +94,7 @@ const EditPDFs = async ({ params: { fileId } }: Props) => {
                         </div>
                     </div>
                 ) : (
-                    userConversationMap.map(({ user, conversations }) => (
+                    userFileMap.map(({ user, files }) => (
                         <div key={user.id} className="mb-10">
                             <h2 className="text-2xl 
                                            font-semibold 
@@ -102,8 +102,8 @@ const EditPDFs = async ({ params: { fileId } }: Props) => {
                                 Textbook of user {user.name || "unknown"}:
                             </h2>
 
-                            {conversations.length > 0 ? (
-                                <AllConversationsListedAdmin userPDFConversations={conversations} fileId={parseInt(fileId) || 0}/>
+                            {files.length > 0 ? (
+                                <AllFilesListedAdmin userPDFFiles={files} fileId={parseInt(fileId) || 0}/>
                             ) : (
                                 <p className="text-gray-500 
                                               italic">

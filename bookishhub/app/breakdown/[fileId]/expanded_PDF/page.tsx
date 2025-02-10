@@ -23,25 +23,25 @@ const ExpandedPDF = async ({ params: { fileId } }: Props) => {
         return redirect('/');
     }
 
-    const userPDFConversations = await databaseClient.aboutPDFConversations.findMany({
+    const userPDFFiles = await databaseClient.files.findMany({
         where: 
         { 
             userId: session.user.id 
         }
     })
 
-    if (!userPDFConversations || userPDFConversations.length === 0) 
+    if (!userPDFFiles || userPDFFiles.length === 0) 
     {
         return redirect("/breakdown");
     }
     
-    const currentConversation = userPDFConversations.find(
-        (aboutPDFConversation) => aboutPDFConversation.id === parseInt(fileId)
+    const currentFile = userPDFFiles.find(
+        (file) => file.id === parseInt(fileId)
     )
 
     return (
         <div className="flex h-[calc(100vh-65px)] mt-4">
-            <SeePDFContent pdfURL={currentConversation?.pdfUrl || ""} />
+            <SeePDFContent pdfURL={currentFile?.pdfUrl || ""} />
         </div>
     )
 }

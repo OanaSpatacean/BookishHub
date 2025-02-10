@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const deletePDFConversationSchema = z.object(
+export const deletePDFFileSchema = z.object(
 {
     id: z.string()
 }

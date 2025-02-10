@@ -19,16 +19,16 @@ export async function POST(req: Request) {
 
     const { messages, fileId } = parsedBody;
 
-    const conversation = await databaseClient.aboutPDFConversations.findUnique({
+    const file = await databaseClient.files.findUnique({
       where: { 
         id: fileId 
       }
     })
 
-    if (!conversation || !conversation.fileKey) {
+    if (!file || !file.fileKey) {
       return NextResponse.json(
         { 
-          error: "Conversation or fileKey not found" 
+          error: "File or fileKey not found" 
         },
         { 
           status: 404 
@@ -36,7 +36,7 @@ export async function POST(req: Request) {
       )
     }
 
-    const fileKey = conversation.fileKey;
+    const fileKey = file.fileKey;
     const lastMessage = messages[messages.length - 1];
 
     if (!lastMessage) 
@@ -51,7 +51,7 @@ export async function POST(req: Request) {
       )
     }
 
-    const systemPrompt = `The AI assistant is an advanced, human-like artificial intelligence designed to deliver exceptional performance. It embodies key attributes such as expert-level knowledge, resourcefulness, intelligence, and eloquence. The assistant is courteous and professional, consistently displaying friendliness, kindness, and a motivational demeanor. With access to an extensive repository of knowledge, the AI assistant can provide precise and insightful answers to a wide range of topics during conversations. The assistant operates using the following context:
+    const systemPrompt = `The AI assistant is an advanced, human-like artificial intelligence designed to deliver exceptional performance. It embodies key attributes such as expert-level knowledge, resourcefulness, intelligence, and eloquence. The assistant is courteous and professional, consistently displaying friendliness, kindness, and a motivational demeanor. With access to an extensive repository of knowledge, the AI assistant can provide precise and insightful answers to a wide range of topics during files. The assistant operates using the following context:
       START CONTEXT BLOCK
       ${fileKey}
       END OF CONTEXT BLOCK

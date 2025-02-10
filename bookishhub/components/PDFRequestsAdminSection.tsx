@@ -20,7 +20,7 @@ type Message = {
 
 const PDFRequestsAdminPage = ({fileId}: Props) => {
     const { data, isLoading } = useQuery({
-        queryKey: ["aboutPDFConversation", fileId],
+        queryKey: ["file", fileId],
         queryFn: async () => {
         const response = await axios.post<PDFRequest[]>("/api/PDFRequestsList", {fileId})
         return response.data;

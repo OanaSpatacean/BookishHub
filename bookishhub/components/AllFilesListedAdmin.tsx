@@ -10,17 +10,17 @@ import { FaBook} from "react-icons/fa";
 
 type Props = 
 {
-    userPDFConversations: Files[];
+    userPDFFiles: Files[];
     fileId: number;
 }
 
-const AllConversationsListedAdmin = ({ userPDFConversations, fileId }: Props) => {
+const AllFilesListedAdmin = ({ userPDFFiles, fileId }: Props) => {
     const { toast } = useToast();
     const [loadingId, setLoadingId] = useState<number | null>(null); 
 
-    const { mutate: deletePDFConversation } = useMutation({
-        mutationFn: async (input: { PDFConversationId: number }) => {
-            setLoadingId(input.PDFConversationId); 
+    const { mutate: deletePDFFile } = useMutation({
+        mutationFn: async (input: { PDFFileId: number }) => {
+            setLoadingId(input.PDFFileId); 
             const response = await axios.delete("/api/admin/edit_pdfs", { data: input });
             return response.data;
         },
@@ -47,32 +47,32 @@ const AllConversationsListedAdmin = ({ userPDFConversations, fileId }: Props) =>
                         flex 
                         flex-col 
                         gap-5">
-            {userPDFConversations.map((conversation) => (
-                <div key={conversation.id} className={cn("rounded-lg border p-4 flex items-center bg-gray-50 dark:bg-gray-900 w-full",
+            {userPDFFiles.map((file) => (
+                <div key={file.id} className={cn("rounded-lg border p-4 flex items-center bg-gray-50 dark:bg-gray-900 w-full",
                                                             {
                                                                 "bg-green-600 text-white hover:bg-green-500 dark:hover:bg-green-700":
-                                                                    conversation.id === fileId,
+                                                                    file.id === fileId,
                                                                 "hover:bg-gray-300 dark:hover:bg-gray-800":
-                                                                    conversation.id !== fileId,
+                                                                    file.id !== fileId,
                                                             }
                                                         )}>
                     <FaBook className="mr-3 
                                                        text-xl 
                                                        text-primary"/>
 
-                    <Link href={`/admin/edit_pdfs/${conversation.id}`} className="flex-grow">
+                    <Link href={`/admin/edit_pdfs/${file.id}`} className="flex-grow">
                         <h3 className="text-primary 
                                        truncate 
                                        font-semibold 
                                        text-lg">
-                            {conversation.pdfName}
+                            {file.pdfName}
                         </h3>
                     </Link>
 
                     <div className="justify-end 
                                     flex">
                         <div className="text-secondary-foreground/70">
-                            <Link href={`/admin/edit_pdfs/${conversation.id || ''}/expanded_PDF`} className='underline 
+                            <Link href={`/admin/edit_pdfs/${file.id || ''}/expanded_PDF`} className='underline 
                                                                                                                     text-blue-500 
                                                                                                                     block 
                                                                                                                     w-fit 
@@ -87,13 +87,13 @@ const AllConversationsListedAdmin = ({ userPDFConversations, fileId }: Props) =>
                     <div className="justify-end 
                                     flex">
                         <div className="text-secondary-foreground/70">
-                            <button onClick={() => deletePDFConversation({ PDFConversationId: conversation.id })} className="underline 
+                            <button onClick={() => deletePDFFile({ PDFFileId: file.id })} className="underline 
                                                                                                                              text-red-500 
                                                                                                                              block 
                                                                                                                              w-fit 
                                                                                                                              disabled:opacity-50 
-                                                                                                                             mt-2" disabled={loadingId === conversation.id}>
-                                {loadingId === conversation.id ? "Deleting..." : "Delete file"}
+                                                                                                                             mt-2" disabled={loadingId === file.id}>
+                                {loadingId === file.id ? "Deleting..." : "Delete file"}
                             </button>
                         </div>
                     </div>
@@ -103,4 +103,4 @@ const AllConversationsListedAdmin = ({ userPDFConversations, fileId }: Props) =>
     )
 }
 
-export default AllConversationsListedAdmin;
+export default AllFilesListedAdmin;

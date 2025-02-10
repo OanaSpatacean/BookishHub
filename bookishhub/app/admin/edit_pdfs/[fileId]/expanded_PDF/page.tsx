@@ -21,23 +21,23 @@ const ExpandedPDFAdmin = async ({ params: { fileId } }: Props) => {
         return redirect('/');
     }
 
-    const userPDFConversations = await databaseClient.aboutPDFConversations.findMany({
+    const userPDFFiles = await databaseClient.files.findMany({
     })
     
-    const currentConversation = userPDFConversations.find(
-        (aboutPDFConversation) => aboutPDFConversation.id === parseInt(fileId)
+    const currentFile = userPDFFiles.find(
+        (file) => file.id === parseInt(fileId)
     )
 
-    const currentConversationName = currentConversation ? currentConversation.pdfName : "Unknown file";
+    const currentFileName = currentFile ? currentFile.pdfName : "Unknown file";
 
-    if (!currentConversation) 
+    if (!currentFile) 
     {
         return redirect("/admin/edit_pdfs");
     }
 
     return (
         <div className="flex h-[calc(100vh-65px)] mt-4">
-            <SeePDFContent pdfURL={currentConversation?.pdfUrl || ""} />
+            <SeePDFContent pdfURL={currentFile?.pdfUrl || ""} />
         </div>
     )
 }

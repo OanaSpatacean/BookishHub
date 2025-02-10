@@ -1,4 +1,4 @@
-import AllConversationsListed from "@/components/AllConversationsListed";
+import AllFilesListed from "@/components/AllFilesListed";
 import PDFRequestsSection from "@/components/PDFRequestsSection";
 import SeePDFContent from "@/components/SeePDFContent";
 import { getAuthSession } from "@/lib/authentication";
@@ -15,7 +15,7 @@ type Props =
     }
 }
 
-const AboutPDFConversationPage = async ({ params: { fileId } }: Props) => {
+const FilePage = async ({ params: { fileId } }: Props) => {
     const session = await getAuthSession();
 
     if(!session?.user)
@@ -25,23 +25,23 @@ const AboutPDFConversationPage = async ({ params: { fileId } }: Props) => {
 
     const havePowerAccount = verifyMembership();
 
-    const userPDFConversations = await databaseClient.aboutPDFConversations.findMany({
+    const userPDFFiles = await databaseClient.files.findMany({
         where: 
         { 
             userId: session.user.id 
         }
     })
 
-    if (!userPDFConversations || userPDFConversations.length === 0) 
+    if (!userPDFFiles || userPDFFiles.length === 0) 
     {
         return redirect("/breakdown");
     }
     
-    const currentConversation = userPDFConversations.find(
-        (aboutPDFConversation) => aboutPDFConversation.id === parseInt(fileId)
+    const currentFile = userPDFFiles.find(
+        (file) => file.id === parseInt(fileId)
     )
 
-    if (!currentConversation) 
+    if (!currentFile) 
     {
         return redirect("/breakdown");
     }
@@ -53,7 +53,7 @@ const AboutPDFConversationPage = async ({ params: { fileId } }: Props) => {
                             flex-[1] 
                             border-r-2 
                             border-r-slate-200">
-                <AllConversationsListed userPDFConversations={userPDFConversations} fileId={currentConversation.id} havePowerAccount={havePowerAccount}/>
+                <AllFilesListed userPDFFiles={userPDFFiles} fileId={currentFile.id} havePowerAccount={havePowerAccount}/>
             </div>
 
             <div className="flex 
@@ -62,7 +62,7 @@ const AboutPDFConversationPage = async ({ params: { fileId } }: Props) => {
                             w-full">      
                 <div className="p-4 
                                 flex-grow">
-                    <SeePDFContent pdfURL={currentConversation.pdfUrl || ""} />
+                    <SeePDFContent pdfURL={currentFile.pdfUrl || ""} />
                 </div>
 
                 <h3 className="text-lg 
@@ -82,11 +82,11 @@ const AboutPDFConversationPage = async ({ params: { fileId } }: Props) => {
                                 h-[40%] 
                                 overflow-y-hidden 
                                 overflow-x-hidden">
-                    <PDFRequestsSection fileId={currentConversation.id} />
+                    <PDFRequestsSection fileId={currentFile.id} />
                 </div>
             </div>
         </div>
     )
 }
 
-export default AboutPDFConversationPage;
+export default FilePage;

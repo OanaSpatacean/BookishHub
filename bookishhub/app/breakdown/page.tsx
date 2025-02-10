@@ -21,13 +21,13 @@ const PDFBreakdown = async (props: Props) => {
 
     const havePowerAccount = await verifyMembership();
 
-    const userConversations = await databaseClient.files.findMany({
+    const userFiles = await databaseClient.files.findMany({
         where: {
             userId: userId,
         },
     });
 
-    const initialAboutPDFConversation = userConversations?.[0] || null;
+    const initialFile = userFiles?.[0] || null;
 
     return (
         <div className="max-w-7xl 
@@ -44,8 +44,8 @@ const PDFBreakdown = async (props: Props) => {
                                     decoration-green-500">
                         Break down your files
                     </h1>
-                    {initialAboutPDFConversation ? (
-                    <Link href={`/breakdown/${initialAboutPDFConversation?.id || ''}`} className="mt-9
+                    {initialFile ? (
+                    <Link href={`/breakdown/${initialFile?.id || ''}`} className="mt-9
                                                         inline-block 
                                                         text-white 
                                                         transition 

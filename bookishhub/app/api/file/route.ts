@@ -33,7 +33,7 @@ export async function POST(req: Request)
                                 )
     }
 
-    const result = await databaseClient.aboutPDFConversations.create({
+    const result = await databaseClient.files.create({
       data: {
         fileKey: keyOfFile,
         pdfName: nameOfFile,

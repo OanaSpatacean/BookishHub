@@ -12,7 +12,7 @@ type Props =
     }
 }
 
-const AboutPDFConversationAdminPage = async ({ params: { fileId } }: Props) => {
+const FileAdminPage = async ({ params: { fileId } }: Props) => {
     const session = await getAuthSession();
 
     if(!session?.user)
@@ -20,14 +20,14 @@ const AboutPDFConversationAdminPage = async ({ params: { fileId } }: Props) => {
         return redirect('/');
     }
 
-    const userPDFConversations = await databaseClient.aboutPDFConversations.findMany({
+    const userPDFFiles = await databaseClient.files.findMany({
     })
     
-    const currentConversation = userPDFConversations.find(
-        (aboutPDFConversation) => aboutPDFConversation.id === parseInt(fileId)
+    const currentFile = userPDFFiles.find(
+        (file) => file.id === parseInt(fileId)
     )
 
-    const currentConversationName = currentConversation ? currentConversation.pdfName : "Unknown file";
+    const currentFileName = currentFile ? currentFile.pdfName : "Unknown file";
 
     return (
         <div className="flex">
@@ -47,15 +47,15 @@ const AboutPDFConversationAdminPage = async ({ params: { fileId } }: Props) => {
                                 pl-4
                                 mb-1
                                 mt-[17px]">
-                        {currentConversationName}
+                        {currentFileName}
                 </h3>
 
                 <div className="p-4">
-                    <PDFRequestsAdminSection fileId={currentConversation.id} />
+                    <PDFRequestsAdminSection fileId={currentFile.id} />
                 </div>
             </div>
         </div>
     )
 }
 
-export default AboutPDFConversationAdminPage;
+export default FileAdminPage;
