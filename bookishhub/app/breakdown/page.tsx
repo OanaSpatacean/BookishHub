@@ -21,7 +21,7 @@ const PDFBreakdown = async (props: Props) => {
 
     const havePowerAccount = await verifyMembership();
 
-    const userConversations = await databaseClient.aboutPDFConversations.findMany({
+    const userConversations = await databaseClient.files.findMany({
         where: {
             userId: userId,
         },
@@ -81,7 +81,7 @@ const PDFBreakdown = async (props: Props) => {
                                                         items-center 
                                                         text-md
                                                         font-semibold">
-                        Upload your first file in the next section to start a conversation with our AI
+                        Upload your first file in the next section to open your interactive textbook
                     </div>
                     )}
             </div>
