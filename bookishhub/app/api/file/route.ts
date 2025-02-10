@@ -39,7 +39,7 @@ export async function POST(req: Request)
         pdfName: nameOfFile,
         pdfUrl: getS3Url(keyOfFile),
         userId: session.user.id,
-        summary: nameOfFile
+        summary: ""
     }})
 
     await databaseClient.user.update(

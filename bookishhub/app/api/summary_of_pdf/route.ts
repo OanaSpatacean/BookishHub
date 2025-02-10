@@ -13,8 +13,13 @@ export async function POST(req: Request) {
     const file = await databaseClient.files.findUnique({
       where: 
       { 
-        id: parseInt(fileId, 10)
-      }
+        id: parseInt(fileId, 10) 
+      },
+      select: 
+      { 
+        fileKey: true, 
+        summary: true 
+      } 
     })
 
     if (!file || !file.fileKey) 
@@ -23,6 +28,14 @@ export async function POST(req: Request) {
         { error: "File not found or missing fileKey" },
         { status: 404 }
       )
+    }
+
+    if (file.summary && file.summary.trim() !== "") 
+    {
+      return NextResponse.json(
+        { success: true, message: "Summary already exists", summary: file.summary },
+        { status: 200 }
+      );
     }
 
     const fileKey = file.fileKey;
