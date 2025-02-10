@@ -54,7 +54,7 @@ const EditPDFs = async ({ params: { aboutPDFConversationId } }: Props) => {
                            underline 
                            decoration-4 
                            decoration-gray-500">
-                Edit files breakdowns
+                Edit file breakdowns
             </h1>
 
             <div className="bg-secondary 
