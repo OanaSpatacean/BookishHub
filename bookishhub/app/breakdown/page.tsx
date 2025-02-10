@@ -61,8 +61,8 @@ const PDFBreakdown = async (props: Props) => {
                                                         items-center 
                                                         text-md
                                                         font-semibold">
-                        Click here to open a conversation with our AI to explore your uploaded files
-                        <ArrowRight strokeWidth={5} className="ml-[550px] 
+                        Click here to open your interactive textbook
+                        <ArrowRight strokeWidth={5} className="ml-[830px] 
                                                                h-6 
                                                                w-6"/>
                     </Link>
@@ -102,7 +102,9 @@ const PDFBreakdown = async (props: Props) => {
                 </div>
 
                 <div className="ml-5">
-                    Hi! Here, you can easily upload your file and feed the information into our AI. Keep in mind that only .pdf files are acccepted. Once uploaded, you can converse with the AI and ask any questions about the contents of your document. This will save you time and effort, as you no longer have to read through lengthy pages—our AI is here to help you break down your files and assist with any query related to the text. To start your conversation with our AI, simply click the button above. You'll be able to see all the files you've uploaded, and if this is your first time, just upload your file, and you're good to go! Enjoy the convenience and power of AI-assisted reading.
+                    Think of your files as textbooks—except now, instead of passively reading, you have a dynamic, interactive experience guiding you through every chapter. Upload a document, and our AI-powered system will navigate the information for you, breaking down complex ideas and giving you instant access to key details—just like an expert-led lecture, but at your own pace.
+                    Why sift through endless pages when you can explore knowledge in a smarter way? To open your interactive textbook, simply click the button above. You’ll find all the documents you’ve uploaded, and if this is your first time, just upload your file, and you're ready to go! Keep in mind that only .pdf files are accepted.
+                    Enjoy the power of AI-assisted learning, where your documents become more than just pages—they become a guided experience.    
                 </div>
             </div>
             <MembershipFees havePowerAccount={havePowerAccount}/>

@@ -3,12 +3,10 @@ import { cn } from "@/lib/utils";
 import { AboutPDFConversations } from "@prisma/client";
 import Link from "next/link";
 import React, { useState } from "react";
-import { TbMessageChatbotFilled } from "react-icons/tb";
 import { useToast } from "./ui/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { Button } from "./ui/button";
-import { FaExpandAlt } from "react-icons/fa";
+import { FaBook} from "react-icons/fa";
 
 type Props = 
 {
@@ -58,7 +56,7 @@ const AllConversationsListedAdmin = ({ userPDFConversations, aboutPDFConversatio
                                                                     conversation.id !== aboutPDFConversationId,
                                                             }
                                                         )}>
-                    <TbMessageChatbotFilled className="mr-3 
+                    <FaBook className="mr-3 
                                                        text-xl 
                                                        text-primary"/>
 

@@ -5,7 +5,7 @@ import { Plus } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
-import { TbMessageChatbotFilled } from "react-icons/tb";
+import { FaBook } from "react-icons/fa";
 import { FaExpandAlt } from "react-icons/fa";
 
 type Props = 
@@ -63,7 +63,7 @@ const AllConversationsListed = ({userPDFConversations, aboutPDFConversationId, h
                                 : "hover:bg-gray-300 hover:text-gray-900"
                             )}>
 
-                <TbMessageChatbotFilled  className="mr-2"/>
+                <FaBook className="mr-2"/>
 
                 <p className="whitespace-nowrap 
                               text-sm 

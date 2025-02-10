@@ -75,7 +75,7 @@ const AboutPDFConversationPage = async ({ params: { aboutPDFConversationId } }: 
                                 pl-4
                                 mb-1
                                 mt-[-16px]">
-                        Conversation
+                        Study companion
                 </h3>
 
                 <div className="p-4 
