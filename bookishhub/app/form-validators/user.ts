@@ -42,6 +42,6 @@ export const updateAccountInfoSchema = z.object({
     }
     return true;
 }, {
-    message: "Old password is required to set a new password",
+    message: "Current password is required to set a new password",
     path: ["oldPassword"]
 })

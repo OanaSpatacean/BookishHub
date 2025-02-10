@@ -49,7 +49,7 @@ export async function PUT(request: Request, response: Response)
 
             if (!isPasswordValid) 
             {
-                return new NextResponse("Old password is incorrect", { status: 400 });
+                return new NextResponse("Current password is incorrect", { status: 400 });
             }
 
             updatedData.password = await bcrypt.hash(parsedBody.password, 10);

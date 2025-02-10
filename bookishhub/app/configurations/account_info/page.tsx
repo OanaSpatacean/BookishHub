@@ -112,7 +112,7 @@ const AccountInfo = () => {
                         <FormField control={form.control} name="oldPassword" render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>
-                                        Old password
+                                        Current password
                                     </FormLabel>
 
                                     <FormControl>
@@ -141,7 +141,7 @@ const AccountInfo = () => {
 
                                                                                             if (values.password && !values.oldPassword) 
                                                                                             {
-                                                                                                toast({ title: "Error", description: "Old password is required to change your password", variant: "destructive" });
+                                                                                                toast({ title: "Error", description: "Current password is required to change your password", variant: "destructive" });
                                                                                                 return;
                                                                                             }
 
