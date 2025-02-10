@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { AboutPDFConversations } from "@prisma/client";
+import { Files } from "@prisma/client";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useToast } from "./ui/use-toast";
@@ -10,11 +10,11 @@ import { FaBook} from "react-icons/fa";
 
 type Props = 
 {
-    userPDFConversations: AboutPDFConversations[];
-    aboutPDFConversationId: number;
+    userPDFConversations: Files[];
+    fileId: number;
 }
 
-const AllConversationsListedAdmin = ({ userPDFConversations, aboutPDFConversationId }: Props) => {
+const AllConversationsListedAdmin = ({ userPDFConversations, fileId }: Props) => {
     const { toast } = useToast();
     const [loadingId, setLoadingId] = useState<number | null>(null); 
 
@@ -51,9 +51,9 @@ const AllConversationsListedAdmin = ({ userPDFConversations, aboutPDFConversatio
                 <div key={conversation.id} className={cn("rounded-lg border p-4 flex items-center bg-gray-50 dark:bg-gray-900 w-full",
                                                             {
                                                                 "bg-green-600 text-white hover:bg-green-500 dark:hover:bg-green-700":
-                                                                    conversation.id === aboutPDFConversationId,
+                                                                    conversation.id === fileId,
                                                                 "hover:bg-gray-300 dark:hover:bg-gray-800":
-                                                                    conversation.id !== aboutPDFConversationId,
+                                                                    conversation.id !== fileId,
                                                             }
                                                         )}>
                     <FaBook className="mr-3 

@@ -1,6 +1,6 @@
 "use client"
 import { cn } from "@/lib/utils";
-import { AboutPDFConversations } from "@prisma/client";
+import { Files } from "@prisma/client";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 import React from "react";
@@ -10,12 +10,12 @@ import { FaExpandAlt } from "react-icons/fa";
 
 type Props = 
 {
-    userPDFConversations: AboutPDFConversations[];
-    aboutPDFConversationId: number;
+    userPDFConversations: Files[];
+    fileId: number;
     havePowerAccount: any;
 }
 
-const AllConversationsListed = ({userPDFConversations, aboutPDFConversationId, havePowerAccount}: Props) => {
+const AllConversationsListed = ({userPDFConversations, fileId, havePowerAccount}: Props) => {
     return (
         <div className="dark:text-gray-100 
                         mt-5 
@@ -36,7 +36,7 @@ const AllConversationsListed = ({userPDFConversations, aboutPDFConversationId, h
                 </Button>
             </Link>
 
-            <Link href={`/breakdown/${aboutPDFConversationId || ''}/expanded_PDF`}>
+            <Link href={`/breakdown/${fileId || ''}/expanded_PDF`}>
                 <Button className="w-full">
                     <FaExpandAlt className="w-full 
                                      mr-2 
@@ -55,11 +55,11 @@ const AllConversationsListed = ({userPDFConversations, aboutPDFConversationId, h
             <Link key={userPDFConversation.id} href={`/breakdown/${userPDFConversation.id}`}>
               <div className={cn("rounded-lg p-3 flex items-center",
                                 {"bg-green-600 text-white hover:bg-green-500 hover:dark:bg-green-900 dark:text-white":
-                                    userPDFConversation.id === aboutPDFConversationId,
+                                    userPDFConversation.id === fileId,
                                 "bg-gray-200 text-gray-800 dark:bg-gray-800 dark:text-gray-200 hover:dark:bg-gray-600 hover:dark:text-white":
-                                    userPDFConversation.id !== aboutPDFConversationId
+                                    userPDFConversation.id !== fileId
                                 },
-                                userPDFConversation.id === aboutPDFConversationId ? "hover:bg-green-500"
+                                userPDFConversation.id === fileId ? "hover:bg-green-500"
                                 : "hover:bg-gray-300 hover:text-gray-900"
                             )}>
 

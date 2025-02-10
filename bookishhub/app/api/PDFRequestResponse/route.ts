@@ -17,11 +17,11 @@ export async function POST(req: Request) {
       }))
     })
 
-    const { messages, aboutPDFConversationId } = parsedBody;
+    const { messages, fileId } = parsedBody;
 
     const conversation = await databaseClient.aboutPDFConversations.findUnique({
       where: { 
-        id: aboutPDFConversationId 
+        id: fileId 
       }
     })
 
@@ -83,7 +83,7 @@ export async function POST(req: Request) {
 
     await databaseClient.pDFRequest.create({
       data: {
-        aboutPDFConversationId,
+        fileId,
         content: lastMessage.content,
         role: UserSystemEnum.USER
       }
@@ -91,7 +91,7 @@ export async function POST(req: Request) {
 
     await databaseClient.pDFRequest.create({
       data: {
-        aboutPDFConversationId,
+        fileId,
         content: aiResponse.content,
         role: UserSystemEnum.SYSTEM
       }

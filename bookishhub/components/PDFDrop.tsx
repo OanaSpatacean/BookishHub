@@ -22,10 +22,10 @@ const PDFDrop = ({session, havePowerAccount}: Props) => {
         const response = await axios.post("/api/aboutPDFConversation", {keyOfFile,nameOfFile})
         return response.data;
       },
-      onSuccess: ({aboutPDFConversationId}) => 
+      onSuccess: ({fileId}) => 
       {
         toast({ title: "Success", description: "The file was uploaded with success!" });
-        router.push(`/breakdown/${aboutPDFConversationId}`);
+        router.push(`/breakdown/${fileId}`);
       },
       onError: () => 
       {

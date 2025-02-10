@@ -8,11 +8,11 @@ type Props =
 {
     params: 
     {
-        aboutPDFConversationId: string;
+        fileId: string;
     }
 }
 
-const EditPDFs = async ({ params: { aboutPDFConversationId } }: Props) => {
+const EditPDFs = async ({ params: { fileId } }: Props) => {
     const session = await getAuthSession();
 
     if (!session?.user) {
@@ -103,7 +103,7 @@ const EditPDFs = async ({ params: { aboutPDFConversationId } }: Props) => {
                             </h2>
 
                             {conversations.length > 0 ? (
-                                <AllConversationsListedAdmin userPDFConversations={conversations} aboutPDFConversationId={parseInt(aboutPDFConversationId) || 0}/>
+                                <AllConversationsListedAdmin userPDFConversations={conversations} fileId={parseInt(fileId) || 0}/>
                             ) : (
                                 <p className="text-gray-500 
                                               italic">

@@ -11,11 +11,11 @@ type Props =
 {
     params:
     {
-        aboutPDFConversationId: string;
+        fileId: string;
     }
 }
 
-const AboutPDFConversationPage = async ({ params: { aboutPDFConversationId } }: Props) => {
+const AboutPDFConversationPage = async ({ params: { fileId } }: Props) => {
     const session = await getAuthSession();
 
     if(!session?.user)
@@ -38,7 +38,7 @@ const AboutPDFConversationPage = async ({ params: { aboutPDFConversationId } }: 
     }
     
     const currentConversation = userPDFConversations.find(
-        (aboutPDFConversation) => aboutPDFConversation.id === parseInt(aboutPDFConversationId)
+        (aboutPDFConversation) => aboutPDFConversation.id === parseInt(fileId)
     )
 
     if (!currentConversation) 
@@ -53,7 +53,7 @@ const AboutPDFConversationPage = async ({ params: { aboutPDFConversationId } }: 
                             flex-[1] 
                             border-r-2 
                             border-r-slate-200">
-                <AllConversationsListed userPDFConversations={userPDFConversations} aboutPDFConversationId={currentConversation.id} havePowerAccount={havePowerAccount}/>
+                <AllConversationsListed userPDFConversations={userPDFConversations} fileId={currentConversation.id} havePowerAccount={havePowerAccount}/>
             </div>
 
             <div className="flex 
@@ -82,7 +82,7 @@ const AboutPDFConversationPage = async ({ params: { aboutPDFConversationId } }: 
                                 h-[40%] 
                                 overflow-y-hidden 
                                 overflow-x-hidden">
-                    <PDFRequestsSection aboutPDFConversationId={currentConversation.id} />
+                    <PDFRequestsSection fileId={currentConversation.id} />
                 </div>
             </div>
         </div>

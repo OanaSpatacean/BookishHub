@@ -11,11 +11,11 @@ type Props =
 {
     params:
     {
-        aboutPDFConversationId: string;
+        fileId: string;
     }
 }
 
-const ExpandedPDF = async ({ params: { aboutPDFConversationId } }: Props) => {
+const ExpandedPDF = async ({ params: { fileId } }: Props) => {
     const session = await getAuthSession();
 
     if(!session?.user)
@@ -36,7 +36,7 @@ const ExpandedPDF = async ({ params: { aboutPDFConversationId } }: Props) => {
     }
     
     const currentConversation = userPDFConversations.find(
-        (aboutPDFConversation) => aboutPDFConversation.id === parseInt(aboutPDFConversationId)
+        (aboutPDFConversation) => aboutPDFConversation.id === parseInt(fileId)
     )
 
     return (

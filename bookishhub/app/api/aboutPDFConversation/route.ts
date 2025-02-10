@@ -58,7 +58,7 @@ export async function POST(req: Request)
 
     return NextResponse.json(
       { 
-        aboutPDFConversationId: result.id 
+        fileId: result.id 
       },
       { 
         status: 200 

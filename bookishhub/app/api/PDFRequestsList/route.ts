@@ -4,14 +4,14 @@ import { NextResponse } from 'next/server';
 export const POST = async (request: Request) => {
   try 
   {
-    const { aboutPDFConversationId } = await request.json();
+    const { fileId } = await request.json();
 
     const pdfRequests = await databaseClient.pDFRequest.findMany({
       where: {
-        aboutPDFConversationId,
+        fileId,
       },
       include: {
-        AboutPDFConversation: true,
+        File: true,
     }})
 
     return NextResponse.json(pdfRequests);

@@ -8,11 +8,11 @@ type Props =
 {
     params:
     {
-        aboutPDFConversationId: string;
+        fileId: string;
     }
 }
 
-const AboutPDFConversationAdminPage = async ({ params: { aboutPDFConversationId } }: Props) => {
+const AboutPDFConversationAdminPage = async ({ params: { fileId } }: Props) => {
     const session = await getAuthSession();
 
     if(!session?.user)
@@ -24,7 +24,7 @@ const AboutPDFConversationAdminPage = async ({ params: { aboutPDFConversationId 
     })
     
     const currentConversation = userPDFConversations.find(
-        (aboutPDFConversation) => aboutPDFConversation.id === parseInt(aboutPDFConversationId)
+        (aboutPDFConversation) => aboutPDFConversation.id === parseInt(fileId)
     )
 
     const currentConversationName = currentConversation ? currentConversation.pdfName : "Unknown file";
@@ -51,7 +51,7 @@ const AboutPDFConversationAdminPage = async ({ params: { aboutPDFConversationId 
                 </h3>
 
                 <div className="p-4">
-                    <PDFRequestsAdminSection aboutPDFConversationId={currentConversation.id} />
+                    <PDFRequestsAdminSection fileId={currentConversation.id} />
                 </div>
             </div>
         </div>

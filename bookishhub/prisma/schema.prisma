@@ -94,13 +94,13 @@ model Membership {
   paymentClientId              String    @unique @map(name: "payment_client_id")
 }
 
-model AboutPDFConversations {
-  id         Int      @id @default(autoincrement())
-  pdfName    String
-  pdfUrl     String
-  createdAt  DateTime @default(now())
-  userId     String
-  fileKey    String
+model Files {
+  id            Int      @id @default(autoincrement())
+  pdfName       String
+  pdfUrl        String
+  createdAt     DateTime @default(now())
+  userId        String
+  fileKey       String
   PDFRequests   PDFRequest[] @relation("PDFRequests")
 }
 
@@ -111,9 +111,9 @@ enum UserSystemEnum {
 
 model PDFRequest {
   id                         Int      @id @default(autoincrement())
-  aboutPDFConversationId     Int
+  fileId                     Int
   content                    String
   createdAt                  DateTime @default(now())
   role                       UserSystemEnum
-  AboutPDFConversation       AboutPDFConversations    @relation("PDFRequests", fields: [aboutPDFConversationId], references: [id])
+  File                       Files    @relation("PDFRequests", fields: [fileId], references: [id])
 }

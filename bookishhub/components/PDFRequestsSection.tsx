@@ -12,7 +12,7 @@ import { Loader2 } from "lucide-react";
 
 type Props = 
 {
-    aboutPDFConversationId: number;
+    fileId: number;
 }
 
 type Message = {
@@ -22,11 +22,11 @@ type Message = {
     createdAt: Date;
 }
 
-const PDFRequestsSection = ({aboutPDFConversationId}: Props) => {
+const PDFRequestsSection = ({fileId}: Props) => {
     const { data, isLoading } = useQuery({
-        queryKey: ["aboutPDFConversation", aboutPDFConversationId],
+        queryKey: ["aboutPDFConversation", fileId],
         queryFn: async () => {
-        const response = await axios.post<PDFRequest[]>("/api/PDFRequestsList", {aboutPDFConversationId})
+        const response = await axios.post<PDFRequest[]>("/api/PDFRequestsList", {fileId})
         return response.data;
     }});
     
@@ -35,10 +35,10 @@ const PDFRequestsSection = ({aboutPDFConversationId}: Props) => {
         role: pdfRequest.role === UserSystemEnum.USER ? "user" : "system", 
         content: pdfRequest.content,
         createdAt: pdfRequest.createdAt,
-        aboutPDFConversationId,
+        fileId,
       }));
     
-      const { input, handleInputChange, handleSubmit, messages, isLoading: isChatLoading } = useChat({ api: "/api/PDFRequestResponse", body: { aboutPDFConversationId }, initialMessages: transformedMessages});
+      const { input, handleInputChange, handleSubmit, messages, isLoading: isChatLoading } = useChat({ api: "/api/PDFRequestResponse", body: { fileId }, initialMessages: transformedMessages});
 
       useEffect(() => {
         if (messages.length > 0) {

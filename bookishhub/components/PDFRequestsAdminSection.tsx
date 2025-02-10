@@ -8,7 +8,7 @@ import PDFRequestsListedAdmin from "./PDFRequestsListedAdmin";
 
 type Props = 
 {
-    aboutPDFConversationId: number;
+    fileId: number;
 }
 
 type Message = {
@@ -18,11 +18,11 @@ type Message = {
     createdAt: Date;
 }
 
-const PDFRequestsAdminPage = ({aboutPDFConversationId}: Props) => {
+const PDFRequestsAdminPage = ({fileId}: Props) => {
     const { data, isLoading } = useQuery({
-        queryKey: ["aboutPDFConversation", aboutPDFConversationId],
+        queryKey: ["aboutPDFConversation", fileId],
         queryFn: async () => {
-        const response = await axios.post<PDFRequest[]>("/api/PDFRequestsList", {aboutPDFConversationId})
+        const response = await axios.post<PDFRequest[]>("/api/PDFRequestsList", {fileId})
         return response.data;
     }});
     
@@ -31,10 +31,10 @@ const PDFRequestsAdminPage = ({aboutPDFConversationId}: Props) => {
         role: pdfRequest.role === UserSystemEnum.USER ? "user" : "system", 
         content: pdfRequest.content,
         createdAt: pdfRequest.createdAt,
-        aboutPDFConversationId,
+        fileId,
       }));
     
-      const { input, handleInputChange, handleSubmit, messages } = useChat({ api: "/api/PDFRequestResponse", body: { aboutPDFConversationId }, initialMessages: transformedMessages});
+      const { input, handleInputChange, handleSubmit, messages } = useChat({ api: "/api/PDFRequestResponse", body: { fileId }, initialMessages: transformedMessages});
 
       React.useEffect(() => {
         const PDFRequestContainer = document.getElementById("PDFRequest-container");

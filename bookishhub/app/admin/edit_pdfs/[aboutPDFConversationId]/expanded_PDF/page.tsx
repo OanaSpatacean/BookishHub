@@ -9,11 +9,11 @@ type Props =
 {
     params:
     {
-        aboutPDFConversationId: string;
+        fileId: string;
     }
 }
 
-const ExpandedPDFAdmin = async ({ params: { aboutPDFConversationId } }: Props) => {
+const ExpandedPDFAdmin = async ({ params: { fileId } }: Props) => {
     const session = await getAuthSession();
 
     if(!session?.user)
@@ -25,7 +25,7 @@ const ExpandedPDFAdmin = async ({ params: { aboutPDFConversationId } }: Props) =
     })
     
     const currentConversation = userPDFConversations.find(
-        (aboutPDFConversation) => aboutPDFConversation.id === parseInt(aboutPDFConversationId)
+        (aboutPDFConversation) => aboutPDFConversation.id === parseInt(fileId)
     )
 
     const currentConversationName = currentConversation ? currentConversation.pdfName : "Unknown file";
