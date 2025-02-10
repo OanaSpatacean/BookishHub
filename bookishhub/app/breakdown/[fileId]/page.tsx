@@ -4,6 +4,8 @@ import SeePDFContent from "@/components/SeePDFContent";
 import { getAuthSession } from "@/lib/authentication";
 import { databaseClient } from "@/lib/database";
 import verifyMembership from "@/lib/membership";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -64,6 +66,20 @@ const FilePage = async ({ params: { fileId } }: Props) => {
                                 flex-grow">
                     <SeePDFContent pdfURL={currentFile.pdfUrl || ""} />
                 </div>
+
+                <Link href={`/breakdown/${fileId || ''}/summary_of_PDF`} className="text-lg 
+                                                                                dark:font-bold
+                                                                                bg-green-600
+                                                                                hover:bg-green-700
+                                                                                text-white
+                                                                                dark:bg-white
+                                                                                dark:text-black
+                                                                                rounded-lg
+                                                                                pl-4
+                                                                                mb-4
+                                                                                mt-[-16px]">
+                        Click here to get the summary of your document 
+                </Link>
 
                 <h3 className="text-lg 
                                 dark:font-bold
