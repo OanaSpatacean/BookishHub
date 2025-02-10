@@ -29,7 +29,7 @@ export async function POST(req: Request) {
 
     const systemPrompt = `
       You are an AI assistant that creates structured and detailed summaries of PDF documents.
-      Given the content of a PDF file, summarize it in 200-300 words, keeping the key points.
+      Given the content of a PDF file, summarize it in 1000 words minimum and 1500 words maximum, keeping the key points.
       Do not add opinions or extra details.
       
       PDF Content:

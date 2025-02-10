@@ -26,7 +26,8 @@ const SummaryOfPdf = async ({ params: { fileId } }: Props) => {
         }, 
         select: 
         { 
-            summary: true 
+            summary: true, 
+            pdfName: true
         }
     })
 
@@ -48,26 +49,30 @@ const SummaryOfPdf = async ({ params: { fileId } }: Props) => {
     return (
         <div className="flex 
                         flex-col 
-                        h-[calc(100vh-65px)] 
-                        mt-4 
+                        h-[calc(100vh-65px)]
                         p-8">
             <h1 className="sm:text-5xl 
                             text-left 
                             font-bold 
-                            text-3xl 
+                            text-2xl 
                             underline 
                             decoration-4 
                             decoration-green-500
                             mb-7">
-                Summary of the Document
+                Summary of <span>{file.pdfName}</span>
             </h1>
 
-            <ul className="list-disc 
-                           list-inside 
-                           space-y-2 
-                           text-lg">
+            <ul className="space-y-4">
                 {summaryPoints.map((point, index) => (
-                    <li key={index}>{point.trim()}.</li>
+                    <li key={index} className="bg-green-100 
+                                               text-green-900 
+                                               p-4 
+                                               rounded-lg 
+                                               shadow-md 
+                                               border 
+                                               border-green-300">
+                        {point.trim()}.
+                    </li>
                 ))}
             </ul>
         </div>
