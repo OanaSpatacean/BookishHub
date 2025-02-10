@@ -24,12 +24,12 @@ const PDFDrop = ({session, havePowerAccount}: Props) => {
       },
       onSuccess: ({aboutPDFConversationId}) => 
       {
-        toast({ title: "Success", description: "File conversation was created success!" });
+        toast({ title: "Success", description: "The file was uploaded with success!" });
         router.push(`/breakdown/${aboutPDFConversationId}`);
       },
       onError: () => 
       {
-        toast({title: "Error", description: "Error when creating file conversation", variant: "destructive"})
+        toast({title: "Error", description: "Error when uploading the file", variant: "destructive"})
       }})
   
     const [uploading, setUploading] = React.useState(false);

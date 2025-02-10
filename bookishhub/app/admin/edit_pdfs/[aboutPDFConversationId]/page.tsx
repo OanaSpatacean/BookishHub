@@ -27,7 +27,7 @@ const AboutPDFConversationAdminPage = async ({ params: { aboutPDFConversationId 
         (aboutPDFConversation) => aboutPDFConversation.id === parseInt(aboutPDFConversationId)
     )
 
-    const currentConversationName = currentConversation ? currentConversation.pdfName : "Empty conversation";
+    const currentConversationName = currentConversation ? currentConversation.pdfName : "Unknown file";
 
     return (
         <div className="flex">

@@ -24,7 +24,7 @@ export async function DELETE(request: Request) {
         if (!pdfConversation) 
         {
             return NextResponse.json(
-                { success: false, error: "File conversation does not exist!" },
+                { success: false, error: "File does not exist!" },
                 { status: 404 }
             )
         }
@@ -50,12 +50,12 @@ export async function DELETE(request: Request) {
 
         return NextResponse.json({
             success: true,
-            message: "File conversation and related requests deleted successfully"
+            message: "File and related requests deleted successfully"
         })
     } 
     catch (error) 
     {
-        console.error("Error processing delete file conversation:", error);
+        console.error("Error processing delete file:", error);
 
         if (error instanceof ZodError) 
         {
