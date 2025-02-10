@@ -181,7 +181,7 @@ const AdminPanel = async (props: Props) => {
                                                     font-semibold
                                                     w-full">
                 <span>
-                    Edit PDFs breakdowns 
+                    Edit files breakdowns 
                 </span>
                 <ArrowRight strokeWidth={5} className="ml-[1000px] h-6 w-6" />
             </Link>
@@ -203,7 +203,7 @@ const AdminPanel = async (props: Props) => {
                 </div>
 
                 <div className="ml-5">
-                    Select 'Edit PDFs breakdowns' to access the management section of all PDFs uploaded by users, where you can seamlessly review and manage all PDF conversations and requests made on the platform.                </div>
+                    Select 'Edit files breakdowns' to access the management section of all files uploaded by users, where you can seamlessly review and manage all file conversations and requests made on the platform.                </div>
                 </div>
         </div>      
     )

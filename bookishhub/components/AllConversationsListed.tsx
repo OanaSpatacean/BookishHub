@@ -32,7 +32,7 @@ const AllConversationsListed = ({userPDFConversations, aboutPDFConversationId, h
                     <Plus className="w-full 
                                      mr-2 
                                      h-4" />
-                    Create new PDF conversation
+                    Create new file conversation
                 </Button>
             </Link>
 
@@ -41,7 +41,7 @@ const AllConversationsListed = ({userPDFConversations, aboutPDFConversationId, h
                     <FaExpandAlt className="w-full 
                                      mr-2 
                                      h-4"/>
-                    Expand your PDF here
+                    Expand your file here
                 </Button>
             </Link>
   

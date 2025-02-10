@@ -54,7 +54,7 @@ const EditPDFs = async ({ params: { aboutPDFConversationId } }: Props) => {
                            underline 
                            decoration-4 
                            decoration-gray-500">
-                Edit PDFs breakdowns
+                Edit files breakdowns
             </h1>
 
             <div className="bg-secondary 
@@ -74,7 +74,7 @@ const EditPDFs = async ({ params: { aboutPDFConversationId } }: Props) => {
                 </div>
 
                 <div className="ml-5">
-                    Here, you can view all user-created conversations about PDFs content. Easily manage them and select a conversation if you wish to modify any requests within it.
+                    Here, you can view all user-created conversations about files' content. Easily manage them and select a conversation if you wish to modify any requests within it.
                 </div>
             </div>
 

@@ -26,7 +26,7 @@ export async function POST(req: Request)
 
     if (session.user.points <= 0 && !havePowerAccount && session.user.isAdmin == false) 
     {
-        return new NextResponse("You have no more points to use for a new PDF breakdown!", 
+        return new NextResponse("You have no more points to use for a new file breakdown!", 
                                     { 
                                         status: 402 
                                     }

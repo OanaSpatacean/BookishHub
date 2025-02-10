@@ -30,7 +30,7 @@ export async function DELETE(request: Request)
         if (!PDFRequest) 
         {
             return NextResponse.json(
-                { success: false, error: "PDF request does not exist!" },
+                { success: false, error: "File request does not exist!" },
                 { status: 404 }
             )
         }
@@ -44,12 +44,12 @@ export async function DELETE(request: Request)
 
         return NextResponse.json({
             success: true,
-            message: "PDF request deleted successfully"
+            message: "File request deleted successfully"
         })
     } 
     catch (error) 
     {
-        console.error("Error processing delete PDF request:", error);
+        console.error("Error processing delete file request:", error);
         return new NextResponse("Internal server error", { status: 500 });
     }
 }
@@ -78,7 +78,7 @@ export async function PATCH(request: Request) {
         if (!PDFRequest) 
         {
             return NextResponse.json(
-                { success: false, error: "PDF request does not exist!" },
+                { success: false, error: "File request does not exist!" },
                 { status: 404 }
             )
         }
@@ -90,12 +90,12 @@ export async function PATCH(request: Request) {
 
         return NextResponse.json({
             success: true,
-            message: "PDF request content updated successfully"
+            message: "File request content updated successfully"
         })
     } 
     catch (error) 
     {
-        console.error("Error processing update PDF request:", error);
+        console.error("Error processing update file request:", error);
         return new NextResponse("Internal server error", { status: 500 });
     }
 }

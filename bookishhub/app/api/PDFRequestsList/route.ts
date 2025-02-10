@@ -18,11 +18,11 @@ export const POST = async (request: Request) => {
   } 
   catch (error) 
   {
-    console.error("Error fetching PDF requests:", error);
+    console.error("Error fetching file requests:", error);
 
     return NextResponse.json(
     { 
-        error: "An error occurred while fetching PDF requests." 
+        error: "An error occurred while fetching file requests." 
     },
     { 
         status: 500 

@@ -29,15 +29,15 @@ const AllConversationsListedAdmin = ({ userPDFConversations, aboutPDFConversatio
         onSuccess: () => {
             toast({
                 title: "Success",
-                description: "PDF conversation deleted successfully",
+                description: "File conversation deleted successfully",
             });
             window.location.reload();
         },
         onError: (error) => {
-            console.error("Error deleting PDF conversation:", error);
+            console.error("Error deleting file conversation:", error);
             toast({
                 title: "Warning",
-                description: "An error occurred while deleting the PDF conversation",
+                description: "An error occurred while deleting the file conversation",
                 variant: "destructive",
             });
             setLoadingId(null); 
@@ -81,7 +81,7 @@ const AllConversationsListedAdmin = ({ userPDFConversations, aboutPDFConversatio
                                                                                                                     disabled:opacity-50 
                                                                                                                     mt-2
                                                                                                                     mr-5'>
-                                    See PDF file
+                                    See file
                             </Link> 
                         </div>
                     </div>
@@ -95,7 +95,7 @@ const AllConversationsListedAdmin = ({ userPDFConversations, aboutPDFConversatio
                                                                                                                              w-fit 
                                                                                                                              disabled:opacity-50 
                                                                                                                              mt-2" disabled={loadingId === conversation.id}>
-                                {loadingId === conversation.id ? "Deleting..." : "Delete PDF conversation"}
+                                {loadingId === conversation.id ? "Deleting..." : "Delete conversation"}
                             </button>
                         </div>
                     </div>

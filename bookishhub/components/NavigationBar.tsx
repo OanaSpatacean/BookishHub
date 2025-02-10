@@ -107,7 +107,7 @@ const NavigationBar = async (props:Props) => {
                                         Repo Insights
                                     </Link>
                                     <Link href='/breakdown' className='mr-5 uppercase'>
-                                        PDF Breakdown
+                                        File Breakdown
                                     </Link>
                                     <Link href='/game' className='mr-5 uppercase'>
                                         Game Zone

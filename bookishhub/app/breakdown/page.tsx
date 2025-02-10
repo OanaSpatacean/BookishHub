@@ -42,7 +42,7 @@ const PDFBreakdown = async (props: Props) => {
                                     underline 
                                     decoration-4 
                                     decoration-green-500">
-                        Break down your PDFs
+                        Break down your files
                     </h1>
                     {initialAboutPDFConversation ? (
                     <Link href={`/breakdown/${initialAboutPDFConversation?.id || ''}`} className="mt-9
@@ -61,7 +61,7 @@ const PDFBreakdown = async (props: Props) => {
                                                         items-center 
                                                         text-md
                                                         font-semibold">
-                        Click here to open a conversation with our AI to explore your uploaded PDFs
+                        Click here to open a conversation with our AI to explore your uploaded files
                         <ArrowRight strokeWidth={5} className="ml-[550px] 
                                                                h-6 
                                                                w-6"/>
@@ -81,7 +81,7 @@ const PDFBreakdown = async (props: Props) => {
                                                         items-center 
                                                         text-md
                                                         font-semibold">
-                        Upload your first PDF in the next section to start a conversation with our AI
+                        Upload your first file in the next section to start a conversation with our AI
                     </div>
                     )}
             </div>
@@ -102,7 +102,7 @@ const PDFBreakdown = async (props: Props) => {
                 </div>
 
                 <div className="ml-5">
-                    Hi! Here, you can easily upload your PDF file and feed the information into our AI. Once uploaded, you can converse with the AI and ask any questions about the contents of your document. This will save you time and effort, as you no longer have to read through lengthy pages—our AI is here to help you break down your PDFs and assist with any query related to the text. To start your conversation with our AI, simply click the button above. You'll be able to see all the PDFs you've uploaded, and if this is your first time, just upload your file, and you're good to go! Enjoy the convenience and power of AI-assisted reading.
+                    Hi! Here, you can easily upload your file and feed the information into our AI. Keep in mind that only .pdf files are acccepted. Once uploaded, you can converse with the AI and ask any questions about the contents of your document. This will save you time and effort, as you no longer have to read through lengthy pages—our AI is here to help you break down your files and assist with any query related to the text. To start your conversation with our AI, simply click the button above. You'll be able to see all the files you've uploaded, and if this is your first time, just upload your file, and you're good to go! Enjoy the convenience and power of AI-assisted reading.
                 </div>
             </div>
             <MembershipFees havePowerAccount={havePowerAccount}/>

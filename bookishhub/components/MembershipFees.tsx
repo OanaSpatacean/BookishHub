@@ -68,7 +68,7 @@ const MembershipFees = ({havePowerAccount}:Props) => {
           <p className="text-center text-gray-800 text-md font-medium dark:text-white">
             We are thrilled to have you in our&nbsp;
             <span className="font-bold text-black">BookishHub Power&nbsp;</span> 
-              community! As a valued member, you gain access to exclusive resources, insights, and tools tailored to enhance your experience. With unlimited lesson designs and pdf breakdowns at your fingertips, you'll have the freedom to bring your ideas to life without limits. 
+              community! As a valued member, you gain access to exclusive resources, insights, and tools tailored to enhance your experience. With unlimited lesson designs and file breakdowns at your fingertips, you'll have the freedom to bring your ideas to life without limits. 
           </p>
         )}
     </div>

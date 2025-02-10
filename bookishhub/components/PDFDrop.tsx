@@ -24,12 +24,12 @@ const PDFDrop = ({session, havePowerAccount}: Props) => {
       },
       onSuccess: ({aboutPDFConversationId}) => 
       {
-        toast({ title: "Success", description: "PDF conversation was created success!" });
+        toast({ title: "Success", description: "File conversation was created success!" });
         router.push(`/breakdown/${aboutPDFConversationId}`);
       },
       onError: () => 
       {
-        toast({title: "Error", description: "Error when creating PDF conversation", variant: "destructive"})
+        toast({title: "Error", description: "Error when creating file conversation", variant: "destructive"})
       }})
   
     const [uploading, setUploading] = React.useState(false);
@@ -43,7 +43,7 @@ const PDFDrop = ({session, havePowerAccount}: Props) => {
         if (session.user.points <= 0 && !havePowerAccount && !session.user.isAdmin) {
           toast({
               title: "Warning",
-              description: "You do not have any remaining points to break down another PDF!",
+              description: "You do not have any remaining points to break down another file!",
               variant: "destructive",
           });
           return;
@@ -71,7 +71,7 @@ const PDFDrop = ({session, havePowerAccount}: Props) => {
         } 
         catch (error) 
         {
-          toast({ title: "Error", description: "Could not do the upload of your PDF", variant: "destructive" })
+          toast({ title: "Error", description: "Could not do the upload of your file", variant: "destructive" })
           console.error(error)
         } 
         finally 
