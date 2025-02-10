@@ -43,7 +43,7 @@ const Summary = ({fileId}: Props) => {
                                                                                      dark:text-black 
                                                                                      rounded-lg 
                                                                                      pl-4 ">
-                    {isLoading ? "Generating summary..." : "Click here to get the summary of your document"}
+                    {isLoading ? "Redirecting to summary..." : "Click here to get the summary of your document"}
             </button>
         </div>
     )
