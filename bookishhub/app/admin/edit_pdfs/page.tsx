@@ -74,7 +74,7 @@ const EditPDFs = async ({ params: { aboutPDFConversationId } }: Props) => {
                 </div>
 
                 <div className="ml-5">
-                    Here, you can view all user-created conversations about files' content. Easily manage them and select a conversation if you wish to modify any requests within it.
+                    Here, you can view all existent textbooks on the platform, with all uploaded documents. Easily manage them and select a file if you wish to modify any requests within it.
                 </div>
             </div>
 
@@ -90,7 +90,7 @@ const EditPDFs = async ({ params: { aboutPDFConversationId } }: Props) => {
                                         text-center 
                                         flex 
                                         items-center">
-                            No conversation has been created yet
+                            No file has been uploaded yet on the platform
                         </div>
                     </div>
                 ) : (
@@ -99,7 +99,7 @@ const EditPDFs = async ({ params: { aboutPDFConversationId } }: Props) => {
                             <h2 className="text-2xl 
                                            font-semibold 
                                            mb-4">
-                                User: {user.name || "unknown"}
+                                Textbook of user {user.name || "unknown"}:
                             </h2>
 
                             {conversations.length > 0 ? (
@@ -107,7 +107,7 @@ const EditPDFs = async ({ params: { aboutPDFConversationId } }: Props) => {
                             ) : (
                                 <p className="text-gray-500 
                                               italic">
-                                    No conversation has been created yet by this user
+                                    No file has been uploaded yet by this user
                                 </p>
                             )}
                         </div>

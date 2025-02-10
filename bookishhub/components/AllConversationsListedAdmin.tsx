@@ -27,15 +27,15 @@ const AllConversationsListedAdmin = ({ userPDFConversations, aboutPDFConversatio
         onSuccess: () => {
             toast({
                 title: "Success",
-                description: "File conversation deleted successfully",
+                description: "File deleted successfully",
             });
             window.location.reload();
         },
         onError: (error) => {
-            console.error("Error deleting file conversation:", error);
+            console.error("Error deleting file:", error);
             toast({
                 title: "Warning",
-                description: "An error occurred while deleting the file conversation",
+                description: "An error occurred while deleting the file",
                 variant: "destructive",
             });
             setLoadingId(null); 
@@ -93,7 +93,7 @@ const AllConversationsListedAdmin = ({ userPDFConversations, aboutPDFConversatio
                                                                                                                              w-fit 
                                                                                                                              disabled:opacity-50 
                                                                                                                              mt-2" disabled={loadingId === conversation.id}>
-                                {loadingId === conversation.id ? "Deleting..." : "Delete conversation"}
+                                {loadingId === conversation.id ? "Deleting..." : "Delete file"}
                             </button>
                         </div>
                     </div>

@@ -203,8 +203,9 @@ const AdminPanel = async (props: Props) => {
                 </div>
 
                 <div className="ml-5">
-                    Select 'Edit file breakdowns' to access the management section of all files uploaded by users, where you can seamlessly review and manage all files within user textbooks and the documents' requests made on the platform.                </div>
+                    Select 'Edit file breakdowns' to access the management section of all files uploaded by users, where you can seamlessly review and manage all documents within user textbooks and the documents' requests made on the platform.               
                 </div>
+            </div>
         </div>      
     )
 }

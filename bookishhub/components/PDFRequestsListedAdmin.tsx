@@ -33,20 +33,21 @@ const PDFRequestsListedAdmin = ({PDFRequests,isLoading}: Props) => {
     mutationFn: async (input: { PDFRequestId: number }) => {
       setLoadingId(input.PDFRequestId);
       const response = await axios.delete("/api/admin/edit_PDF_request", {data: { PDFRequestId: Number(input.PDFRequestId) } });
+      window.location.reload();
       return response.data;
     },
     onSuccess: () => {
       toast({
                 title: "Success",
-                description: "PDF request deleted successfully",
+                description: "File request deleted successfully",
             });
             setLoadingId(null);
     },
     onError: (error) => {
-      console.error("Error deleting PDF request:", error);
+      console.error("Error deleting file request:", error);
       toast({
                 title: "Warning",
-                description: "An error occurred while deleting the PDF request",
+                description: "An error occurred while deleting the file request",
                 variant: "destructive",
             });
       setLoadingId(null);
@@ -63,7 +64,7 @@ const PDFRequestsListedAdmin = ({PDFRequests,isLoading}: Props) => {
       return response.data;
     },
     onSuccess: (_, variables) => {
-      toast({ title: "Success", description: "PDF request updated successfully" });
+      toast({ title: "Success", description: "File request updated successfully" });
 
       setLocalRequests((prev) =>
         prev.map((req) => (req.id === variables.PDFRequestId ? { ...req, content: variables.content } : req))
@@ -73,8 +74,8 @@ const PDFRequestsListedAdmin = ({PDFRequests,isLoading}: Props) => {
       setEditingId(null);
     },
     onError: (error) => {
-      console.error("Error updating PDF request:", error);
-      toast({ title: "Warning", description: "An error occurred while updating the PDF request", variant: "destructive" });
+      console.error("Error updating file request:", error);
+      toast({ title: "Warning", description: "An error occurred while updating the file request", variant: "destructive" });
       setLoadingId(null);
     },
   });
@@ -100,7 +101,7 @@ const PDFRequestsListedAdmin = ({PDFRequests,isLoading}: Props) => {
                       mt-[210px]
                       italic">
         <p>
-                No requests found for this conversation
+                No requests made for this file 
             </p>
       </div>
     )
