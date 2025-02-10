@@ -31,8 +31,18 @@ const Summary = ({fileId}: Props) => {
         <div className="flex 
                         flex-col 
                         w-full
-                        mb-4">
-           <button onClick={() => generateSummary()} disabled={isLoading} className="text-lg dark:font-bold bg-green-600 hover:bg-green-700 text-white dark:bg-white dark:text-black rounded-lg pl-4 ">
+                        mb-4
+                        mt-[-12px]">
+           <button onClick={() => generateSummary()} disabled={isLoading} className="text-left 
+                                                                                     text-lg 
+                                                                                     dark:font-bold 
+                                                                                     bg-green-600 
+                                                                                     hover:bg-green-700 
+                                                                                     text-white 
+                                                                                     dark:bg-white 
+                                                                                     dark:text-black 
+                                                                                     rounded-lg 
+                                                                                     pl-4 ">
                     {isLoading ? "Generating summary..." : "Click here to get the summary of your document"}
             </button>
         </div>
