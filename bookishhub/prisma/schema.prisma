@@ -101,6 +101,7 @@ model Files {
   createdAt     DateTime @default(now())
   userId        String
   fileKey       String
+  summary       String
   PDFRequests   PDFRequest[] @relation("PDFRequests")
 }
 
