@@ -109,7 +109,7 @@ const PDFDrop = ({session, havePowerAccount}: Props) => {
                     <p className="mb-5 
                                   text-slate-400 
                                   text-md">
-                        Upload your file
+                        Upload a file in your textbook
                     </p>
 
                     <FaFilePdf className="text-green-500
