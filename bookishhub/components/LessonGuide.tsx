@@ -120,7 +120,7 @@ const LessonGuide = async ({lesson,topicId, session}:Props) =>
                         session?.user?.isAdmin ? 
                             "Navigate back to 'Edit lessons' page" 
                             : 
-                            "Navigate back to your designed lessons library"
+                            "Navigate back to library"
                     }
                 </Link>
             </div>
