@@ -25,25 +25,25 @@ const DraftAssist = (props: Props) => {
             </h1>
 
             <Button size='lg' className='mt-6 
-                                                 w-full
-                                                 inline-block 
-                                                 text-white 
-                                                 transition 
-                                                 bg-gradient-to-r 
-                                                 from-purple-500 
-                                                 to-purple-900 
-                                                 hover:from-purple-600 
-                                                 hover:to-purple-800 
-                                                 rounded-lg 
-                                                 py-2
-                                                 px-7 
-                                                 flex 
-                                                 items-center 
-                                                 text-md
-                                                 font-semibold' type='submit'>
+                                        w-full
+                                        inline-block 
+                                        text-white 
+                                        transition 
+                                        bg-gradient-to-r 
+                                        from-purple-500 
+                                        to-purple-900 
+                                        hover:from-purple-600 
+                                        hover:to-purple-800 
+                                        rounded-lg 
+                                        py-2
+                                        px-7 
+                                        flex 
+                                        items-center 
+                                        text-md
+                                        font-semibold' type='submit'>
                     <Plus className="w-full 
-                                  mr-2 
-                                  h-4" />
+                                    mr-2 
+                                    h-4" />
                     Create new draft
             </Button>
     </div>
