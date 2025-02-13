@@ -128,3 +128,49 @@ export async function strict_output(
 
   return [];
 }
+
+export async function createPromptForMemoryEnhacementCardImage(name: string) 
+{
+  try 
+  {
+    const response = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are an imaginative and resourceful AI designed to craft compelling thumbnail descriptions for my notes. Your responses will be used as prompts for the DALLE API to create thumbnails. Ensure the descriptions are simple, modern, and flat in style.",
+        },
+        {
+          role: "user",
+          content: `Create a thumbnail prompt for my memory enhancement card with the name: ${name}`
+        }
+      ]
+    })
+
+    const prompt_of_image = response.data.choices[0].message?.content;
+    
+    return prompt_of_image as string;
+  } 
+  catch (error) 
+  {
+    console.error("Error in createPromptForMemoryEnhacementCardImage:", error);
+    throw error;
+  }
+}
+
+export async function createImageForMemoryEnhacementCard(prompt_of_image: string) 
+{
+  try 
+  {
+    const response = await openai.createImage({prompt: prompt_of_image, n: 1, size: "256x256"})
+
+    const image_url = response.data.data[0].url;
+    return image_url as string;
+  } 
+  catch (error) 
+  {
+    console.error("Error in createImageForMemoryEnhacementCard:", error);
+    throw error;
+  }
+}
