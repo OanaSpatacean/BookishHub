@@ -118,3 +118,12 @@ model PDFRequest {
   role                       UserSystemEnum
   File                       Files    @relation("PDFRequests", fields: [fileId], references: [id])
 }
+
+model MemoryEnhancementCard {
+  id          Int      @id @default(autoincrement())
+  name        String
+  createdAt   DateTime @default(now())
+  imageUrl    String?  
+  userId      String
+  formatterState String?  
+}
