@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
 import React from "react";
+import NewMemoryEnhancementCard from "@/components/NewMemoryEnhancementCard";
 
 type Props = {};
 
 const DraftAssist = (props: Props) => {
+
   return (
     <div className="flex 
                         flex-col 
@@ -24,28 +24,7 @@ const DraftAssist = (props: Props) => {
                 Draft assist 
             </h1>
 
-            <Button size='lg' className='mt-6 
-                                        w-full
-                                        inline-block 
-                                        text-white 
-                                        transition 
-                                        bg-gradient-to-r 
-                                        from-purple-500 
-                                        to-purple-900 
-                                        hover:from-purple-600 
-                                        hover:to-purple-800 
-                                        rounded-lg 
-                                        py-2
-                                        px-7 
-                                        flex 
-                                        items-center 
-                                        text-md
-                                        font-semibold' type='submit'>
-                    <Plus className="w-full 
-                                    mr-2 
-                                    h-4" />
-                    Create new draft
-            </Button>
+            <NewMemoryEnhancementCard/>
     </div>
   )
 }
