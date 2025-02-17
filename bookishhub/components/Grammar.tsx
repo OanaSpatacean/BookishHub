@@ -4,6 +4,7 @@ import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { RadioGroupItem, RadioGroup } from "./ui/radio-group";
 import { FiCheckCircle, FiXCircle } from "react-icons/fi";
+import { InfoIcon } from "lucide-react";
 
 type Props = 
 {
@@ -21,22 +22,36 @@ const Grammar = ({ questions }: Props) => {
 
     const [questionState, setQuestionState] = React.useState<Record<string, boolean | null>>(
         () =>
-            questions.reduce((state, question) => {
-                state[question.id] = null;
-                return state;
-            }, {} as Record<string, boolean | null>)
-    )
+        questions.reduce((state, question) => {
+            state[question.id] = null;
+            return state;
+        }, {} as Record<string, boolean | null>)
+    );
+
+    React.useEffect(() => {
+        const savedAnswers = localStorage.getItem("grammarAnswers");
+        if (savedAnswers) {
+        setAnswers(JSON.parse(savedAnswers));
+        }
+    }, []);
+
+    React.useEffect(() => {
+        if (Object.keys(answers).length > 0) 
+        {
+            localStorage.setItem("grammarAnswers", JSON.stringify(answers));
+        }
+    }, [answers]);
 
     const checkAnswer = React.useCallback(() => {
         const updatedQuestionState = { ...questionState };
 
         questions.forEach((question) => {
-            const givenAnswer = answers[question.id];
+        const givenAnswer = answers[question.id];
 
-            if (!givenAnswer) 
-                return;
+        if (!givenAnswer) 
+            return;
 
-            updatedQuestionState[question.id] = givenAnswer === question.answer
+        updatedQuestionState[question.id] = givenAnswer === question.answer
         })
 
         setQuestionState(updatedQuestionState)
@@ -131,6 +146,27 @@ const Grammar = ({ questions }: Props) => {
                                                                 hover:to-purple-800">
                 Check answers
             </Button>
+
+            <div className="bg-secondary 
+                            border-none 
+                            p-4 
+                            flex">
+                <div className="flex-shrink-0">
+                    <InfoIcon 
+                        className="text-green-500 
+                                h-10 
+                                w-10 
+                                bg-green-100 
+                                rounded-full 
+                                p-2 
+                                shadow-sm" />
+                </div>
+
+                <div className="ml-5">
+                    Want to review your answers?
+                    Simply click the "Check answers" button above to see how well you did and to review your choices.
+                </div>
+            </div>
         </div>
     );
 };
