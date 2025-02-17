@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { useMutation } from "@tanstack/react-query";
-import { InfoIcon } from "lucide-react";
+import { InfoIcon, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useState } from "react";
@@ -159,22 +159,28 @@ const LanguagePageComponent = ({ language, languageSessions, languageId }: Props
             </div>
 
             <Button size="lg" className="w-full 
-                                         text-white 
-                                         transition 
-                                         bg-gradient-to-r 
-                                         from-purple-500 
-                                         to-purple-900 
-                                         hover:from-purple-600 
-                                         hover:to-purple-800 
-                                         rounded-lg 
-                                         py-2 
-                                         px-7 
-                                         flex 
-                                         items-center 
-                                         text-md 
-                                         font-semibold 
-                                         mb-6" onClick={handleSubmit} disabled={isLoading}>
-                Start a new language session
+                                        text-white 
+                                        transition 
+                                        bg-gradient-to-r 
+                                        from-purple-500 
+                                        to-purple-900 
+                                        hover:from-purple-600 
+                                        hover:to-purple-800 
+                                        rounded-lg 
+                                        py-2 
+                                        px-7 
+                                        flex 
+                                        items-center 
+                                        text-md 
+                                        font-semibold 
+                                        mb-6" onClick={handleSubmit} disabled={isLoading}>
+                {isLoading 
+                    ? <>
+                        <Loader2 className="animate-spin mr-2 h-5 w-5" /> 
+                        We are creating your language assessment, please wait a few minutes...
+                      </>
+                    : "Start a new language session"
+                }
             </Button>
 
             <h1 className="sm:text-5xl 
