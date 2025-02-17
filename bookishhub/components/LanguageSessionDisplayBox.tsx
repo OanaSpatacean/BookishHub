@@ -6,7 +6,7 @@ import { FaLanguage } from 'react-icons/fa6';
 
 type Props = {language:Language};
 
-const LanguageDisplayBox = ({ language }: Props) => {
+const LanguageSessionDisplayBox = ({ language }: Props) => {
 
     return (
         <div className="rounded-lg 
@@ -45,4 +45,4 @@ const LanguageDisplayBox = ({ language }: Props) => {
     )
 }
 
-export default LanguageDisplayBox;
+export default LanguageSessionDisplayBox;

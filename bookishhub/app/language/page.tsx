@@ -4,7 +4,12 @@ import { InfoIcon } from "lucide-react";
 import { databaseClient } from "@/lib/database";
 import LanguageDisplayBox from "@/components/LanguageDisplayBox";
 
-type Props = {};
+type Props = {
+    params:
+    {
+        languageId: string;
+    }
+}
 
 const LanguagePage = async (props: Props) => {
     const session = await getAuthSession();
@@ -29,7 +34,7 @@ const LanguagePage = async (props: Props) => {
                            text-3xl 
                            underline 
                            decoration-4 
-                           decoration-blue-500
+                           decoration-purple-500
                            mb-5">
                 Language check 
             </h1>
