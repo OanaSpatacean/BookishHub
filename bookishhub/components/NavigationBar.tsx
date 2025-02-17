@@ -109,11 +109,11 @@ const NavigationBar = async (props:Props) => {
                                     <Link href='/breakdown' className='mr-5 uppercase'>
                                         File Breakdown
                                     </Link>
-                                    <Link href='/game' className='mr-5 uppercase'>
-                                        Game Zone
-                                    </Link>
                                     <Link href='/library' className='mr-5 uppercase'>
                                         Lesson Design
+                                    </Link>
+                                    <Link href='/language' className='mr-5 uppercase'>
+                                        Language Check
                                     </Link>
                                     <Link href='/draft' className='mr-5 uppercase'>
                                         Draft Assist
