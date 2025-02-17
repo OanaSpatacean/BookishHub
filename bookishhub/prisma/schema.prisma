@@ -127,12 +127,23 @@ model Language {
 }
 
 model LanguageSession {
-  id          Int      @id @default(autoincrement())
+  id          Int               @id @default(autoincrement())
   languageId  Int
-  language    Language @relation(fields: [languageId], references: [id])
-  createdAt   DateTime @default(now())
-  level        String
-  userId       String
+  language    Language          @relation(fields: [languageId], references: [id])
+  createdAt   DateTime          @default(now())
+  level       String
+  userId      String
+  questions   GrammarQuestion[] 
 }
+
+model GrammarQuestion {
+  id               String          @id @default(cuid())
+  question         String          @db.VarChar(4000)
+  answer           String          @db.VarChar(4000)
+  choices          String          @db.VarChar(4000)
+  sessionId        Int             
+  session          LanguageSession @relation(fields: [sessionId], references: [id]) 
+}
+
 
 
