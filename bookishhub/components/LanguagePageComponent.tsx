@@ -25,7 +25,7 @@ const LanguagePageComponent = ({ language, languageSessions, languageId }: Props
 
     const { mutate: createLanguageAssessment, isLoading } = useMutation({
         mutationFn: async () => {
-            const response = await axios.post("/api/language/createLanguageAsessment", {
+            const response = await axios.post("/api/language/", {
                 languageId,
                 level: selectedLevel
             })
