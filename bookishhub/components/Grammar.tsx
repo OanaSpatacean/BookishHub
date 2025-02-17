@@ -68,10 +68,7 @@ const Grammar = ({ questions }: Props) => {
             <h1 className="sm:text-3xl 
                            text-left 
                            font-bold 
-                           text-3xl 
-                           underline 
-                           decoration-4 
-                           decoration-purple-400 
+                           text-3xl  
                            mb-8">
                 Grammar 
             </h1>
@@ -81,19 +78,19 @@ const Grammar = ({ questions }: Props) => {
                             dark:bg-gray-800">
                 {questions.map((question) => (
                     <div key={question.id} className={`relative rounded-lg p-4 dark:bg-gray-700 ${questionState[question.id] === true
-                                                                                                    ? "border-4 border-purple-500 dark:border-purple-500 bg-gray-100"
+                                                                                                    ? "border-4 border-green-500 dark:border-green-500 bg-gray-100"
                                                                                                     : questionState[question.id] === false
-                                                                                                    ? "border-4 border-yellow-400 dark:border-yellow-400 bg-gray-100"
+                                                                                                    ? "border-4 border-red-400 dark:border-red-400 bg-gray-100"
                                                                                                     : "border-4 border-gray-100 dark:border-gray-700 bg-gray-100"
                                                                                                 } mt-4`}>
                         {questionState[question.id] !== null && (
                             <div className="absolute top-2 right-2">
                                 {questionState[question.id] === true ? (
-                                    <FiCheckCircle className="text-purple-500 
+                                    <FiCheckCircle className="text-green-500 
                                                               w-6 
                                                               h-6" />
                                 ) : (
-                                    <FiXCircle className="text-yellow-400 
+                                    <FiXCircle className="text-red-400 
                                                           w-6 
                                                           h-6" />
                                 )}
