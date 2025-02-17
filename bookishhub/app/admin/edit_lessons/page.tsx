@@ -100,7 +100,8 @@ const EditLessons = async (props: Props) => {
                     </div>
                     ) : (
                         <div className="gap-4 
-                                        flex-col flex">
+                                        flex-col 
+                                        flex">
                         {lessons.map((lesson) => (
                             <LessonsDisplayBoxAdmin key={lesson.id} lesson={lesson} />
                         ))}

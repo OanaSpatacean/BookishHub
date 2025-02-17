@@ -119,6 +119,11 @@ model PDFRequest {
   File                       Files    @relation("PDFRequests", fields: [fileId], references: [id])
 }
 
+model Language {
+    id                         Int      @id @default(autoincrement())
+    name                       String
+}
+
 model MemoryEnhancementCard {
   id          Int      @id @default(autoincrement())
   name        String

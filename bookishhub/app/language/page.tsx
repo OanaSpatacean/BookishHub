@@ -1,6 +1,8 @@
 import { getAuthSession } from "@/lib/authentication";
 import { redirect } from "next/navigation";
 import { InfoIcon } from "lucide-react";
+import { databaseClient } from "@/lib/database";
+import LanguageDisplayBox from "@/components/LanguageDisplayBox";
 
 type Props = {};
 
@@ -10,6 +12,8 @@ const LanguagePage = async (props: Props) => {
     if(!session?.user){ 
         return redirect('/');
     }
+
+    const languages = await databaseClient.language.findMany()
     
     return (
         <div className="flex 
@@ -48,6 +52,19 @@ const LanguagePage = async (props: Props) => {
 
                 <div className="ml-5">
                     You can check your language skills here! See how proficient you are in different levels. Choose the language you want to evaluate yourself in, and our AI will create a custom asessment based on your level. It's a great way to see your progress and identify areas for improvement. Let's begin!
+                </div>
+            </div>
+
+            <div className="max-w-7xl 
+                            mx-auto  
+                            py-3
+                            w-full">
+                <div className="gap-4 
+                                flex-col 
+                                flex">
+                    {languages.map((language) => (
+                        <LanguageDisplayBox key={language.id} language={language} />
+                    ))}
                 </div>
             </div>
         </div>
