@@ -36,7 +36,7 @@ const LanguageSessionDisplayBox = ({ language, languageSession }: Props) => {
                                    truncate 
                                    font-semibold 
                                    text-3xl">
-                        Session {languageSession.id}
+                        Session {languageSession.id} - {languageSession.level}
                     </h3>
 
                     <SiVitest className="text-3xl 
