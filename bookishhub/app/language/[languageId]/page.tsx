@@ -103,16 +103,23 @@ const LanguageIdPage = async ({params}: Props) => {
                 </div>
             </div>
 
-            <div className="w-full bg-purple-50 p-6 shadow-md mt-2 mb-6 dark:bg-purple-900">
-                <h2 className="text-xl font-bold mb-4">Select your level here</h2>
+            <div className="w-full 
+                            bg-purple-50 
+                            p-6 
+                            shadow-md 
+                            mt-2 
+                            mb-6 
+                            dark:bg-purple-900">
+                <h2 className="text-xl 
+                               font-bold 
+                               mb-4">
+                    Select your level here
+                </h2>
+                
                 <form>
                     {levels.map((level) => (
                         <label key={level} className="flex items-center mb-3">
-                            <input 
-                                type="radio" 
-                                name="proficiency" 
-                                value={level} 
-                                className="mr-2"
+                            <input type="radio" name="proficiency" value={level} className="mr-2"
                             />
                             {level}
                         </label>
