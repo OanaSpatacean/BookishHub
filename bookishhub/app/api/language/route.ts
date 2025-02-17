@@ -22,11 +22,9 @@ export async function POST(request: Request, response: Response)
             data: {
                 languageId: parseInt(parsedData.languageId),
                 level: parsedData.level,
-                userId: session.user.id,
-            },
-        });
-
-        return NextResponse.json({ sessionId: newSession.id });
+                userId: session.user.id
+            }
+        })
 
         return NextResponse.json({ sessionId: newSession.id });
     } 
