@@ -1,3 +1,9 @@
+import Grammar from "@/components/Grammar";
+import Listening from "@/components/Listening";
+import Pronunciation from "@/components/Pronunciation";
+import Reading from "@/components/Reading";
+import Rephrasing from "@/components/Rephrasing";
+import Writing from "@/components/Writing";
 import { getAuthSession } from "@/lib/authentication";
 import { databaseClient } from "@/lib/database";
 import { redirect } from "next/navigation";
@@ -45,6 +51,13 @@ const SessionPage = async ({ params }: Props) => {
         return <div>Session not found</div>;
     }
 
+    const grammarQuestions = await databaseClient.grammarQuestion.findMany({
+        where: 
+        {
+            sessionId: parseInt(sessionId),
+        }
+    })
+
     return (
         <div className="flex 
                         flex-col 
@@ -63,6 +76,13 @@ const SessionPage = async ({ params }: Props) => {
                            mb-5">
                 Session {languageSession.id} - {languageSession.level} level - {language.name}
             </h1>
+
+            <Grammar questions={grammarQuestions} />
+            <Rephrasing/>
+            <Writing/>
+            <Pronunciation/>
+            <Listening/>
+            <Reading/>
         </div>
     );
 };
