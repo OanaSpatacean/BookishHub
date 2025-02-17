@@ -14,7 +14,9 @@ const LanguageDisplayBox = ({ language }: Props) => {
                         p-3 
                         flex 
                         bg-gray-50
-                        dark:bg-gray-900">
+                        dark:bg-gray-900
+                        hover:bg-gray-200
+                        dark:hover:bg-gray-800">
             <Link href={`/language/${language.id}`} className="relative">
             </Link>
 

@@ -20,8 +20,6 @@ const LanguageIdPage = async ({params}: Props) => {
     if(!session?.user){ 
         return redirect('/');
     }
-
-    const languages = await databaseClient.language.findMany()
     
     const { languageId } = params; 
 
@@ -31,6 +29,8 @@ const LanguageIdPage = async ({params}: Props) => {
             id: parseInt(languageId)
         }
     });
+
+    const languageSessions = await databaseClient.languageSession.findMany()
     
     return (
         <div className="flex 
@@ -103,7 +103,7 @@ const LanguageIdPage = async ({params}: Props) => {
                 </div>
             </div>
 
-            <div className="w-full bg-purple-50 p-6 shadow-md mt-2 mb-6">
+            <div className="w-full bg-purple-50 p-6 shadow-md mt-2 mb-6 dark:bg-purple-900">
                 <h2 className="text-xl font-bold mb-4">Select your level here</h2>
                 <form>
                     {levels.map((level) => (
@@ -159,8 +159,8 @@ const LanguageIdPage = async ({params}: Props) => {
                 <div className="gap-4 
                                 flex-col 
                                 flex">
-                    {languages.map((language) => (
-                        <LanguageSessionDisplayBox key={language.id} language={language} />
+                     {languageSessions.map((languageSession) => (
+                        <LanguageSessionDisplayBox key={languageSession.id} language={language} languageSession={languageSession} />
                     ))}
                 </div>
             </div>

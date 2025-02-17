@@ -2,6 +2,7 @@ datasource db {
   relationMode = "prisma"
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 generator client {
@@ -122,19 +123,16 @@ model PDFRequest {
 model Language {
     id                         Int      @id @default(autoincrement())
     name                       String
-    level                       String
+    sessions                   LanguageSession[]
 }
 
 model LanguageSession {
-    id                         Int      @id @default(autoincrement())
-    level                      String
+  id          Int      @id @default(autoincrement())
+  languageId  Int
+  language    Language @relation(fields: [languageId], references: [id])
+  createdAt   DateTime @default(now())
+  level        String
+  userId       String
 }
 
-model MemoryEnhancementCard {
-  id          Int      @id @default(autoincrement())
-  name        String
-  createdAt   DateTime @default(now())
-  imageUrl    String?  
-  userId      String
-  formatterState String?  
-}
+

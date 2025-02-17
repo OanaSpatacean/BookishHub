@@ -1,12 +1,12 @@
 "use client";
-import { Language } from '@prisma/client';
+import { Language, LanguageSession } from '@prisma/client';
 import Link from "next/link";
 import React from "react";
-import { FaLanguage } from 'react-icons/fa6';
+import { SiVitest } from "react-icons/si";
 
-type Props = {language:Language};
+type Props = {language:Language, languageSession:LanguageSession};
 
-const LanguageSessionDisplayBox = ({ language }: Props) => {
+const LanguageSessionDisplayBox = ({ language, languageSession }: Props) => {
 
     return (
         <div className="rounded-lg 
@@ -14,8 +14,10 @@ const LanguageSessionDisplayBox = ({ language }: Props) => {
                         p-3 
                         flex 
                         bg-gray-50
-                        dark:bg-gray-900">
-            <Link href={`/language/${language.id}`} className="relative">
+                        dark:bg-gray-900
+                        hover:bg-gray-200
+                        dark:hover:bg-gray-800">
+            <Link href={`/language/${language.id}/${languageSession.id}/`} className="relative">
             </Link>
 
             <div className="flex 
@@ -29,16 +31,16 @@ const LanguageSessionDisplayBox = ({ language }: Props) => {
                 <Link className="mb-2 
                                  flex 
                                  w-full
-                                 justify-between" href={`/language/${language.id}`}>
+                                 justify-between" href={`/language/${language.id}/${languageSession.id}`}>
                     <h3 className="text-primary 
                                    truncate 
                                    font-semibold 
                                    text-3xl">
-                        {language.name}
+                        Session {languageSession.id}
                     </h3>
 
-                    <FaLanguage className="text-3xl 
-                                           text-primary" />
+                    <SiVitest className="text-3xl 
+                                         text-primary" />
                 </Link>
             </div>
         </div>
