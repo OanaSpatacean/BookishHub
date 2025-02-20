@@ -95,19 +95,28 @@ const Rephrasing = ({ language, languageSession, questions }: Props) => {
                                                                                                                                 w-full"/>
 
                             {results[question.id] !== null && (
-                                <div className="absolute 
-                                                top-4 
-                                                right-4">
-                                    {results[question.id] ? (
-                                        <FiCheckCircle className="text-green-500 
+                                <>
+                                    <div className="absolute 
+                                                    top-4 
+                                                    right-4">
+                                        {results[question.id] ? (
+                                            <FiCheckCircle className="text-green-500 
+                                                                    w-6 
+                                                                    h-6"/>
+                                        ) : (
+                                            <FiXCircle className="text-red-400 
                                                                 w-6 
-                                                                h-6"/>
-                                    ) : (
-                                        <FiXCircle className="text-red-400 
-                                                            w-6 
-                                                            h-6" />
+                                                                h-6" />
+                                        )}
+                                    </div>
+                                    {results[question.id] === false && (
+                                        <p className="text-green-600 
+                                                    mt-2 
+                                                    font-semibold">
+                                            Correct answer: {question.answer}
+                                        </p>
                                     )}
-                                </div>
+                                </>
                             )}
                         </div>
                     ))}
