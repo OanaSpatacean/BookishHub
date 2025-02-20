@@ -6,6 +6,10 @@ import { FiCheckCircle, FiXCircle } from "react-icons/fi";
 import { ArrowLeft, ArrowRight, InfoIcon } from "lucide-react";
 import { Language, LanguageSession } from "@prisma/client";
 import Link from "next/link";
+import { useToast } from "./ui/use-toast";
+import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
 type Props = 
 {
@@ -30,6 +34,20 @@ const Rephrasing = ({ language, languageSession, questions }: Props) => {
             return acc;
         }, {} as Record<string, boolean | null>)
     )
+
+    React.useEffect(() => {
+        const savedAnswers = localStorage.getItem("rephrasingAnswers");
+        if (savedAnswers) {
+            setUserAnswers(JSON.parse(savedAnswers));
+        }
+    }, []);
+
+    React.useEffect(() => {
+        if (Object.keys(userAnswers).length > 0) 
+            {
+            localStorage.setItem("rephrasingAnswers", JSON.stringify(userAnswers));
+        }
+    }, [userAnswers]);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -59,7 +77,30 @@ const Rephrasing = ({ language, languageSession, questions }: Props) => {
         })
     
         setResults(newResults);
-    }   
+    }  
+
+    const { toast } = useToast();
+    
+    const { mutate: updateUserAnswer } = useMutation({
+        mutationFn: async ({ questionId, answer }: { questionId: string; answer: string }) => {
+          await axios.post("/api/language/rephrasing/rephrasingAnswers", {
+            questionId,
+            userAnswer: answer,
+          });
+        },
+        onError: (error) => {
+          toast({ title: "Error", description: "Failed to save answer: " + error, variant: "destructive" })
+            }
+      })
+    
+      const handleAnswerChange = (questionId: string, answer: string) => {
+        setUserAnswers((prev) => ({
+          ...prev,
+          [questionId]: answer,
+        }));
+    
+        updateUserAnswer({ questionId, answer })
+    }
 
     return (
         <div className="w-full">
@@ -99,8 +140,7 @@ const Rephrasing = ({ language, languageSession, questions }: Props) => {
                                 {question.phrase}
                             </h2>
 
-                            <Input id={question.id} name={question.id} placeholder="Enter your rephrased version..." className="mt-2 
-                                                                                                                                w-full"/>
+                            <Input id={question.id} name={question.id} placeholder="Enter your rephrased version..." value={userAnswers[question.id] || ""} onChange={(e) => handleAnswerChange(question.id, e.target.value)} className="mt-2 w-full"/>
 
                             {results[question.id] !== null && (
                                 <>
