@@ -31,7 +31,7 @@ const LanguageSessionDisplayBox = ({ language, languageSession }: Props) => {
                 <Link className="mb-2 
                                  flex 
                                  w-full
-                                 justify-between" href={`/language/${language.id}/${languageSession.id}`}>
+                                 justify-between" href={`/language/${language.id}/${languageSession.id}/grammar`}>
                     <h3 className="text-primary 
                                    truncate 
                                    font-semibold 
