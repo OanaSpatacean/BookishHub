@@ -70,7 +70,7 @@ const Grammar = ({ questions }: Props) => {
                            font-bold 
                            text-3xl  
                            mb-8">
-                Grammar 
+                Stage 1 - Grammar 
             </h1>
 
             <div className="mt-4 
