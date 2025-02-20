@@ -80,7 +80,7 @@ const Grammar = ({ language, languageSession, questions }: Props) => {
             })
             return response.data;
         },
-        onSuccess: ({sessionId}) => {
+        onSuccess: () => {
             toast({ title: "Done", description: "Welcome to stage 2!" });
             router.push(`/language/${languageId}/${sessionId}/rephrasing`);
         },
