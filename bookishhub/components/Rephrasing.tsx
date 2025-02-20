@@ -15,6 +15,8 @@ type Props =
         id: string;
         phrase: string;
         answer: string;
+        examplePhrase: string;
+        exampleAnswer: string;
     }[]
 }
 
@@ -65,6 +67,12 @@ const Rephrasing = ({ language, languageSession, questions }: Props) => {
                            mb-8">
                 Stage 2 - Rephrasing
             </h1>
+
+            <div className="bg-gray-100 p-4 mb-8 rounded-lg">
+                <h2 className="text-lg font-semibold">Example:</h2>
+                <p> {questions[0]?.examplePhrase}</p>
+                <p> {questions[0]?.exampleAnswer}</p>
+            </div>
 
             <form onSubmit={handleSubmit}>
                 {questions.map((question) => (
@@ -135,7 +143,7 @@ const Rephrasing = ({ language, languageSession, questions }: Props) => {
 
                 <div className="ml-5">
                     Want to review your answers?
-                    Simply click the "Check answers" button above to see how well you did and to review your rephrased versions.
+                    Simply click the "Check answers" button above to see how well you did and to review your rephrased versions. Don't forget to follow the example provided, add punctuation accordingly and also the necessary diacritics.
                 </div>
             </div>
         </div>
