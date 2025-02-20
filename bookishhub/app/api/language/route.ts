@@ -82,6 +82,7 @@ export async function POST(request: Request, response: Response)
                 return {
                     question: grammarQuestion.question,
                     answer: grammarQuestion.answer,
+                    userAnswer: "",
                     choices: JSON.stringify(choices),
                     sessionId: newSession.id, 
                 }
