@@ -1,4 +1,9 @@
 import Grammar from "@/components/Grammar";
+import Listening from "@/components/Listening";
+import Pronunciation from "@/components/Pronunciation";
+import Reading from "@/components/Reading";
+import Rephrasing from "@/components/Rephrasing";
+import Writing from "@/components/Writing";
 import { buttonVariants } from "@/components/ui/button";
 import { getAuthSession } from "@/lib/authentication";
 import { databaseClient } from "@/lib/database";
@@ -49,13 +54,6 @@ const SessionPage = async ({ params }: Props) => {
         return <div>Session not found</div>;
     }
 
-    const grammarQuestions = await databaseClient.grammarQuestion.findMany({
-        where: 
-        {
-            sessionId: parseInt(sessionId),
-        }
-    })
-
     return (
         <div className="flex 
                         flex-col 
@@ -75,16 +73,7 @@ const SessionPage = async ({ params }: Props) => {
                 Session {languageSession.id} - {languageSession.level} level - {language.name}
             </h1>
 
-            <Grammar questions={grammarQuestions} />
-
-            <div className="w-full flex justify-end mb-4">
-                <Link href={`/language/${language.id}/${languageSession.id}/rephrasing`} className={`${buttonVariants({ className: "flex items-center font-semibold bg-purple-500 hover:bg-purple-800" })}`}>
-                    Go to the next stage
-                    <ArrowRight strokeWidth={5} className="ml-1 
-                                                            h-3 
-                                                            w-3"/>
-                </Link>
-            </div>
+            <Rephrasing/>
         </div>
     );
 };

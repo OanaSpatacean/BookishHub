@@ -13,9 +13,8 @@ const Rephrasing = (props: Props) => {
                            decoration-4 
                            decoration-purple-400 
                            mb-5">
-                Rephrasing
+                Stage 2 - Rephrasing
             </h1>
-
     </div>
   )
 }
