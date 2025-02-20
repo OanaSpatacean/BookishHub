@@ -12,7 +12,7 @@ type Props =
     }
 }
 
-const SessionPage = async ({ params }: Props) => {
+const SessionPageGrammar = async ({ params }: Props) => {
     const session = await getAuthSession();
 
     if (!session?.user) 
@@ -77,4 +77,4 @@ const SessionPage = async ({ params }: Props) => {
     );
 };
 
-export default SessionPage;
+export default SessionPageGrammar;

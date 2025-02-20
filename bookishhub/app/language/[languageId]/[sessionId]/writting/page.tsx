@@ -1,14 +1,6 @@
 import Grammar from "@/components/Grammar";
-import Listening from "@/components/Listening";
-import Pronunciation from "@/components/Pronunciation";
-import Reading from "@/components/Reading";
-import Rephrasing from "@/components/Rephrasing";
-import Writing from "@/components/Writing";
-import { buttonVariants } from "@/components/ui/button";
 import { getAuthSession } from "@/lib/authentication";
 import { databaseClient } from "@/lib/database";
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
 type Props = 
@@ -20,7 +12,7 @@ type Props =
     }
 }
 
-const SessionPageRephrasing = async ({ params }: Props) => {
+const SessionPageWriting = async ({ params }: Props) => {
     const session = await getAuthSession();
 
     if (!session?.user) 
@@ -54,7 +46,7 @@ const SessionPageRephrasing = async ({ params }: Props) => {
         return <div>Session not found</div>;
     }
 
-    const rephrasingQuestions = await databaseClient.rephrasingQuestion.findMany({
+    const grammarQuestions = await databaseClient.grammarQuestion.findMany({
         where: 
         {
             sessionId: parseInt(sessionId),
@@ -80,9 +72,9 @@ const SessionPageRephrasing = async ({ params }: Props) => {
                 Session {languageSession.id} - {languageSession.level} level - {language.name}
             </h1>
 
-            <Rephrasing language={language} languageSession={languageSession} questions={rephrasingQuestions} />
+            <Grammar language={language} languageSession={languageSession} questions={grammarQuestions} />
         </div>
     );
 };
 
-export default SessionPageRephrasing;
+export default SessionPageWriting;
