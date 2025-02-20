@@ -207,12 +207,23 @@ const Rephrasing = ({ language, languageSession, questions }: Props) => {
                 </div>
             </div>
 
-            <div className="w-full mb-4">
+            <div className="w-full 
+                            flex 
+                            justify-between 
+                            items-center 
+                            mb-4">                
                 <Link href={`/language/${language.id}/${languageSession.id}/grammar`} className={`${buttonVariants({ className: "flex items-center font-semibold bg-purple-500 hover:bg-purple-800" })}`}>
                     <ArrowLeft strokeWidth={5} className="ml-1 
                                                             h-3 
                                                             w-3"/>
                     Return to the previous stage
+                </Link>
+
+                <Link href={`/language/${language.id}/${languageSession.id}/writting`} className={`${buttonVariants({ className: "flex items-center font-semibold bg-purple-500 hover:bg-purple-800" })}`}>    
+                    Go to the next stage
+                    <ArrowRight strokeWidth={5} className="ml-1 
+                                                            h-3 
+                                                            w-3"/>
                 </Link>
             </div>
         </div>
