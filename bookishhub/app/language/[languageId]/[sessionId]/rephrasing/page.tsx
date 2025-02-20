@@ -80,7 +80,7 @@ const SessionPage = async ({ params }: Props) => {
                 Session {languageSession.id} - {languageSession.level} level - {language.name}
             </h1>
 
-            <Rephrasing questions={rephrasingQuestions} />
+            <Rephrasing language={language} languageSession={languageSession} questions={rephrasingQuestions} />
         </div>
     );
 };

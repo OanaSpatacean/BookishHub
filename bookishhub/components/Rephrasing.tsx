@@ -4,9 +4,12 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { FiCheckCircle, FiXCircle } from "react-icons/fi";
 import { InfoIcon } from "lucide-react";
+import { Language, LanguageSession } from "@prisma/client";
 
 type Props = 
 {
+    language: Language,
+    languageSession: LanguageSession,
     questions: 
     {
         id: string;
@@ -15,7 +18,7 @@ type Props =
     }[]
 }
 
-const Rephrasing = ({ questions }: Props) => {
+const Rephrasing = ({ language, languageSession, questions }: Props) => {
     const [userAnswers, setUserAnswers] = useState<Record<string, string>>({});
 
     const [results, setResults] = useState<Record<string, boolean | null>>(
