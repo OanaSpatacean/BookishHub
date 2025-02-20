@@ -17,7 +17,7 @@ const LanguageSessionDisplayBox = ({ language, languageSession }: Props) => {
                         dark:bg-gray-900
                         hover:bg-gray-200
                         dark:hover:bg-gray-800">
-            <Link href={`/language/${language.id}/${languageSession.id}/`} className="relative">
+            <Link href={`/language/${language.id}/${languageSession.id}/grammar`} className="relative">
             </Link>
 
             <div className="flex 

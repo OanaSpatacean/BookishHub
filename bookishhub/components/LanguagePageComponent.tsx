@@ -33,7 +33,7 @@ const LanguagePageComponent = ({ language, languageSessions, languageId }: Props
         },
         onSuccess: ({ sessionId }) => {
             toast({ title: "Done", description: "Language session created successfully!" });
-            router.push(`/language/${language.id}/${sessionId}/`);
+            router.push(`/language/${language.id}/${sessionId}/grammar`);
         },
         onError: (error) => {
             toast({ title: "Error", description: "An error occurred: " + error, variant: "destructive" });
@@ -177,7 +177,7 @@ const LanguagePageComponent = ({ language, languageSessions, languageId }: Props
                 {isLoading 
                     ? <>
                         <Loader2 className="animate-spin mr-2 h-5 w-5" /> 
-                        We are creating your language assessment, please wait a few minutes...
+                        We are creating your language assessment, please wait a few seconds...
                       </>
                     : "Start a new language session"
                 }
