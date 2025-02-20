@@ -71,7 +71,7 @@ export async function POST(request: Request, response: Response) {
         const exampleAnswer = exampleData[0]?.answer || "This is the reworded version of the sample sentence.";
 
         const rephrasingQuestions = await strict_output(
-            `You are an AI that creates rephrasing exercises for the ${language.name} language at the ${level} level. 
+            `You are an AI that creates 5 rephrasing exercises for the ${language.name} language at the ${level} level. 
             Follow the structure of the example provided below to create 4 rephrasing exercises. 
             **Important**: Do not use the example phrase or answer directly, but instead create new phrases that follow the same structure and logic of rephrasing (changing word order or structure while keeping the meaning and tone the same). 
             Example Phrase: ${examplePhrase} 
