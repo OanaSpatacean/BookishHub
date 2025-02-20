@@ -76,6 +76,7 @@ const Grammar = ({ language, languageSession, questions }: Props) => {
         mutationFn: async () => {
             const response = await axios.post("/api/language/rephrasing", {
                 languageId: String(languageId),
+                languageSessionId: String(sessionId),
                 level: selectedLevel
             })
             return response.data;

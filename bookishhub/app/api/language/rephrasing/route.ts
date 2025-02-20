@@ -2,7 +2,7 @@ import { ZodError } from "zod";
 import { NextResponse } from "next/server";
 import { databaseClient } from "@/lib/database";
 import { getAuthSession } from "@/lib/authentication";
-import { createLanguageAssessmentSchema } from "@/app/form-validators/language";
+import { createRephrasingSchema } from "@/app/form-validators/language";
 import { strict_output } from "@/lib/openai";
 
 export async function POST(request: Request, response: Response) {
@@ -16,9 +16,10 @@ export async function POST(request: Request, response: Response) {
         }
 
         const body = await request.json();
-        const parsedData = createLanguageAssessmentSchema.parse(body);
+        const parsedData = createRephrasingSchema.parse(body);
 
         const languageId = parseInt(parsedData.languageId);
+        const languageSessionId = parseInt(parsedData.languageSessionId);
         const level = parsedData.level;
 
         const language = await databaseClient.language.findUnique({
@@ -35,38 +36,62 @@ export async function POST(request: Request, response: Response) {
         const languageSession = await databaseClient.languageSession.findFirst({
             where: 
             {
-                languageId: languageId,
-                level: level,
-                userId: session.user.id, 
-            },
-            select: 
-            { 
-                id: true 
+                id: languageSessionId
             }
         })
-        
+                
         if (!languageSession) 
         {
             return new NextResponse("No existing session found", { status: 404 });
         }
-        
 
-        const rephrasingQuestions: { phrase: string; answer: string }[] = await strict_output(
+        const existingQuestions = await databaseClient.rephrasingQuestion.findMany({
+            where: 
+            {
+                sessionId: languageSession.id
+            }
+        })
+
+        if (existingQuestions.length > 0) 
+        {
+            return NextResponse.json({ sessionId: languageSession.id, questions: existingQuestions });
+        }
+        
+        const exampleData = await strict_output(
+            `You are an AI that creates examples for rephrasing exercises in the ${language.name} language at the ${level} level.
+            Provide an example sentence and its reworded version that maintains the same meaning.`,
+            [`Generate an example phrase and its rephrased version for the ${language.name} language at the ${level} level.`],
+            {
+                phrase: "An example phrase that needs to be rephrased.",
+                answer: "A correct reworded version of the example phrase.",
+            }
+        );
+
+        const examplePhrase = exampleData[0]?.phrase || "This is a sample sentence for rephrasing.";
+        const exampleAnswer = exampleData[0]?.answer || "This is the reworded version of the sample sentence.";
+
+        const rephrasingQuestions = await strict_output(
             `You are an AI that creates rephrasing exercises for the ${language.name} language at the ${level} level.
-            Each phrase should be reworded while maintaining its original meaning.`,
+            Create 4 rephrasing exercises that follow the structure of this example:
+            Example Phrase: ${examplePhrase}
+            Example Answer: ${exampleAnswer}`,
             new Array(5).fill(
-                `Generate a phrase and its correctly reworded version for the ${language.name} language at the ${level} level.`
+                `Generate a phrase and its rephrased version for the ${language.name} language at the ${level} level.`
             ),
             {
                 phrase: "An original phrase that needs to be rephrased.",
-                answer: "A correct reworded version of the phrase.",
+                answer: "A correct reworded version of the phrase without diacritics.",
+                examplePhrase,
+                exampleAnswer,
             }
-        )
+        );
 
         await databaseClient.rephrasingQuestion.createMany({
             data: rephrasingQuestions.map((rephrasingQuestion) => ({
                 phrase: rephrasingQuestion.phrase,
                 answer: rephrasingQuestion.answer,
+                examplePhrase: rephrasingQuestion.examplePhrase,
+                exampleAnswer: rephrasingQuestion.exampleAnswer,
                 sessionId: languageSession.id,
             }))
         });
