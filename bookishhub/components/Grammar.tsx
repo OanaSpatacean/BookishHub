@@ -94,6 +94,27 @@ const Grammar = ({ language, languageSession, questions }: Props) => {
         createRephrasing()
     }
 
+    const { mutate: updateUserAnswer } = useMutation({
+        mutationFn: async ({ questionId, answer }: { questionId: string; answer: string }) => {
+            await axios.post("/api/language/grammarAnswers", {
+                questionId,
+                userAnswer: answer,
+            });
+        },
+        onError: (error) => {
+            toast({ title: "Error", description: "Failed to save answer: " + error, variant: "destructive" })
+        }
+    })
+    
+    const handleAnswerChange = (questionId: string, answer: string) => {
+        setAnswers((prev) => ({
+            ...prev,
+            [questionId]: answer,
+        }));
+    
+        updateUserAnswer({ questionId, answer })
+    }
+
     return (
         <div className="w-full">
             <div className="shadow-md 
@@ -143,10 +164,7 @@ const Grammar = ({ language, languageSession, questions }: Props) => {
 
                             <div className="mt-3 
                                             dark:bg-gray-700">
-                                <RadioGroup onValueChange={(value) =>   setAnswers((prev) => ({
-                                                                            ...prev,
-                                                                            [question.id]: value,
-                                                                        }))}>
+                                <RadioGroup onValueChange={(value) => handleAnswerChange(question.id, value)}>
                                     {JSON.parse(question.choices).map((option: string, index: number) => (
                                         <div key={index} className="flex 
                                                                     items-center 
