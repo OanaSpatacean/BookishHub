@@ -1,9 +1,6 @@
 import Grammar from "@/components/Grammar";
-import { buttonVariants } from "@/components/ui/button";
 import { getAuthSession } from "@/lib/authentication";
 import { databaseClient } from "@/lib/database";
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
 type Props = 
@@ -75,16 +72,7 @@ const SessionPage = async ({ params }: Props) => {
                 Session {languageSession.id} - {languageSession.level} level - {language.name}
             </h1>
 
-            <Grammar questions={grammarQuestions} />
-
-            <div className="w-full flex justify-end mb-4">
-                <Link href={`/language/${language.id}/${languageSession.id}/rephrasing`} className={`${buttonVariants({ className: "flex items-center font-semibold bg-purple-500 hover:bg-purple-800" })}`}>
-                    Go to the next stage
-                    <ArrowRight strokeWidth={5} className="ml-1 
-                                                            h-3 
-                                                            w-3"/>
-                </Link>
-            </div>
+            <Grammar language={language} languageSession={languageSession} questions={grammarQuestions} />
         </div>
     );
 };
