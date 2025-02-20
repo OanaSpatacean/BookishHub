@@ -33,25 +33,33 @@ const Rephrasing = ({ language, languageSession, questions }: Props) => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
+    
         const formData = new FormData(event.currentTarget);
         const newAnswers: Record<string, string> = {};
         questions.forEach((question) => {
-            newAnswers[question.id] = formData.get(question.id) as string;
-        })
-
+            const userInput = formData.get(question.id) as string;
+            newAnswers[question.id] = userInput ? userInput.trim() : "";
+        });
+    
         setUserAnswers(newAnswers);
-
+    
         const newResults = { ...results };
         questions.forEach((question) => {
-            const userAnswer = newAnswers[question.id]?.trim().toLowerCase();
+            const userAnswer = newAnswers[question.id];
             const correctAnswer = question.answer.trim().toLowerCase();
-
-            newResults[question.id] = userAnswer === correctAnswer;
-        });
-
-        setResults(newResults)
-    }
+    
+            if (!userAnswer) 
+            {
+                newResults[question.id] = null;
+            } 
+            else 
+            {
+                newResults[question.id] = userAnswer.toLowerCase() === correctAnswer;
+            }
+        })
+    
+        setResults(newResults);
+    }   
 
     return (
         <div className="w-full">
