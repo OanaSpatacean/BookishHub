@@ -11,7 +11,7 @@ export async function POST(request: Request) {
             return new NextResponse("Invalid request", { status: 400 });
         }
 
-        await databaseClient.grammarQuestion.update({
+        await databaseClient.rephrasingQuestion.update({
             where: 
             { 
                 id: questionId 
