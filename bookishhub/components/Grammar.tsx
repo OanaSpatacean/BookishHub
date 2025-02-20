@@ -112,7 +112,7 @@ const Grammar = ({ language, languageSession, questions }: Props) => {
     }));
 
     updateUserAnswer({ questionId, answer })
-    }
+  }
 
   return (
     <div className="w-full">
