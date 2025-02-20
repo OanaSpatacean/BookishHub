@@ -4,10 +4,13 @@ import Link from "next/link";
 import React from "react";
 import { SiVitest } from "react-icons/si";
 
-type Props = {language:Language, languageSession:LanguageSession};
+type Props = {
+    language: Language;
+    languageSession: LanguageSession;
+    sessionNumber: number; 
+};
 
-const LanguageSessionDisplayBox = ({ language, languageSession }: Props) => {
-
+const LanguageSessionDisplayBox = ({ language, languageSession, sessionNumber }: Props) => {
     return (
         <div className="rounded-lg 
                         border 
@@ -23,7 +26,7 @@ const LanguageSessionDisplayBox = ({ language, languageSession }: Props) => {
             <div className="flex 
                             flex-grow 
                             justify-between  
-                            items-center     /
+                            items-center     
                             ml-8
                             mr-8 
                             flex-row 
@@ -36,7 +39,7 @@ const LanguageSessionDisplayBox = ({ language, languageSession }: Props) => {
                                    truncate 
                                    font-semibold 
                                    text-3xl">
-                        Session {languageSession.id} - {languageSession.level}
+                        Session {sessionNumber} - {languageSession.level}
                     </h3>
 
                     <SiVitest className="text-3xl 

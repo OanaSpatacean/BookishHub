@@ -183,30 +183,34 @@ const LanguagePageComponent = ({ language, languageSessions, languageId }: Props
                 }
             </Button>
 
-            <h1 className="sm:text-5xl 
-                           text-left 
-                           font-bold 
-                           text-3xl 
-                           underline 
-                           decoration-4 
-                           decoration-purple-500 
-                           mb-9 
-                           mt-9">
-                All of your past language sessions
-            </h1>
+            {languageSessions.length > 0 && (
+            <>
+                <h1 className="sm:text-5xl 
+                            text-left 
+                            font-bold 
+                            text-3xl 
+                            underline 
+                            decoration-4 
+                            decoration-purple-500 
+                            mb-9 
+                            mt-9">
+                    All of your past language sessions
+                </h1>
 
-            <div className="max-w-7xl 
-                            mx-auto 
-                            py-3 
-                            w-full">
-                <div className="gap-4 
-                                flex-col 
-                                flex">
-                    {languageSessions.map((session) => (
-                        <LanguageSessionDisplayBox key={session.id} language={language} languageSession={session} />
-                    ))}
+                <div className="max-w-7xl 
+                                mx-auto 
+                                py-3 
+                                w-full">
+                    <div className="gap-4 
+                                    flex-col 
+                                    flex">
+                        {languageSessions.map((session, index) => (
+                            <LanguageSessionDisplayBox key={session.id} language={language} languageSession={session} sessionNumber={index + 1}/>
+                        ))}
+                    </div>
                 </div>
-            </div>
+            </>
+        )}
         </div>
     );
 };
