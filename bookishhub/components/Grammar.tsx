@@ -4,9 +4,13 @@ import { Button, buttonVariants } from "./ui/button";
 import { Label } from "./ui/label";
 import { RadioGroupItem, RadioGroup } from "./ui/radio-group";
 import { FiCheckCircle, FiXCircle } from "react-icons/fi";
-import { ArrowRight, InfoIcon } from "lucide-react";
+import { ArrowRight, InfoIcon, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { Language, LanguageSession } from "@prisma/client";
+import { useToast } from "./ui/use-toast";
+import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
 type Props = 
 {
@@ -60,6 +64,34 @@ const Grammar = ({ language, languageSession, questions }: Props) => {
 
         setQuestionState(updatedQuestionState)
     }, [answers, questionState, questions])
+
+    const { toast } = useToast();
+    const router = useRouter();
+
+    const languageId = language.id;
+    const sessionId = languageSession.id;
+    const selectedLevel = languageSession.level;
+
+    const { mutate: createRephrasing, isLoading } = useMutation({
+        mutationFn: async () => {
+            const response = await axios.post("/api/language/rephrasing", {
+                languageId,
+                level: selectedLevel
+            })
+            return response.data;
+        },
+        onSuccess: ({sessionId}) => {
+            toast({ title: "Done", description: "Welcome to stage 2!" });
+            router.push(`/language/${languageId}/${sessionId}/rephrasing`);
+        },
+        onError: (error) => {
+            toast({ title: "Error", description: "An error occurred: " + error, variant: "destructive" });
+        }
+    })
+
+    const handleSubmit = () => {
+        createRephrasing()
+    }
 
     return (
         <div className="w-full">
@@ -171,13 +203,26 @@ const Grammar = ({ language, languageSession, questions }: Props) => {
                 </div>
 
             </div>
+
             <div className="w-full flex justify-end mb-4">
-                <Link href={`/language/${language.id}/${languageSession.id}/rephrasing`} className={`${buttonVariants({ className: "flex items-center font-semibold bg-purple-500 hover:bg-purple-800" })}`}>
-                    Go to the next stage
-                    <ArrowRight strokeWidth={5} className="ml-1 
-                                                            h-3 
-                                                            w-3"/>
-                </Link>
+                <Button size="lg" className="flex 
+                                            items-center 
+                                            font-semibold 
+                                            bg-purple-500 
+                                            hover:bg-purple-800" onClick={handleSubmit} disabled={isLoading}>
+                    {isLoading 
+                        ? <>
+                            <Loader2 className="animate-spin mr-2 h-5 w-5" /> 
+                            Loading...
+                        </>
+                        : <>
+                            Go to the next stage 
+                            <ArrowRight strokeWidth={5} className="ml-1 
+                                                                    h-3 
+                                                                    w-3"/>
+                        </>
+                    }
+                </Button>
             </div>
     </div>
     );
