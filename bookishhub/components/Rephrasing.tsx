@@ -162,7 +162,7 @@ const Rephrasing = ({ language, languageSession, questions }: Props) => {
 
                     <div className="ml-5">
                         Want to review your answers?
-                        Simply click the "Check answers" button above to see how well you did and to review your rephrased versions. Don't forget to follow the example provided, add punctuation accordingly and also the necessary diacritics.
+                        Simply click the "Check answers" button above to see how well you did and to review your rephrased versions. Don't forget to follow the example provided, add punctuation accordingly and also the diacritics if necessary.
                     </div>
                 </div>
             </div>
