@@ -167,7 +167,9 @@ const Grammar = ({ language, languageSession, questions }: Props) => {
                             {questionState[question.id] === false && (
                                 <p className="text-red-500 
                                               mt-2 
-                                              font-semibold">Correct answer: {question.answer}</p>
+                                              font-semibold">
+                                    Correct answer: {question.answer}
+                                </p>
                             )}
                         </div>
                     ))}
