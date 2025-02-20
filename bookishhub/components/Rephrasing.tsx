@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import { Button } from "./ui/button";
-import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { FiCheckCircle, FiXCircle } from "react-icons/fi";
+import { InfoIcon } from "lucide-react";
 
 type Props = 
 {
@@ -114,6 +114,27 @@ const Rephrasing = ({ questions }: Props) => {
                     Check answers
                 </Button>
             </form>
+
+            <div className="bg-secondary 
+                            border-none 
+                            p-4 
+                            flex">
+                <div className="flex-shrink-0">
+                    <InfoIcon 
+                        className="text-green-500 
+                                h-10 
+                                w-10 
+                                bg-green-100 
+                                rounded-full 
+                                p-2 
+                                shadow-sm" />
+                </div>
+
+                <div className="ml-5">
+                    Want to review your answers?
+                    Simply click the "Check answers" button above to see how well you did and to review your rephrased versions.
+                </div>
+            </div>
         </div>
     );
 };
