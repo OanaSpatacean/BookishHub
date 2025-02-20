@@ -54,7 +54,7 @@ const SessionPage = async ({ params }: Props) => {
         return <div>Session not found</div>;
     }
 
-    const rephrasingQuestions = await databaseClient.rephrasingQuestions.findMany({
+    const rephrasingQuestions = await databaseClient.rephrasingQuestion.findMany({
         where: 
         {
             sessionId: parseInt(sessionId),
