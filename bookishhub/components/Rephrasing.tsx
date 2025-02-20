@@ -7,7 +7,8 @@ import { FiCheckCircle, FiXCircle } from "react-icons/fi";
 
 type Props = 
 {
-    questions: {
+    questions: 
+    {
         id: string;
         phrase: string;
         answer: string;
@@ -64,11 +65,12 @@ const Rephrasing = ({ questions }: Props) => {
 
             <form onSubmit={handleSubmit}>
                 {questions.map((question) => (
-                    <div key={question.id} className="border 
-                                                      p-4 
-                                                      rounded-lg 
-                                                      mt-4 
-                                                      relative">
+                    <div key={question.id} className={`relative rounded-lg p-4 dark:bg-gray-700 ${results[question.id] === true
+                                                                                                            ? "border-4 border-green-500 dark:border-green-500 bg-gray-100"
+                                                                                                            : results[question.id] === false
+                                                                                                            ? "border-4 border-red-400 dark:border-red-400 bg-gray-100"
+                                                                                                            : "border-4 border-gray-100 dark:border-gray-700 bg-gray-100"
+                                                                                                    } mt-4`}>
                         <h2 className="text-gray-800 
                                        font-semibold 
                                        dark:text-gray-100 
@@ -76,7 +78,6 @@ const Rephrasing = ({ questions }: Props) => {
                             {question.phrase}
                         </h2>
 
-                        <Label htmlFor={question.id}>Your rephrased version</Label>
                         <Input id={question.id} name={question.id} placeholder="Enter your rephrased version..." className="mt-2 
                                                                                                                             w-full"/>
 
@@ -99,8 +100,17 @@ const Rephrasing = ({ questions }: Props) => {
                 ))}
 
                 <Button type="submit" size="lg" className="mt-6 
-                                                           w-full 
-                                                           font-semibold">
+                                                            w-full 
+                                                            mb-5 
+                                                            font-semibold 
+                                                            text-white 
+                                                            text-md 
+                                                            transition 
+                                                            bg-gradient-to-r 
+                                                            from-purple-500 
+                                                            to-purple-900 
+                                                            hover:from-purple-600 
+                                                            hover:to-purple-800">
                     Check answers
                 </Button>
             </form>
