@@ -91,6 +91,7 @@ export async function POST(request: Request, response: Response) {
             data: rephrasingQuestions.map((rephrasingQuestion) => ({
                 phrase: rephrasingQuestion.phrase,
                 answer: rephrasingQuestion.answer,
+                userAnswer: "",
                 examplePhrase: rephrasingQuestion.examplePhrase,
                 exampleAnswer: rephrasingQuestion.exampleAnswer,
                 sessionId: languageSession.id,
