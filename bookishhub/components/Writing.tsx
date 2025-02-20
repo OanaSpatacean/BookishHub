@@ -1,8 +1,14 @@
+import { Language } from "@prisma/client";
+import { LanguageSession } from "@prisma/client";
 import React from "react";
 
-type Props = {};
+type Props = 
+{
+  language: Language,
+  languageSession: LanguageSession
+}
 
-const Writing = (props: Props) => {
+const Writing = ({ language, languageSession }: Props) => {
   return (
     <div className="">
             <h1 className="sm:text-3xl 
@@ -13,7 +19,7 @@ const Writing = (props: Props) => {
                            decoration-4 
                            decoration-purple-400 
                            mb-5">
-                Writing
+                Stage 3 - Writing
             </h1>
 
     </div>
