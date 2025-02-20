@@ -100,14 +100,14 @@ const Grammar = ({ language, languageSession, questions }: Props) => {
                             rounded-lg 
                             p-6 
                             dark:bg-gray-800 
-                            bg-white
-                            w-full
+                            bg-white 
+                            w-full 
                             mb-8">
                 <h1 className="sm:text-3xl 
-                            text-left 
-                            font-bold 
-                            text-3xl  
-                            mb-8">
+                               text-left 
+                               font-bold 
+                               text-3xl 
+                               mb-8">
                     Stage 1 - Grammar 
                 </h1>
 
@@ -125,19 +125,19 @@ const Grammar = ({ language, languageSession, questions }: Props) => {
                                 <div className="absolute top-2 right-2">
                                     {questionState[question.id] === true ? (
                                         <FiCheckCircle className="text-green-500 
-                                                                w-6 
-                                                                h-6" />
+                                                                  w-6 
+                                                                  h-6" />
                                     ) : (
                                         <FiXCircle className="text-red-400 
-                                                            w-6 
-                                                            h-6" />
+                                                              w-6 
+                                                              h-6" />
                                     )}
                                 </div>
                             )}
 
                             <h2 className="text-gray-800 
-                                        font-semibold 
-                                        dark:text-gray-100">
+                                           font-semibold 
+                                           dark:text-gray-100">
                                 {question.question}
                             </h2>
 
@@ -152,10 +152,10 @@ const Grammar = ({ language, languageSession, questions }: Props) => {
                                                                     items-center 
                                                                     space-x-2">
                                             <RadioGroupItem value={option} id={question.id + index.toString()} className="rounded-full 
-                                                                                                                        h-5 
-                                                                                                                        w-5 
-                                                                                                                        border-gray-400 
-                                                                                                                        border"/>
+                                                                                                                          h-5 
+                                                                                                                          w-5 
+                                                                                                                          border-gray-400 
+                                                                                                                          border"/>
                                             <Label htmlFor={question.id + index.toString()}>
                                                 {option}
                                             </Label>
@@ -163,6 +163,12 @@ const Grammar = ({ language, languageSession, questions }: Props) => {
                                     ))}
                                 </RadioGroup>
                             </div>
+
+                            {questionState[question.id] === false && (
+                                <p className="text-red-500 
+                                              mt-2 
+                                              font-semibold">Correct answer: {question.answer}</p>
+                            )}
                         </div>
                     ))}
                 </div>
