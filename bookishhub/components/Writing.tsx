@@ -7,6 +7,7 @@ import React from "react";
 import { buttonVariants } from "./ui/button";
 import { EditorContent, useEditor } from "@tiptap/react";
 import { StarterKit } from "@tiptap/starter-kit";
+import TextWritingMenu from "./TextWritingMenu";
 
 type Props = 
 {
@@ -48,7 +49,13 @@ const Writing = ({ language, languageSession }: Props) => {
                               px-16 
                               rounded-lg 
                               py-8">
-                  <EditorContent editor={editor}/>
+                  <div className="flex">
+                      {editor && <TextWritingMenu editor={editor}/>}
+                  </div>
+
+                  <div className="prose">                  
+                    <EditorContent editor={editor}/>
+                  </div>
               </div>
 
               <div className="w-full 
