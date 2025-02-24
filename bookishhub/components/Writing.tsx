@@ -1,6 +1,9 @@
 import { Language } from "@prisma/client";
 import { LanguageSession } from "@prisma/client";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import Link from "next/link";
 import React from "react";
+import { buttonVariants } from "./ui/button";
 
 type Props = 
 {
@@ -10,18 +13,39 @@ type Props =
 
 const Writing = ({ language, languageSession }: Props) => {
   return (
-    <div className="">
-            <h1 className="sm:text-3xl 
-                           text-left 
-                           font-bold 
-                           text-3xl 
-                           underline 
-                           decoration-4 
-                           decoration-purple-400 
-                           mb-5">
-                Stage 3 - Writing
-            </h1>
+    <div className="w-full">
+      <div className="">
+              <h1 className="sm:text-3xl 
+                            text-left 
+                            font-bold 
+                            text-3xl 
+                            underline 
+                            decoration-4 
+                            decoration-purple-400 
+                            mb-5">
+                  Stage 3 - Writing
+              </h1>
 
+              <div className="w-full 
+                              flex 
+                              justify-between 
+                              items-center 
+                              mb-4">                
+                  <Link href={`/language/${language.id}/${languageSession.id}/grammar`} className={`${buttonVariants({ className: "flex items-center font-semibold bg-purple-500 hover:bg-purple-800" })}`}>
+                      <ArrowLeft strokeWidth={5} className="ml-1 
+                                                              h-3 
+                                                              w-3"/>
+                      Return to the previous stage
+                  </Link>
+
+                  <Link href={`/language/${language.id}/${languageSession.id}/writing`} className={`${buttonVariants({ className: "flex items-center font-semibold bg-purple-500 hover:bg-purple-800" })}`}>    
+                      Go to the next stage
+                      <ArrowRight strokeWidth={5} className="ml-1 
+                                                              h-3 
+                                                              w-3"/>
+                  </Link>
+              </div>
+      </div>
     </div>
   )
 }
