@@ -1,17 +1,31 @@
+"use client"
 import { Language } from "@prisma/client";
 import { LanguageSession } from "@prisma/client";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { buttonVariants } from "./ui/button";
+import { EditorContent, useEditor } from "@tiptap/react";
+import { StarterKit } from "@tiptap/starter-kit";
 
 type Props = 
 {
   language: Language,
   languageSession: LanguageSession
-  }
+}
 
 const Writing = ({ language, languageSession }: Props) => {
+  const [editorState, setEditorState] = React.useState(``)
+
+  const editor = useEditor({
+    autofocus: true,
+    extensions: [StarterKit],
+    content: editorState,
+    onUpdate: ({ editor }) => {
+      setEditorState(editor.getHTML())
+    }
+  })
+
   return (
     <div className="w-full">
       <div className="">
@@ -34,7 +48,7 @@ const Writing = ({ language, languageSession }: Props) => {
                               px-16 
                               rounded-lg 
                               py-8">
-                                
+                  <EditorContent editor={editor}/>
               </div>
 
               <div className="w-full 
