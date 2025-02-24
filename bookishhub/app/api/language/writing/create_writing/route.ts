@@ -21,7 +21,7 @@ export async function POST(req: Request) {
       }
     })
 
-    return NextResponse.json({ success: true }, { status: 200 })
+    return NextResponse.json({ success: true, id: newTextWriting.id }, { status: 200 })
   } 
   catch (error) 
   {

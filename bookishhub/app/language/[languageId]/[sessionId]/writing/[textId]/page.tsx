@@ -9,6 +9,7 @@ type Props =
     {
         languageId: string;
         sessionId: string;
+        textId: string;
     }
 }
 
@@ -20,7 +21,7 @@ const SessionPageWriting = async ({ params }: Props) => {
         return redirect("/");
     }
 
-    const { languageId, sessionId } = params;
+    const { languageId, sessionId, textId } = params;
 
     const language = await databaseClient.language.findUnique({
         where: 
@@ -46,6 +47,18 @@ const SessionPageWriting = async ({ params }: Props) => {
         return <div>Session not found</div>;
     }
 
+    const text = await databaseClient.textWriting.findUnique({
+        where: 
+        {
+          id: textId
+        }
+    })
+
+    if (!text) 
+    {
+        return <div>Text not found</div>;
+    }
+
     return (
         <div className="flex 
                         flex-col 
@@ -65,7 +78,7 @@ const SessionPageWriting = async ({ params }: Props) => {
                 Session {languageSession.id} - {languageSession.level} level - {language.name}
             </h1>
 
-            <Writing language={language} languageSession={languageSession}/>
+            <Writing language={language} languageSession={languageSession} text={text}/>
         </div>
     );
 };

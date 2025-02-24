@@ -4,7 +4,7 @@ import { Button, buttonVariants } from "./ui/button";
 import { Input } from "./ui/input";
 import { FiCheckCircle, FiXCircle } from "react-icons/fi";
 import { ArrowLeft, ArrowRight, InfoIcon, Loader2 } from "lucide-react";
-import { Language, LanguageSession } from "@prisma/client";
+import { Language, LanguageSession, TextWriting } from "@prisma/client";
 import Link from "next/link";
 import { useToast } from "./ui/use-toast";
 import { useRouter } from "next/navigation";
@@ -22,10 +22,11 @@ type Props =
         answer: string;
         examplePhrase: string;
         exampleAnswer: string;
-    }[]
+    }[],
+    text: TextWriting
 }
 
-const Rephrasing = ({ language, languageSession, questions }: Props) => {
+const Rephrasing = ({ language, languageSession, questions, text }: Props) => {
     const [userAnswers, setUserAnswers] = useState<Record<string, string>>({});
 
     const [results, setResults] = useState<Record<string, boolean | null>>(
@@ -91,9 +92,13 @@ const Rephrasing = ({ language, languageSession, questions }: Props) => {
             return response.data;
         },
         onSuccess: (data) => {
-            toast({ title: "Success", description: "Welcome to stage 3!"});
-            router.push(`/language/${language.id}/${languageSession.id}/writing`);
-        },
+            if (data?.id) {
+                toast({ title: "Success", description: "Welcome to stage 3!" });
+                router.push(`/language/${language.id}/${languageSession.id}/writing/${data.id}`);
+            } else {
+                toast({ title: "Error", description: "Invalid response from the server", variant: "destructive" });
+            }
+        },        
         onError: (error) => {
             toast({ title: "Error", description: "An error occurred: " + error, variant: "destructive" });
         }

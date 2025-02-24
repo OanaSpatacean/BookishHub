@@ -1,6 +1,5 @@
 "use client"
-import { Language } from "@prisma/client";
-import { LanguageSession } from "@prisma/client";
+import { Language, LanguageSession, TextWriting } from "@prisma/client";
 import { ArrowLeft, ArrowRight, InfoIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
@@ -10,14 +9,17 @@ import { StarterKit } from "@tiptap/starter-kit";
 import TextWritingMenu from "./TextWritingMenu";
 import { cn } from "@/lib/utils";
 import { debounceSave } from "@/lib/debounce";
+import { useMutation } from "@tanstack/react-query";
+import axios  from 'axios';
 
 type Props = 
 {
   language: Language,
   languageSession: LanguageSession
+  text: TextWriting
 }
 
-const Writing = ({ language, languageSession }: Props) => {
+const Writing = ({ language, languageSession, text }: Props) => {
   const [editorState, setEditorState] = React.useState(``)
 
   const editor = useEditor({
@@ -38,8 +40,28 @@ const Writing = ({ language, languageSession }: Props) => {
 
   const editorStateDebounced = debounceSave(editorState, 500);
 
+  const textSave = useMutation({
+    mutationFn: async () => {
+      const response = await axios.post("/api/language/writing/writing_save", {
+        textId: text.id,
+        editorState,
+      })
+      return response.data;
+    }
+  })
+
   React.useEffect(() => {
-    console.log(editorStateDebounced)
+    if (editorStateDebounced === "") 
+      return;
+
+    textSave.mutate(undefined, {
+      onSuccess: (data) => {
+        console.log("Text updated successfully!", data);
+      },
+      onError: (err) => {
+        console.error(err)
+      }
+    })
   }, [editorStateDebounced])
   
   return (
