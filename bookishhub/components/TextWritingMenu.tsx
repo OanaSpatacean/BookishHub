@@ -1,4 +1,4 @@
-import {Bold,Code,CodepenIcon,Heading1,Heading2,Heading3,Heading4,Heading5,Heading6,Italic,List,ListOrdered,Quote,Redo,Strikethrough,Undo} from "lucide-react";
+import {Bold,Code,FileCode,Heading1,Heading2,Heading3,Heading4,Heading5,Heading6,Italic,List,ListOrdered,Quote,Redo,Strikethrough,Undo} from "lucide-react";
 import { Editor } from "@tiptap/react";
 
 const TextWritingMenu = ({ editor }: { editor: Editor }) => {
@@ -68,7 +68,7 @@ const TextWritingMenu = ({ editor }: { editor: Editor }) => {
       </button>
 
       <button onClick={() => editor.chain().focus().toggleCodeBlock().run()} className={editor.isActive("codeBlock") ? "is-active" : ""}>
-        <CodepenIcon className="w-7 
+        <FileCode className="w-7 
                                 h-7"/>
       </button>
 

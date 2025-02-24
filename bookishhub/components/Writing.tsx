@@ -8,6 +8,7 @@ import { buttonVariants } from "./ui/button";
 import { EditorContent, useEditor } from "@tiptap/react";
 import { StarterKit } from "@tiptap/starter-kit";
 import TextWritingMenu from "./TextWritingMenu";
+import { cn } from "@/lib/utils";
 
 type Props = 
 {
@@ -20,13 +21,22 @@ const Writing = ({ language, languageSession }: Props) => {
 
   const editor = useEditor({
     autofocus: true,
-    extensions: [StarterKit],
+    extensions: [
+      StarterKit.configure(),
+    ],
     content: editorState,
     onUpdate: ({ editor }) => {
       setEditorState(editor.getHTML())
+    },
+    editorProps: {
+      attributes: {
+        class: cn(
+          'prose max-w-none [&_ol]:list-decimal [&_ul]:list-disc'
+        )
+      }
     }
   })
-
+  
   return (
     <div className="w-full">
       <div className="">
