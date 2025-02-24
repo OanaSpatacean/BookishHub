@@ -119,10 +119,21 @@ const Rephrasing = ({ language, languageSession, questions }: Props) => {
                     Stage 2 - Rephrasing
                 </h1>
 
-                <div className="bg-gray-100 p-4 mb-8 rounded-lg">
-                    <h2 className="text-lg font-semibold">Example:</h2>
-                    <p> {questions[0]?.examplePhrase}</p>
-                    <p> {questions[0]?.exampleAnswer}</p>
+                <div className="bg-gray-100 
+                                p-4 
+                                mb-8 
+                                rounded-lg 
+                                dark:bg-gray-700">
+                    <h2 className="text-lg 
+                                   font-semibold">
+                        Example:
+                    </h2>
+                    <p> 
+                        {questions[0]?.examplePhrase}
+                    </p>
+                    <p> 
+                        {questions[0]?.exampleAnswer}
+                    </p>
                 </div>
 
                 <form onSubmit={handleSubmit}>
@@ -188,7 +199,8 @@ const Rephrasing = ({ language, languageSession, questions }: Props) => {
                 <div className="bg-secondary 
                                 border-none 
                                 p-4 
-                                flex">
+                                flex
+                                dark:bg-gray-900">
                     <div className="flex-shrink-0">
                         <InfoIcon 
                             className="text-green-500 

@@ -132,8 +132,8 @@ const Grammar = ({ language, languageSession, questions }: Props) => {
                 </h1>
 
         <div className="mt-4 
-                                gap-6 
-                                dark:bg-gray-800">
+                        gap-6 
+                        dark:bg-gray-800">
           {questions.map((question) => (
             <div key={question.id} className={`relative rounded-lg p-4 dark:bg-gray-700 ${questionState[question.id] === true
                   ? "border-4 border-green-500 dark:border-green-500 bg-gray-100"
@@ -208,24 +208,24 @@ const Grammar = ({ language, languageSession, questions }: Props) => {
         </Button>
 
         <div className="bg-secondary 
-                                border-none 
-                                p-4 
-                                flex">
+                        border-none 
+                        p-4 
+                        flex
+                        dark:bg-gray-900">
           <div className="flex-shrink-0">
-            <InfoIcon 
-                            className="text-green-500 
-                                    h-10 
-                                    w-10 
-                                    bg-green-100 
-                                    rounded-full 
-                                    p-2 
-                                    shadow-sm" />
+            <InfoIcon className="text-green-500 
+                                h-10 
+                                w-10 
+                                bg-green-100 
+                                rounded-full 
+                                p-2 
+                                shadow-sm" />
           </div>
 
           <div className="ml-5">
             Want to review your answers?
-                        Simply click the "Check answers" button above to see how well you did and to review your choices.
-                  </div>
+            Simply click the "Check answers" button above to see how well you did and to review your choices.
+          </div>
 </div>
 
       </div>
