@@ -9,7 +9,7 @@ type Props =
 {
   language: Language,
   languageSession: LanguageSession
-}
+  }
 
 const Writing = ({ language, languageSession }: Props) => {
   return (
@@ -25,6 +25,17 @@ const Writing = ({ language, languageSession }: Props) => {
                             mb-5">
                   Stage 3 - Writing
               </h1>
+
+              <div className="w-full 
+                              mb-5 
+                              border 
+                              shadow-lg 
+                              border-stone-200 
+                              px-16 
+                              rounded-lg 
+                              py-8">
+                                
+              </div>
 
               <div className="w-full 
                               flex 
