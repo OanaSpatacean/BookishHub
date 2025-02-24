@@ -228,7 +228,7 @@ const Grammar = ({ language, languageSession, questions }: Props) => {
             Want to review your answers?
             Simply click the "Check answers" button above to see how well you did and to review your choices.
           </div>
-</div>
+      </div>
 
       </div>
 
