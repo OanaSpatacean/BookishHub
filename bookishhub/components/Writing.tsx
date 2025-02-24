@@ -34,6 +34,10 @@ const Writing = ({ language, languageSession }: Props) => {
       }
     }
   })
+
+  React.useEffect(() => {
+    console.log(editorState)
+  }, [editorState])
   
   return (
     <div className="w-full">
