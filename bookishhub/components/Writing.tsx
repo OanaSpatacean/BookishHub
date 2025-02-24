@@ -31,7 +31,7 @@ const Writing = ({ language, languageSession }: Props) => {
     editorProps: {
       attributes: {
         class: cn(
-          'prose max-w-none [&_ol]:list-decimal [&_ul]:list-disc'
+          'prose max-w-none [&_h1]:text-4xl [&_h2]:text-3xl [&_h3]:text-2xl [&_h4]:text-xl [&_h5]:text-lg [&_ol]:list-decimal [&_ul]:list-disc [&_blockquote]:border-l-4 [&_blockquote]:border-gray-400 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-gray-600'
         )
       }
     }

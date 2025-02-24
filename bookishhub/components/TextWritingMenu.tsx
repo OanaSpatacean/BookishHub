@@ -52,11 +52,6 @@ const TextWritingMenu = ({ editor }: { editor: Editor }) => {
                              h-7"/>
       </button>
 
-      <button onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()} className={editor.isActive("heading", { level: 6 }) ? "is-active" : ""}>
-        <Heading6 className="w-7 
-                             h-7"/>
-      </button>
-
       <button onClick={() => editor.chain().focus().toggleBulletList().run()} className={editor.isActive("bulletList") ? "is-active" : ""}>
         <List className="w-7 
                          h-7"/>
