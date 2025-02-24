@@ -9,6 +9,7 @@ import { EditorContent, useEditor } from "@tiptap/react";
 import { StarterKit } from "@tiptap/starter-kit";
 import TextWritingMenu from "./TextWritingMenu";
 import { cn } from "@/lib/utils";
+import { debounceSave } from "@/lib/debounce";
 
 type Props = 
 {
@@ -35,9 +36,11 @@ const Writing = ({ language, languageSession }: Props) => {
     }
   })
 
+  const editorStateDebounced = debounceSave(editorState, 500);
+
   React.useEffect(() => {
-    console.log(editorState)
-  }, [editorState])
+    console.log(editorStateDebounced)
+  }, [editorStateDebounced])
   
   return (
     <div className="w-full">
