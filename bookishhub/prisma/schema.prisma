@@ -141,7 +141,7 @@ model GrammarQuestion {
   id               String          @id @default(cuid())
   question         String          @db.VarChar(4000)
   answer           String          @db.VarChar(4000)
-  userAnswer      String          @db.VarChar(4000) 
+  userAnswer       String          @db.VarChar(4000) 
   choices          String          @db.VarChar(4000)
   sessionId        Int             
   session          LanguageSession @relation(fields: [sessionId], references: [id]) 
@@ -151,10 +151,15 @@ model RephrasingQuestion {
   id          String          @id @default(cuid())
   phrase      String          @db.VarChar(4000) 
   answer      String          @db.VarChar(4000) 
-  userAnswer      String          @db.VarChar(4000) 
-  examplePhrase String          @db.VarChar(4000) 
-  exampleAnswer String          @db.VarChar(4000) 
+  userAnswer  String          @db.VarChar(4000) 
+  examplePhrase String        @db.VarChar(4000) 
+  exampleAnswer String        @db.VarChar(4000) 
   sessionId   Int
   session     LanguageSession @relation(fields: [sessionId], references: [id])
 }
 
+model TextWriting {
+  id          String               @id @default(cuid())
+  name        String
+  textState   String
+}
