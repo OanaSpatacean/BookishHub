@@ -1,10 +1,10 @@
 "use client"
 import { Language } from "@prisma/client";
 import { LanguageSession } from "@prisma/client";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, InfoIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-import { buttonVariants } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import { EditorContent, useEditor } from "@tiptap/react";
 import { StarterKit } from "@tiptap/starter-kit";
 import TextWritingMenu from "./TextWritingMenu";
@@ -54,14 +54,44 @@ const Writing = ({ language, languageSession }: Props) => {
                               px-16 
                               rounded-lg 
                               py-8">
+                  <Button variant={"outline"} disabled>
+                    
+                  </Button>
                   <div className="flex">
                       {editor && <TextWritingMenu editor={editor}/>}
                   </div>
 
                   <div className="prose">                  
                     <EditorContent editor={editor}/>
-                  </div>
+                  </div>                  
               </div>
+
+              <div className="bg-secondary 
+                                border-none 
+                                p-4 
+                                flex
+                                dark:bg-gray-900
+                                mb-5">
+                    <div className="flex-shrink-0">
+                        <InfoIcon 
+                            className="text-green-500 
+                                    h-10 
+                                    w-10 
+                                    bg-green-100 
+                                    rounded-full 
+                                    p-2 
+                                    shadow-sm" />
+                    </div>
+
+                    <div className="ml-5">
+                      Here, you can practice and improve your writing skills in {language.name} with the support of AI. Our intelligent system assists you throughout the process, providing real-time feedback and suggestions to enhance clarity, grammar, and fluency. If needed, AI-powered autocompletion can help you construct well-formed sentences and refine your ideas, making the learning experience smoother and more effective. Start writing with confidence and take your language skills to the next level!
+                      Press{" "}
+                      <kbd className="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg">
+                        Shift + A
+                      </kbd>{" "}
+                      for AI-powered autocompletion.
+                    </div>
+                </div>
 
               <div className="w-full 
                               flex 
