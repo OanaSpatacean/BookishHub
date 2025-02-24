@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Button, buttonVariants } from "./ui/button";
 import { Input } from "./ui/input";
 import { FiCheckCircle, FiXCircle } from "react-icons/fi";
-import { ArrowLeft, ArrowRight, InfoIcon } from "lucide-react";
+import { ArrowLeft, ArrowRight, InfoIcon, Loader2 } from "lucide-react";
 import { Language, LanguageSession } from "@prisma/client";
 import Link from "next/link";
 import { useToast } from "./ui/use-toast";
@@ -49,23 +49,24 @@ const Rephrasing = ({ language, languageSession, questions }: Props) => {
         }
     }, [userAnswers]);
 
+    const { toast } = useToast();
+    const router = useRouter();
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-    
+
         const formData = new FormData(event.currentTarget);
         const newAnswers: Record<string, string> = {};
         questions.forEach((question) => {
             const userInput = formData.get(question.id) as string;
             newAnswers[question.id] = userInput ? userInput.trim() : "";
         });
-    
         setUserAnswers(newAnswers);
-    
         const newResults = { ...results };
         questions.forEach((question) => {
             const userAnswer = newAnswers[question.id];
             const correctAnswer = question.answer.trim().toLowerCase();
-    
+            
             if (!userAnswer) 
             {
                 newResults[question.id] = null;
@@ -79,28 +80,24 @@ const Rephrasing = ({ language, languageSession, questions }: Props) => {
         setResults(newResults);
     }  
 
-    const { toast } = useToast();
-    
-    const { mutate: updateUserAnswer } = useMutation({
-        mutationFn: async ({ questionId, answer }: { questionId: string; answer: string }) => {
-          await axios.post("/api/language/rephrasing/rephrasingAnswers", {
-            questionId,
-            userAnswer: answer,
-          });
+    const { mutate: createTextWriting, isLoading } = useMutation({
+        mutationFn: async () => {
+            const response = await axios.post("/api/language/writing/create_writing", {
+                languageId: language.id,
+                languageSessionId: languageSession.id,
+                name: "New writing text",
+                textState: " "
+            });
+            return response.data;
+        },
+        onSuccess: (data) => {
+            toast({ title: "Success", description: "Welcome to stage 3!"});
+            router.push(`/language/${language.id}/${languageSession.id}/writing`);
         },
         onError: (error) => {
-          toast({ title: "Error", description: "Failed to save answer: " + error, variant: "destructive" })
-            }
-      })
-    
-      const handleAnswerChange = (questionId: string, answer: string) => {
-        setUserAnswers((prev) => ({
-          ...prev,
-          [questionId]: answer,
-        }));
-    
-        updateUserAnswer({ questionId, answer })
-    }
+            toast({ title: "Error", description: "An error occurred: " + error, variant: "destructive" });
+        }
+    })
 
     return (
         <div className="w-full">
@@ -231,12 +228,27 @@ const Rephrasing = ({ language, languageSession, questions }: Props) => {
                     Return to the previous stage
                 </Link>
 
-                <Link href={`/language/${language.id}/${languageSession.id}/writing`} className={`${buttonVariants({ className: "flex items-center font-semibold bg-purple-500 hover:bg-purple-800" })}`}>    
-                    Go to the next stage
-                    <ArrowRight strokeWidth={5} className="ml-1 
-                                                            h-3 
-                                                            w-3"/>
-                </Link>
+                <Button size="lg" className="flex 
+                                    items-center 
+                                    font-semibold 
+                                    bg-purple-500 
+                                    hover:bg-purple-800" onClick={() => createTextWriting()} disabled={isLoading}>
+                    {isLoading 
+                                    ? <>
+                        <Loader2 className="animate-spin 
+                                            mr-2 
+                                            h-5 
+                                            w-5" />
+                        Loading...
+                        </>
+                    : <>
+                        Go to the next stage
+                        <ArrowRight strokeWidth={5} className="ml-1 
+                                                                h-3 
+                                                                w-3"/>
+                        </>
+                    }
+                </Button>
             </div>
         </div>
     )

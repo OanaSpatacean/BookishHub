@@ -1,6 +1,13 @@
 import { z } from "zod";
 
-export const textWritingSchema = z.object({
+export const textWritingSchemaUpdate = z.object({
     textId: z.string().min(1, "textId is required"),
-    editorState: z.string().min(1, "editorState cannot be empty")
+    textState: z.string().min(1, "textState cannot be empty")
 })
+
+export const textWritingSchemaCreate = z.object({
+    name: z.string().min(1),
+    textState: z.string().min(1, "textState cannot be empty")
+})
+
+
