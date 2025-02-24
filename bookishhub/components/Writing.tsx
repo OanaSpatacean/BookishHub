@@ -84,8 +84,9 @@ const Writing = ({ language, languageSession, text }: Props) => {
                               rounded-lg 
                               py-8">
                   <Button variant={"outline"} disabled>
-                    
+                    {textSave.isLoading ? "Saving..." : "Saved"}
                   </Button>
+                  
                   <div className="flex">
                       {editor && <TextWritingMenu editor={editor}/>}
                   </div>
