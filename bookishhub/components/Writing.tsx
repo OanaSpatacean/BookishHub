@@ -31,20 +31,20 @@ const Writing = ({ language, languageSession }: Props) => {
                               justify-between 
                               items-center 
                               mb-4">                
-                  <Link href={`/language/${language.id}/${languageSession.id}/grammar`} className={`${buttonVariants({ className: "flex items-center font-semibold bg-purple-500 hover:bg-purple-800" })}`}>
+                  <Link href={`/language/${language.id}/${languageSession.id}/rephrasing`} className={`${buttonVariants({ className: "flex items-center font-semibold bg-purple-500 hover:bg-purple-800" })}`}>
                       <ArrowLeft strokeWidth={5} className="ml-1 
                                                               h-3 
                                                               w-3"/>
                       Return to the previous stage
                   </Link>
 
-                  <Link href={`/language/${language.id}/${languageSession.id}/writing`} className={`${buttonVariants({ className: "flex items-center font-semibold bg-purple-500 hover:bg-purple-800" })}`}>    
+                  <Link href={`/language/${language.id}/${languageSession.id}/pronunciation`} className={`${buttonVariants({ className: "flex items-center font-semibold bg-purple-500 hover:bg-purple-800" })}`}>    
                       Go to the next stage
                       <ArrowRight strokeWidth={5} className="ml-1 
                                                               h-3 
                                                               w-3"/>
                   </Link>
-              </div>
+            </div>
       </div>
     </div>
   )
