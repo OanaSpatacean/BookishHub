@@ -117,19 +117,19 @@ const Grammar = ({ language, languageSession, questions }: Props) => {
   return (
     <div className="w-full">
       <div className="shadow-md 
-                            rounded-lg 
-                            p-6 
-                            dark:bg-gray-800 
-                            bg-white 
-                            w-full 
-                            mb-8">
+                      rounded-lg 
+                      p-6 
+                      dark:bg-gray-800 
+                      bg-white 
+                      w-full 
+                      mb-8">
         <h1 className="sm:text-3xl 
-                               text-left 
-                               font-bold 
-                               text-3xl 
-                               mb-8">
-                    Stage 1 - Grammar 
-                </h1>
+                        text-left 
+                        font-bold 
+                        text-3xl 
+                        mb-8">
+            Stage 1 - Grammar 
+        </h1>
 
         <div className="mt-4 
                         gap-6 
@@ -142,24 +142,26 @@ const Grammar = ({ language, languageSession, questions }: Props) => {
                   : "border-4 border-gray-100 dark:border-gray-700 bg-gray-100"
               } mt-4`}>
               {questionState[question.id] !== null && (
-                <div className="absolute top-2 right-2">
+                <div className="absolute 
+                                top-2 
+                                right-2">
                   {questionState[question.id] === true ? (
                     <FiCheckCircle className="text-green-500 
-                                                                  w-6 
-                                                                  h-6" />
+                                              w-6 
+                                              h-6" />
                   ) : (
                     <FiXCircle className="text-red-400 
-                                                              w-6 
-                                                              h-6" />
+                                          w-6 
+                                          h-6" />
                   )}
                 </div>
               )}
 
               <h2 className="text-gray-800 
-                                           font-semibold 
-                                           dark:text-gray-100">
-                                {question.question}
-                            </h2>
+                              font-semibold 
+                              dark:text-gray-100">
+                  {question.question}
+              </h2>
 
               <div className="mt-3 
                               dark:bg-gray-700">
@@ -183,8 +185,8 @@ const Grammar = ({ language, languageSession, questions }: Props) => {
 
               {questionState[question.id] === false && (
                 <p className="text-green-600 
-                                              mt-2 
-                                              font-semibold">
+                              mt-2 
+                              font-semibold">
                   Correct answer: {question.answer}
                 </p>
               )}
@@ -193,17 +195,17 @@ const Grammar = ({ language, languageSession, questions }: Props) => {
         </div>
 
         <Button onClick={checkAnswer} size="lg" className="mt-6 
-                                                                    w-full 
-                                                                    mb-5 
-                                                                    font-semibold 
-                                                                    text-white 
-                                                                    text-md 
-                                                                    transition 
-                                                                    bg-gradient-to-r 
-                                                                    from-purple-500 
-                                                                    to-purple-900 
-                                                                    hover:from-purple-600 
-                                                                    hover:to-purple-800">
+                                                          w-full 
+                                                          mb-5 
+                                                          font-semibold 
+                                                          text-white 
+                                                          text-md 
+                                                          transition 
+                                                          bg-gradient-to-r 
+                                                          from-purple-500 
+                                                          to-purple-900 
+                                                          hover:from-purple-600 
+                                                          hover:to-purple-800">
           Check answers
         </Button>
 
@@ -230,22 +232,28 @@ const Grammar = ({ language, languageSession, questions }: Props) => {
 
       </div>
 
-      <div className="w-full flex justify-end mb-4">
+      <div className="w-full 
+                      flex 
+                      justify-end 
+                      mb-4">
         <Button size="lg" className="flex 
-                                            items-center 
-                                            font-semibold 
-                                            bg-purple-500 
-                                            hover:bg-purple-800" onClick={handleSubmit} disabled={isLoading}>
+                                    items-center 
+                                    font-semibold 
+                                    bg-purple-500 
+                                    hover:bg-purple-800" onClick={handleSubmit} disabled={isLoading}>
           {isLoading 
                         ? <>
-              <Loader2 className="animate-spin mr-2 h-5 w-5" />
+              <Loader2 className="animate-spin 
+                                  mr-2 
+                                  h-5 
+                                  w-5" />
               Loading...
             </>
           : <>
               Go to the next stage
               <ArrowRight strokeWidth={5} className="ml-1 
-                                                                    h-3 
-                                                                    w-3"/>
+                                                      h-3 
+                                                      w-3"/>
             </>
           }
         </Button>
