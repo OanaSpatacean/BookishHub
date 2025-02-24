@@ -91,7 +91,7 @@ const Grammar = ({ language, languageSession, questions }: Props) => {
 
   const handleSubmit = () => {
     createRephrasing()
-    }
+  }
 
   const { mutate: updateUserAnswer } = useMutation({
     mutationFn: async ({ questionId, answer }: { questionId: string; answer: string }) => {
