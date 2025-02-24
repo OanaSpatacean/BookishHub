@@ -73,6 +73,6 @@
 }
 
 .is-active {
-  background-color: white;
+  background-color: rgb(155, 116, 234);
   border-radius: 2px;
 }
