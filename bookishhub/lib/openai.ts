@@ -129,7 +129,7 @@ export async function strict_output(
   return [];
 }
 
-export async function createPromptForMemoryEnhacementCardImage(name: string) 
+export async function createPromptImage(name: string) 
 {
   try 
   {
@@ -143,7 +143,7 @@ export async function createPromptForMemoryEnhacementCardImage(name: string)
         },
         {
           role: "user",
-          content: `Create a thumbnail prompt for my memory enhancement card with the name: ${name}`
+          content: `Create a thumbnail prompt for my text with the name: ${name}`
         }
       ]
     })
@@ -154,12 +154,12 @@ export async function createPromptForMemoryEnhacementCardImage(name: string)
   } 
   catch (error) 
   {
-    console.error("Error in createPromptForMemoryEnhacementCardImage:", error);
+    console.error("Error in createPromptForImage:", error);
     throw error;
   }
 }
 
-export async function createImageForMemoryEnhacementCard(prompt_of_image: string) 
+export async function createImage(prompt_of_image: string) 
 {
   try 
   {
@@ -170,7 +170,7 @@ export async function createImageForMemoryEnhacementCard(prompt_of_image: string
   } 
   catch (error) 
   {
-    console.error("Error in createImageForMemoryEnhacementCard:", error);
+    console.error("Error in createImage:", error);
     throw error;
   }
 }
