@@ -88,7 +88,7 @@ const Rephrasing = ({ language, languageSession, questions, text }: Props) => {
             languageSessionId: String(languageSession.id),
             name: "New writing text",
             textState: "",
-            level: "Beginner",
+            level: String(languageSession.level),
             });
             return response.data;
         },
