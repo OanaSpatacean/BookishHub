@@ -1,6 +1,6 @@
 "use client"
 import { Language, LanguageSession, TextWriting } from "@prisma/client";
-import { ArrowLeft, ArrowRight, InfoIcon } from "lucide-react";
+import { ArrowLeft, ArrowRight, InfoIcon, Loader2 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { Button, buttonVariants } from "./ui/button";
@@ -12,6 +12,8 @@ import { useMutation } from "@tanstack/react-query";
 import axios  from 'axios';
 import Text from "@tiptap/extension-text";
 import { useCompletion } from "ai/react";
+import { useToast } from "./ui/use-toast";
+import { useRouter } from "next/navigation";
 
 type Props = 
 {
@@ -99,6 +101,31 @@ const Writing = ({ language, languageSession, text }: Props) => {
 
     editor.commands.insertContent(diff)
   }, [completion, editor])
+
+  const { toast } = useToast();
+  const router = useRouter();
+
+  const { mutate: createPronunciationWords, isLoading } = useMutation({
+      mutationFn: async () => {
+          const response = await axios.post("/api/language/pronunciation/create_pronunciations_words", {
+          languageId: String(language.id),
+          languageSessionId: String(languageSession.id),
+          level: String(languageSession.level),
+          });
+          return response.data;
+      },
+      onSuccess: (data) => {
+        toast({ title: "Success", description: "Welcome to stage 4!" });
+        router.push(`/language/${language.id}/${languageSession.id}/pronunciation`);
+      },
+      onError: (error) => {
+        toast({ title: "Error", description: "An error occurred: " + error, variant: "destructive" });
+      }
+  })
+
+  const handleSubmit = () => {
+    createPronunciationWords()
+  }
   
   return (
     <div className="w-full">
@@ -175,13 +202,28 @@ const Writing = ({ language, languageSession, text }: Props) => {
                       Return to the previous stage
                   </Link>
 
-                  <Link href={`/language/${language.id}/${languageSession.id}/pronunciation`} className={`${buttonVariants({ className: "flex items-center font-semibold bg-purple-500 hover:bg-purple-800" })}`}>    
-                      Go to the next stage
-                      <ArrowRight strokeWidth={5} className="ml-1 
-                                                              h-3 
-                                                              w-3"/>
-                  </Link>
-            </div>
+                  <Button size="lg" className="flex 
+                                    items-center 
+                                    font-semibold 
+                                    bg-purple-500 
+                                    hover:bg-purple-800" onClick={handleSubmit} disabled={isLoading}>
+                    {isLoading 
+                                  ? <>
+                        <Loader2 className="animate-spin 
+                                            mr-2 
+                                            h-5 
+                                            w-5" />
+                        Loading...
+                      </>
+                    : <>
+                        Go to the next stage
+                        <ArrowRight strokeWidth={5} className="ml-1 
+                                                                h-3 
+                                                                w-3"/>
+                      </>
+                    }
+                  </Button>
+            </div>            
       </div>
     </div>
   )
