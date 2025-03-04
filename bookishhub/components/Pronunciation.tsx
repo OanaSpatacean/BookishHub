@@ -1,8 +1,13 @@
+import { Language, LanguageSession } from "@prisma/client";
 import React from "react";
 
-type Props = {};
+type Props = 
+{
+  language: Language,
+  languageSession: LanguageSession
+}
 
-const Pronunciation = (props: Props) => {
+const Pronunciation = ({ language, languageSession }: Props) => {
   return (
     <div className="">
             <h1 className="sm:text-3xl 
@@ -13,7 +18,7 @@ const Pronunciation = (props: Props) => {
                            decoration-4 
                            decoration-purple-400 
                            mb-5">
-                Pronunciation
+                Stage 4 - Pronunciation
             </h1>
 
     </div>
