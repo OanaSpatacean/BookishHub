@@ -135,6 +135,7 @@ model LanguageSession {
   userId      String
   questions   GrammarQuestion[] 
   rephrasingQuestions RephrasingQuestion[]
+  textWriting TextWriting[]
 }
 
 model GrammarQuestion {
@@ -162,4 +163,6 @@ model TextWriting {
   id          String               @id @default(cuid())
   name        String
   textState   String
+  sessionId   Int
+  session     LanguageSession @relation(fields: [sessionId], references: [id])
 }

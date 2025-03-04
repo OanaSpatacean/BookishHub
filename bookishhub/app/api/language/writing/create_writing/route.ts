@@ -1,35 +1,89 @@
 import { NextResponse } from "next/server";
-import { databaseClient } from "@/lib/database";
+import { getAuthSession } from "@/lib/authentication";
+import { createWritingSchema } from "@/app/form-validators/text_writing";
 import { ZodError } from "zod";
-import { textWritingSchemaCreate } from "@/app/form-validators/text_writing";
+import { databaseClient } from "@/lib/database";
 
-export async function POST(req: Request) {
+export async function POST(request: Request) {
   try 
   {
-    const body = await req.json();
-    
-    if (!body.textState || body.textState.trim() === "") {
-        body.textState = "default text"; 
+    const session = await getAuthSession();
+
+    if (!session?.user) {
+      return NextResponse.redirect("/");
     }
 
-    const { name, textState } = textWritingSchemaCreate.parse(body);
+    const body = await request.json();
+    const parsedData = createWritingSchema.parse(body);
 
-    const newTextWriting = await databaseClient.textWriting.create({
-      data: {
-        name,
-        textState
+    const languageId = String(parsedData.languageId);
+    const languageSessionId = String(parsedData.languageSessionId);
+    const level = parsedData.level;
+
+    if (!["Beginner", "Intermediate", "Advanced"].includes(level)) 
+    {
+      return new NextResponse("Invalid level selection", { status: 400 });
+    }
+
+    const language = await databaseClient.language.findUnique({
+      where: 
+      { 
+        id: parseInt(languageId) 
+      },
+      select: 
+      { 
+        name: true 
       }
     })
 
-    return NextResponse.json({ success: true, id: newTextWriting.id }, { status: 200 })
+    if (!language) 
+    {
+      return new NextResponse("Language not found", { status: 404 });
+    }
+
+    const languageSession = await databaseClient.languageSession.findUnique({
+      where: 
+      { 
+        id: parseInt(languageSessionId) 
+      }
+    })
+
+    if (!languageSession) 
+    {
+      return new NextResponse("No existing session found", { status: 404 });
+    }
+
+    const existingTextWriting = await databaseClient.textWriting.findFirst({
+      where: 
+      { 
+        sessionId: languageSession.id 
+      }
+    })
+
+    if (existingTextWriting) 
+    {
+      return NextResponse.json({textWriting: existingTextWriting, message: "TextWriting already exists for this session"})
+    }
+
+    const newTextWriting = await databaseClient.textWriting.create({
+      data: {
+        name: "New writing text",
+        textState: "",
+        sessionId: languageSession.id
+      }
+    })
+
+    return NextResponse.json({ textWriting: newTextWriting }, { status: 201 });
   } 
   catch (error) 
   {
     console.error("Error processing request:", error);
-    if(error instanceof ZodError)
+
+    if (error instanceof ZodError) 
     {
-        return new NextResponse("Incorrect body format", {status:400})
+      return new NextResponse("Incorrect body format", { status: 400 });
     }
+
     return new NextResponse("Internal server error", { status: 500 });
   }
 }

@@ -84,21 +84,25 @@ const Rephrasing = ({ language, languageSession, questions, text }: Props) => {
     const { mutate: createTextWriting, isLoading } = useMutation({
         mutationFn: async () => {
             const response = await axios.post("/api/language/writing/create_writing", {
-                languageId: language.id,
-                languageSessionId: languageSession.id,
-                name: "New writing text",
-                textState: " "
+            languageId: String(language.id),
+            languageSessionId: String(languageSession.id),
+            name: "New writing text",
+            textState: "",
+            level: "Beginner",
             });
             return response.data;
         },
         onSuccess: (data) => {
-            if (data?.id) {
+            if (data?.textWriting?.id) 
+            {
                 toast({ title: "Success", description: "Welcome to stage 3!" });
-                router.push(`/language/${language.id}/${languageSession.id}/writing/${data.id}`);
-            } else {
+                router.push(`/language/${language.id}/${languageSession.id}/writing/${data.textWriting.id}`);
+            } 
+            else 
+            {
                 toast({ title: "Error", description: "Invalid response from the server", variant: "destructive" });
             }
-        },        
+        },
         onError: (error) => {
             toast({ title: "Error", description: "An error occurred: " + error, variant: "destructive" });
         }

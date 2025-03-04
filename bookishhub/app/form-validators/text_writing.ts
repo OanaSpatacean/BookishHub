@@ -5,9 +5,10 @@ export const textWritingSchemaUpdate = z.object({
     textState: z.string().min(1, "textState cannot be empty")
 })
 
-export const textWritingSchemaCreate = z.object({
-    name: z.string().min(1),
-    textState: z.string().min(1, "textState cannot be empty")
+export const createWritingSchema = z.object({
+    languageId: z.string().min(1, "Language ID is required"),
+    languageSessionId: z.string().min(1, "Language session ID is required"),
+    level: z.enum(["Beginner", "Intermediate", "Advanced"], {
+        errorMap: () => ({ message: "Invalid level selection" })
+    })
 })
-
-
