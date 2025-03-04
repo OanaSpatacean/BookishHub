@@ -136,6 +136,7 @@ model LanguageSession {
   questions   GrammarQuestion[] 
   rephrasingQuestions RephrasingQuestion[]
   textWriting TextWriting[]
+  pronunciationWords PronunciationWord[]
 }
 
 model GrammarQuestion {
