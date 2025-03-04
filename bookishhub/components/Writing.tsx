@@ -10,6 +10,8 @@ import TextWritingMenu from "./TextWritingMenu";
 import { cn } from "@/lib/utils";
 import { useMutation } from "@tanstack/react-query";
 import axios  from 'axios';
+import Text from "@tiptap/extension-text";
+import { useCompletion } from "ai/react";
 
 type Props = 
 {
@@ -28,9 +30,19 @@ const Writing = ({ language, languageSession, text }: Props) => {
     }
   })
 
+  const { complete, completion } = useCompletion({api: "/api/language/writing/autocompletion"})
+
+  const customText = Text.extend({
+    addKeyboardShortcuts() {
+      return {"Shift-a": () => { const prompt = this.editor.getText().split(" ").slice(-25).join(" ");
+                                 complete(prompt);
+                                 return true;
+                               }
+  }}})
+
   const editor = useEditor({
     autofocus: true,
-    extensions: [StarterKit.configure()],
+    extensions: [StarterKit.configure(), customText],
     content: text.textState,
     onUpdate: ({ editor }) => {
       const updatedTextState = editor.getHTML();
@@ -42,6 +54,18 @@ const Writing = ({ language, languageSession, text }: Props) => {
       }
     }
   })
+
+  const lastCompletion = React.useRef("");
+
+  React.useEffect(() => {
+    if (!completion || !editor) 
+        return;
+
+    const diff = completion.slice(lastCompletion.current.length);
+    lastCompletion.current = completion;
+
+    editor.commands.insertContent(diff)
+  }, [completion, editor])
   
   return (
     <div className="w-full">
