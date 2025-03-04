@@ -51,7 +51,7 @@ const Pronunciation = ({ language, languageSession, pronunciationWords }: Props)
 
   const handleStopRecording = (wordId: string) => {
     mediaRecorderRef.current[wordId]?.stop();
-  };
+  }
 
   const checkPronunciation = async (wordId: string, audioBlob: Blob) => {
     const correctWord = pronunciationWords.find((w) => w.id === wordId)?.word;
