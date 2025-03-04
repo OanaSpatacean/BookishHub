@@ -104,6 +104,27 @@ const Rephrasing = ({ language, languageSession, questions, text }: Props) => {
         }
     })
 
+    const { mutate: updateUserAnswer } = useMutation({
+        mutationFn: async ({ questionId, answer }: { questionId: string; answer: string }) => {
+          await axios.post("/api/language/rephrasing/rephrasingAnswers", {
+            questionId,
+            userAnswer: answer,
+          });
+        },
+        onError: (error) => {
+          toast({ title: "Error", description: "Failed to save answer: " + error, variant: "destructive" })
+            }
+      })
+
+      const handleAnswerChange = (questionId: string, answer: string) => {
+        setUserAnswers((prev) => ({
+            ...prev,
+            [questionId]: answer,
+        }))
+    
+        updateUserAnswer({ questionId, answer })
+    }
+    
     return (
         <div className="w-full">
             <div className="shadow-md 
