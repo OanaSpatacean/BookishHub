@@ -4,10 +4,15 @@ import React from "react";
 type Props = 
 {
   language: Language,
-  languageSession: LanguageSession
+  languageSession: LanguageSession,
+  pronunciationWords: 
+    {
+    id: string;
+    word: string;
+  }[]
 }
 
-const Pronunciation = ({ language, languageSession }: Props) => {
+const Pronunciation = ({ language, languageSession, pronunciationWords }: Props) => {
   return (
     <div className="">
             <h1 className="sm:text-3xl 

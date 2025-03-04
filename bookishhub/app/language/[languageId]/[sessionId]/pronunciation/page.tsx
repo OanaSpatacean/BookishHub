@@ -46,7 +46,7 @@ const SessionPagePronunciation = async ({ params }: Props) => {
         return <div>Session not found</div>;
     }
 
-    const grammarQuestions = await databaseClient.grammarQuestion.findMany({
+    const pronunciationWords = await databaseClient.pronunciationWord.findMany({
         where: 
         {
             sessionId: parseInt(sessionId),
@@ -72,7 +72,7 @@ const SessionPagePronunciation = async ({ params }: Props) => {
                 Session {languageSession.id} - {languageSession.level} level - {language.name}
             </h1>
 
-            <Pronunciation language={language} languageSession={languageSession} />
+            <Pronunciation language={language} languageSession={languageSession} pronunciationWords={pronunciationWords}/>
         </div>
     );
 };

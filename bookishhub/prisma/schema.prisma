@@ -166,3 +166,10 @@ model TextWriting {
   sessionId   Int
   session     LanguageSession @relation(fields: [sessionId], references: [id])
 }
+
+model PronunciationWord {
+  id          String          @id @default(cuid())
+  word        String            @db.VarChar(4000) 
+  sessionId   Int
+  session     LanguageSession @relation(fields: [sessionId], references: [id])
+}
