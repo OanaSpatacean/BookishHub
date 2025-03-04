@@ -6,7 +6,8 @@ const TextWritingMenu = ({ editor }: { editor: Editor }) => {
     <div className="mb-8 
                     gap-3 
                     flex 
-                    flex-wrap">
+                    flex-wrap
+                    mt-8">
       <button onClick={() => editor.chain().focus().toggleBold().run()} disabled={!editor.can().chain().focus().toggleBold().run()} className={editor.isActive("bold") ? "is-active" : ""}>
         <Bold className="w-7 
                          h-7"/>

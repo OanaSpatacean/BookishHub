@@ -62,12 +62,12 @@ const Writing = ({ language, languageSession, text }: Props) => {
                               px-16 
                               rounded-lg 
                               py-8">
-                  <Button variant={"outline"} disabled>
-                    {textSave.isLoading ? "Saving..." : "Saved"}
-                  </Button>
-                  
-                  <div className="flex">
-                      {editor && <TextWritingMenu editor={editor}/>}
+                  <div className="flex items-center gap-4">
+                    <Button variant={"outline"} disabled className="h-auto">
+                      {textSave.isLoading ? "Saving..." : "Saved"}
+                    </Button>
+                    
+                    {editor && <TextWritingMenu editor={editor}/>}
                   </div>
 
                   <div className="prose">                  
