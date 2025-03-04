@@ -34,12 +34,45 @@ const Writing = ({ language, languageSession, text }: Props) => {
 
   const customText = Text.extend({
     addKeyboardShortcuts() {
-      return {"Shift-a": () => { const prompt = this.editor.getText().split(" ").slice(-25).join(" ");
-                                 complete(prompt);
-                                 return true;
-                               }
-  }}})
+      return {
+        "Shift-a": async () => { 
+          const prompt = this.editor.getText().split(" ").slice(-25).join(" ");
+  
+          try 
+          {
+            const response = await fetch("/api/language/writing/autocompletion", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ prompt })
+            })
+  
+            if (!response.body) 
+              throw new Error("Empty response body");
+  
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+  
+            let resultText = "";
+  
+            while (true) 
+            {
+              const { done, value } = await reader.read();
 
+              if (done) 
+                break;
+
+              resultText += decoder.decode(value, { stream: true });
+              this.editor.commands.insertContent(resultText); 
+            }
+          } 
+          catch (error) 
+          {
+            console.error("Autocompletion error:", error);
+          }
+  
+          return true
+  }}}})
+  
   const editor = useEditor({
     autofocus: true,
     extensions: [StarterKit.configure(), customText],
