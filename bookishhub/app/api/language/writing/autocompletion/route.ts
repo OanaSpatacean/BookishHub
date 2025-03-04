@@ -18,9 +18,16 @@ export async function POST(req: Request) {
             - Grammar usage
             - Overall writing quality
     
-            Once you've assessed their proficiency, continue their thought naturally in a way that fits their level. 
+            Once you've assessed their proficiency, continue their thought naturally in a way that fits their level.
+            Do not include the user's level in your response. 
             Maintain the same tone, style, and language as the user's input.
-            Do not ask for feedback or clarification from the user. Just complete their thought at the appropriate level for their writing skills.
+            Additionally, always speak in the same person as the user. 
+            If the user uses the third person, you should continue using the third person.
+            If the user uses the second person, you should continue using the second person. 
+            If the user uses the first person, continue with the first person. 
+            Do not change the form of address. 
+            Do not ask for feedback or clarification from the user. 
+            Just complete their thought at the appropriate level for their writing skills.
           `,
         },
         {
@@ -28,7 +35,7 @@ export async function POST(req: Request) {
           content: `Continue this thought naturally: "${prompt}".`
         }
       ]
-    })    
+    })  
     
     const completionText = response.data.choices[0]?.message?.content?.trim() || "";
 
