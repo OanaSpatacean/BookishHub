@@ -145,12 +145,12 @@ const Writing = ({ language, languageSession, text }: Props) => {
                     <div className="flex-shrink-0">
                         <InfoIcon 
                             className="text-green-500 
-                                    h-10 
-                                    w-10 
-                                    bg-green-100 
-                                    rounded-full 
-                                    p-2 
-                                    shadow-sm" />
+                                      h-10 
+                                      w-10 
+                                      bg-green-100 
+                                      rounded-full 
+                                      p-2 
+                                      shadow-sm"/>
                     </div>
 
                     <div className="ml-5">
