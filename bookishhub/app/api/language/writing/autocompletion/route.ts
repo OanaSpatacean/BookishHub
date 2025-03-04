@@ -10,18 +10,25 @@ export async function POST(req: Request) {
       messages: [
         {
           role: "system",
-          content: `You are an AI assistant that helps users continue their thoughts naturally. 
-          You must analyze the provided text and complete it in the same tone, style, and language as the user.
-          Maintain consistency in structure, vocabulary, and writing style.
-          Always respond in the user's language and at the specified proficiency level. 
-          Keep the response concise and natural, ensuring it seamlessly extends the user's input. Do not ask for more feedback from the user. Just continue his words. Do not ask questions.`,
+          content: `
+            You are an AI assistant designed to help users continue their thoughts naturally in a language they are learning. 
+            Your task is to analyze the user's input text and automatically assess their proficiency level (Beginner, Intermediate, or Advanced) based on:
+            - Sentence structure complexity
+            - Vocabulary richness
+            - Grammar usage
+            - Overall writing quality
+    
+            Once you've assessed their proficiency, continue their thought naturally in a way that fits their level. 
+            Maintain the same tone, style, and language as the user's input.
+            Do not ask for feedback or clarification from the user. Just complete their thought at the appropriate level for their writing skills.
+          `,
         },
         {
           role: "user",
-          content: `Continue this thought naturally in user's language: "${prompt}". Help the user complete his train of thought`
+          content: `Continue this thought naturally: "${prompt}".`
         }
       ]
-    })
+    })    
     
     const completionText = response.data.choices[0]?.message?.content?.trim() || "";
 
