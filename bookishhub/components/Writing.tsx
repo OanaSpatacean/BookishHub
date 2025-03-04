@@ -8,7 +8,6 @@ import { EditorContent, useEditor } from "@tiptap/react";
 import { StarterKit } from "@tiptap/starter-kit";
 import TextWritingMenu from "./TextWritingMenu";
 import { cn } from "@/lib/utils";
-import { debounceSave } from "@/lib/debounce";
 import { useMutation } from "@tanstack/react-query";
 import axios  from 'axios';
 
@@ -20,49 +19,29 @@ type Props =
 }
 
 const Writing = ({ language, languageSession, text }: Props) => {
-  const [editorState, setEditorState] = React.useState(``)
+  const textSave = useMutation({
+    mutationFn: async (updatedTextState: string) => {
+      return axios.post("/api/language/writing/save_writing", {
+        textId: text.id,
+        textState: updatedTextState
+      })
+    }
+  })
 
   const editor = useEditor({
     autofocus: true,
-    extensions: [
-      StarterKit.configure(),
-    ],
-    content: editorState,
+    extensions: [StarterKit.configure()],
+    content: text.textState,
     onUpdate: ({ editor }) => {
-      setEditorState(editor.getHTML())
+      const updatedTextState = editor.getHTML();
+      textSave.mutate(updatedTextState);
     },
     editorProps: {
       attributes: {
-        class: cn('prose max-w-none [&_h1]:text-4xl [&_h2]:text-3xl [&_h3]:text-2xl [&_h4]:text-xl [&_h5]:text-lg [&_ol]:list-decimal [&_ul]:list-disc [&_blockquote]:border-l-4 [&_blockquote]:border-gray-400 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-gray-600')
+        class: cn("prose max-w-none [&_h1]:text-4xl [&_h2]:text-3xl [&_h3]:text-2xl [&_h4]:text-xl [&_h5]:text-lg [&_ol]:list-decimal [&_ul]:list-disc [&_blockquote]:border-l-4 [&_blockquote]:border-gray-400 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-gray-600")
       }
     }
   })
-
-  const editorStateDebounced = debounceSave(editorState, 500);
-
-  const textSave = useMutation({
-    mutationFn: async () => {
-      const response = await axios.post("/api/language/writing/writing_save", {
-        textId: text.id,
-        editorState,
-      })
-      return response.data;
-    }
-  })
-
-  React.useEffect(() => {
-    if (editorStateDebounced === "") 
-      return;
-
-    textSave.mutate(undefined, {
-      onSuccess: (data) => {
-        console.log("Text updated successfully!", data);
-      },
-      onError: (err) => {
-        console.error(err)
-      }
-    })
-  }, [editorStateDebounced])
   
   return (
     <div className="w-full">

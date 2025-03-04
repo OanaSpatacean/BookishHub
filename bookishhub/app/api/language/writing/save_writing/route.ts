@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { databaseClient } from "@/lib/database";
 import { getAuthSession } from "@/lib/authentication";
 import { ZodError } from "zod";
-import { textWritingSchema } from "@/app/form-validators/text_writing";
+import { textWritingSchemaUpdate } from "@/app/form-validators/text_writing";
 
 export async function POST(req: Request) {
   try 
@@ -15,7 +15,7 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-    const { textId, editorState } = textWritingSchema.parse(body);
+    const { textId, textState } = textWritingSchemaUpdate.parse(body);
 
     const text = await databaseClient.textWriting.findUnique({
       where: 
@@ -29,7 +29,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Text was not found" }, { status: 404 });
     }
 
-    if (text.textState !== editorState) 
+    if (text.textState !== textState) 
     {
       await databaseClient.textWriting.update({
         where: 
@@ -38,7 +38,7 @@ export async function POST(req: Request) {
         },
         data: 
         { 
-            textState: editorState 
+            textState: textState 
         }
       })
     }
