@@ -134,7 +134,8 @@ const Writing = ({ language, languageSession, text }: Props) => {
                             text-left 
                             font-bold 
                             text-3xl  
-                            mb-5">
+                            mb-8
+                            mt-5">
                   Stage 3 - Writing
               </h1>
 
