@@ -170,7 +170,8 @@ model TextWriting {
 
 model PronunciationWord {
   id          String          @id @default(cuid())
-  word        String            @db.VarChar(4000) 
+  word        String            @db.VarChar(4000)
+  recordingUrl String?        @db.VarChar(500) 
   sessionId   Int
   session     LanguageSession @relation(fields: [sessionId], references: [id])
 }
