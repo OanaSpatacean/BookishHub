@@ -116,7 +116,7 @@ const Writing = ({ language, languageSession, text }: Props) => {
       },
       onSuccess: (data) => {
         toast({ title: "Success", description: "Welcome to stage 4!" });
-        router.push(`/language/${language.id}/${languageSession.id}/pronunciation`);
+        router.push(`/language/${language.id}/${languageSession.id}/pronunciation/${text.id}`);
       },
       onError: (error) => {
         toast({ title: "Error", description: "An error occurred: " + error, variant: "destructive" });
