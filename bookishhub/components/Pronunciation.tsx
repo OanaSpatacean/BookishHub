@@ -59,8 +59,28 @@ const Pronunciation = ({ language, languageSession, pronunciationWords, text }: 
   const checkPronunciation = async (wordId: string, audioBlob: Blob) => {
     const correctWord = pronunciationWords.find((w) => w.id === wordId)?.word;
 
-    const isCorrect = Math.random() > 0.5; 
-    setFeedback((prev) => ({ ...prev, [wordId]: isCorrect }));
+    if (!correctWord) 
+      return;
+
+    const formData = new FormData();
+    formData.append("file", audioBlob);
+    formData.append("word", correctWord); 
+
+    try 
+    {
+        const response = await fetch("/api/language/pronunciation/check_pronunciation", {
+            method: "POST",
+            body: formData,
+        });
+
+        const result = await response.json();
+        setFeedback((prev) => ({ ...prev, [wordId]: result.isCorrect }));
+    } 
+    catch (error) 
+    {
+        console.error("Error checking pronunciation:", error);
+        setFeedback((prev) => ({ ...prev, [wordId]: false })); 
+    }
   }
 
   const [isLoading, setIsLoading] = useState(false);
