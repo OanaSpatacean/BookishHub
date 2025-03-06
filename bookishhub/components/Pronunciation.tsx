@@ -207,7 +207,7 @@ const Pronunciation = ({ language, languageSession, pronunciationWords, text }: 
                             flex 
                             justify-between 
                             items-center 
-                            mb-4">                
+                            mb-5">                
                 <Link href={`/language/${language.id}/${languageSession.id}/writing/${text.id}`} className={`${buttonVariants({ className: "flex items-center font-semibold bg-purple-500 hover:bg-purple-800" })}`}>
                     <ArrowLeft strokeWidth={5} className="ml-1 
                                                             h-3 
