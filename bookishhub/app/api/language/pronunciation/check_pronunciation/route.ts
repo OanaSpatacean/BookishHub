@@ -5,11 +5,29 @@ export async function POST(req: NextRequest) {
     const formData = await req.formData();
     const file = formData.get("file") as File;
     const correctWord = formData.get("word") as string;
+    const languageName = formData.get("language") as string;
 
     if (!file || !correctWord) 
     {
         return NextResponse.json({ error: "Missing data" }, { status: 400 });
     }
+
+    const languageMap: Record<string, string> = {
+        English: "en",
+        French: "fr",
+        Spanish: "es",
+        German: "de",
+        Italian: "it",
+        Romanian: "ro",
+        Portuguese: "pt",
+        Russian: "ru",
+        Chinese: "zh",
+        Japanese: "ja",
+        Korean: "ko",
+        Arabic: "ar"
+    }
+
+    const languageCode = languageMap[languageName] || "en";
 
     try 
     {
@@ -20,7 +38,7 @@ export async function POST(req: NextRequest) {
         const transcription = await openai.audio.transcriptions.create({
             model: "whisper-1",
             file: audioFile, 
-            language: "ro"
+            language: languageCode
         })
 
         const transcribedText = transcription.text.trim().toLowerCase();

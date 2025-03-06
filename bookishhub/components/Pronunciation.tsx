@@ -64,7 +64,8 @@ const Pronunciation = ({ language, languageSession, pronunciationWords, text }: 
 
     const formData = new FormData();
     formData.append("file", audioBlob);
-    formData.append("word", correctWord); 
+    formData.append("word", correctWord);
+    formData.append("language", language.name); 
 
     try 
     {
