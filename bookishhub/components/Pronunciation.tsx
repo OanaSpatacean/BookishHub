@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 import { Language, LanguageSession } from "@prisma/client";
 import { FiCheckCircle, FiXCircle, FiMic, FiMicOff } from "react-icons/fi";
 import { Button } from "./ui/button";
+import { InfoIcon } from "lucide-react";
 
 type Props = {
   language: Language;
@@ -173,6 +174,26 @@ const Pronunciation = ({ language, languageSession, pronunciationWords }: Props)
             </div>
           ))}
         </div>
+      </div>
+      <div className="bg-secondary 
+                        border-none 
+                        p-4 
+                        flex
+                        dark:bg-gray-900
+                        mb-5">
+          <div className="flex-shrink-0">
+            <InfoIcon className="text-green-500 
+                                h-10 
+                                w-10 
+                                bg-green-100 
+                                rounded-full 
+                                p-2 
+                                shadow-sm" />
+          </div>
+
+          <div className="ml-5">
+            Welcome! Here, you can practice your words pronunciation in {language.name}. Simply press the record button and say the specified words out loud as clearly as possible.
+          </div>
       </div>
     </div>
   )
