@@ -90,7 +90,8 @@ const Pronunciation = ({ language, languageSession, pronunciationWords, text }: 
       const response = await fetch(`/api/language/pronunciation/get_recordings?sessionId=${languageSession.id}`);
       const data = await response.json();
   
-      if (Array.isArray(data)) {
+      if (Array.isArray(data)) 
+      {
         setRecordings((prev) => {
           const updatedRecordings = { ...prev };
           data.forEach((record: { id: string; recordingUrl: string }) => {
@@ -98,12 +99,14 @@ const Pronunciation = ({ language, languageSession, pronunciationWords, text }: 
           });
   
           return updatedRecordings;
-        });
-      } else {
+        })
+      } 
+      else 
+      {
         console.error("Data is not an array:", data);
       }
-    };
-    fetchRecordings();
+    }
+    fetchRecordings()
   }, [languageSession.id]);  
   
   const [isLoading, setIsLoading] = useState(false);
