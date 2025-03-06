@@ -49,13 +49,15 @@ export async function POST(req: NextRequest) {
     const transcribedText = transcription.text.trim().toLowerCase();
     const isCorrect = transcribedText === correctWord.toLowerCase();
 
-    const pronunciationRecord = await databaseClient.pronunciationWord.create({
-      data: 
-      {
-        word: correctWord,
-        recordingUrl: s3Url, 
-        sessionId: 1
-      }
+    const updatedPronunciationWord = await databaseClient.pronunciationWord.updateMany({
+        where: 
+        {
+          word: correctWord,
+        },
+        data: 
+        {
+          recordingUrl: s3Url
+        }
     })
 
     return NextResponse.json({isCorrect, transcribedText, recordingUrl: s3Url})
