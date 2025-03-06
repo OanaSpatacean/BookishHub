@@ -39,12 +39,17 @@ const Pronunciation = ({ language, languageSession, pronunciationWords, text }: 
   
       mediaRecorder.onstop = async () => {
         const audioBlob = new Blob(chunks, { type: "audio/wav" });
-        setRecordings((prev) => ({ ...prev, [wordId]: audioBlob }));
-        setIsRecording((prev) => ({ ...prev, [wordId]: false }));
-  
+        const audioUrl = URL.createObjectURL(audioBlob); 
+        
+        setRecordings((prev) => ({ ...prev, [wordId]: audioUrl })); 
+      
         await checkPronunciation(wordId, audioBlob);
+      
+        setTimeout(() => {
+          setRecordings((prev) => ({ ...prev })); 
+        }, 300)
       }
-  
+      
       mediaRecorder.start();
     } 
     catch (error) 
@@ -55,9 +60,12 @@ const Pronunciation = ({ language, languageSession, pronunciationWords, text }: 
   }  
 
   const handleStopRecording = (wordId: string) => {
-    mediaRecorderRef.current[wordId]?.stop();
+    if (mediaRecorderRef.current[wordId]) {
+      mediaRecorderRef.current[wordId]?.stop();
+      setIsRecording((prev) => ({ ...prev, [wordId]: false })); 
+    }
   }
-
+  
   const checkPronunciation = async (wordId: string, audioBlob: Blob) => {
     const correctWord = pronunciationWords.find((w) => w.id === wordId)?.word;
 
@@ -236,10 +244,10 @@ const Pronunciation = ({ language, languageSession, pronunciationWords, text }: 
                 )}
               </div>
 
-              {pronunciationWord.recordingUrl && typeof pronunciationWord.recordingUrl === "string" && (
+              {recordings[pronunciationWord.id] && (
                 <div className="mt-3">
-                  <audio controls>
-                    <source src={pronunciationWord.recordingUrl} type="audio/wav" />
+                  <audio key={recordings[pronunciationWord.id]} controls>
+                    <source src={recordings[pronunciationWord.id] as string} type="audio/wav" />
                     Your browser does not support the audio element.
                   </audio>
                 </div>
