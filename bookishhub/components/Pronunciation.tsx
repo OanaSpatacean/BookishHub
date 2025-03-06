@@ -26,24 +26,25 @@ const Pronunciation = ({ language, languageSession, pronunciationWords, text }: 
 
   const handleStartRecording = async (wordId: string) => {
     setIsRecording((prev) => ({ ...prev, [wordId]: true }));
-
+    setFeedback((prev) => ({ ...prev, [wordId]: null }));
+  
     try 
     {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       const mediaRecorder = new MediaRecorder(stream);
       mediaRecorderRef.current[wordId] = mediaRecorder;
-
+  
       let chunks: BlobPart[] = [];
       mediaRecorder.ondataavailable = (event) => chunks.push(event.data);
-
+  
       mediaRecorder.onstop = async () => {
         const audioBlob = new Blob(chunks, { type: "audio/wav" });
         setRecordings((prev) => ({ ...prev, [wordId]: audioBlob }));
         setIsRecording((prev) => ({ ...prev, [wordId]: false }));
-
+  
         await checkPronunciation(wordId, audioBlob);
       }
-
+  
       mediaRecorder.start();
     } 
     catch (error) 
@@ -51,7 +52,7 @@ const Pronunciation = ({ language, languageSession, pronunciationWords, text }: 
       console.error("Error recording:", error);
       setIsRecording((prev) => ({ ...prev, [wordId]: false }));
     }
-  }
+  }  
 
   const handleStopRecording = (wordId: string) => {
     mediaRecorderRef.current[wordId]?.stop();
