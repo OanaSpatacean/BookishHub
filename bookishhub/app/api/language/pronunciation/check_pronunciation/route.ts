@@ -1,6 +1,6 @@
 import openai from "@/lib/openai";
 import { NextRequest, NextResponse } from "next/server";
-import { getS3Url, uploadToS3 } from "@/lib/s3";
+import { getS3Url, uploadToS3Audios } from "@/lib/s3";
 import { databaseClient } from "@/lib/database";
 
 export async function POST(req: NextRequest) {
@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
 
   try 
   {
-    const { keyOfFile } = await uploadToS3(file);
+    const { keyOfFile, nameOfFile } = await uploadToS3Audios(file, correctWord);    
     const s3Url = getS3Url(keyOfFile);
 
     const audioBuffer = Buffer.from(await file.arrayBuffer());
