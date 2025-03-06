@@ -5,6 +5,10 @@ import { FiCheckCircle, FiXCircle, FiMic, FiMicOff } from "react-icons/fi";
 import { Button, buttonVariants } from "./ui/button";
 import { ArrowLeft, ArrowRight, InfoIcon, Loader2 } from "lucide-react";
 import Link from "next/link";
+import { useToast } from "./ui/use-toast";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
 
 type Props = {
   language: Language;
@@ -137,9 +141,29 @@ const Pronunciation = ({ language, languageSession, pronunciationWords, text }: 
     fetchRecordings()
   }, [languageSession.id]);  
   
-  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
+  const router = useRouter();
+
+  const { mutate: createListeningExercises, isLoading } = useMutation({
+      mutationFn: async () => {
+          const response = await axios.post("/api/language/listening/create_listening_exercises", {
+          languageId: String(language.id),
+          languageSessionId: String(languageSession.id),
+          level: String(languageSession.level),
+          });
+          return response.data;
+      },
+      onSuccess: (data) => {
+        toast({ title: "Success", description: "Welcome to stage 5!" });
+        router.push(`/language/${language.id}/${languageSession.id}/listening`);
+      },
+      onError: (error) => {
+        toast({ title: "Error", description: "An error occurred: " + error, variant: "destructive" });
+      }
+  })
 
   const handleSubmit = () => {
+    createListeningExercises()
   }
 
   return (
