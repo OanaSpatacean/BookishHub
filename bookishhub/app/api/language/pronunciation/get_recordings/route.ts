@@ -1,24 +1,22 @@
 import { databaseClient } from '@/lib/database';
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'GET') 
+export async function GET(req: NextRequest) 
+{
+  const { searchParams } = new URL(req.url);
+  const sessionId = searchParams.get('sessionId');
+
+  if (!sessionId) 
   {
-    return res.status(405).json({ error: 'Method Not Allowed' });
+    return NextResponse.json({ error: 'Session ID is required' }, { status: 400 });
   }
 
-  const { sessionId } = req.query;
-
-  if (!sessionId || typeof sessionId !== 'string') 
+  try 
   {
-    return res.status(400).json({ error: 'Session ID is required' });
-  }
-
-  try {
     const pronunciationWords = await databaseClient.pronunciationWord.findMany({
       where: 
       {
-        sessionId: parseInt(sessionId)
+        sessionId: parseInt(sessionId),
       },
       select: 
       {
@@ -27,11 +25,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     })
 
-    return res.status(200).json(pronunciationWords); 
+    return NextResponse.json(pronunciationWords, { status: 200 });
   } 
   catch (error) 
   {
     console.error('Error fetching recordings:', error);
-    return res.status(500).json({ error: 'Internal Server Error' });
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
