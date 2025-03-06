@@ -87,23 +87,42 @@ const Pronunciation = ({ language, languageSession, pronunciationWords, text }: 
 
   useEffect(() => {
     const fetchRecordings = async () => {
-      const response = await fetch(`/api/language/pronunciation/get_recordings?sessionId=${languageSession.id}`);
-      const data = await response.json();
-  
-      if (Array.isArray(data)) 
+      try 
       {
-        setRecordings((prev) => {
-          const updatedRecordings = { ...prev };
-          data.forEach((record: { id: string; recordingUrl: string }) => {
-            updatedRecordings[record.id] = record.recordingUrl; 
-          });
+        const response = await fetch(`/api/language/pronunciation/get_recordings?sessionId=${languageSession.id}`);
   
-          return updatedRecordings;
-        })
+        if (!response.ok) 
+        {
+          throw new Error("Failed to fetch recordings");
+        }
+  
+        const text = await response.text();
+
+        if (text === "") 
+        {
+          throw new Error("No data returned from the server");
+        }
+  
+        const data = JSON.parse(text);
+  
+        if (Array.isArray(data)) 
+        {
+          setRecordings((prev) => {
+            const updatedRecordings = { ...prev };
+            data.forEach((record: { id: string; recordingUrl: string }) => {
+              updatedRecordings[record.id] = record.recordingUrl;
+            });
+            return updatedRecordings;
+          })
+        } 
+        else 
+        {
+          console.error("Data is not an array:", data);
+        }
       } 
-      else 
+      catch (error) 
       {
-        console.error("Data is not an array:", data);
+        console.error("Error fetching recordings:", error);
       }
     }
     fetchRecordings()
