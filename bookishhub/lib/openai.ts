@@ -54,7 +54,7 @@ export async function strict_output(
     }
 
 // Use OpenAI to get a response
-    const response = await openai.createChatCompletion({
+    const response = await openai.chat.completions.create({
       temperature: temperature,
       model: model,
       messages: [
@@ -66,7 +66,7 @@ export async function strict_output(
       ],
     });
 
-    let res: string = response.data.choices[0].message?.content ?? "";
+    let res: string = response.choices[0]?.message?.content ?? "";
 
     if (verbose) {
       console.log(
@@ -128,50 +128,4 @@ export async function strict_output(
   }
 
   return [];
-}
-
-export async function createPromptImage(name: string) 
-{
-  try 
-  {
-    const response = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
-      messages: [
-        {
-          role: "system",
-          content:
-            "You are an imaginative and resourceful AI designed to craft compelling thumbnail descriptions for my notes. Your responses will be used as prompts for the DALLE API to create thumbnails. Ensure the descriptions are simple, modern, and flat in style.",
-        },
-        {
-          role: "user",
-          content: `Create a thumbnail prompt for my text with the name: ${name}`
-        }
-      ]
-    })
-
-    const prompt_of_image = response.data.choices[0].message?.content;
-    
-    return prompt_of_image as string;
-  } 
-  catch (error) 
-  {
-    console.error("Error in createPromptForImage:", error);
-    throw error;
-  }
-}
-
-export async function createImage(prompt_of_image: string) 
-{
-  try 
-  {
-    const response = await openai.createImage({prompt: prompt_of_image, n: 1, size: "256x256"})
-
-    const image_url = response.data.data[0].url;
-    return image_url as string;
-  } 
-  catch (error) 
-  {
-    console.error("Error in createImage:", error);
-    throw error;
-  }
 }
