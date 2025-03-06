@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Language, LanguageSession, TextWriting } from "@prisma/client";
 import { FiCheckCircle, FiXCircle, FiMic, FiMicOff } from "react-icons/fi";
 import { Button, buttonVariants } from "./ui/button";
@@ -13,12 +13,13 @@ type Props = {
   {
     id: string;
     word: string;
+    recordingUrl?: string; 
   }[]
   text: TextWriting
 }
 
 const Pronunciation = ({ language, languageSession, pronunciationWords, text }: Props) => {
-  const [recordings, setRecordings] = useState<{ [key: string]: Blob | null }>({});
+  const [recordings, setRecordings] = useState<{ [key: string]: Blob | string | null }>({});
   const [isRecording, setIsRecording] = useState<{ [key: string]: boolean }>({});
   const [feedback, setFeedback] = useState<{ [key: string]: boolean | null }>({});
   const mediaRecorderRef = useRef<{ [key: string]: MediaRecorder | null }>({});
@@ -65,25 +66,51 @@ const Pronunciation = ({ language, languageSession, pronunciationWords, text }: 
     const formData = new FormData();
     formData.append("file", audioBlob);
     formData.append("word", correctWord);
-    formData.append("language", language.name); 
+    formData.append("language", language.name);
 
     try 
     {
-        const response = await fetch("/api/language/pronunciation/check_pronunciation", {
-            method: "POST",
-            body: formData,
-        });
+      const response = await fetch("/api/language/pronunciation/check_pronunciation", {
+        method: "POST",
+        body: formData,
+      });
 
-        const result = await response.json();
-        setFeedback((prev) => ({ ...prev, [wordId]: result.isCorrect }));
+      const result = await response.json();
+      setFeedback((prev) => ({ ...prev, [wordId]: result.isCorrect }));
     } 
     catch (error) 
     {
-        console.error("Error checking pronunciation:", error);
-        setFeedback((prev) => ({ ...prev, [wordId]: false })); 
+      console.error("Error checking pronunciation:", error);
+      setFeedback((prev) => ({ ...prev, [wordId]: false }));
     }
   }
 
+  useEffect(() => {
+    const fetchRecordings = async () => {
+      const response = await fetch(`/api/language/pronunciation/get_recordings?sessionId=${languageSession.id}`);
+      const data = await response.json();
+
+      console.log(data);
+
+      if (Array.isArray(data)) 
+      {
+        setRecordings((prev) => {
+          const updatedRecordings = { ...prev };
+          data.forEach((record: { id: string; recordingUrl: string }) => {
+            updatedRecordings[record.id] = record.recordingUrl; // Assigning URL (string)
+          });
+
+          return updatedRecordings;
+        })
+      } 
+      else 
+      {
+        console.error("Data is not an array:", data);
+      }
+    }
+    fetchRecordings();
+  }, [languageSession.id]);
+  
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = () => {
@@ -137,10 +164,10 @@ const Pronunciation = ({ language, languageSession, pronunciationWords, text }: 
                                                                                                 text-white 
                                                                                                 px-4 
                                                                                                 py-2 
-                                                                                                rounded
+                                                                                                rounded 
                                                                                                 hover:bg-purple-800">
                     <FiMic className="w-5 
-                                      h-5"/> 
+                                      h-5"/>
                     <span>
                       Record
                     </span>
@@ -156,7 +183,7 @@ const Pronunciation = ({ language, languageSession, pronunciationWords, text }: 
                                                                                                rounded
                                                                                                hover:bg-red-800">
                     <FiMicOff className="w-5 
-                                         h-5"/> 
+                                         h-5"/>
                     <span>
                       Stop
                     </span>
@@ -171,7 +198,7 @@ const Pronunciation = ({ language, languageSession, pronunciationWords, text }: 
                                 items-center 
                                 space-x-2">
                     <FiCheckCircle className="w-5 
-                                              h-5"/> 
+                                              h-5"/>
                     <span>
                       Correct pronunciation!
                     </span>
@@ -183,7 +210,7 @@ const Pronunciation = ({ language, languageSession, pronunciationWords, text }: 
                                 items-center 
                                 space-x-2">
                     <FiXCircle className="w-5 
-                                          h-5"/> 
+                                          h-5"/>
                     <span>
                       Try again!
                     </span>
@@ -191,10 +218,10 @@ const Pronunciation = ({ language, languageSession, pronunciationWords, text }: 
                 )}
               </div>
 
-              {recordings[pronunciationWord.id] && (
+              {pronunciationWord.recordingUrl && typeof pronunciationWord.recordingUrl === "string" && (
                 <div className="mt-3">
                   <audio controls>
-                    <source src={URL.createObjectURL(recordings[pronunciationWord.id]!)} type="audio/wav"/>
+                    <source src={pronunciationWord.recordingUrl} type="audio/wav" />
                     Your browser does not support the audio element.
                   </audio>
                 </div>
@@ -257,7 +284,7 @@ const Pronunciation = ({ language, languageSession, pronunciationWords, text }: 
                     </>
                   }
                 </Button>
-            </div>
+      </div>
     </div>
   )
 }
