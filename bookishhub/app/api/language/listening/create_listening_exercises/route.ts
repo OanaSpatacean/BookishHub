@@ -8,7 +8,7 @@ import Replicate from "replicate";
 
 const replicate = new Replicate({ auth: process.env.REPLICATE_API_KEY });
 
-async function generateAudio(text) {
+async function generateAudio(text: any) {
     const input = {
         text,
         embedding_scale: 1.5
@@ -29,7 +29,7 @@ async function generateAudio(text) {
     }
 }
 
-export async function POST(request) {
+export async function POST(request: Request) {
     try 
     {
         const session = await getAuthSession();
