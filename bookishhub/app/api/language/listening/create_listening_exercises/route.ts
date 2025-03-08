@@ -4,10 +4,34 @@ import { databaseClient } from "@/lib/database";
 import { getAuthSession } from "@/lib/authentication";
 import { createRephrasingSchema } from "@/app/form-validators/language";
 import { strict_output } from "@/lib/openai";
-import { generateAudio } from "@/lib/replicate"; 
+import Replicate from "replicate";
 
-export async function POST(request: Request, response: Response) {
-    try {
+const replicate = new Replicate({ auth: process.env.REPLICATE_API_KEY });
+
+async function generateAudio(text) {
+    const input = {
+        text,
+        embedding_scale: 1.5
+    }
+    
+    try 
+    {
+        const output = await replicate.run(
+            "adirik/styletts2:989cb5ea6d2401314eb30685740cb9f6fd1c9001b8940659b406f952837ab5ac",
+            { input }
+        )
+        return output
+    } 
+    catch (error) 
+    {
+        console.error("Error generating audio:", error);
+        throw new Error("Failed to generate audio");
+    }
+}
+
+export async function POST(request) {
+    try 
+    {
         const session = await getAuthSession();
 
         if (!session?.user) 
@@ -71,7 +95,7 @@ export async function POST(request: Request, response: Response) {
 
         const exercisesWithAudio = await Promise.all(
             listeningExercises.map(async (exercise: { phrase: any; }) => {
-                const audioUrl = await generateAudio(language.name, exercise.phrase);
+                const audioUrl = await generateAudio(exercise.phrase);
                 return {
                     audioUrl,
                     correctText: exercise.phrase,
