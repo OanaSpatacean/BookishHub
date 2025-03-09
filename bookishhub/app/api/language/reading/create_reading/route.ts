@@ -54,10 +54,22 @@ export async function POST(request: Request, response: Response) {
             return new NextResponse("No existing session found", { status: 404 });
         }
 
+        const existingQuestions = await databaseClient.reading.findMany({
+            where: 
+            {
+                sessionId: languageSession.id
+            }
+        })
+
+        if (existingQuestions.length > 0) 
+        {
+            return NextResponse.json({ sessionId: languageSession.id, questions: existingQuestions });
+        }
+
         const generatedTextObject = await strict_output(
             `You are an AI generating educational reading texts for ${language?.name} learners at the ${level} level.
             Create a short but informative passage on a relevant topic for learners at this level.`,
-            [`Generate a reading passage of 2000 words for learners at the ${level} level in ${language?.name}.`],
+            [`Generate a reading passage of 1000 words or more words for learners at the ${level} level in ${language?.name}.`],
             { text: "A short passage with a coherent topic, engaging for learners." }
         )
         
