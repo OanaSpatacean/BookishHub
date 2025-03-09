@@ -5,13 +5,12 @@ import { getAuthSession } from "@/lib/authentication";
 import { createRephrasingSchema } from "@/app/form-validators/language";
 import { strict_output } from "@/lib/openai";
 import Replicate from "replicate";
+import { uploadToS3Audios, getS3Url } from "@/lib/s3";
 
 const replicate = new Replicate({ auth: process.env.REPLICATE_API_KEY });
 
-async function generateAudio(text: string) 
-{
-    const input = 
-    {
+async function generateAudio(text: string) {
+    const input = {
         text,
         speaker: "https://replicate.delivery/pbxt/Jt79w0xsT64R1JsiJ0LQRL8UcWspg5J4RFrU6YwEKpOT1ukS/male.wav",
         language: "en",
@@ -35,16 +34,22 @@ async function generateAudio(text: string)
             while (!done) 
             {
                 const { value, done: readerDone } = await reader.read();
+
                 if (value) 
                     chunks.push(value);
+
                 done = readerDone;
             }
 
             const blob = new Blob(chunks, { type: "audio/wav" });
-            const audioURL = URL.createObjectURL(blob);
-            console.log("Generated Audio URL:", audioURL);
+            const audioBuffer = Buffer.from(await blob.arrayBuffer());
+            const file = new File([audioBuffer], `${text.replace(/\s+/g, "_")}.wav`, { type: "audio/wav" });
 
-            return audioURL;
+            const { keyOfFile } = await uploadToS3Audios(file, text);
+            const s3Url = getS3Url(keyOfFile);
+
+            console.log("Uploaded Audio URL (S3):", s3Url);
+            return s3Url;
         }
 
         throw new Error("Unexpected response format");
@@ -60,7 +65,7 @@ export async function POST(request: Request) {
     try 
     {
         const session = await getAuthSession();
-        
+
         if (!session?.user) 
         {
             return NextResponse.redirect(new URL("/", request.url));
@@ -141,8 +146,8 @@ export async function POST(request: Request) {
                 }
             })
         )
-        
-        console.log("Exercises with Audio:", exercisesWithAudio); 
+
+        console.log("Exercises with Audio:", exercisesWithAudio);
 
         await databaseClient.listeningExercise.createMany({
             data: exercisesWithAudio
@@ -154,7 +159,7 @@ export async function POST(request: Request) {
     {
         console.error("Error processing request:", error);
 
-        if (error instanceof ZodError) 
+        if (error instanceof ZodError)
         {
             return new NextResponse("Incorrect body format", { status: 400 });
         }
