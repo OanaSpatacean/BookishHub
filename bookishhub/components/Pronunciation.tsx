@@ -155,7 +155,7 @@ const Pronunciation = ({ language, languageSession, pronunciationWords, text }: 
       },
       onSuccess: (data) => {
         toast({ title: "Success", description: "Welcome to stage 5!" });
-        router.push(`/language/${language.id}/${languageSession.id}/listening`);
+        router.push(`/language/${language.id}/${languageSession.id}/listening/${text.id}`);
       },
       onError: (error) => {
         toast({ title: "Error", description: "An error occurred: " + error, variant: "destructive" });
