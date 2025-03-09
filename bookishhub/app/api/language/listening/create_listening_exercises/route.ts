@@ -8,19 +8,46 @@ import Replicate from "replicate";
 
 const replicate = new Replicate({ auth: process.env.REPLICATE_API_KEY });
 
-async function generateAudio(text: any) {
-    const input = {
+async function generateAudio(text: string) 
+{
+    const input = 
+    {
         text,
-        embedding_scale: 1.5
+        speaker: "https://replicate.delivery/pbxt/Jt79w0xsT64R1JsiJ0LQRL8UcWspg5J4RFrU6YwEKpOT1ukS/male.wav",
+        language: "en",
+        cleanup_voice: false
     }
-    
+
     try 
     {
-        const output = await replicate.run(
-            "adirik/styletts2:989cb5ea6d2401314eb30685740cb9f6fd1c9001b8940659b406f952837ab5ac",
+        const response = await replicate.run(
+            "lucataco/xtts-v2:684bc3855b37866c0c65add2ff39c78f3dea3f4ff103a436465326e0f438d55e",
             { input }
         )
-        return output
+
+        if (response instanceof ReadableStream) 
+        {
+            const reader = response.getReader();
+            const chunks: Uint8Array[] = [];
+
+            let done = false;
+
+            while (!done) 
+            {
+                const { value, done: readerDone } = await reader.read();
+                if (value) 
+                    chunks.push(value);
+                done = readerDone;
+            }
+
+            const blob = new Blob(chunks, { type: "audio/wav" });
+            const audioURL = URL.createObjectURL(blob);
+            console.log("Generated Audio URL:", audioURL);
+
+            return audioURL;
+        }
+
+        throw new Error("Unexpected response format");
     } 
     catch (error) 
     {
@@ -33,10 +60,10 @@ export async function POST(request: Request) {
     try 
     {
         const session = await getAuthSession();
-
+        
         if (!session?.user) 
         {
-            return NextResponse.redirect("/");
+            return NextResponse.redirect(new URL("/", request.url));
         }
 
         const body = await request.json();
@@ -93,9 +120,19 @@ export async function POST(request: Request) {
             { phrase: "A simple word or phrase in the target language." }
         )
 
+        console.log("Generated exercises:", listeningExercises);
+
         const exercisesWithAudio = await Promise.all(
-            listeningExercises.map(async (exercise: { phrase: any; }) => {
+            listeningExercises.map(async (exercise: { phrase: string }) => {
                 const audioUrl = await generateAudio(exercise.phrase);
+
+                console.log("Audio URL:", audioUrl);
+
+                if (typeof audioUrl !== "string") 
+                {
+                    throw new Error(`Invalid audio URL received: ${JSON.stringify(audioUrl)}`);
+                }
+
                 return {
                     audioUrl,
                     correctText: exercise.phrase,
@@ -104,6 +141,8 @@ export async function POST(request: Request) {
                 }
             })
         )
+        
+        console.log("Exercises with Audio:", exercisesWithAudio); 
 
         await databaseClient.listeningExercise.createMany({
             data: exercisesWithAudio
