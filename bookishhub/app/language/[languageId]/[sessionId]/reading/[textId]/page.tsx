@@ -47,7 +47,7 @@ const SessionPageReading = async ({ params }: Props) => {
         return <div>Session not found</div>;
     }
 
-    const readings = await databaseClient.reading.findMany({
+    const reading = await databaseClient.reading.findMany({
         where: 
         {
             sessionId: parseInt(sessionId),
@@ -85,7 +85,7 @@ const SessionPageReading = async ({ params }: Props) => {
                 Session {languageSession.id} - {languageSession.level} level - {language.name}
             </h1>
 
-            <Reading language={language} languageSession={languageSession} readings={readings} text={text}/>
+            <Reading language={language} languageSession={languageSession} reading={reading} text={text}/>
         </div>
     );
 };

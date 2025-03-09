@@ -1,6 +1,20 @@
+import { Language, LanguageSession, TextWriting } from "@prisma/client";
 import React from "react";
 
-type Props = {};
+type Props = 
+{
+  language: Language,
+  languageSession: LanguageSession,
+  reading: 
+    {
+    id: string;
+    text: string;
+    question: string;
+    answer: string;
+    choices: string;
+    }[],
+  text: TextWriting
+}
 
 const Reading = (props: Props) => {
   return (
