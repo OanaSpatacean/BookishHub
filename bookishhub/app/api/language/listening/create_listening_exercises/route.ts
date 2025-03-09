@@ -119,7 +119,14 @@ export async function POST(request: Request) {
             return NextResponse.json({ sessionId: languageSession.id, exercises: existingExercises });
         }
 
-        const languageCode = languageMap[language.name] || "en";
+        let languageCode = languageMap[language.name] || "en";
+        const supportedLanguages = ["en", "es", "fr", "de", "it", "pt", "pl", "tr", "ru", "nl", "cs", "ar", "zh", "hu", "ko", "hi"];
+
+        if (!supportedLanguages.includes(languageCode)) 
+        {
+            console.warn(`Language code "${languageCode}" is not supported by Replicate. Defaulting to English.`);
+            languageCode = "en"; 
+        }
 
         const listeningExercises = await strict_output(
             `Generate 5 simple words or short phrases for the ${language.name} language at the ${level} level. 
