@@ -180,7 +180,7 @@ const Rephrasing = ({ language, languageSession, questions, text }: Props) => {
 
                             <Input id={question.id} name={question.id} placeholder="Enter your rephrased version..." value={userAnswers[question.id] || ""} onChange={(e) => handleAnswerChange(question.id, e.target.value)} className="mt-2 w-full"/>
 
-                            {results[question.id] !== null && (
+                            {results[question.id] !== undefined && results[question.id] !== null && (
                                 <>
                                     <div className="absolute 
                                                     top-4 

@@ -115,7 +115,7 @@ const Listening = ({ language, languageSession, listeningExercises, text }: Prop
                             
                             <Input id={exercise.id} name={exercise.id} placeholder="Type what you hear..." value={userAnswers[exercise.id] || ""} onChange={(e) => setUserAnswers(prev => ({ ...prev, [exercise.id]: e.target.value }))} className="mt-2 
                                                                                                                                                                                                                                                     w-full"/>        
-                            {results[exercise.id] !== null && (
+                            {results[exercise.id] !== undefined && results[exercise.id] !== null && (
                                 <div className="absolute 
                                                 top-4 
                                                 right-4">
