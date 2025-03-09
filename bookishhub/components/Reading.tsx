@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Button } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import { Label } from "./ui/label";
 import { RadioGroupItem, RadioGroup } from "./ui/radio-group";
 import { FiCheckCircle, FiXCircle } from "react-icons/fi";
@@ -9,6 +9,8 @@ import { useToast } from "./ui/use-toast";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { ArrowLeft, ArrowRight, InfoIcon } from "lucide-react";
+import Link from "next/link";
 
 type Props = {
   language: Language;
@@ -182,8 +184,45 @@ const Reading = ({ language, languageSession, readingText, readingQuestions, tex
           Check answers
         </Button>
       </div>
+      <div className="bg-secondary 
+                        border-none 
+                        p-4 
+                        flex
+                        dark:bg-gray-900
+                        mb-5">
+              <div className="flex-shrink-0">
+                <InfoIcon className="text-green-500 
+                                    h-10 
+                                    w-10 
+                                    bg-green-100 
+                                    rounded-full 
+                                    p-2 
+                                    shadow-sm" />
+              </div>
 
-      
+              <div className="ml-5">
+                In this section, you'll find a reading passage followed by a set of questions designed to test your comprehension. Read the text carefully, then answer the questions based on its content.        
+                This is the last step in completing your language assessment, so take your time, read carefully, and give it your best effort!
+              </div>
+            </div>
+
+              <div className="w-full 
+                                flex 
+                                justify-between 
+                                items-center 
+                                mb-5">                
+                    <Link href={`/language/${language.id}/${languageSession.id}/listening//${text.id}`} className={`${buttonVariants({ className: "flex items-center font-semibold bg-purple-500 hover:bg-purple-800" })}`}>
+                        <ArrowLeft strokeWidth={5} className="ml-1 
+                                                                h-3 
+                                                                w-3"/>
+                        Return to the previous stage
+                    </Link>
+
+                    <Link href={`/language/${language.id}/`} className={`${buttonVariants({ className: "flex items-center font-semibold bg-purple-500 hover:bg-purple-800" })}`}>
+                        You are done! Press here to review your existing language sessions or create a new language assessment
+                        🏆
+                    </Link>
+          </div>
     </div>
   )
 }
