@@ -5,14 +5,14 @@ import { getAuthSession } from "@/lib/authentication";
 import { createRephrasingSchema } from "@/app/form-validators/language";
 import { strict_output } from "@/lib/openai";
 
-type Question = {
+type ReadingQuestion = {
     question: string;
     answer: string;
     choice1: string;
     choice2: string;
     choice3: string;
     choice4: string;
-};
+}
 
 export async function POST(request: Request, response: Response) {
     try 
@@ -54,7 +54,7 @@ export async function POST(request: Request, response: Response) {
             return new NextResponse("No existing session found", { status: 404 });
         }
 
-        const existingQuestions = await databaseClient.reading.findMany({
+        const existingQuestions = await databaseClient.readingQuestion.findMany({
             where: 
             {
                 sessionId: languageSession.id
@@ -77,26 +77,22 @@ export async function POST(request: Request, response: Response) {
         {
             throw new Error("Failed to generate text. AI response is empty.");
         }
-        
+
         const generatedText = generatedTextObject[0]?.text || "Default fallback text";
-        
-        const newReading = await databaseClient.reading.create({
+
+        const newReading = await databaseClient.readingText.create({
             data: 
             {
                 text: generatedText || "Default fallback text",
-                question: "",
-                answer: "",
-                userAnswer: "",
-                choices: "[]",
                 sessionId: languageSession.id
             }
-        })        
+        })  
 
-        const generatedQuestions: Question[] = await strict_output(
-            `You are an AI generating multiple-choice reading comprehension questions for a text in ${language?.name}.
+        const readingQuestions: ReadingQuestion[] = await strict_output(
+            `You are an AI generating multiple-choice reading comprehension questions for a text in ${language?.name} at the ${level} level.
             Create 5 questions based on the following passage: "${generatedText}"`,
             new Array(5).fill(
-                `Generate a reading comprehension question based on the passage.`
+                `Generate a reading comprehension question based on the passage in ${language?.name} language at the ${level} level.`
             ),
             {
                 question: "A comprehension question about the passage",
@@ -108,24 +104,30 @@ export async function POST(request: Request, response: Response) {
             }
         )
 
-        await databaseClient.reading.update({
-            where: 
-            { 
-                id: newReading.id 
-            },
-            data: 
-            {
-                question: generatedQuestions.map(q => q.question).join("\n\n"),
-                answer: generatedQuestions.map(q => q.answer).join("\n\n"),
-                choices: JSON.stringify(
-                    generatedQuestions.map(q => [
-                        q.answer, q.choice1, q.choice2, q.choice3, q.choice4
-                    ])
-                )
-            }
-        })
+        await databaseClient.readingQuestion.createMany({
+            data: readingQuestions.map((readingQuestion) => {
+                let choices = [
+                    readingQuestion.answer,
+                    readingQuestion.choice1,
+                    readingQuestion.choice2,
+                    readingQuestion.choice3,
+                    readingQuestion.choice4
+                ];
 
-        return NextResponse.json({ sessionId: languageSession.id, readingId: newReading.id });
+                choices = choices.sort(() => Math.random() - 0.5);
+
+                return {
+                    question: readingQuestion.question,
+                    answer: readingQuestion.answer,
+                    userAnswer: "",
+                    choices: JSON.stringify(choices),
+                    sessionId: languageSession.id,
+                    readingTextId: newReading.id
+                };
+            })
+        });
+
+        return NextResponse.json({ sessionId: languageSession.id });
     } 
     catch (error) 
     {
