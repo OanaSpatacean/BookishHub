@@ -191,8 +191,8 @@ const Rephrasing = ({ language, languageSession, questions, text }: Props) => {
                                                                     h-6"/>
                                         ) : (
                                             <FiXCircle className="text-red-400 
-                                                                w-6 
-                                                                h-6" />
+                                                                  w-6 
+                                                                  h-6" />
                                         )}
                                     </div>
                                     {results[question.id] === false && (
