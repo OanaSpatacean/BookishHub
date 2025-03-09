@@ -78,7 +78,7 @@ const Listening = ({ language, languageSession, listeningExercises, text }: Prop
         },
         onSuccess: (data) => {
           toast({ title: "Success", description: "Welcome to stage 6!" });
-          router.push(`/language/${language.id}/${languageSession.id}/reading`);
+          router.push(`/language/${language.id}/${languageSession.id}/reading/${text.id}`);
         },
         onError: (error) => {
           toast({ title: "Error", description: "An error occurred: " + error, variant: "destructive" });

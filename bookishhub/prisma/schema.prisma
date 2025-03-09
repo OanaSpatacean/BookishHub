@@ -138,6 +138,7 @@ model LanguageSession {
   textWriting TextWriting[]
   pronunciationWords PronunciationWord[]
   listeningExercises ListeningExercise[]
+  reading            Reading[]
 }
 
 model GrammarQuestion {
@@ -184,4 +185,15 @@ model ListeningExercise {
   userAnswer    String          @db.VarChar(4000)  
   sessionId     Int
   session       LanguageSession @relation(fields: [sessionId], references: [id])
+}
+
+model Reading {
+  id               String          @id @default(cuid())
+  text             String          @db.VarChar(4000)
+  question         String          @db.VarChar(4000)
+  answer           String          @db.VarChar(4000)
+  userAnswer       String          @db.VarChar(4000) 
+  choices          String          @db.VarChar(4000)
+  sessionId        Int             
+  session          LanguageSession @relation(fields: [sessionId], references: [id]) 
 }
