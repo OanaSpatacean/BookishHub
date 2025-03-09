@@ -4,18 +4,23 @@ import { getS3Url, uploadToS3Audios } from "@/lib/s3";
 import { databaseClient } from "@/lib/database";
 
 export const languageMap: Record<string, string> = {
+  Romanian: "ro",
   English: "en",
-  French: "fr",
   Spanish: "es",
+  French: "fr",
   German: "de",
   Italian: "it",
-  Romanian: "ro",
   Portuguese: "pt",
+  Polish: "pl",
+  Turkish: "tr",
   Russian: "ru",
+  Dutch: "nl",
+  Czech: "cs",
+  Arabic: "ar",
   Chinese: "zh",
-  Japanese: "ja",
+  Hungarian: "hu",
   Korean: "ko",
-  Arabic: "ar"
+  Hindi: "hi"
 }
 
 export async function POST(req: NextRequest) {
