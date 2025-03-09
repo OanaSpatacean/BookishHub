@@ -80,8 +80,8 @@ export async function POST(request: Request, response: Response) {
 
         const generatedTextObject = await strict_output(
             `You are an AI generating educational reading texts for ${language?.name} learners at the ${level} level.
-            Create an informative passage in at least 800 words on a relevant topic for learners at this level.`,
-            [`Generate a reading passage of at least 800 words for learners at the ${level} level in ${language?.name}.`],
+            Create an informative long passage in minimum 800 words on a relevant topic for learners at this level.`,
+            [`Generate a long reading passage of minimum 800 words for learners at the ${level} level in ${language?.name}.`],
             { text: "A short passage with a coherent topic, engaging for learners." }
         )
         
