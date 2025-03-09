@@ -6,14 +6,15 @@ import { createRephrasingSchema } from "@/app/form-validators/language";
 import { strict_output } from "@/lib/openai";
 import Replicate from "replicate";
 import { uploadToS3Audios, getS3Url } from "@/lib/s3";
+import { languageMap } from "../../pronunciation/check_pronunciation/route";
 
 const replicate = new Replicate({ auth: process.env.REPLICATE_API_KEY });
 
-async function generateAudio(text: string) {
+async function generateAudio(text: string, languageCode: string) {
     const input = {
         text,
         speaker: "https://replicate.delivery/pbxt/Jt79w0xsT64R1JsiJ0LQRL8UcWspg5J4RFrU6YwEKpOT1ukS/male.wav",
-        language: "en",
+        language: languageCode,
         cleanup_voice: false
     }
 
@@ -118,6 +119,8 @@ export async function POST(request: Request) {
             return NextResponse.json({ sessionId: languageSession.id, exercises: existingExercises });
         }
 
+        const languageCode = languageMap[language.name] || "en";
+
         const listeningExercises = await strict_output(
             `Generate 5 simple words or short phrases for the ${language.name} language at the ${level} level. 
             These words will be used for listening exercises.`,
@@ -129,7 +132,7 @@ export async function POST(request: Request) {
 
         const exercisesWithAudio = await Promise.all(
             listeningExercises.map(async (exercise: { phrase: string }) => {
-                const audioUrl = await generateAudio(exercise.phrase);
+                const audioUrl = await generateAudio(exercise.phrase, languageCode);
 
                 console.log("Audio URL:", audioUrl);
 
