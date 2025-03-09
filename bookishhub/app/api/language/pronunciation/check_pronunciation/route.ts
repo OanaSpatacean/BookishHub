@@ -3,6 +3,21 @@ import { NextRequest, NextResponse } from "next/server";
 import { getS3Url, uploadToS3Audios } from "@/lib/s3";
 import { databaseClient } from "@/lib/database";
 
+export const languageMap: Record<string, string> = {
+  English: "en",
+  French: "fr",
+  Spanish: "es",
+  German: "de",
+  Italian: "it",
+  Romanian: "ro",
+  Portuguese: "pt",
+  Russian: "ru",
+  Chinese: "zh",
+  Japanese: "ja",
+  Korean: "ko",
+  Arabic: "ar"
+}
+
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
   const file = formData.get("file") as File;
@@ -13,21 +28,6 @@ export async function POST(req: NextRequest) {
     {
     return NextResponse.json({ error: "Missing data" }, { status: 400 });
   }
-
-  const languageMap: Record<string, string> = {
-    English: "en",
-    French: "fr",
-    Spanish: "es",
-    German: "de",
-    Italian: "it",
-    Romanian: "ro",
-    Portuguese: "pt",
-    Russian: "ru",
-    Chinese: "zh",
-    Japanese: "ja",
-    Korean: "ko",
-    Arabic: "ar"
-    }
 
   const languageCode = languageMap[languageName] || "en";
 
