@@ -54,6 +54,18 @@ export async function POST(request: Request, response: Response) {
             return new NextResponse("No existing session found", { status: 404 });
         }
 
+        const existingText = await databaseClient.readingText.findMany({
+            where: 
+            {
+                sessionId: languageSession.id
+            }
+        })
+
+        if (existingText.length > 0) 
+        {
+            return NextResponse.json({ sessionId: languageSession.id, questions: existingText });
+        }
+
         const existingQuestions = await databaseClient.readingQuestion.findMany({
             where: 
             {
