@@ -103,9 +103,6 @@ const NavigationBar = async (props:Props) => {
                                 </Link>
                             ) : (  
                                 <>
-                                    <Link href='/repo' className='mr-5 uppercase'>
-                                        Repo Insights
-                                    </Link>
                                     <Link href='/breakdown' className='mr-5 uppercase'>
                                         File Breakdown
                                     </Link>
@@ -114,9 +111,6 @@ const NavigationBar = async (props:Props) => {
                                     </Link>
                                     <Link href='/language' className='mr-5 uppercase'>
                                         Language Check
-                                    </Link>
-                                    <Link href='/draft' className='mr-5 uppercase'>
-                                        Draft Assist
                                     </Link>
                                     <Link href='/configurations' className='mr-5 uppercase'>
                                         Configurations
