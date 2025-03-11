@@ -39,6 +39,20 @@ const Reading = ({ language, languageSession, readingText, readingQuestions, tex
       }, {} as Record<string, boolean | null>)
   )
 
+  React.useEffect(() => {
+      const savedAnswers = localStorage.getItem("readingAnswers");
+      if (savedAnswers) {
+          setAnswers(JSON.parse(savedAnswers));
+      }
+  }, []);
+
+  React.useEffect(() => {
+      if (Object.keys(answers).length > 0) 
+          {
+          localStorage.setItem("readingAnswers", JSON.stringify(answers));
+      }
+  }, [answers]);
+
   const { toast } = useToast();
   const router = useRouter();
 
