@@ -4,6 +4,7 @@ import { databaseClient } from "@/lib/database";
 import { getAuthSession } from "@/lib/authentication";
 import { createLanguageAssessmentSchema } from "@/app/form-validators/language";
 import { strict_output } from "@/lib/openai";
+import verifyMembership from "@/lib/membership";
 
 type GrammarQuestion = 
 {
@@ -24,6 +25,17 @@ export async function POST(request: Request, response: Response)
         if (!session?.user) 
         {
         return NextResponse.redirect("/");
+        }
+
+        const havePowerAccount = await verifyMembership();
+
+        if (session.user.points <= 0 && !havePowerAccount && session.user.isAdmin == false) 
+        {
+            return new NextResponse("You have no more points to use for a new file breakdown!", 
+                                        { 
+                                            status: 402 
+                                        }
+                                    )
         }
 
         const body = await request.json();

@@ -8,17 +8,20 @@ import axios from "axios";
 import { useState } from "react";
 import LanguageSessionDisplayBox from "@/components/LanguageSessionDisplayBox";
 import { Language, LanguageSession } from "@prisma/client";
+import MembershipFees from "./MembershipFees";
 
 type Props = 
 {
     language: Language;
     languageSessions: LanguageSession[];
     languageId: string;
+    havePowerAccount: any;
+    session: any;
 }
 
 const levels = ["Beginner", "Intermediate", "Advanced"];
 
-const LanguagePageComponent = ({ language, languageSessions, languageId }: Props) => {
+const LanguagePageComponent = ({ language, languageSessions, languageId, havePowerAccount, session }: Props) => {
     const { toast } = useToast();
     const router = useRouter();
     const [selectedLevel, setSelectedLevel] = useState<string | null>(null);
@@ -41,6 +44,15 @@ const LanguagePageComponent = ({ language, languageSessions, languageId }: Props
     })
 
     const handleSubmit = () => {
+        if (session.user.points <= 0 && !havePowerAccount && !session.user.isAdmin) {
+            toast({
+                title: "Warning",
+                description: "You do not have any remaining points for creating a new language assessment",
+                variant: "destructive",
+            });
+            return;
+        }
+
         if (!selectedLevel) 
         {
             toast({ title: "Warning", description: "Please select a level", variant: "destructive" });
@@ -183,34 +195,35 @@ const LanguagePageComponent = ({ language, languageSessions, languageId }: Props
                 }
             </Button>
 
-        {languageSessions.length > 0 && (
-            <>
-                <h1 className="sm:text-5xl 
-                            text-left 
-                            font-bold 
-                            text-3xl 
-                            underline 
-                            decoration-4 
-                            decoration-purple-500 
-                            mb-9 
-                            mt-9">
-                    All of your past language sessions
-                </h1>
+            <MembershipFees havePowerAccount={havePowerAccount}/>
 
-                <div className="max-w-7xl 
-                                mx-auto 
-                                py-3 
-                                w-full">
-                    <div className="gap-4 
-                                    flex-col 
-                                    flex">
-                        {languageSessions.map((session, index) => (
-                            <LanguageSessionDisplayBox key={session.id} language={language} languageSession={session} sessionNumber={index + 1}/>
-                        ))}
+            {languageSessions.length > 0 && (
+                <>
+                    <h1 className="sm:text-5xl 
+                                text-left 
+                                font-bold 
+                                text-3xl 
+                                underline 
+                                decoration-4 
+                                decoration-purple-500 
+                                mb-9">
+                        All of your past language sessions
+                    </h1>
+
+                    <div className="max-w-7xl 
+                                    mx-auto 
+                                    py-3 
+                                    w-full">
+                        <div className="gap-4 
+                                        flex-col 
+                                        flex">
+                            {languageSessions.map((session, index) => (
+                                <LanguageSessionDisplayBox key={session.id} language={language} languageSession={session} sessionNumber={index + 1}/>
+                            ))}
+                        </div>
                     </div>
-                </div>
-            </>
-        )}
+                </>
+            )}
         </div>
     );
 };

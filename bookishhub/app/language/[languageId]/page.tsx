@@ -1,6 +1,7 @@
 import LanguagePageComponent from "@/components/LanguagePageComponent";
 import { getAuthSession } from "@/lib/authentication";
 import { databaseClient } from "@/lib/database";
+import verifyMembership from "@/lib/membership";
 import { redirect } from "next/navigation";
 
 type Props = {
@@ -17,6 +18,8 @@ const LanguageIdPage = async ({ params }: Props) => {
     {
         return redirect("/");
     }
+
+    const havePowerAccount = await verifyMembership();
 
     const { languageId } = params;
 
@@ -35,7 +38,7 @@ const LanguageIdPage = async ({ params }: Props) => {
     })
 
     return (
-        <LanguagePageComponent language={language} languageSessions={languageSessions} languageId={languageId}/>
+        <LanguagePageComponent language={language} languageSessions={languageSessions} languageId={languageId} havePowerAccount={havePowerAccount} session={session}/>
     )
 }
 
