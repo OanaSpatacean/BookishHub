@@ -44,10 +44,10 @@ export async function POST(request: Request, response: Response)
         })
 
         const grammarQuestions: GrammarQuestion[] = await strict_output(
-            `You are an AI used for creating 5 multiple-choice questions related to the grammar of the ${language.name} language at the ${level} level. 
+            `You are an AI used for creating 5 multiple-choice questions related to the grammar with 4 choices of the ${language.name} language at the ${level} level. 
             Each solution should not have a length greater than 20 words.`,
-            new Array(10).fill(
-                `Your task is to create multiple-choice grammar questions for the ${language.name} language at the ${level} level.`
+            new Array(5).fill(
+                `Your task is to create 5 multiple-choice grammar questions with 4 choices for the ${language.name} language at the ${level} level.`
             ),
             {
                 question: "question",
