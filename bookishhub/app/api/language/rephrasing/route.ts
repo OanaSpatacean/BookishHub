@@ -73,27 +73,35 @@ export async function POST(request: Request, response: Response) {
         const rephrasingQuestions = await strict_output(
             `You are an AI that creates 5 rephrasing exercises for the ${language.name} language at the ${level} level. 
             Follow the structure of the example provided below to create 4 rephrasing exercises. 
-            **Important**: Do not use the example phrase or answer directly, but instead create new phrases that follow the same structure and logic of rephrasing (changing word order or structure while keeping the meaning and tone the same). 
+            **Important**: Do not use the example phrase or answer directly, but instead create new phrases that follow 
+            the same structure and logic of rephrasing (changing word order or structure while keeping the meaning and 
+            tone the same). 
+            Each output must include "phrase", "answer", "examplePhrase", and "exampleAnswer".
             Example Phrase: ${examplePhrase} 
-            Example Answer: ${exampleAnswer}`,
+            Example Answer: ${exampleAnswer}
+        
+            Return the output in the following JSON format: 
+            [
+                {"phrase": "Original sentence", "answer": "Reworded sentence", "examplePhrase": "${examplePhrase}", "exampleAnswer": "${exampleAnswer}"}
+            ]`,
             new Array(5).fill(
-                `Generate a phrase and its rephrased version for the ${language.name} language at the ${level} level.`
+                `Generate a phrase and its rephrased version for the ${language.name} language at the ${level} level, including "examplePhrase" and "exampleAnswer".`
             ),
             {
                 phrase: "An original phrase that needs to be rephrased.",
-                answer: "A correct reworded version of the phrase without diacritics.",
+                answer: "A correct reworded version of the phrase.",
                 examplePhrase,
                 exampleAnswer
             }
-        )        
+        )              
 
         await databaseClient.rephrasingQuestion.createMany({
             data: rephrasingQuestions.map((rephrasingQuestion) => ({
                 phrase: rephrasingQuestion.phrase,
                 answer: rephrasingQuestion.answer,
                 userAnswer: "",
-                examplePhrase: rephrasingQuestion.examplePhrase,
-                exampleAnswer: rephrasingQuestion.exampleAnswer,
+                examplePhrase: rephrasingQuestion.examplePhrase || examplePhrase,
+                exampleAnswer: rephrasingQuestion.exampleAnswer || exampleAnswer,
                 sessionId: languageSession.id,
             }))
         });
