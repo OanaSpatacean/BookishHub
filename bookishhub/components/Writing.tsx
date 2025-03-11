@@ -45,7 +45,11 @@ const Writing = ({ language, languageSession, text }: Props) => {
             const response = await fetch("/api/language/writing/autocompletion", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ prompt })
+              body: JSON.stringify({ 
+                prompt,
+                language: language.name,  
+                level: languageSession.level 
+              })
             })
   
             if (!response.body) 

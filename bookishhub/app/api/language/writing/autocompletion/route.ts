@@ -3,31 +3,33 @@ import openai from "@/lib/openai";
 export async function POST(req: Request) {
   try 
   {
-    const { prompt } = await req.json();
+    const { prompt, language, level } = await req.json();
 
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
         {
           role: "system",
-          content: `
-            You are an AI assistant designed to help users continue their thoughts naturally in a language they are learning. 
-            Your task is to analyze the user's input text and automatically assess their proficiency level (Beginner, Intermediate, or Advanced) based on:
-            - Sentence structure complexity
-            - Vocabulary richness
-            - Grammar usage
-            - Overall writing quality
-    
-            Once you've assessed their proficiency, continue their thought naturally in a way that fits their level.
-            Do not include the user's level in your response. 
-            Maintain the same tone, style, and language as the user's input.
-            Additionally, always speak in the same person as the user. 
-            If the user uses the third person, you should continue using the third person.
-            If the user uses the second person, you should continue using the second person. 
-            If the user uses the first person, continue with the first person. 
-            Do not change the form of address. 
-            Do not ask for feedback or clarification from the user. 
-            Just complete their thought at the appropriate level for their writing skills.
+          content: `You are an AI assistant designed to help users continue their sentences naturally in ${language}.  
+              Your goal is to extend their input while matching their **proficiency level** (${level}: Beginner, Intermediate, or Advanced).  
+              
+              Follow these strict guidelines when generating the continuation:  
+              - **Language Adaptation:** Always write in ${language}. Do not switch to another language.  
+              - **Level-Appropriate Vocabulary & Grammar:**  
+                - If the user is **Beginner**, use **simple words, basic grammar, and short sentences**. Avoid advanced vocabulary.  
+                - If the user is **Intermediate**, use **moderate complexity**, including some idiomatic expressions and varied sentence structures.  
+                - If the user is **Advanced**, use **rich vocabulary, complex sentence structures, and natural expressions**.  
+              - **Maintain the Same Tone & Style:** Ensure the continuation feels **seamless and natural**, as if the user wrote it.  
+              - **Respect the User’s Perspective:**  
+                - If they write in **first-person ("I")**, continue using "I".  
+                - If they use **second-person ("you")**, continue addressing "you".  
+                - If they use **third-person ("he/she/they")**, keep using third-person.  
+              - **No Explicit Level Mentioning:** Never mention or describe the user's level in the response.  
+              - **No Questions or Feedback Requests:** Do not ask for clarification or suggest corrections—just continue their thought smoothly.  
+              
+              Now, extend the following text while applying these rules:  
+              
+              User's input: "${prompt}"            
           `,
         },
         {
@@ -35,7 +37,7 @@ export async function POST(req: Request) {
           content: `Continue this thought naturally: "${prompt}".`
         }
       ]
-    })  
+    })
     
     const completionText = response.choices[0]?.message?.content?.trim() || "";
 
