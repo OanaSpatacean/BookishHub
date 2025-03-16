@@ -154,7 +154,7 @@ const UsersDisplayBox = ({ user, isPowerAccount }: Props) => {
                                     <input type="number" value={isPowerAccount ? "infinite" : points} onChange={(e) => { if (!isPowerAccount) setPoints(Number(e.target.value) < 0 ? 0 : Number(e.target.value)); }} className="border 
                                                                                                                                                                                                                                 rounded 
                                                                                                                                                                                                                                 p-2 
-                                                                                                                                                                                                                                w-full" disabled={isPowerAccount}/>
+                                                                                                                                                                                                                                w-full" disabled={isPowerAccount} placeholder={isPowerAccount ? "infinite" : `${points}`}/>
                                 </div>
 
                                 <div className="flex 
