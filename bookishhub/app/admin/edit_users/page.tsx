@@ -1,13 +1,40 @@
 import UsersDisplayBox from '@/components/Users';
 import { getAuthSession } from '@/lib/authentication';
 import { databaseClient } from '@/lib/database';
-import verifyMembership from '@/lib/membership';
 import { ArrowRight, InfoIcon } from 'lucide-react';
 import Link from "next/link";
 import { redirect } from 'next/navigation';
 import React from 'react'
 
 type Props = {};
+
+const getUsersWithMembership = async () => {
+    const users = await databaseClient.user.findMany();
+
+    const usersWithMembership = await Promise.all(
+        users.map(async (user) => {
+            const membership = await databaseClient.membership.findUnique({
+                where: 
+                {
+                    userId: user.id 
+                },
+                select: 
+                { 
+                    paymentCurrentPeriodEnding: true 
+                }
+            })
+
+            return {
+                ...user,
+                isPowerAccount: membership?.paymentCurrentPeriodEnding
+                    ? new Date(membership.paymentCurrentPeriodEnding) > new Date()
+                    : false
+            }
+        })
+    )
+
+    return usersWithMembership;
+}
 
 const EditUsers = async (props: Props) => {
     const session = await getAuthSession();
@@ -16,9 +43,7 @@ const EditUsers = async (props: Props) => {
         return redirect('/');
     }
 
-    const users = await databaseClient.user.findMany();
-
-    const isPowerAccount = await verifyMembership();
+    const users = await getUsersWithMembership();
     
     return (
         <div>
@@ -92,7 +117,7 @@ const EditUsers = async (props: Props) => {
                                     flex
                                     ">
                         {users.map((user) => (
-                            <UsersDisplayBox key={user.id} user={user} isPowerAccount={isPowerAccount}/>
+                            <UsersDisplayBox key={user.id} user={user} isPowerAccount={user.isPowerAccount}/>
                         ))}
                     </div>
                 </div>
