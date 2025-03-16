@@ -1,6 +1,7 @@
 import UsersDisplayBox from '@/components/Users';
 import { getAuthSession } from '@/lib/authentication';
 import { databaseClient } from '@/lib/database';
+import verifyMembership from '@/lib/membership';
 import { ArrowRight, InfoIcon } from 'lucide-react';
 import Link from "next/link";
 import { redirect } from 'next/navigation';
@@ -16,6 +17,8 @@ const EditUsers = async (props: Props) => {
     }
 
     const users = await databaseClient.user.findMany();
+
+    const isPowerAccount = await verifyMembership();
     
     return (
         <div>
@@ -89,7 +92,7 @@ const EditUsers = async (props: Props) => {
                                     flex
                                     ">
                         {users.map((user) => (
-                            <UsersDisplayBox key={user.id} user={user} />
+                            <UsersDisplayBox key={user.id} user={user} isPowerAccount={isPowerAccount}/>
                         ))}
                     </div>
                 </div>

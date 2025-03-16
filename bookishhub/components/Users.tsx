@@ -16,10 +16,11 @@ type Input2 = z.infer<typeof updateUserSchema>;
 
 type Props = 
 { 
-    user: User 
+    user: User,
+    isPowerAccount: any 
 };
 
-const UsersDisplayBox = ({ user }: Props) => {
+const UsersDisplayBox = ({ user, isPowerAccount }: Props) => {
     const { toast } = useToast();
     const [name, setName] = useState(user.name || "");
     const [points, setPoints] = useState(user.points || 0);
@@ -119,7 +120,7 @@ const UsersDisplayBox = ({ user }: Props) => {
                         Email: {user.email || 'No email'}
                     </p>
                     <p className="text-secondary-foreground/70">
-                        Points: {user.points}
+                        Points: {isPowerAccount ? "infinite (has membership)" : user.points}
                     </p>
                     <p className="text-secondary-foreground/70">
                         Role: {user.isAdmin ? 'Admin' : 'User'}
@@ -150,13 +151,10 @@ const UsersDisplayBox = ({ user }: Props) => {
                                                       font-medium">
                                         Points
                                     </label>
-
-                                    <input type="number" value={points} onChange={(e) => { const value = Number(e.target.value);
-                                                                                           setPoints(value < 0 ? 0 : value);
-                                                                                         }} className="border 
-                                                                                                       rounded 
-                                                                                                       p-2
-                                                                                                       w-full"/>                                                                                                                                                                                                    
+                                    <input type="number" value={isPowerAccount ? "infinite" : points} onChange={(e) => { if (!isPowerAccount) setPoints(Number(e.target.value) < 0 ? 0 : Number(e.target.value)); }} className="border 
+                                                                                                                                                                                                                                rounded 
+                                                                                                                                                                                                                                p-2 
+                                                                                                                                                                                                                                w-full" disabled={isPowerAccount}/>
                                 </div>
 
                                 <div className="flex 
