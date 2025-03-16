@@ -4,7 +4,7 @@ import { toast, useToast } from "./ui/use-toast";
 import axios from "axios";
 import { useMutation } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
-import { PlusCircle, MinusCircle } from 'lucide-react';
+import { PlusCircle, MinusCircle, Loader2 } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { z } from 'zod';
@@ -190,7 +190,13 @@ const DesignLessonForm = ({session, havePowerAccount}:Props) => {
                                                  items-center 
                                                  text-md
                                                  font-semibold' type='submit' disabled={isLoading}>
-                        Start designing your lesson
+                        {isLoading 
+                            ? <>
+                                <Loader2 className="animate-spin mr-2 h-5 w-5" /> 
+                                We are creating topics for your lesson, please wait a few seconds...
+                            </>
+                            : "Start designing your lesson"
+                        }
                     </Button>
                </form> 
             </Form>
