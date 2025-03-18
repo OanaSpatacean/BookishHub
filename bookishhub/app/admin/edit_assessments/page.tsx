@@ -1,6 +1,7 @@
 import { getAuthSession } from "@/lib/authentication";
 import { databaseClient } from "@/lib/database";
-import { InfoIcon } from "lucide-react";
+import { ArrowRight, InfoIcon } from "lucide-react";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 type Props = {};
@@ -54,6 +55,29 @@ const EditAssessments = async (props:Props) => {
                            decoration-gray-500">
                 Edit language assessments
             </h1>
+
+            <Link href="/admin/edit_assessments/languages" className="mt-7
+                                                                      inline-block 
+                                                                      text-white 
+                                                                      transition 
+                                                                      bg-gradient-to-r 
+                                                                      from-gray-500 
+                                                                      to-gray-900 
+                                                                      hover:from-gray-600 
+                                                                      hover:to-gray-800 
+                                                                      rounded-lg 
+                                                                      py-2
+                                                                      px-7 
+                                                                      flex 
+                                                                      items-center 
+                                                                      text-md
+                                                                      font-semibold
+                                                                      w-full">
+                    Click here to manage the languages available on the website
+                    <ArrowRight strokeWidth={5} className="ml-[700px] 
+                                                           h-6 
+                                                           w-6"/>
+                </Link>
 
             <div className="bg-secondary 
                             border-none 
