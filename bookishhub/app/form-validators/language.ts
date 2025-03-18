@@ -18,3 +18,12 @@ export const createRephrasingSchema = z.object({
 export const createLanguageSchema = z.object({
     name: z.string().min(1)
 })
+
+export const updateLanguageSchema = z.object({
+    id: z.number(),
+    name: z.string().min(1)
+})
+
+export const deleteLanguageSchema = z.object({
+    id: z.number()
+})

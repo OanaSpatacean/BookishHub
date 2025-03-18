@@ -25,7 +25,7 @@ const EditLanguagesClient = () => {
 
     const { mutate: createLanguage } = useMutation({
         mutationFn: async (data: Input) => {
-            const response = await axios.post('/api/admin/edit_assessments/language', data);
+            const response = await axios.post('/api/admin/edit_assessments/languages', data);
             return response.data;
         },
         onSuccess: () => {
