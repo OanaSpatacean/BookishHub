@@ -127,6 +127,7 @@ const EditAssessmentsClient = ({ userSessionMap }: Props) => {
                                                 <strong>
                                                     Language:
                                                 </strong> 
+                                                {" "}
                                                 {session.language.name}
                                             </p>
                                             <p className="ml-8 
@@ -134,12 +135,14 @@ const EditAssessmentsClient = ({ userSessionMap }: Props) => {
                                                 <strong>
                                                     Level:
                                                 </strong> 
+                                                {" "}
                                                 {session.level}
                                             </p>
                                             <p className="ml-8">
                                                 <strong>
                                                     Created On:
                                                 </strong> 
+                                                {" "}
                                                 {new Date(session.createdAt).toLocaleDateString()}
                                             </p>
                                         </li>
