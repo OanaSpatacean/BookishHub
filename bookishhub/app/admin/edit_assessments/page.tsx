@@ -96,7 +96,7 @@ const EditAssessments = async (props:Props) => {
                 </div>
 
                 <div className="ml-5">
-                    Here, you can view all the language sessions created by the users on the platform. Easily manage them and modify session details as needed.
+                    Here, you can view all the language sessions created by the users on the platform. You have the option to remove them from the user profile if you consider so. Also, press the button above to manage what languages are displayed and available for use on your website.
                 </div>
             </div>
 
