@@ -12,6 +12,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
 type Input = z.infer<typeof createLanguageSchema>;
 
@@ -19,6 +20,8 @@ const EditLanguagesClient = () => {
     const { toast } = useToast();
     const [isLoading, setIsLoading] = useState(false);
     const [loadingId, setLoadingId] = useState<number | null>(null);
+    const [editingId, setEditingId] = useState<number | null>(null);
+    const [newName, setNewName] = useState("");
 
     const form = useForm<Input>({
         resolver: zodResolver(createLanguageSchema),
@@ -69,6 +72,20 @@ const EditLanguagesClient = () => {
         onError: () => {
             toast({ title: "Warning", description: "Failed to delete language", variant: "destructive" });
             setLoadingId(null)
+        }
+    })
+
+    const { mutate: updateLanguage, isLoading: isUpdating } = useMutation({
+        mutationFn: async ({ id, name }: { id: number, name: string }) => {
+            await axios.put(`/api/admin/edit_assessments/languages`, { id, name });
+        },
+        onSuccess: () => {
+            toast({ title: "Success", description: "Language updated successfully" });
+            refetch();
+            setEditingId(null);
+        },
+        onError: () => {
+            toast({ title: "Warning", description: "Failed to update language", variant: "destructive" });
         }
     })
 
@@ -165,9 +182,39 @@ const EditLanguagesClient = () => {
                         </div>
                         <div className="justify-end 
                                         flex">
-                            <Link href={`/admin/edit_languages/${language.id}`} className="underline text-blue-500 block w-fit disabled:opacity-50 mr-5">
-                                Update
-                            </Link>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <button className="underline 
+                                                       text-blue-500 
+                                                       block 
+                                                       w-fit 
+                                                       mr-5">
+                                        Update
+                                    </button>
+                                </DropdownMenuTrigger>
+
+                                <DropdownMenuContent align="end" className="p-4">
+                                    <div className="space-y-4">
+                                        <div>
+                                            <label className="block 
+                                                              text-sm 
+                                                              font-medium">
+                                                Update language name
+                                            </label>
+
+                                            <Input value={newName} onChange={(e) => setNewName(e.target.value)} className="border 
+                                                                                                                           rounded 
+                                                                                                                           p-2 
+                                                                                                                           w-full"/>
+                                        </div>
+                                        
+                                        <Button onClick={() => updateLanguage({ id: language.id, name: newName })} className="w-full" disabled={isUpdating}>
+                                            {isUpdating ? "Updating..." : "Save"}
+                                        </Button>
+                                    </div>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                            
                             <button onClick={() => deleteLanguage(language.id)} className="underline 
                                                                                            text-red-500 
                                                                                            block 
