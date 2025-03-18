@@ -14,3 +14,7 @@ export const createRephrasingSchema = z.object({
         errorMap: () => ({ message: "Invalid level selection" })
     })
 })
+
+export const createLanguageSchema = z.object({
+    name: z.string().min(1)
+})
