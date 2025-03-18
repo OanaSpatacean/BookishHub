@@ -73,11 +73,11 @@ const EditAssessments = async (props:Props) => {
                                                                       text-md
                                                                       font-semibold
                                                                       w-full">
-                    Click here to manage the languages available on the website
-                    <ArrowRight strokeWidth={5} className="ml-[700px] 
-                                                           h-6 
-                                                           w-6"/>
-                </Link>
+                Click here to manage the languages available on the website
+                <ArrowRight strokeWidth={5} className="ml-[700px] 
+                                                        h-6 
+                                                        w-6"/>
+            </Link>
 
             <div className="bg-secondary 
                             border-none 
