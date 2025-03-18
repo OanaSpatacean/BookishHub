@@ -108,21 +108,23 @@ const EditAssessments = async (props:Props) => {
                                                                         rounded-lg 
                                                                         bg-gray-100 
                                                                         shadow-sm">
-                                            <p>
+                                            <p className="ml-8
+                                                          mb-2">
                                                 <strong>
                                                     Language: 
                                                 </strong>
                                                 {" "} 
                                                 {session.language.name}
                                             </p>
-                                            <p>
+                                            <p className="ml-8 
+                                                          mb-2">
                                                 <strong>
                                                     Level: 
                                                 </strong>
                                                 {" "} 
                                                 {session.level}
                                             </p>
-                                            <p>
+                                            <p className="ml-8">
                                                 <strong>
                                                     Created On:
                                                 </strong>
