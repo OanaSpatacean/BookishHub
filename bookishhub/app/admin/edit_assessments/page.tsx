@@ -112,7 +112,7 @@ const EditAssessments = async (props:Props) => {
                                         text-center 
                                         flex 
                                         items-center">
-                            No language sessions have been created yet on the platform.
+                            No language sessions have been created yet on the platform
                         </div>
                     </div>
                 ) : (
