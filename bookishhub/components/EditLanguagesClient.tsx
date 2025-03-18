@@ -58,7 +58,7 @@ const EditLanguagesClient = () => {
     const { mutate: deleteLanguage } = useMutation({
         mutationFn: async (id: number) => {
             setLoadingId(id);
-            const response = await axios.delete(`/api/admin/edit_assessments/languages/${id}`);
+            const response = await axios.delete(`/api/admin/edit_assessments/languages`, { data: { id } })
             return response.data
         },
         onSuccess: () => {
