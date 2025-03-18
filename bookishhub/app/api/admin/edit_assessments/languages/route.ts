@@ -88,3 +88,17 @@ export async function DELETE(request: Request) {
         return new NextResponse("Internal server error", { status: 500 });
     }
 }
+
+export async function GET() {
+    try 
+    {
+        const languages = await databaseClient.language.findMany();
+
+        return NextResponse.json({ success: true, languages });
+    } 
+    catch (error) {
+        console.error("Error fetching languages:", error);
+        
+        return new NextResponse("Internal server error", { status: 500 });
+    }
+}

@@ -5,9 +5,10 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/
 import { Input } from "@/components/ui/input";
 import { toast, useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { InfoIcon } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -17,6 +18,7 @@ type Input = z.infer<typeof createLanguageSchema>;
 const EditLanguagesClient = () => {
     const { toast } = useToast();
     const [isLoading, setIsLoading] = useState(false);
+    const [loadingId, setLoadingId] = useState<number | null>(null);
 
     const form = useForm<Input>({
         resolver: zodResolver(createLanguageSchema),
@@ -32,6 +34,7 @@ const EditLanguagesClient = () => {
             toast({ title: "Success", description: "Language created successfully" });
             form.reset();
             setIsLoading(false);
+            window.location.reload();
         },
         onError: () => {
             toast({ title: "Warning", description: "Failed to create language", variant: "destructive" });
@@ -41,6 +44,33 @@ const EditLanguagesClient = () => {
     const handleCreateSubmit = (data: Input) => {
         createLanguage(data)
     }
+
+    const { data, refetch } = useQuery({
+        queryKey: ["languages"],
+        queryFn: async () => {
+            const response = await axios.get("/api/admin/edit_assessments/languages");
+            return response.data;
+        }
+    });
+    
+    const languages = data?.languages ?? []; 
+    
+    const { mutate: deleteLanguage } = useMutation({
+        mutationFn: async (id: number) => {
+            setLoadingId(id);
+            const response = await axios.delete(`/api/admin/edit_assessments/languages/${id}`);
+            return response.data
+        },
+        onSuccess: () => {
+            toast({ title: "Success", description: "Language deleted successfully" });
+            refetch();
+            setLoadingId(null)
+        },
+        onError: () => {
+            toast({ title: "Warning", description: "Failed to delete language", variant: "destructive" });
+            setLoadingId(null)
+        }
+    })
 
     return (
         <div className="flex 
@@ -103,8 +133,54 @@ const EditLanguagesClient = () => {
                     </Button>
                 </form>
             </Form>
+
+            <h2 className="text-2xl 
+                           font-semibold                      
+                           mt-8">
+                Languages displayed on the platform:
+            </h2>
+
+            <div className="w-full 
+                            flex 
+                            flex-col 
+                            gap-5 
+                            mt-6
+                            mb-5">
+                {languages?.map((language) => (
+                    <div key={language.id} className="rounded-lg 
+                                                      border 
+                                                      p-4 
+                                                      flex 
+                                                      items-center 
+                                                      bg-gray-50 
+                                                      dark:bg-gray-900 
+                                                      w-full">
+                        <div className="flex-grow">
+                            <h3 className="text-primary 
+                                           truncate 
+                                           font-semibold 
+                                           text-lg">
+                                {language.name}
+                            </h3>
+                        </div>
+                        <div className="justify-end 
+                                        flex">
+                            <Link href={`/admin/edit_languages/${language.id}`} className="underline text-blue-500 block w-fit disabled:opacity-50 mr-5">
+                                Update
+                            </Link>
+                            <button onClick={() => deleteLanguage(language.id)} className="underline 
+                                                                                           text-red-500 
+                                                                                           block 
+                                                                                           w-fit 
+                                                                                           disabled:opacity-50" disabled={loadingId === language.id}>
+                                {loadingId === language.id ? "Deleting..." : "Delete"}
+                            </button>
+                        </div>
+                    </div>
+                ))}
+            </div>
         </div>
-    )
-}
+    );
+};
 
 export default EditLanguagesClient;
