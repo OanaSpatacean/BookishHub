@@ -8,7 +8,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { InfoIcon } from "lucide-react";
-import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -61,8 +60,7 @@ const EditLanguagesClient = () => {
     const { mutate: deleteLanguage } = useMutation({
         mutationFn: async (id: number) => {
             setLoadingId(id);
-            const response = await axios.delete(`/api/admin/edit_assessments/languages`, { data: { id } })
-            return response.data
+            await axios.delete(`/api/admin/edit_assessments/languages`, { data: { id } });
         },
         onSuccess: () => {
             toast({ title: "Success", description: "Language deleted successfully" });
@@ -188,31 +186,33 @@ const EditLanguagesClient = () => {
                                                        text-blue-500 
                                                        block 
                                                        w-fit 
-                                                       mr-5">
+                                                       mr-5" onClick={() => {setEditingId(language.id);
+                                                                             setNewName(language.name)}}>
                                         Update
                                     </button>
                                 </DropdownMenuTrigger>
 
-                                <DropdownMenuContent align="end" className="p-4">
-                                    <div className="space-y-4">
-                                        <div>
-                                            <label className="block 
-                                                              text-sm 
-                                                              font-medium">
-                                                Update language name
-                                            </label>
-
-                                            <Input value={newName} onChange={(e) => setNewName(e.target.value)} className="border 
-                                                                                                                           rounded 
-                                                                                                                           p-2 
-                                                                                                                           w-full"/>
+                                {editingId === language.id && (
+                                    <DropdownMenuContent align="end" className="p-4">
+                                        <div className="space-y-4">
+                                            <div>
+                                                <label className="block 
+                                                                  text-sm 
+                                                                  font-medium">
+                                                    Update language name
+                                                </label>
+                                                <Input value={newName} onChange={(e) => setNewName(e.target.value)} className="border 
+                                                                                                                                rounded 
+                                                                                                                                p-2 
+                                                                                                                                w-full"/>
+                                            </div>
+                                            
+                                            <Button onClick={() => updateLanguage({ id: language.id, name: newName })} className="w-full" disabled={isUpdating}>
+                                                {isUpdating ? "Updating..." : "Save"}
+                                            </Button>
                                         </div>
-                                        
-                                        <Button onClick={() => updateLanguage({ id: language.id, name: newName })} className="w-full" disabled={isUpdating}>
-                                            {isUpdating ? "Updating..." : "Save"}
-                                        </Button>
-                                    </div>
-                                </DropdownMenuContent>
+                                    </DropdownMenuContent>
+                                )}
                             </DropdownMenu>
                             
                             <button onClick={() => deleteLanguage(language.id)} className="underline 
