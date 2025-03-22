@@ -5,10 +5,17 @@ import { ArrowRight, InfoIcon } from 'lucide-react';
 import { databaseClient } from '@/lib/database';
 import MembershipFees from '@/components/MembershipFees';
 import verifyMembership from '@/lib/membership';
+import { getAuthSession } from '@/lib/authentication';
+import { redirect } from 'next/navigation';
 
 type Props = {}
 
 const LessonsDisplayPage = async (props: Props) => {
+  const session = await getAuthSession();
+
+    if (!session?.user) {
+        return redirect("/");
+    }
 
   const lessons = await databaseClient.lesson.findMany({
     include: 
