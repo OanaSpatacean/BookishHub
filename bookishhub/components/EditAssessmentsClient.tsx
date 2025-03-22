@@ -111,7 +111,7 @@ const EditAssessmentsClient = ({ userSessionMap }: Props) => {
                             <h2 className="text-2xl 
                                            font-semibold 
                                            mb-4">
-                                Language sessions of user {user.name || "unknown"}:
+                                Language sessions created by user {user.name || "unknown"}:
                             </h2>
 
                             {sessions.length > 0 ? (
