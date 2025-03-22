@@ -1,6 +1,6 @@
 import TypewriterTitleFileBreakdown from "@/components/ui/TypewriterTitleFileBreakdown";
-import TypewriterTitleLessonDesign from "@/components/ui/TypewriterTitleLessonDesign";
 import TypewriterTitleLanguageCheck from "@/components/ui/TypewriterTitleLanguageCheck";
+import TypewriterTitleLessonDesign from "@/components/ui/TypewriterTitleLessonDesign";
 import { Button } from "@/components/ui/button";
 import { getAuthSession } from "@/lib/authentication";
 import Link from "next/link";
@@ -8,17 +8,12 @@ import Link from "next/link";
 export default async function Home() {
   const session = await getAuthSession();
 
-  if (!session) 
-  {
-    console.log("Session not found. User is not authenticated.");
-  }
-
   return (
     <div className="flex 
                     flex-col 
                     items-center 
                     justify-center 
-                    mt-[150px] 
+                    mt-[120px] 
                     px-2">
       <h1 className="font-semibold 
                      text-7xl 
@@ -49,27 +44,85 @@ export default async function Home() {
         <TypewriterTitleLanguageCheck />
       </div>
 
-      <div className="mt-8 
-                      w-full
-                      flex 
-                      justify-center">
-        <Link href="/login" className="w-full">
-          <Button size="lg" className="w-full 
-                                       text-white 
-                                       transition 
-                                       bg-gradient-to-r 
-                                       from-blue-500 
-                                       to-blue-900 
-                                       hover:from-blue-600 
-                                       hover:to-blue-800 
-                                       rounded-lg 
-                                       py-2 
-                                       px-7 
-                                       text-md 
-                                       font-semibold">
-            Log in to start
-          </Button>
-        </Link>
+      <div className="mt-8 w-full flex justify-center">
+        {!session?.user ? (
+          <Link href="/login" className="w-full">
+            <Button size="lg" className="w-full 
+                                         text-white 
+                                         transition 
+                                         bg-gradient-to-r 
+                                         from-blue-500 
+                                         to-blue-900 
+                                         hover:from-blue-600 
+                                         hover:to-blue-800 
+                                         rounded-lg 
+                                         py-2 
+                                         px-7 
+                                         text-md 
+                                         font-semibold">
+              Log in to start
+            </Button>
+          </Link>
+        ) : (
+          <div className="w-full space-y-4">
+            <Link href="/breakdown" className="w-full">
+              <Button size="lg" className="w-full 
+                                          text-white 
+                                          transition 
+                                          bg-gradient-to-r 
+                                          from-green-500 
+                                          to-green-900 
+                                          hover:from-green-600 
+                                          hover:to-green-800 
+                                          rounded-lg 
+                                          py-2 
+                                          px-7 
+                                          text-md 
+                                          font-semibold
+                                          mb-4">
+                File breakdown
+              </Button>
+            </Link>
+
+            <Link href="/library" className="w-full">
+              <Button size="lg" className="w-full 
+                                          text-white 
+                                          transition 
+                                          bg-gradient-to-r 
+                                          from-blue-500 
+                                          to-blue-900 
+                                          hover:from-blue-600 
+                                          hover:to-blue-800 
+                                          rounded-lg 
+                                          py-2 
+                                          px-7 
+                                          text-md 
+                                          font-semibold
+                                          mb-4">
+                Lesson design
+              </Button>
+            </Link>
+
+            <Link href="/language" className="w-full">
+              <Button size="lg" className="w-full 
+                                          text-white 
+                                          transition 
+                                          bg-gradient-to-r 
+                                          from-purple-500 
+                                          to-purple-900 
+                                          hover:from-purple-600 
+                                          hover:to-purple-800 
+                                          rounded-lg 
+                                          py-2 
+                                          px-7 
+                                          text-md 
+                                          font-semibold
+                                          mb-4">
+                Language check
+              </Button>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
