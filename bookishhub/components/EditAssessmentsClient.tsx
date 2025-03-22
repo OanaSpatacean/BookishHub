@@ -146,7 +146,10 @@ const EditAssessmentsClient = ({ userSessionMap }: Props) => {
                                                                         border 
                                                                         rounded-lg 
                                                                         bg-gray-100 
-                                                                        shadow-sm">
+                                                                        shadow-sm
+                                                                        dark:bg-gray-800 
+                                                                        dark:border-gray-700 
+                                                                        dark:text-gray-200">
                                             <p className="ml-8 
                                                           mb-2">
                                                 <strong>
