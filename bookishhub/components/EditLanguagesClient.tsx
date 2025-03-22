@@ -143,7 +143,7 @@ const EditLanguagesClient = () => {
                         </FormItem>
                     )}/>
 
-                    <Button type="submit" size="lg" className="w-full" disabled={isLoading}>
+                    <Button type="submit" size="lg" className="w-full font-semibold" disabled={isLoading}>
                         {isLoading ? 'Adding new language...' : 'Add new language'}
                     </Button>
                 </form>
