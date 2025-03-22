@@ -44,7 +44,7 @@ const NavigationBar = async (props:Props) => {
                                     flex  
                                     gap-3">
                         <DarkModeToggle className='' />
-                        <Link href={session?.user && !session.user.isAdmin ? '/library' : '#'} className="items-center 
+                        <Link href={session?.user && !session.user.isAdmin ? '/' : '#'} className="items-center 
                                                                                                           flex 
                                                                                                           gap-2">
                             {isPowerAccount ? (
