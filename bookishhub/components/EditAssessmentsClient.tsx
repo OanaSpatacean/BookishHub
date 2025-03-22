@@ -1,6 +1,8 @@
 "use client";
+import axios from "axios";
 import { ArrowRight, InfoIcon } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 type UserSession = 
 {
@@ -27,6 +29,27 @@ type Props =
 }
 
 const EditAssessmentsClient = ({ userSessionMap }: Props) => {
+    const [loadingId, setLoadingId] = useState<string | null>(null);
+
+    const deleteSession = async (sessionId: string) => {
+        try 
+        {
+            setLoadingId(sessionId);
+            await axios.delete(`/api/admin/edit_assessment/sessions`, { data: { id: sessionId } });
+            alert("Session deleted successfully");
+            window.location.reload();
+        } 
+        catch (error) 
+        {
+            console.error("Error deleting session", error);
+            alert("Failed to delete session");
+        } 
+        finally 
+        {
+            setLoadingId(null);
+        }
+    }
+
     return (
         <div className="flex 
                         flex-col 
@@ -145,6 +168,18 @@ const EditAssessmentsClient = ({ userSessionMap }: Props) => {
                                                 {" "}
                                                 {new Date(session.createdAt).toLocaleDateString()}
                                             </p>
+
+                                            <div className="justify-end 
+                                                            flex
+                                                            mr-5">
+                                                <button onClick={() => deleteSession(session.id)} className="underline 
+                                                                                                             text-red-500 
+                                                                                                             block 
+                                                                                                             w-fit 
+                                                                                                             disabled:opacity-50" disabled={loadingId === session.id}>
+                                                    {loadingId === session.id ? "Deleting..." : "Delete"}
+                                                </button>
+                                            </div>
                                         </li>
                                     ))}
                                 </ul>
