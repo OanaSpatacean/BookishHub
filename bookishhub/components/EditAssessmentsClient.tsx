@@ -3,6 +3,7 @@ import axios from "axios";
 import { ArrowRight, InfoIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { useToast } from "./ui/use-toast";
 
 type UserSession = 
 {
@@ -29,6 +30,7 @@ type Props =
 }
 
 const EditAssessmentsClient = ({ userSessionMap }: Props) => {
+    const { toast } = useToast();
     const [loadingId, setLoadingId] = useState<string | null>(null);
 
     const deleteSession = async (sessionId: string) => {
@@ -36,13 +38,13 @@ const EditAssessmentsClient = ({ userSessionMap }: Props) => {
         {
             setLoadingId(sessionId);
             await axios.delete(`/api/admin/edit_assessment/sessions`, { data: { id: sessionId } });
-            alert("Session deleted successfully");
+            toast({ title: "Success", description: "Session deleted successfully" });
             window.location.reload();
         } 
         catch (error) 
         {
             console.error("Error deleting session", error);
-            alert("Failed to delete session");
+            toast({ title: "Warning", description: "Failed to delete session", variant: "destructive" });
         } 
         finally 
         {
@@ -177,7 +179,7 @@ const EditAssessmentsClient = ({ userSessionMap }: Props) => {
                                                                                                              block 
                                                                                                              w-fit 
                                                                                                              disabled:opacity-50" disabled={loadingId === session.id}>
-                                                    {loadingId === session.id ? "Deleting..." : "Delete"}
+                                                    {loadingId === session.id ? "Deleting..." : "Delete language session"}
                                                 </button>
                                             </div>
                                         </li>
