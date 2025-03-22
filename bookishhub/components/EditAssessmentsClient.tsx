@@ -163,21 +163,17 @@ const EditAssessmentsClient = ({ userSessionMap }: Props) => {
                                                 {" "}
                                                 {session.level}
                                             </p>
-                                            <p className="ml-8">
-                                                <strong>
-                                                    Created On:
-                                                </strong> 
-                                                {" "}
-                                                {new Date(session.createdAt).toLocaleDateString()}
-                                            </p>
+                                            <div className="flex justify-between items-center ml-8 mr-5">
+                                                <p>
+                                                    <strong>
+                                                        Created On:
+                                                    </strong> 
+                                                    {" "}
+                                                    {new Date(session.createdAt).toLocaleDateString()}
+                                                </p>
 
-                                            <div className="justify-end 
-                                                            flex
-                                                            mr-5">
                                                 <button onClick={() => deleteSession(session.id)} className="underline 
                                                                                                              text-red-500 
-                                                                                                             block 
-                                                                                                             w-fit 
                                                                                                              disabled:opacity-50" disabled={loadingId === session.id}>
                                                     {loadingId === session.id ? "Deleting..." : "Delete language session"}
                                                 </button>
