@@ -1,14 +1,7 @@
-import Grammar from "@/components/Grammar";
-import Listening from "@/components/Listening";
-import Pronunciation from "@/components/Pronunciation";
-import Reading from "@/components/Reading";
+
 import Rephrasing from "@/components/Rephrasing";
-import Writing from "@/components/Writing";
-import { buttonVariants } from "@/components/ui/button";
 import { getAuthSession } from "@/lib/authentication";
 import { databaseClient } from "@/lib/database";
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
 type Props = 

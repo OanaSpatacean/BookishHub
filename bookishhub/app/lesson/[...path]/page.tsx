@@ -4,7 +4,7 @@ import React from 'react';
 import { databaseClient } from '@/lib/database';
 import { redirect } from 'next/navigation';
 import LessonGuide from '@/components/LessonGuide';
-import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Link from 'next/link'; 
 import { getAuthSession } from '@/lib/authentication';
 

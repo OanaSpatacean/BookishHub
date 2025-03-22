@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import React from 'react'
 import { useMutation } from '@tanstack/react-query';
 import axios from "axios";
-import { Topic, Module, Lesson  } from '@prisma/client';
+import { Topic  } from '@prisma/client';
 import { FiCheckCircle, FiXCircle } from 'react-icons/fi';
 
 export type TopicBoxHandler = 

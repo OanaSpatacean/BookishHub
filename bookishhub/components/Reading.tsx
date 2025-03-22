@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button, buttonVariants } from "./ui/button";
 import { Label } from "./ui/label";
 import { RadioGroupItem, RadioGroup } from "./ui/radio-group";
@@ -9,7 +9,7 @@ import { useToast } from "./ui/use-toast";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { ArrowLeft, ArrowRight, InfoIcon } from "lucide-react";
+import { ArrowLeft, InfoIcon } from "lucide-react";
 import Link from "next/link";
 
 type Props = {

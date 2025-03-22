@@ -1,6 +1,6 @@
 'use client'
 import { useRouter } from "next/navigation";
-import { toast, useToast } from "./ui/use-toast";
+import { useToast } from "./ui/use-toast";
 import axios from "axios";
 import { useMutation } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';

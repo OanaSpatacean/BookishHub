@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Input } from "./ui/input";
 import { useChat } from "ai/react";
 import { Button } from "./ui/button";
-import { FaArrowUp, FaSpinner } from "react-icons/fa6";
+import { FaArrowUp } from "react-icons/fa6";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { PDFRequest, UserSystemEnum } from "@prisma/client";

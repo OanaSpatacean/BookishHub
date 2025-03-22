@@ -9,7 +9,6 @@ import { deleteUserSchema, updateUserSchema } from '@/app/form-validators/user';
 import { useToast } from './ui/use-toast';
 import { Avatar, AvatarFallback } from './ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from './ui/dropdown-menu';
-import { Checkbox } from './ui/checkbox';
 
 type Input = z.infer<typeof deleteUserSchema>;
 type Input2 = z.infer<typeof updateUserSchema>;
