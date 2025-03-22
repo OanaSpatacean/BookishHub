@@ -37,7 +37,7 @@ const EditAssessmentsClient = ({ userSessionMap }: Props) => {
         try 
         {
             setLoadingId(sessionId);
-            await axios.delete(`/api/admin/edit_assessment/sessions`, { data: { id: sessionId } });
+            await axios.delete(`/api/admin/edit_assessments/sessions`, { data: { id: sessionId } });
             toast({ title: "Success", description: "Session deleted successfully" });
             window.location.reload();
         } 
@@ -127,7 +127,7 @@ const EditAssessmentsClient = ({ userSessionMap }: Props) => {
                                         text-center 
                                         flex 
                                         items-center">
-                            No language sessions have been created yet on the platform.
+                            No language sessions have been created yet on the platform
                         </div>
                     </div>
                 ) : (
