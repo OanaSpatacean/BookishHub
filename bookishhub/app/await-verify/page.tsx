@@ -8,7 +8,7 @@ export default function AwaitVerify() {
     useEffect(() => {
         const timer = setTimeout(() => {
             router.push("/");
-        }, 4000);
+        }, 5000);
 
         return () => clearTimeout(timer); 
     }, [router]);
