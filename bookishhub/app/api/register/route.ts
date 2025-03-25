@@ -21,7 +21,7 @@ async function sendVerificationEmail(email: string, token: string) {
     await transporter.sendMail({
         from: process.env.EMAIL_USER,
         to: email,
-        subject: "Confirm Your Email",
+        subject: "BookishHub - Confirm your email",
         html: `<p>Click <a href="${confirmationUrl}">here</a> to verify your email.</p>`
     });
 }
