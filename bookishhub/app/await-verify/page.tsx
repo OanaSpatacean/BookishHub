@@ -1,4 +1,5 @@
 "use client"
+import TypewriterTitleAwaitVerify from "@/components/ui/TypewriterTitleAwaitVerify";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -8,7 +9,7 @@ export default function AwaitVerify() {
     useEffect(() => {
         const timer = setTimeout(() => {
             router.push("/");
-        }, 5000);
+        }, 14000);
 
         return () => clearTimeout(timer); 
     }, [router]);
@@ -26,7 +27,7 @@ export default function AwaitVerify() {
                         mb-9">
             <span className="text-blue-500 
                             font-bold">
-                Please verify your email address to complete your authentication and be able to log in...
+                <TypewriterTitleAwaitVerify/>
             </span>
         </h1>
     </div>
