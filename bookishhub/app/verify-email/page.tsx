@@ -17,7 +17,7 @@ export default function VerifyEmail() {
                 return;
             }
 
-            const res = await fetch(`/api/verify-email?token=${token}`);
+            const res = await fetch(`/api/register/verify-email?token=${token}`);
             const data = await res.json();
 
             if (res.ok) 
