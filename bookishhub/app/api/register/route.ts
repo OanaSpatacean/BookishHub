@@ -1,0 +1,55 @@
+import { databaseClient } from "@/lib/database";
+import { ZodError, z } from "zod";
+import { NextResponse } from "next/server";
+import { createUserSchema, deleteUserSchema, updateUserSchema } from "@/app/form-validators/user";
+
+export async function POST(request: Request, response: Response) 
+{
+    try 
+    {
+        const body = await request.json();
+        const parsedBody = createUserSchema.parse(body);
+
+        const user = await databaseClient.user.create(
+        {
+            data: 
+            {
+                name: parsedBody.name ?? null,
+                email: parsedBody.email,
+                password: parsedBody.password ?? null,
+                image: parsedBody.image ?? null,
+                points: parsedBody.points ?? 20,
+                isAdmin: parsedBody.isAdmin ?? false,
+                accounts: 
+                {
+                    create: 
+                    {
+                        type: 'default', 
+                        provider: 'local', 
+                        providerAccountId: parsedBody.email, 
+                        refresh_token: null,
+                        access_token: null,
+                        expires_at: null,
+                        token_type: null,
+                        scope: null,
+                        id_token: null,
+                        session_state: null,
+                    }
+                }
+            }
+        })
+
+        return NextResponse.json({ success: true, user: { id: user.id, email: user.email } });
+    } 
+    catch (error) 
+    {
+        console.error('Error creating user and account:', error);
+
+        if (error instanceof ZodError) 
+        {
+            return new NextResponse('Invalid request body format', { status: 400 });
+        }
+
+        return new NextResponse('Internal server error', { status: 500 });
+    }
+}

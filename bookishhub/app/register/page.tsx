@@ -45,7 +45,7 @@ const Register = (props: Props) => {
             }
 
             const hashedPassword = await bcrypt.hash(data.password, 10);
-            const response = await axios.post('/api/admin/edit_users', {
+            const response = await axios.post('/api/register', {
                 ...data,
                 password: hashedPassword, 
             });
