@@ -53,10 +53,9 @@ const Register = (props: Props) => {
         },
         onSuccess: (newUser) => 
         {
-            toast({ title: "Success", description: "Account created successfully" });
+            toast({ title: "Success", description: "Account created successfully. Please verify your email address to be able to log in." });
             form.reset();
             setIsLoading(false);
-            router.push(`/login`);
         },
         onError: () => 
         {
