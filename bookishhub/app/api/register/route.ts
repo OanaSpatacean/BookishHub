@@ -2,28 +2,23 @@ import { databaseClient } from "@/lib/database";
 import { ZodError } from "zod";
 import { NextResponse } from "next/server";
 import { createUserSchema } from "@/app/form-validators/user";
-import nodemailer from "nodemailer";
 import crypto from "crypto";
+import sgMail from "@sendgrid/mail";
 
+sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 const verificationTokens: Record<string, { email: string; expiresAt: number }> = {};
 
 async function sendVerificationEmail(email: string, token: string) {
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: process.env.EMAIL_USER,  
-            pass: process.env.EMAIL_PASS   
-        }
-    })
-
     const confirmationUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/verify-email?token=${token}`;
 
-    await transporter.sendMail({
-        from: process.env.EMAIL_USER,
+    const msg = {
         to: email,
+        from: "oana.spatacean6a@gmail.com", 
         subject: "BookishHub - Confirm your email",
-        html: `<p>Click <a href="${confirmationUrl}">here</a> to verify your email.</p>`
-    });
+        html: `<p>Click <a href="${confirmationUrl}">here</a> to verify your email.</p>`,
+    }
+
+    await sgMail.send(msg)
 }
 
 export async function POST(request: Request) {
