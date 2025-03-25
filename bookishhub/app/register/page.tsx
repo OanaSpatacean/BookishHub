@@ -53,7 +53,7 @@ const Register = (props: Props) => {
         },
         onSuccess: (newUser) => 
         {
-            toast({ title: "Success", description: "User created successfully" });
+            toast({ title: "Success", description: "Account created successfully" });
             form.reset();
             setIsLoading(false);
             router.push(`/login`);
