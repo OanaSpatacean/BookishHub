@@ -65,62 +65,85 @@ export default async function Home() {
           </Link>
         ) : (
           <div className="w-full space-y-4">
-            <Link href="/breakdown" className="w-full">
-              <Button size="lg" className="w-full 
-                                          text-white 
-                                          transition 
-                                          bg-gradient-to-r 
-                                          from-green-500 
-                                          to-green-900 
-                                          hover:from-green-600 
-                                          hover:to-green-800 
-                                          rounded-lg 
-                                          py-2 
-                                          px-7 
-                                          text-md 
-                                          font-semibold
-                                          mb-4">
-                File breakdown
-              </Button>
-            </Link>
+            {session.user.isAdmin ? (
+              <Link href="/admin" className="w-full">
+                <Button size="lg" className="w-full 
+                                            text-white 
+                                            transition 
+                                            bg-gradient-to-r 
+                                            from-grey-500 
+                                            to-grey-900 
+                                            hover:from-grey-600 
+                                            hover:to-grey-800 
+                                            rounded-lg 
+                                            py-2 
+                                            px-7 
+                                            text-md 
+                                            font-semibold
+                                            mb-4">
+                  Admin panel
+                </Button>
+              </Link>
+            ) : (
+              <>
+                <Link href="/breakdown" className="w-full">
+                  <Button size="lg" className="w-full 
+                                              text-white 
+                                              transition 
+                                              bg-gradient-to-r 
+                                              from-green-500 
+                                              to-green-900 
+                                              hover:from-green-600 
+                                              hover:to-green-800 
+                                              rounded-lg 
+                                              py-2 
+                                              px-7 
+                                              text-md 
+                                              font-semibold
+                                              mb-4">
+                    File breakdown
+                  </Button>
+                </Link>
 
-            <Link href="/library" className="w-full">
-              <Button size="lg" className="w-full 
-                                          text-white 
-                                          transition 
-                                          bg-gradient-to-r 
-                                          from-blue-500 
-                                          to-blue-900 
-                                          hover:from-blue-600 
-                                          hover:to-blue-800 
-                                          rounded-lg 
-                                          py-2 
-                                          px-7 
-                                          text-md 
-                                          font-semibold
-                                          mb-4">
-                Lesson design
-              </Button>
-            </Link>
+                <Link href="/library" className="w-full">
+                  <Button size="lg" className="w-full 
+                                              text-white 
+                                              transition 
+                                              bg-gradient-to-r 
+                                              from-blue-500 
+                                              to-blue-900 
+                                              hover:from-blue-600 
+                                              hover:to-blue-800 
+                                              rounded-lg 
+                                              py-2 
+                                              px-7 
+                                              text-md 
+                                              font-semibold
+                                              mb-4">
+                    Lesson design
+                  </Button>
+                </Link>
 
-            <Link href="/language" className="w-full">
-              <Button size="lg" className="w-full 
-                                          text-white 
-                                          transition 
-                                          bg-gradient-to-r 
-                                          from-purple-500 
-                                          to-purple-900 
-                                          hover:from-purple-600 
-                                          hover:to-purple-800 
-                                          rounded-lg 
-                                          py-2 
-                                          px-7 
-                                          text-md 
-                                          font-semibold
-                                          mb-4">
-                Language check
-              </Button>
-            </Link>
+                <Link href="/language" className="w-full">
+                  <Button size="lg" className="w-full 
+                                              text-white 
+                                              transition 
+                                              bg-gradient-to-r 
+                                              from-purple-500 
+                                              to-purple-900 
+                                              hover:from-purple-600 
+                                              hover:to-purple-800 
+                                              rounded-lg 
+                                              py-2 
+                                              px-7 
+                                              text-md 
+                                              font-semibold
+                                              mb-4">
+                    Language check
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
         )}
       </div>
