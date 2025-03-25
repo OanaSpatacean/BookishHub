@@ -207,3 +207,10 @@ model ReadingQuestion {
   readingTextId    String          
   readingText      ReadingText     @relation(fields: [readingTextId], references: [id])
 }
+
+model VerificationToken {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  token     String   @unique
+  expiresAt DateTime
+}

@@ -6,7 +6,6 @@ import crypto from "crypto";
 import sgMail from "@sendgrid/mail";
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
-const verificationTokens: Record<string, { email: string; expiresAt: number }> = {};
 
 async function sendVerificationEmail(email: string, token: string) {
     const confirmationUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/verify-email?token=${token}`;
@@ -68,9 +67,16 @@ export async function POST(request: Request) {
         })
 
         const emailToken = crypto.randomBytes(32).toString('hex');
-        verificationTokens[emailToken] = { email: user.email!, expiresAt: Date.now() + 24 * 60 * 60 * 1000 };
-
         await sendVerificationEmail(user.email!, emailToken);
+
+        await databaseClient.verificationToken.create({
+            data: 
+            {
+                email: user.email!,
+                token: emailToken,
+                expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
+            }
+        })
 
         return NextResponse.json({ success: true, message: "Check your email for verification." });
     } 
