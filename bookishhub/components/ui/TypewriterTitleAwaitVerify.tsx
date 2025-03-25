@@ -14,7 +14,7 @@ const TypewriterTitleAwaitVerify = (props: Props) => {
       }}
       onInit={(typewriter) => {
         typewriter
-          .typeString('<span style="font-weight: bold; color: #1e3a8a;">Please verify your email address to complete your authentication and be able to log in...</span>')
+          .typeString('<span style="font-weight: bold; color: #1e3a8a;">Please verify your email address to complete your authentication and to be able to log in...</span>')
           .pauseFor(1500)
           .deleteAll()
           .start();
