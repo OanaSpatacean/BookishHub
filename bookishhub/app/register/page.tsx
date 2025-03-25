@@ -53,13 +53,14 @@ const Register = (props: Props) => {
         },
         onSuccess: (newUser) => 
         {
-            toast({ title: "Success", description: "Account created successfully. Please verify your email address to be able to log in." });
+            toast({ title: "Success", description: "Account created successfully." });
             form.reset();
             setIsLoading(false);
+            router.push(`/await-verify`);
         },
         onError: () => 
         {
-            toast({ title: "Warning", description: "Failed to create user", variant: "destructive" });
+            toast({ title: "Warning", description: "Failed to create account. Email address already in use.", variant: "destructive" });
         }
     })
 
