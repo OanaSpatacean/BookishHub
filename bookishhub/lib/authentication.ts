@@ -96,6 +96,11 @@ export const authenticationOptions: NextAuthOptions = {
                     throw new Error("Invalid credentials");
                 }
 
+                if (!user.emailVerified) 
+                {
+                    throw new Error("Please verify your email before logging in.");
+                }
+
                 const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
                 if (!isPasswordValid) 
                 {
