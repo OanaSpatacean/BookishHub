@@ -15,7 +15,7 @@ async function sendVerificationEmail(email: string, token: string) {
         to: email,
         from: "oana.spatacean6a@gmail.com", 
         subject: "BookishHub - Confirm your email",
-        html: `<p>Click <a href="${confirmationUrl}">here</a> to verify your email.</p>`,
+        html: `<p>Click <a href="${confirmationUrl}">here</a> to verify your email. You need to verify your email address to continue using your BookishHub account.</p>`,
     }
 
     await sgMail.send(msg)
