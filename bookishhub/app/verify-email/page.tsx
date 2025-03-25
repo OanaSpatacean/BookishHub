@@ -1,4 +1,5 @@
 "use client"
+import TypewriterTitleVerifyEmail from '@/components/ui/TypewriterTitleVerifyEmail';
 import { useToast } from '@/components/ui/use-toast';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -45,7 +46,7 @@ export default function VerifyEmail() {
                     flex-col 
                     items-center 
                     justify-center 
-                    mt-[230px] 
+                    mt-[260px] 
                     px-2">
         <h1 className="font-semibold 
                         text-2xl 
@@ -53,7 +54,7 @@ export default function VerifyEmail() {
                         mb-9">
             <span className="text-blue-500 
                             font-bold">
-                Account verified. Redirecting you to log in...
+                <TypewriterTitleVerifyEmail/>
             </span>
         </h1>
     </div>
