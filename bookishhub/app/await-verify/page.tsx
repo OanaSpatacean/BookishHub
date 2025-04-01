@@ -103,11 +103,6 @@ export default function AwaitVerify() {
             Go to log in
         </Button>
     </Link>
-
-      {resent && <p className="mt-4 
-                               text-green-500">
-                    Email resent successfully!
-                </p>}
     </div>
   );
 }
