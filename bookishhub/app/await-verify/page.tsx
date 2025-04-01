@@ -79,30 +79,6 @@ export default function AwaitVerify() {
                 {loading ? "Sending..." : " Send again."}
             </button>
        </p>
-
-    <Link href="/login" className="w-full">
-        <Button 
-            size="lg" 
-            className="w-full 
-                    flex 
-                    justify-center 
-                    items-center 
-                    text-white 
-                    transition 
-                    bg-gradient-to-r 
-                    from-blue-500 
-                    to-blue-900 
-                    hover:from-blue-600 
-                    hover:to-blue-800 
-                    rounded-lg 
-                    py-3 
-                    px-7 
-                    text-md 
-                    font-semibold 
-                    mt-[220px]">
-            Go to log in
-        </Button>
-    </Link>
     </div>
   );
 }
