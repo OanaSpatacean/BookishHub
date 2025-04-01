@@ -1,17 +1,23 @@
 "use client"
 import TypewriterTitleAwaitVerify from "@/components/ui/TypewriterTitleAwaitVerify";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
-import { useState } from "react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
 
 export default function AwaitVerify() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [resent, setResent] = useState(false);
+
+  useEffect(() => {
+        const timer = setTimeout(() => {
+            router.push("/");
+        }, 1000 * 60 * 5);
+        return () => clearTimeout(timer); 
+    }, [router]);
 
   async function handleResend() {
     if (!email) 
