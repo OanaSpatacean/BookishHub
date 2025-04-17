@@ -12,7 +12,7 @@ async function resendVerificationEmail(email: string, token: string)
   const msg = {
     to: email,
     from: "oana.spatacean6a@gmail.com", 
-    subject: "BookishHub - Confirm your email",
+    subject: "BookishHub - Confirm your email - resent",
     html: `<p>You requested to resend the verification email. Click <a href="${confirmationUrl}">here</a> to verify your email. You need to verify your email address to continue using your BookishHub account.</p>`,
   }
 
