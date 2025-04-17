@@ -55,8 +55,9 @@ const Register = (props: Props) => {
         {
             toast({ title: "Success", description: "Account created successfully" });
             form.reset();
-            setIsLoading(false);
-            router.push(`/await-verify`);
+            setIsLoading(false);    
+            const encodedEmail = encodeURIComponent(newUser.email);
+            router.push(`/await-verify?email=${encodedEmail}`);
         },
         onError: () => 
         {
