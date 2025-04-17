@@ -5,7 +5,7 @@ import crypto from "crypto";
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
-async function sendVerificationEmail(email: string, token: string) 
+async function resendVerificationEmail(email: string, token: string) 
 {
   const confirmationUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/verify-email?token=${token}`;
 
@@ -13,7 +13,7 @@ async function sendVerificationEmail(email: string, token: string)
     to: email,
     from: "oana.spatacean6a@gmail.com", 
     subject: "BookishHub - Confirm your email",
-    html: `<p>Click <a href="${confirmationUrl}">here</a> to verify your email. You need to verify your email address to continue using your BookishHub account.</p>`,
+    html: `<p>You requested to resend the verification email. Click <a href="${confirmationUrl}">here</a> to verify your email. You need to verify your email address to continue using your BookishHub account.</p>`,
   }
 
   await sgMail.send(msg);
@@ -65,7 +65,7 @@ export async function POST(request: Request) {
       }
     })
 
-    await sendVerificationEmail(email, newToken);
+    await resendVerificationEmail(email, newToken);
 
     return NextResponse.json({ message: "Verification email resent successfully." });
   } 

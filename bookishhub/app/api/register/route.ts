@@ -7,7 +7,7 @@ import sgMail from "@sendgrid/mail";
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
-export async function sendVerificationEmail(email: string, token: string) {
+async function sendVerificationEmail(email: string, token: string) {
     const confirmationUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/verify-email?token=${token}`;
 
     const msg = {
