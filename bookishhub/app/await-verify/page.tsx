@@ -76,7 +76,7 @@ export default function AwaitVerify() {
         </span>
       </h1>
 
-      <p className="text-md text-center">
+      <p className="text-md text-center mt-[255px]">
             Did not receive the verification email?{' '}
             <button onClick={handleResend} disabled={loading} className="text-blue-500 
                                                                          hover:text-blue-700 
