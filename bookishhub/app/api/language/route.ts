@@ -31,7 +31,7 @@ export async function POST(request: Request, response: Response)
 
         if (session.user.points <= 0 && !havePowerAccount && session.user.isAdmin == false) 
         {
-            return new NextResponse("You have no more points to use for a new file breakdown!", 
+            return new NextResponse("You have no more points to use for a new language assessment!", 
                                         { 
                                             status: 402 
                                         }
