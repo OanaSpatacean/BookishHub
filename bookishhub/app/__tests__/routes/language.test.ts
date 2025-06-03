@@ -39,7 +39,7 @@ describe("Language API route", () => {
     NextResponse.json = _origNextResponseJson;
   });
 
-  describe("POST /api/language", () => {
+  describe("POST /api/admin/edit_assessments/languages", () => {
     it("should create a language", async () => {
       const mockLanguage = { id: 1, name: "English" };
       (databaseClient.language.create as jest.Mock).mockResolvedValue(mockLanguage);
@@ -69,7 +69,7 @@ describe("Language API route", () => {
     });
   });
 
-  describe("PUT /api/language", () => {
+  describe("PUT /api/admin/edit_assessments/languages", () => {
     it("should update a language", async () => {
       const mockLanguage = { id: 1, name: "French" };
       (databaseClient.language.update as jest.Mock).mockResolvedValue(mockLanguage);
@@ -99,7 +99,7 @@ describe("Language API route", () => {
     });
   });
 
-  describe("DELETE /api/language", () => {
+  describe("DELETE /api/admin/edit_assessments/languages", () => {
     it("should delete a language", async () => {
       (databaseClient.language.delete as jest.Mock).mockResolvedValue({});
 
@@ -128,7 +128,7 @@ describe("Language API route", () => {
     });
   });
 
-  describe("GET /api/language", () => {
+  describe("GET /api/admin/edit_assessments/languages", () => {
     it("should fetch languages", async () => {
       const mockLanguages = [{ id: 1, name: "English" }];
       (databaseClient.language.findMany as jest.Mock).mockResolvedValue(mockLanguages);
