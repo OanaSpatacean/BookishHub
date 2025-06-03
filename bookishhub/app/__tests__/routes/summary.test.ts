@@ -1,10 +1,7 @@
 import { POST } from "@/app/api/summary_of_pdf/route";
 import { databaseClient } from "@/lib/database";
 import { strict_output } from "@/lib/openai";
-import { SummaryOfPDFSchema } from "@/app/form-validators/summary_of_pdf";
 import { NextResponse } from "next/server";
-
-const _origNextResponseJson = NextResponse.json;
 
 NextResponse.json = (body: any, init?: ResponseInit) => {
   return new Response(JSON.stringify(body), { status: init?.status ?? 200, headers: init?.headers });
