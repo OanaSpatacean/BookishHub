@@ -47,18 +47,10 @@ const PDFRequestsAdminPage = ({fileId}: Props) => {
         })}
 
       }, [messages])
-
-      const enrichedMessages = messages.map((msg) => ({
-          id: Number(msg.id) || Date.now(), 
-          content: msg.content,
-          createdAt: msg.createdAt || new Date(),
-          fileId: fileId,
-          role: msg.role === "user" ? UserSystemEnum.USER : UserSystemEnum.SYSTEM,
-      }));
       
     return (
         <div className="" id="PDFRequest-container">
-            <PDFRequestsListedAdmin PDFRequests={enrichedMessages} isLoading={isLoading} />
+            <PDFRequestsListedAdmin PDFRequests={messages} isLoading={isLoading} />
         </div>
     )
 }
