@@ -28,11 +28,27 @@ const EditAssessments = async () => {
         }
     })
 
-    const userSessionMap = users.map((user) => ({
-        user,
-        sessions: userLanguageSessions.filter((session) => session.userId === user.id)
-    }))
-
+    const userSessionMap = users.map((user) => {
+        const sessions = userLanguageSessions
+            .filter((session) => session.userId === user.id)
+            .map((session) => ({
+            id: session.id.toString(),
+            level: session.level,
+            createdAt: session.createdAt.toISOString(),
+            language: {
+                name: session.language.name,
+            },
+            }));
+        
+        return {
+            user: {
+            id: user.id,
+            name: user.name,
+            },
+            sessions,
+        };
+    });
+      
     return <EditAssessmentsClient userSessionMap={userSessionMap} />;
 };
 
