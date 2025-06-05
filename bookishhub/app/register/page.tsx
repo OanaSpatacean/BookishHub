@@ -1,5 +1,5 @@
 'use client'
-import { createUserSchema } from '@/app/form-validators/user';
+import { createAccountSchema } from '@/app/form-validators/user';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -16,7 +16,7 @@ import Link from 'next/link';
 
 type Props = {};
 
-type Input = z.infer<typeof createUserSchema>;
+type Input = z.infer<typeof createAccountSchema>;
 
 const Register = (props: Props) => {
     const { toast } = useToast();
@@ -26,7 +26,7 @@ const Register = (props: Props) => {
 
     const form = useForm<Input>(
     {
-        resolver: zodResolver(createUserSchema),
+        resolver: zodResolver(createAccountSchema),
         defaultValues: {
             name: '',
             email: '',

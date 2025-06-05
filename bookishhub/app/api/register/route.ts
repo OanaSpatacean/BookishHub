@@ -2,7 +2,7 @@ export const dynamic = 'force-dynamic';
 import { databaseClient } from "@/lib/database";
 import { ZodError } from "zod";
 import { NextResponse } from "next/server";
-import { createUserSchema } from "@/app/form-validators/user";
+import { createAccountSchema } from "@/app/form-validators/user";
 import crypto from "crypto";
 import sgMail from "@sendgrid/mail";
 
@@ -25,7 +25,7 @@ export async function POST(request: Request) {
     try 
     {
         const body = await request.json();
-        const parsedBody = createUserSchema.parse(body);
+        const parsedBody = createAccountSchema.parse(body);
 
         const existingUser = await databaseClient.user.findUnique({
             where: 
