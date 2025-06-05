@@ -7,7 +7,7 @@ import { createRephrasingSchema } from "@/app/form-validators/language";
 import { strict_output } from "@/lib/openai";
 import Replicate from "replicate";
 import { uploadToS3Audios, getS3Url } from "@/lib/s3";
-import { languageMap } from "@/components/Pronunciation";
+import { languageMap } from "../../pronunciation/check_pronunciation/route";
 
 const replicate = new Replicate({ auth: process.env.REPLICATE_API_KEY });
 
