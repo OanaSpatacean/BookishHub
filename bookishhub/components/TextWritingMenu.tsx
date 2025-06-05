@@ -25,7 +25,7 @@ const TextWritingMenu = ({ editor }: { editor: Editor }) => {
     <div className="mb-8 mt-8 flex flex-wrap gap-2">
       {icons.map(({ icon: Icon, action, name }) => (
         <button key={name} onClick={() => editor.chain().focus()[action]().run()} disabled={!editor.can().chain().focus()[action]().run()} className={`p-2 rounded-md border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all ${
-            editor.isActive(name) ? "bg-green-500 text-white" : "bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200"
+            editor.isActive(name) ? "bg-purple-300 text-white" : "bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200"
         }`}>
           <Icon className="w-5 
                            h-5"/>
@@ -36,7 +36,7 @@ const TextWritingMenu = ({ editor }: { editor: Editor }) => {
         const Icon = [Heading1, Heading2, Heading3, Heading4, Heading5][level - 1];
         return (
           <button key={level} onClick={() => editor.chain().focus().toggleHeading({ level }).run()} className={`p-2 rounded-md border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all ${
-              editor.isActive("heading", { level }) ? "bg-blue-500 text-white" : "bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200"
+              editor.isActive("heading", { level }) ? "bg-purple-500 text-white" : "bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200"
           }`}>
             <Icon className="w-5 
                              h-5"/>
