@@ -1,6 +1,6 @@
 import React from "react";
 import { cn } from "@/lib/utils";
-import { PDFRequest } from "@prisma/client";
+import { PDFRequest, UserSystemEnum } from "@prisma/client";
 import { Loader2 } from "lucide-react";
 
 type Props = 
@@ -45,16 +45,16 @@ const PDFRequestsListed = ({PDFRequests,isLoading}: Props) => {
                         mb-6">
             {PDFRequests.map((PDFRequest) => {
                 return (
-                    <div key={PDFRequest.id} className={cn("flex", {"pl-10 justify-end": PDFRequest.role === "user",
-                                                                    "pr-10 justify-start": PDFRequest.role === "system",
+                    <div key={PDFRequest.id} className={cn("flex", {"pl-10 justify-end": PDFRequest.role === UserSystemEnum.USER,
+                                                                    "pr-10 justify-start": PDFRequest.role === UserSystemEnum.SYSTEM,
                                                                     }
                                                             )
                                                         }>
 
                         <div className={cn("px-3 ring-gray-900/10 py-1 text-sm shadow-md ring-1 rounded-lg",
                                             {
-                                                "bg-green-600 text-white": PDFRequest.role === "user", 
-                                                "dark:bg-gray-500 dark:text-white": PDFRequest.role === "system", 
+                                                "bg-green-600 text-white": PDFRequest.role === UserSystemEnum.USER, 
+                                                "dark:bg-gray-500 dark:text-white": PDFRequest.role === UserSystemEnum.SYSTEM, 
                                             }
                                         )
                                         }>
