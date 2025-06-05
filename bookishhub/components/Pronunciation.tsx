@@ -290,10 +290,22 @@ const Pronunciation = ({ language, languageSession, pronunciationWords, text }: 
 
               {recordings[pronunciationWord.id] && (
                 <div className="mt-3">
-                  <audio key={recordings[pronunciationWord.id]} controls>
-                    <source src={recordings[pronunciationWord.id] as string} type="audio/wav" />
-                    Your browser does not support the audio element.
-                  </audio>
+                  {(() => {
+                    const recording = recordings[pronunciationWord.id];
+                    const audioUrl =
+                      typeof recording === 'string'
+                        ? recording
+                        : recording instanceof Blob
+                          ? URL.createObjectURL(recording)
+                          : '';
+
+                    return (
+                      <audio key={audioUrl} controls>
+                        <source src={audioUrl} type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                    );
+                  })()}
                 </div>
               )}
             </div>
