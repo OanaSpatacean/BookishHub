@@ -56,6 +56,11 @@ export async function POST(request: Request, response: Response) {
         {
             return NextResponse.json({ sessionId: languageSession.id, questions: existingQuestions });
         }
+
+        if (!language) 
+        {
+            throw new Error("Language not found");
+        }          
         
         const exampleData = await strict_output(
             `You are an AI that creates examples for rephrasing exercises in the ${language.name} language at the ${level} level.
@@ -96,7 +101,7 @@ export async function POST(request: Request, response: Response) {
         )              
 
         await databaseClient.rephrasingQuestion.createMany({
-            data: rephrasingQuestions.map((rephrasingQuestion) => ({
+            data: rephrasingQuestions.map((rephrasingQuestion: { phrase: any; answer: any; examplePhrase: any; exampleAnswer: any; }) => ({
                 phrase: rephrasingQuestion.phrase,
                 answer: rephrasingQuestion.answer,
                 userAnswer: "",

@@ -55,6 +55,11 @@ export async function POST(request: Request, response: Response)
             }
         })
 
+        if (!language) 
+        {
+            throw new Error("Language not found");
+        }  
+
         const grammarQuestions: GrammarQuestion[] = await strict_output(
             `You are an AI used for creating 5 multiple-choice questions related to the grammar with 4 choices of the ${language.name} language at the ${level} level. 
             Each solution should not have a length greater than 20 words.`,
