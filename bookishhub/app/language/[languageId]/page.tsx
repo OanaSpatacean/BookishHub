@@ -37,6 +37,11 @@ const LanguageIdPage = async ({ params }: Props) => {
         }
     })
 
+    if (!language) 
+    {
+        return <div>Language not found</div>;
+    }      
+
     return (
         <LanguagePageComponent language={language} languageSessions={languageSessions} languageId={languageId} havePowerAccount={havePowerAccount} session={session}/>
     )
