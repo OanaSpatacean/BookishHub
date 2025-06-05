@@ -66,6 +66,11 @@ const SessionPagePronunciation = async ({ params }: Props) => {
         return <div>Text not found</div>;
     }
 
+    const pronunciationWordsMap = pronunciationWords.map(({ recordingUrl, ...rest }) => ({
+        ...rest,
+        recordingUrl: recordingUrl ?? undefined,
+    }))
+
     return (
         <div className="flex 
                         flex-col 
@@ -85,7 +90,7 @@ const SessionPagePronunciation = async ({ params }: Props) => {
                 Session {languageSession.id} - {languageSession.level} level - {language.name}
             </h1>
 
-            <Pronunciation language={language} languageSession={languageSession} pronunciationWords={pronunciationWords} text={text}/>
+            <Pronunciation language={language} languageSession={languageSession} pronunciationWords={pronunciationWordsMap} text={text}/>
         </div>
     );
 };
