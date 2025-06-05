@@ -37,44 +37,45 @@ const Writing = ({ language, languageSession, text }: Props) => {
   const customText = Text.extend({
     addKeyboardShortcuts() {
       return {
-        "Shift-enter": async () => { 
+        "Shift-Enter": () => {
           const prompt = this.editor.getText().split(" ").slice(-25).join(" ");
-
-          try 
-          {
-            const response = await fetch("/api/language/writing/autocompletion", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ 
-                prompt,
-                language: language.name,  
-                level: languageSession.level 
-              })
-            })
-
-            if (!response.body) 
-              throw new Error("Empty response body");
   
-            const reader = response.body.getReader();
-            const decoder = new TextDecoder();
-  
-            let resultText = "";
-  
-            while (true) 
+          (async () => {
+            try 
             {
-              const { done, value } = await reader.read();
+              const response = await fetch("/api/language/writing/autocompletion", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ 
+                  prompt,
+                  language: language.name,  
+                  level: languageSession.level 
+                })
+              })
+  
+              if (!response.body) 
+                throw new Error("Empty response body");
+  
+              const reader = response.body.getReader();
+              const decoder = new TextDecoder();
+              let resultText = "";
+  
+              while (true) 
+              {
+                const { done, value } = await reader.read();
 
-              if (done) 
-                break;
+                if (done) 
+                  break;
 
-              resultText += decoder.decode(value, { stream: true });
-              this.editor.commands.insertContent(resultText); 
+                resultText += decoder.decode(value, { stream: true });
+                this.editor.commands.insertContent(resultText);
+              }
+            } 
+            catch (error) 
+            {
+              console.error("Autocompletion error:", error)
             }
-          } 
-          catch (error) 
-          {
-            console.error("Autocompletion error:", error);
-          }
+          })()
   
           return true
   }}}})
