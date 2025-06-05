@@ -12,6 +12,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import { Language } from "@prisma/client";
 
 type Input = z.infer<typeof createLanguageSchema>;
 
@@ -47,7 +48,7 @@ const EditLanguagesClient = () => {
         createLanguage(data)
     }
 
-    const { data, refetch } = useQuery({
+    const { data, refetch } = useQuery<{ languages: Language[] }>({
         queryKey: ["languages"],
         queryFn: async () => {
             const response = await axios.get("/api/admin/edit_assessments/languages");
