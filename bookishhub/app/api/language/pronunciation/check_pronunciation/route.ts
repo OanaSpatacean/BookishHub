@@ -2,6 +2,7 @@ import openai from "@/lib/openai";
 import { NextRequest, NextResponse } from "next/server";
 import { getS3Url, uploadToS3Audios } from "@/lib/s3";
 import { databaseClient } from "@/lib/database";
+import { languageMap } from "@/components/Pronunciation";
 
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
