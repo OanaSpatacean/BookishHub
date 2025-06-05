@@ -4,6 +4,26 @@ import { getS3Url, uploadToS3Audios } from "@/lib/s3";
 import { databaseClient } from "@/lib/database";
 import { languageMap } from "@/components/Pronunciation";
 
+export const languageMap: Record<string, string> = {
+  Romanian: "ro",
+  English: "en",
+  Spanish: "es",
+  French: "fr",
+  German: "de",
+  Italian: "it",
+  Portuguese: "pt",
+  Polish: "pl",
+  Turkish: "tr",
+  Russian: "ru",
+  Dutch: "nl",
+  Czech: "cs",
+  Arabic: "ar",
+  Chinese: "zh",
+  Hungarian: "hu",
+  Korean: "ko",
+  Hindi: "hi"
+}
+
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
   const file = formData.get("file") as File;

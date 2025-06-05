@@ -22,26 +22,6 @@ type Props = {
   text: TextWriting
 }
 
-export const languageMap: Record<string, string> = {
-  Romanian: "ro",
-  English: "en",
-  Spanish: "es",
-  French: "fr",
-  German: "de",
-  Italian: "it",
-  Portuguese: "pt",
-  Polish: "pl",
-  Turkish: "tr",
-  Russian: "ru",
-  Dutch: "nl",
-  Czech: "cs",
-  Arabic: "ar",
-  Chinese: "zh",
-  Hungarian: "hu",
-  Korean: "ko",
-  Hindi: "hi"
-}
-
 const Pronunciation = ({ language, languageSession, pronunciationWords, text }: Props) => {
   const [recordings, setRecordings] = useState<{ [key: string]: Blob | string | null }>({});
   const [isRecording, setIsRecording] = useState<{ [key: string]: boolean }>({});
