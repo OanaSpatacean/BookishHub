@@ -73,7 +73,7 @@ const LessonsDisplayBoxAdmin = ({ lesson }: Props) => {
                 <div className="justify-end 
                                 flex">
                     <div className="text-secondary-foreground/70">
-                        <button onClick={() => deleteLesson({ id: lesson.id })} className="underline   
+                        <button onClick={() => deleteLesson({ lessonId: lesson.id })} className="underline   
                                                                                                  text-red-500 
                                                                                                  block 
                                                                                                  w-fit 
