@@ -44,7 +44,7 @@ const AccountInfo = () => {
         })
 
     const { mutate: updateAccount, isLoading: isUpdating } = useMutation(
-        async (input) => {
+        async (input: { name: string; password?: string; oldPassword?: string }) => {
             return axios.put("/api/account_info", input);
         },
         {
@@ -81,7 +81,12 @@ const AccountInfo = () => {
             </h1>
 
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(updateAccount)} className="space-y-6 
+            <form onSubmit={form.handleSubmit((values) => { if (values.password && !values.oldPassword) {
+                                                                toast({ title: "Error", description: "Current password is required to change your password", variant: "destructive" });
+                                                                return;
+                                                            }
+                                                            updateAccount(values);
+                                                            })}  className="space-y-6 
                                                                              bg-white 
                                                                              p-6 
                                                                              rounded-md 
@@ -104,7 +109,7 @@ const AccountInfo = () => {
 
                     <div className='font-bold'>
                         Change Password 
-                        <Checkbox checked={changePassword} onCheckedChange={setChangePassword} className='ml-3' />
+                        <Checkbox checked={changePassword} onCheckedChange={(checked) => setChangePassword(checked === true)} className='ml-3' />
                     </div>
 
                     {changePassword && (
