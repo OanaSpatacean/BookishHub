@@ -15,7 +15,7 @@ type Props =
     fileId: number;
 }
 
-type Message = {
+type Request = {
     id: string;
     role: "user" | "system";
     content: string;
@@ -30,7 +30,7 @@ const PDFRequestsSection = ({fileId}: Props) => {
         return response.data;
     }});
     
-    const transformedMessages: Message[] = (data || []).map((pdfRequest) => ({
+    const transformedRequests: Request[] = (data || []).map((pdfRequest) => ({
         id: pdfRequest.id.toString(), 
         role: pdfRequest.role === UserSystemEnum.USER ? "user" : "system", 
         content: pdfRequest.content,
@@ -38,7 +38,7 @@ const PDFRequestsSection = ({fileId}: Props) => {
         fileId,
       }));
     
-      const { input, handleInputChange, handleSubmit, messages, isLoading: isChatLoading } = useChat({ api: "/api/PDFRequestResponse", body: { fileId }, initialMessages: transformedMessages});
+      const { input, handleInputChange, handleSubmit, messages, isLoading: isChatLoading } = useChat({ api: "/api/PDFRequestResponse", body: { fileId }, initialMessages: transformedRequests});
 
       useEffect(() => {
         if (messages.length > 0) {

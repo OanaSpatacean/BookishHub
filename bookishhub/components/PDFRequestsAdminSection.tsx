@@ -11,7 +11,7 @@ type Props =
     fileId: number;
 }
 
-type Message = {
+type Request = {
     id: string;
     role: "user" | "system";
     content: string;
@@ -26,7 +26,7 @@ const PDFRequestsAdminPage = ({fileId}: Props) => {
         return response.data;
     }});
     
-    const transformedMessages: Message[] = (data || []).map((pdfRequest) => ({
+    const transformedRequests: Request[] = (data || []).map((pdfRequest) => ({
         id: pdfRequest.id.toString(), 
         role: pdfRequest.role === UserSystemEnum.USER ? "user" : "system", 
         content: pdfRequest.content,
@@ -34,7 +34,7 @@ const PDFRequestsAdminPage = ({fileId}: Props) => {
         fileId,
       }));
     
-      const { input, handleInputChange, handleSubmit, messages } = useChat({ api: "/api/PDFRequestResponse", body: { fileId }, initialMessages: transformedMessages});
+      const { input, handleInputChange, handleSubmit, messages } = useChat({ api: "/api/PDFRequestResponse", body: { fileId }, initialMessages: transformedRequests });
 
       React.useEffect(() => {
         const PDFRequestContainer = document.getElementById("PDFRequest-container");
@@ -47,10 +47,18 @@ const PDFRequestsAdminPage = ({fileId}: Props) => {
         })}
 
       }, [messages])
+
+      const enrichedMessages = messages.map((msg) => ({
+          id: Number(msg.id) || Date.now(), 
+          content: msg.content,
+          createdAt: msg.createdAt || new Date(),
+          fileId: fileId,
+          role: msg.role === "user" ? UserSystemEnum.USER : UserSystemEnum.SYSTEM,
+      }));
       
     return (
         <div className="" id="PDFRequest-container">
-            <PDFRequestsListedAdmin PDFRequests={messages} isLoading={isLoading} />
+            <PDFRequestsListedAdmin PDFRequests={enrichedMessages} isLoading={isLoading} />
         </div>
     )
 }
