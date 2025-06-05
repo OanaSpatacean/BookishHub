@@ -29,6 +29,11 @@ const FileAdminPage = async ({ params: { fileId } }: Props) => {
 
     const currentFileName = currentFile ? currentFile.pdfName : "Unknown file";
 
+    if (!currentFile) 
+    {
+        return <p>File not found</p>; 
+    }
+
     return (
         <div className="flex">
 
