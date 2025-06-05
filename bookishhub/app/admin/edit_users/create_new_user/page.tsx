@@ -30,6 +30,7 @@ const CreateNewUser = (props: Props) => {
         defaultValues: {
             name: '',
             email: '',
+            emailVerified: new Date(),
             password: '',
             points: 20,
             isAdmin: false,
