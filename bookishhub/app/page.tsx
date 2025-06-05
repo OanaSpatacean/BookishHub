@@ -70,6 +70,7 @@ export default async function Home() {
               <Link href="/admin" className="w-full">
                 <Button size="lg" className="w-full 
                                             text-white 
+                                            dark:text-black
                                             transition 
                                             bg-gradient-to-r 
                                             from-grey-500 
