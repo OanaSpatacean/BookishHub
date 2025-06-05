@@ -52,10 +52,17 @@ const PDFRequestsSection = ({fileId}: Props) => {
         }
     }, [messages, isChatLoading]); 
     
+    const enrichedMessages = messages.map((msg) => ({
+        id: Number(msg.id) || Date.now(), 
+        content: msg.content,
+        createdAt: msg.createdAt || new Date(),
+        fileId: fileId,
+        role: msg.role === "user" ? UserSystemEnum.USER : UserSystemEnum.SYSTEM,
+    }));
       
     return (
         <div className="h-[200px] overflow-y-auto" id="PDFRequest-container">
-            <PDFRequestsListed PDFRequests={messages} isLoading={isLoading} />
+            <PDFRequestsListed PDFRequests={enrichedMessages} isLoading={isLoading} />
 
             <form onSubmit={handleSubmit} className="absolute 
                                                      bottom-1 
