@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { PDFRequest } from "@prisma/client";
+import { PDFRequest, UserSystemEnum } from "@prisma/client";
 import { Loader2 } from "lucide-react";
 import { useToast } from "./ui/use-toast";
 import { useMutation } from "@tanstack/react-query";
@@ -114,10 +114,10 @@ const PDFRequestsListedAdmin = ({PDFRequests,isLoading}: Props) => {
                     flex 
                     mb-6">
       {localRequests.map((PDFRequest) => (
-        <div key={PDFRequest.id} className={cn("flex", { "pl-10 justify-end": PDFRequest.role === "user", "pr-10 justify-start": PDFRequest.role === "system" })}>
+        <div key={PDFRequest.id} className={cn("flex", { "pl-10 justify-end": PDFRequest.role === UserSystemEnum.USER, "pr-10 justify-start": PDFRequest.role === UserSystemEnum.SYSTEM })}>
           <div className={cn("px-3 py-1 text-sm shadow-md ring-1 rounded-lg", {
-                             "bg-green-600 text-white": PDFRequest.role === "user",
-                             "dark:bg-gray-500 dark:text-white": PDFRequest.role === "system",
+                             "bg-green-600 text-white": PDFRequest.role === UserSystemEnum.USER,
+                             "dark:bg-gray-500 dark:text-white": PDFRequest.role === UserSystemEnum.SYSTEM,
           })}>
             {editingId === PDFRequest.id ? (
               <input type="text" value={editedContent[PDFRequest.id] ?? PDFRequest.content} onChange={(e) => setEditedContent({ ...editedContent, [PDFRequest.id]: e.target.value })} className="border 
