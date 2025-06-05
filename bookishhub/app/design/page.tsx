@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import DesignLessonForm from '@/components/DesignLessonForm';
 import { redirect } from 'next/navigation';
 import { InfoIcon } from 'lucide-react';

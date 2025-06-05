@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { databaseClient } from "@/lib/database";
 import { getAuthSession } from "@/lib/authentication";
 import { ZodError } from "zod";

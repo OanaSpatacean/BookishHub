@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import Reading from "@/components/Reading";
 import { getAuthSession } from "@/lib/authentication";
 import { databaseClient } from "@/lib/database";

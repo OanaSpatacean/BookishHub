@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import UsersDisplayBox from '@/components/Users';
 import { getAuthSession } from '@/lib/authentication';
 import { databaseClient } from '@/lib/database';

@@ -1,11 +1,9 @@
+export const dynamic = 'force-dynamic';
 import SeePDFContent from "@/components/SeePDFContent";
-import { Button } from "@/components/ui/button";
 import { getAuthSession } from "@/lib/authentication";
 import { databaseClient } from "@/lib/database";
-import { Link } from "lucide-react";
 import { redirect } from "next/navigation";
 import React from "react";
-import { FaExpandAlt } from "react-icons/fa";
 
 type Props = 
 {

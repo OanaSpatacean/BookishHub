@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { getS3Url } from "@/lib/s3";
 import { NextResponse } from "next/server";
 import { databaseClient } from "@/lib/database";

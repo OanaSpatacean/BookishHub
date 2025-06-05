@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { databaseClient } from "@/lib/database";
 import {stripe} from "@/lib/payment";
 import { NextResponse } from "next/server";

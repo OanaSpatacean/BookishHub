@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import SeePDFContent from "@/components/SeePDFContent";
 import { getAuthSession } from "@/lib/authentication";
 import { databaseClient } from "@/lib/database";

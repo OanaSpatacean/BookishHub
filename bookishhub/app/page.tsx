@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import TypewriterTitleFileBreakdown from "@/components/ui/TypewriterTitleFileBreakdown";
 import TypewriterTitleLanguageCheck from "@/components/ui/TypewriterTitleLanguageCheck";
 import TypewriterTitleLessonDesign from "@/components/ui/TypewriterTitleLessonDesign";

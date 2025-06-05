@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import EditLanguagesClient from "@/components/EditLanguagesClient";
 import { getAuthSession } from "@/lib/authentication";
 import { redirect } from "next/navigation";

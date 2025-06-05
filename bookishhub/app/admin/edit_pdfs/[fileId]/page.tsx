@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import PDFRequestsAdminSection from "@/components/PDFRequestsAdminSection";
 import { getAuthSession } from "@/lib/authentication";
 import { databaseClient } from "@/lib/database";

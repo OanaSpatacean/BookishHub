@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import MembershipFees from '@/components/MembershipFees';
 import PDFDrop from '@/components/PDFDrop';
 import { getAuthSession } from '@/lib/authentication';

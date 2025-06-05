@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import AllFilesListed from "@/components/AllFilesListed";
 import PDFRequestsSection from "@/components/PDFRequestsSection";
 import SeePDFContent from "@/components/SeePDFContent";

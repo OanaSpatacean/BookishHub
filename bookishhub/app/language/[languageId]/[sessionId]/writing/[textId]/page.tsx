@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import Writing from "@/components/Writing";
 import { getAuthSession } from "@/lib/authentication";
 import { databaseClient } from "@/lib/database";

@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { getAuthSession } from '@/lib/authentication';
 import { databaseClient } from '@/lib/database';
 import { redirect } from 'next/navigation';

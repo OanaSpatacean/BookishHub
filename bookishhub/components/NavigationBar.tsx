@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { getAuthSession } from '@/lib/authentication';
 import UserAccountNavigation from './UserAccountNavigation';
 import { DarkModeToggle } from './DarkModeToggle';

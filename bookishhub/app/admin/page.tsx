@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { getAuthSession } from '@/lib/authentication';
 import { ArrowRight, InfoIcon } from 'lucide-react';
 import Link from 'next/link';

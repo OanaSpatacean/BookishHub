@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { getAuthSession } from "@/lib/authentication";
 import { redirect } from "next/navigation";
 import { InfoIcon } from "lucide-react";

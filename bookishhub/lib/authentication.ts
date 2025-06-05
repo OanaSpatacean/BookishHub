@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { NextAuthOptions, DefaultSession } from "next-auth";

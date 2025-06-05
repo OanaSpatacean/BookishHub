@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import CreateMembership from "@/components/CreateMembership";
 import { getAuthSession } from "@/lib/authentication";
 import { redirect } from "next/navigation";

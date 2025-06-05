@@ -1,4 +1,5 @@
 
+export const dynamic = 'force-dynamic';
 import Rephrasing from "@/components/Rephrasing";
 import { getAuthSession } from "@/lib/authentication";
 import { databaseClient } from "@/lib/database";

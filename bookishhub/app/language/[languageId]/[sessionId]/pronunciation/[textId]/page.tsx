@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import Pronunciation from "@/components/Pronunciation";
 import { getAuthSession } from "@/lib/authentication";
 import { databaseClient } from "@/lib/database";

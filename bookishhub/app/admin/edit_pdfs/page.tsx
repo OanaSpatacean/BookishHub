@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import AllFilesListedAdmin from "@/components/AllFilesListedAdmin";
 import { getAuthSession } from "@/lib/authentication";
 import { databaseClient } from "@/lib/database";

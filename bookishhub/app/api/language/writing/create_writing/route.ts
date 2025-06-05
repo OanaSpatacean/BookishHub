@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { NextResponse } from "next/server";
 import { getAuthSession } from "@/lib/authentication";
 import { createWritingSchema } from "@/app/form-validators/text_writing";

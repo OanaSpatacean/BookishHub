@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import LanguagePageComponent from "@/components/LanguagePageComponent";
 import { getAuthSession } from "@/lib/authentication";
 import { databaseClient } from "@/lib/database";

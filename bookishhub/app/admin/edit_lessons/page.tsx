@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import LessonsDisplayBoxAdmin from "@/components/LessonDisplayBoxAdmin";
 import { getAuthSession } from "@/lib/authentication";
 import { databaseClient } from "@/lib/database";

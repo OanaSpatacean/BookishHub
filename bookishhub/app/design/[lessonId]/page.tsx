@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import React from 'react'
 import { redirect } from 'next/navigation';
 import ApproveTopics from '@/components/ApproveTopics';

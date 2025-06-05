@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import Grammar from "@/components/Grammar";
 import { getAuthSession } from "@/lib/authentication";
 import { databaseClient } from "@/lib/database";

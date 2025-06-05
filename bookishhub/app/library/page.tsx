@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import React from 'react';
 import LessonsDisplayBox from '@/components/LessonsDisplayBox';
 import Link from 'next/link';
