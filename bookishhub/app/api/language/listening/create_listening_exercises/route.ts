@@ -130,7 +130,7 @@ export async function POST(request: Request) {
         }
 
         const listeningExercises = await strict_output(
-            `Generate 5 simple words or short phrases for the ${language.name} language at the ${level} level. 
+            `Generate 5 different simple words or short phrases for the ${language.name} language at the ${level} level. 
             These words will be used for listening exercises.`,
             new Array(5).fill(`Provide a single word or short phrase.`),
             { phrase: "A simple word or phrase in the target language." }

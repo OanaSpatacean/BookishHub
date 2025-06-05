@@ -64,7 +64,7 @@ export async function POST(request: Request, response: Response) {
         }
 
         const words: { word: string }[] = await strict_output(
-            `You are an AI generating 5 words in the ${language.name} language for a ${level} level learner.`,
+            `You are an AI generating 5 different words in the ${language.name} language for a ${level} level learner.`,
             new Array(5).fill(
                 `Provide a single word in ${language.name} appropriate for a ${level} level learner.`
             ),

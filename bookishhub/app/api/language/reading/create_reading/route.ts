@@ -103,16 +103,16 @@ export async function POST(request: Request, response: Response) {
 
         const readingQuestions: ReadingQuestion[] = await strict_output(
             `You are an AI generating multiple-choice reading comprehension questions for a text in ${language?.name} at the ${level} level.
-            Create 5 questions based on the following passage: "${generatedText}"`,
+            Create 5 different questions based on the following passage: "${generatedText}"`,
             new Array(5).fill(
                 `Generate a reading comprehension question based on the passage in ${language?.name} language at the ${level} level.`
             ),
             {
                 question: "A comprehension question about the passage",
                 answer: "Correct answer, based strictly on the text",
-                choice1: "Incorrect but plausible answer",
-                choice2: "Another incorrect but plausible answer",
-                choice3: "Another incorrect answer",
+                choice1: "Incorrect but plausible answer, different than the other choices",
+                choice2: "Another incorrect but plausible answer, different than the other choices",
+                choice3: "Another incorrect answer, different than the other choices",
                 choice4: "Could also be 'None of the above' or 'All of the above'"
             }
         )

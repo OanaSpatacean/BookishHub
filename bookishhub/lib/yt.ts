@@ -16,14 +16,14 @@ export async function getQueriesAndSolutionsFromTranscript(transcript: string, l
   const queries: Query[] = await strict_output(
     "You are an AI used for creating multiple-choice queries and solutions. Each solution should not have a length greater than 20 words",
     new Array(10).fill(
-      `Your task is to create six challenging multiple-choice queries related to ${lessonName}, based on the content provided in the transcript ${transcript}`
+      `Your task is to create six different challenging multiple-choice queries related to ${lessonName}, based on the content provided in the transcript ${transcript}`
     ),
     {
       query: "query",
       solution: "solution with length of 20 words maximum, could also be 'All of the above'",
-      choice1: "choice1 with length of 20 words maximum, different than the other choices",
-      choice2: "choice2 with length of 20 words maximum, different than the other choices",
-      choice3: "choice3 with length of 20 words maximum, different than the other choices",
+      choice1: "choice1 with length of 20 words maximum, different than the other choices, different than the other choices",
+      choice2: "choice2 with length of 20 words maximum, different than the other choices, different than the other choices",
+      choice3: "choice3 with length of 20 words maximum, different than the other choices, different than the other choices",
       choice4: "choice4 with length of 20 words maximum, could also be 'All of the above', different than the other choices"
     }
   );
