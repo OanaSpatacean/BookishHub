@@ -59,9 +59,8 @@ export async function POST(req: Request) {
 
       However, if the answer is not found in the PDF file, please inform the user that the information they seek is not available in the file and that you will provide the answer based on your own knowledge. Your response should be in the following format:
       
-      1. Provide the answer as accurately as possible based on the PDF content (if available).
-      2. Only if the information the user requested from you, is not based on the PDF content ${fileKey}, include this sentence: "Just to let you know, this specific information isn’t included in your file"
-      3. Then, provide the answer based on your own knowledge.
+      Provide the answer as accurately as possible based on the PDF content (if available).
+      Then, provide the answer based on your own knowledge.
       
       Do **not** apologize for any missing information, and focus on providing the correct answer from your own knowledge if the context is absent. Always make it clear when the information is derived from your own knowledge and when it comes from the file context.`;
 
