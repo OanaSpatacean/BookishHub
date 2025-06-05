@@ -37,9 +37,9 @@ const Writing = ({ language, languageSession, text }: Props) => {
   const customText = Text.extend({
     addKeyboardShortcuts() {
       return {
-        "Shift-a": async () => { 
+        "Shift-enter": async () => { 
           const prompt = this.editor.getText().split(" ").slice(-25).join(" ");
-  
+
           try 
           {
             const response = await fetch("/api/language/writing/autocompletion", {
@@ -51,7 +51,7 @@ const Writing = ({ language, languageSession, text }: Props) => {
                 level: languageSession.level 
               })
             })
-  
+
             if (!response.body) 
               throw new Error("Empty response body");
   
@@ -189,7 +189,7 @@ const Writing = ({ language, languageSession, text }: Props) => {
                       Here, you can practice and improve your writing skills in {language.name} with the support of AI. Our intelligent system assists you throughout the process, providing real-time feedback and suggestions to enhance clarity, grammar, and fluency. If needed, AI-powered autocompletion can help you construct well-formed sentences and refine your ideas, making the learning experience smoother and more effective. Start writing with confidence and take your language skills to the next level!
                       Press{" "}
                       <kbd className="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg">
-                        Shift + A
+                        Shift + Enter
                       </kbd>{" "}
                       for AI-powered autocompletion.
                     </div>
