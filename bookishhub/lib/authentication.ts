@@ -60,6 +60,34 @@ export const authenticationOptions: NextAuthOptions = {
         redirect: async ({ url, baseUrl }) => {
             return baseUrl + '/';
         },
+        signIn: async ({ user, account, profile }) => {
+            if (account?.provider === 'google') {
+              const existingUser = await databaseClient.user.findUnique({
+                where: { email: user.email || undefined },
+                include: { accounts: true }
+              });
+          
+              if (existingUser) {
+                const alreadyLinked = existingUser.accounts?.some(
+                  (acc) => acc.provider === account.provider && acc.providerAccountId === account.providerAccountId
+                );
+          
+                if (!alreadyLinked) {
+                  await databaseClient.account.create({
+                    data: {
+                      userId: existingUser.id,
+                      type: account.type,
+                      provider: account.provider,
+                      providerAccountId: account.providerAccountId,
+                      access_token: account.access_token,
+                      id_token: account.id_token,
+                    }
+                  });
+                }
+              }
+            }
+            return true;
+          },          
     },
     adapter: PrismaAdapter(databaseClient),
     providers: [
