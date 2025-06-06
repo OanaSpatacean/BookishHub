@@ -54,7 +54,7 @@ describe("User API Routes", () => {
 
   describe("POST /api/admin/edit_users", () => {
     it("should return 400 for invalid body", async () => {
-      const request = createRequest("POST", { email: "not-an-email" });
+      const request = createRequest("POST", { email: "not-an-email" }); 
       const response = await POST(request);
 
       expect(response.status).toBe(400);
@@ -71,7 +71,9 @@ describe("User API Routes", () => {
       const request = createRequest("POST", {
         email: "test@example.com",
         password: "secret",
+        emailVerified: new Date().toISOString(), 
       });
+
       const response = await POST(request);
 
       expect(response.status).toBe(200);
@@ -90,7 +92,9 @@ describe("User API Routes", () => {
       const request = createRequest("POST", {
         email: "test@example.com",
         password: "secret",
+        emailVerified: new Date().toISOString(),
       });
+
       const response = await POST(request);
 
       expect(response.status).toBe(500);
@@ -101,7 +105,7 @@ describe("User API Routes", () => {
 
   describe("PUT /api/admin/edit_users", () => {
     it("should return 400 for invalid body", async () => {
-      const request = createRequest("PUT", { name: "no-id" });
+      const request = createRequest("PUT", { name: "no-id" }); 
       const response = await PUT(request);
 
       expect(response.status).toBe(400);
@@ -159,7 +163,7 @@ describe("User API Routes", () => {
 
   describe("DELETE /api/admin/edit_users", () => {
     it("should return 400 for invalid body", async () => {
-      const request = createRequest("DELETE", { name: "no-id" });
+      const request = createRequest("DELETE", { name: "no-id" }); 
       const response = await DELETE(request);
 
       expect(response.status).toBe(400);
