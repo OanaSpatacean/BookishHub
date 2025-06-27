@@ -62,6 +62,9 @@ export async function strict_output(system_prompt: string,user_prompt: string | 
 
     try 
     {
+      res = res.trim().replace(/^[^({\[]*/, ""); 
+      res = res.replace(/```json|```/g, ""); 
+      res = res.replace(/[\r\n]+/g, " ");
       let output: any = JSON.parse(res);
 
       if (list_input) 
