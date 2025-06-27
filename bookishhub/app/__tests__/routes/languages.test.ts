@@ -60,7 +60,7 @@ describe("Language API route", () => {
     it("should return 400 if body is invalid", async () => {
       const request = new Request("http://localhost", {
         method: "POST",
-        body: JSON.stringify({}), // missing "name"
+        body: JSON.stringify({}),
         headers: { "Content-Type": "application/json" },
       });
 
@@ -90,7 +90,7 @@ describe("Language API route", () => {
     it("should return 400 if body is invalid", async () => {
       const request = new Request("http://localhost", {
         method: "PUT",
-        body: JSON.stringify({ name: "NoID" }), // missing "id"
+        body: JSON.stringify({ name: "NoID" }),
         headers: { "Content-Type": "application/json" },
       });
 
@@ -119,7 +119,7 @@ describe("Language API route", () => {
     it("should return 400 if body is invalid", async () => {
       const request = new Request("http://localhost", {
         method: "DELETE",
-        body: JSON.stringify({}), // missing "id"
+        body: JSON.stringify({}),
         headers: { "Content-Type": "application/json" },
       });
 

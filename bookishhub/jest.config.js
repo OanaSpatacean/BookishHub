@@ -16,7 +16,7 @@ const customJestConfig = {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },
   transformIgnorePatterns: [
-    'node_modules/(?!(lodash-es|uuid)/)', // Add ESM deps here if needed
+    'node_modules/(?!(lodash-es|uuid)/)',
   ],
 }
 
