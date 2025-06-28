@@ -14,9 +14,10 @@ npm run dev
 Aplicația este disponibilă la: http://localhost:3000  
 Adresa corespunzătoare este printată în terminal.
 Aceasta trebuie inserată în browser-ul favorit.
+Fișierul .env care conține cheile de configurare necesare nu este inclus în repository-ul public de pe GitHub.
 
 # Link-uri pentru accesarea aplicației lansate în producție:
 https://bookishhub.vercel.app/, https://bookishhub-oana-spataceans-projects.vercel.app/
 
 # Link videoclip:
-https://drive.google.com/file/d/15SBSAWWOr7Ona4mLxrEW4qI2XsQPWYYj/view
+https://drive.google.com/file/d/1yRDiVmJ8ATbxlNuzw5Zjv0U7IOu3kQCQ/view?usp=sharing
